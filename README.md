@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rockstar Law Registration App
 
-## Getting Started
+Main Rockstar Law registration and onboarding MVP scaffold.
 
-First, run the development server:
+## Scope of this app
+This app is for the platform-level Rockstar Law shell only:
+- student registration
+- professor registration
+- school/university onboarding
+- roster upload shell
+- match review shell
+- admin review shell
 
+It does **not** include the separate filing simulation modules such as StarBiz, Copyright Office, USPTO, IRS, SEC, or Courts.
+
+## Current scaffold status
+Implemented in this pass:
+- Next.js + TypeScript app scaffold
+- App Router route shell
+- Rockstar-branded shell styling
+- Supabase browser/server/admin client utilities
+- Email/password login server action
+- Initial SQL migration for registration/auth data model
+- Placeholder routes for:
+  - `/`
+  - `/login`
+  - `/register`
+  - `/register/student`
+  - `/register/professor`
+  - `/register/school`
+  - `/dashboard/student`
+  - `/dashboard/professor`
+  - `/dashboard/admin`
+  - `/professor/rosters`
+  - `/professor/rosters/new`
+  - `/professor/matches`
+  - `/admin/schools`
+  - `/admin/users`
+  - `/admin/matches`
+- Shared registration constants for statuses and account types
+- `.env.example` and `.env.local` wiring for Supabase
+
+## What remains next
+1. Apply the SQL migration inside Supabase SQL Editor
+2. Add registration server actions that create auth users + profile rows
+3. Wire role-based redirects after login
+4. Build real student/professor/school forms
+5. Build roster upload parsing and preview
+6. Build matching review actions and dashboard queries
+7. Add protected routes and onboarding completion checks
+
+## Local development
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open the local Next.js URL shown in the terminal.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment setup
+Copy:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Then fill in Supabase values.
 
-## Learn More
+## Apply the database foundation
+Because Supabase CLI is not installed on this machine yet, the fastest path is:
+1. Open the Supabase project dashboard
+2. Go to SQL Editor
+3. Paste the contents of:
+   `supabase/migrations/20260504_rockstar_registration_mvp.sql`
+4. Run it once
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Quick verification routes
+- `/login` exercises the auth sign-in server action
+- `/supabase-status` checks whether the server-side key can reach the configured Supabase project
