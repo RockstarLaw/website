@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 
 import {
@@ -108,9 +109,12 @@ export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }
       ) : null}
 
       {state.success ? (
-        <p className="md:col-span-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-emerald-200">
-          {state.success}
-        </p>
+        <div className="md:col-span-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-emerald-200">
+          <p>{state.success}</p>
+          <p className="mt-2 text-sm text-emerald-100">
+            Next step: <Link className="underline" href="/login">log in to continue</Link>.
+          </p>
+        </div>
       ) : null}
 
       <div className="md:col-span-2 flex items-center justify-between gap-4">

@@ -11,6 +11,9 @@ export default function RegisterPage() {
       title="Choose your account type"
       description="Rockstar Law registration begins by routing each user into the correct onboarding flow: student, professor, or school representative."
     >
+      <div className="rounded-2xl border border-white/10 bg-slate-900/70 p-6 text-sm text-slate-300">
+        Already have an account? <Link className="text-amber-300 hover:text-amber-200" href="/login">Go to login</Link>.
+      </div>
       <div className="grid gap-6 md:grid-cols-3">
         {accountTypes.map((type) => (
           <ContentCard key={type.slug} title={type.title}>
