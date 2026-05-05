@@ -34,8 +34,8 @@ export default function HomePage() {
       description=""
       hideIntro
     >
-      <div className="flex flex-col gap-16">
-        <section className="flex flex-col gap-4">
+      <div className="flex flex-col gap-24 py-8 md:gap-28 md:py-12">
+        <section className="flex flex-col gap-4 py-8 md:py-12">
           <div className="flex flex-wrap gap-3">
             <Link
               className="inline-flex rounded-xl border border-red-700 bg-red-700 px-4 py-3 font-semibold text-white transition hover:bg-red-800"
@@ -46,7 +46,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-6">
+        <section className="flex flex-col gap-8 py-2 md:gap-10 md:py-4">
           <h2 className="text-2xl font-semibold text-slate-950">Social Proof</h2>
           <div className="grid gap-8 md:grid-cols-3">
             {testimonials.map((item, index) => (
@@ -69,7 +69,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-6">
+        <section className="flex flex-col gap-8 py-2 md:gap-10 md:py-4">
           <h2 className="text-2xl font-semibold text-slate-950">How it works</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {howItWorksSteps.map((step, index) => (
@@ -81,7 +81,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-6 py-2 md:gap-8 md:py-4">
           <h2 className="text-2xl font-semibold text-slate-950">Why RockStar?</h2>
           <p className="text-slate-900">
             Train on the systems you will actually use after you pass the bar.
@@ -99,7 +99,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-6 py-2 md:gap-8 md:py-4">
           <h2 className="text-2xl font-semibold text-slate-950">What you actually do</h2>
           <ul className="grid gap-3 md:grid-cols-2">
             <li className="text-slate-900">File trademarks</li>
