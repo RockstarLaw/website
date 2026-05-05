@@ -84,22 +84,22 @@ export default function HomePage() {
 
         <section className="flex flex-col gap-8 py-2 md:gap-10 md:py-4">
           <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Social Proof</h2>
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-y-10 md:grid-cols-3 md:gap-x-10 lg:gap-x-14">
             {testimonials.map((item, index) => (
               <article
                 key={`${item.role}-${item.initials}`}
-                className={`social-proof-item social-proof-item-${index + 1} flex flex-col gap-4`}
+                className={`social-proof-item social-proof-item-${index + 1} flex flex-col gap-5`}
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-base font-semibold text-slate-700 ring-1 ring-slate-200">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-base font-semibold text-slate-700">
                     {item.initials}
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-1">
                     <span className="text-base font-semibold text-slate-900">{item.role}</span>
                     <span className="text-sm text-slate-500">Profile placeholder</span>
                   </div>
                 </div>
-                <p className="max-w-sm text-lg leading-8 text-slate-900">“{item.quote}”</p>
+                <p className="max-w-[24rem] text-lg leading-7 text-slate-900">“{item.quote}”</p>
               </article>
             ))}
           </div>
