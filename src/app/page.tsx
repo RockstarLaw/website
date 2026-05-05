@@ -70,6 +70,25 @@ export default function HomePage() {
             ))}
           </div>
         </ContentCard>
+
+        <ContentCard title="Why Rockstar?">
+          <div className="grid gap-4">
+            <p className="text-slate-200">
+              Train on the systems you will actually use after you pass the bar.
+            </p>
+            <p className="text-slate-300">
+              Not on hypotheticals. Not on outdated simulations.
+            </p>
+            <div>
+              <Link
+                className="inline-flex rounded-xl border border-white/10 px-4 py-3 font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/5"
+                href="/why-rockstar"
+              >
+                Learn More
+              </Link>
+            </div>
+          </div>
+        </ContentCard>
       </div>
     </SiteShell>
   );
