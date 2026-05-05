@@ -21,6 +21,12 @@ const testimonials = [
   },
 ];
 
+const howItWorksSteps = [
+  "Register",
+  "Train inside real legal systems",
+  "Enter practice ready",
+];
+
 export default function HomePage() {
   return (
     <SiteShell
@@ -49,6 +55,17 @@ export default function HomePage() {
                 </div>
                 <p className="text-slate-200">“{item.quote}”</p>
                 <p className="mt-3 text-sm text-slate-300">{item.role}</p>
+              </div>
+            ))}
+          </div>
+        </ContentCard>
+
+        <ContentCard title="How it works">
+          <div className="grid gap-4 md:grid-cols-3">
+            {howItWorksSteps.map((step, index) => (
+              <div key={step} className="rounded-xl border border-white/10 p-4">
+                <p className="text-sm text-slate-300">Step {index + 1}</p>
+                <p className="mt-2 text-slate-200">{step}</p>
               </div>
             ))}
           </div>
