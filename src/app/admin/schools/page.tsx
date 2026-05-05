@@ -5,7 +5,7 @@ export default function AdminSchoolsPage() {
     <PlaceholderPage
       eyebrow="Admin schools"
       title="School management"
-      description="Rockstar admin will manage placeholder schools, pending review requests, and registered school records from this route."
+      description="RockStar admin will manage placeholder schools, pending review requests, and registered school records from this route."
       highlights={[
         "Placeholder school list",
         "Pending review queue",

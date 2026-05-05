@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #e2e8f0;
+  --background: #ffffff;
+  --foreground: #111111;
 }
 
 @theme inline {
@@ -22,7 +22,7 @@ html {
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #111827 0%, #020617 55%);
+  background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -30,4 +30,42 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+@keyframes social-proof-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--social-proof-offset-x, 0), 24px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.social-proof-item {
+  --social-proof-offset-x: 0px;
+  opacity: 0;
+  transform: translate3d(var(--social-proof-offset-x, 0), 24px, 0);
+  will-change: opacity, transform;
+  animation-name: social-proof-fade-up;
+  animation-duration: 900ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.social-proof-item-1 {
+  --social-proof-offset-x: -18px;
+  animation-delay: 120ms;
+}
+
+.social-proof-item-2 {
+  --social-proof-offset-x: 0px;
+  animation-delay: 280ms;
+}
+
+.social-proof-item-3 {
+  --social-proof-offset-x: 18px;
+  animation-delay: 440ms;
 }

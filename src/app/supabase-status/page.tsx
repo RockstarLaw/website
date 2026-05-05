@@ -15,9 +15,9 @@ export default async function SupabaseStatusPage() {
       <div className="grid gap-6">
         <ContentCard title="Result">
           {error ? (
-            <p className="text-rose-200">Connection failed: {error.message}</p>
+            <p className="text-rose-700">Connection failed: {error.message}</p>
           ) : (
-            <div className="grid gap-2 text-slate-200">
+            <div className="grid gap-2 text-slate-700">
               <p>Supabase connection succeeded.</p>
               <p>Project returned {data.users.length} user record(s) in the test request.</p>
             </div>

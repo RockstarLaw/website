@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rockstar Law Registration MVP",
+  title: "RockStar Law Registration MVP",
   description:
-    "Main registration and onboarding system for Rockstar Law students, professors, schools, and admin review.",
+    "Main registration and onboarding system for RockStar Law students, professors, schools, and admin review.",
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100">
+      <body className="min-h-full flex flex-col bg-white text-slate-900">
         {children}
       </body>
     </html>

@@ -22,7 +22,7 @@ export default function GetStartedPage() {
   return (
     <SiteShell
       eyebrow="Get Started"
-      title="How do you want to use Rockstar Law?"
+      title="How do you want to use RockStar Law?"
       description="Choose the registration path that matches your role."
     >
       <ContentCard title="Choose one option">
@@ -31,16 +31,16 @@ export default function GetStartedPage() {
             <Link
               key={option.href}
               href={option.href}
-              className="rounded-xl border border-white/10 px-4 py-3 font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/5"
+              className="rounded-xl border border-slate-200 px-4 py-3 font-medium text-slate-900 transition hover:border-red-700 hover:bg-slate-50"
             >
               {option.label}
             </Link>
           ))}
         </div>
 
-        <p className="mt-4 text-sm text-slate-300">
+        <p className="mt-4 text-sm text-slate-600">
           Already have an account?{" "}
-          <Link className="text-amber-300 hover:text-amber-200" href="/login">
+          <Link className="text-red-700 hover:text-red-800" href="/login">
             Log in
           </Link>
         </p>

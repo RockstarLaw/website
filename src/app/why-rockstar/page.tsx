@@ -6,9 +6,9 @@ import { SiteShell } from "@/components/site-shell";
 export default function WhyRockstarPage() {
   return (
     <SiteShell
-      eyebrow="Why Rockstar?"
+      eyebrow="Why RockStar?"
       title="Train Here. Litigate Anywhere."
-      description="Why Rockstar Law exists, and what it is meant to fix."
+      description="Why RockStar Law exists, and what it is meant to fix."
     >
       <div className="grid gap-6">
         <ContentCard title="Opening hook">
@@ -29,7 +29,7 @@ export default function WhyRockstarPage() {
 
         <ContentCard title="Solution section">
           <p>
-            Rockstar Law gives students, professors, and institutions a practical bridge between the
+            RockStar Law gives students, professors, and institutions a practical bridge between the
             classroom and the real machinery of legal practice through guided onboarding, matching,
             and structured training paths.
           </p>
@@ -41,7 +41,7 @@ export default function WhyRockstarPage() {
 
         <ContentCard title="Next step">
           <Link
-            className="inline-flex rounded-xl border border-white/10 px-4 py-3 font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/5"
+            className="inline-flex rounded-xl border border-red-700 bg-red-700 px-4 py-3 font-semibold text-white transition hover:bg-red-800"
             href="/register"
           >
             Get Started

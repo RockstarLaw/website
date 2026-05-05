@@ -9,7 +9,7 @@ import {
 } from "@/lib/registration/actions";
 
 const inputClassName =
-  "rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-amber-400";
+  "rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-red-700";
 
 export function SchoolRequestForm() {
   const [state, formAction, pending] = useActionState(
@@ -61,28 +61,28 @@ export function SchoolRequestForm() {
       </label>
 
       {state.error ? (
-        <p className="md:col-span-2 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-rose-200">
+        <p className="md:col-span-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-700">
           {state.error}
         </p>
       ) : null}
 
       {state.success ? (
-        <div className="md:col-span-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-emerald-200">
+        <div className="md:col-span-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-700">
           <p>{state.success}</p>
-          <p className="mt-2 text-sm text-emerald-100">
+          <p className="mt-2 text-sm text-emerald-700">
             Return to <Link className="underline" href="/register">registration choices</Link> or <Link className="underline" href="/login">login</Link>.
           </p>
         </div>
       ) : null}
 
       <div className="md:col-span-2 flex items-center justify-between gap-4">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Requests are created as pending review for admin follow-up.
         </p>
         <button
           type="submit"
           disabled={pending}
-          className="rounded-xl border border-amber-400/40 bg-amber-400/10 px-5 py-3 font-medium text-white transition hover:bg-amber-400/20 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl border border-red-700 bg-red-700 px-5 py-3 font-semibold text-white transition hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {pending ? "Submitting..." : "Submit school request"}
         </button>

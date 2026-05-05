@@ -54,7 +54,7 @@ export const matchStatuses = [
 
 export const primaryRoutes = [
   { label: "Home", href: "/" },
-  { label: "Why Rockstar", href: "/why-rockstar" },
+  { label: "Why RockStar", href: "/why-rockstar" },
   { label: "What’s New", href: "/why-rockstar" },
   { label: "Pricing", href: "/get-started" },
   { label: "For Universities", href: "/register/school" },

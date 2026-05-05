@@ -21,13 +21,13 @@ export default async function ProfessorRegistrationPage() {
           <ProfessorRegistrationForm schools={schools} />
         </ContentCard>
         <ContentCard title="Registration notes">
-          <ul className="grid gap-2 text-slate-200">
+          <ul className="grid gap-2 text-slate-700">
             <li>Professor records are tied to a selected school.</li>
             <li>Approval status begins as pending.</li>
             <li>Course and roster setup comes next.</li>
           </ul>
           <p className="mt-4">
-            Missing school? <Link className="text-amber-300 hover:text-amber-200" href="/register/school">Submit a school request here.</Link>
+            Missing school? <Link className="text-red-700 hover:text-red-800" href="/register/school">Submit a school request here.</Link>
           </p>
         </ContentCard>
       </div>

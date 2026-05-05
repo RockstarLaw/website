@@ -8,21 +8,23 @@ export function SiteShell({
   title,
   description,
   children,
+  hideIntro = false,
 }: {
   eyebrow?: string;
   title: string;
   description: string;
   children: ReactNode;
+  hideIntro?: boolean;
 }) {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur">
+    <div className="min-h-screen bg-white text-slate-900">
+      <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">
-              Rockstar Law
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-700">
+              RockStar Law
             </p>
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-slate-500">
               Main registration and onboarding system
             </p>
           </div>
@@ -31,7 +33,7 @@ export function SiteShell({
               <Link
                 key={route.href}
                 href={route.href}
-                className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200 transition hover:border-amber-400 hover:text-white"
+                className="rounded-full border border-slate-200 px-3 py-1.5 text-slate-700 transition hover:border-red-700 hover:text-slate-950"
               >
                 {route.label}
               </Link>
@@ -41,17 +43,19 @@ export function SiteShell({
       </header>
 
       <main className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10">
-        <section className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
-          {eyebrow ? (
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">
-              {eyebrow}
+        {hideIntro ? null : (
+          <section className="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-sm">
+            {eyebrow ? (
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-red-700">
+                {eyebrow}
+              </p>
+            ) : null}
+            <h1 className="text-4xl font-semibold tracking-tight text-slate-950">{title}</h1>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
+              {description}
             </p>
-          ) : null}
-          <h1 className="text-4xl font-semibold tracking-tight text-white">{title}</h1>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">
-            {description}
-          </p>
-        </section>
+          </section>
+        )}
         {children}
       </main>
     </div>
