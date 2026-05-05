@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "mvp": "node --env-file=.env.local ./node_modules/.bin/tsx mvp_run.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",
