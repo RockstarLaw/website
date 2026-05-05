@@ -25,7 +25,7 @@ export function SiteShell({
               RockStar Law
             </p>
             <p className="text-sm text-slate-500">
-              Main registration and onboarding system
+              Practice Here. Litigate Anywhere.
             </p>
           </div>
           <nav className="flex flex-wrap gap-2 text-sm">
