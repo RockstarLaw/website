@@ -77,3 +77,4 @@ Because Supabase CLI is not installed on this machine yet, the fastest path is:
 - `/login` exercises the auth sign-in server action
 - `/supabase-status` checks whether the server-side key can reach the configured Supabase project
 Run system: npm run mvp
+Verified: npm run mvp executes full registration flow successfully
