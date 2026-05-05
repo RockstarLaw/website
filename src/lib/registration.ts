@@ -54,9 +54,9 @@ export const matchStatuses = [
 
 export const primaryRoutes = [
   { label: "Home", href: "/" },
-  { label: "Login", href: "/login" },
-  { label: "Register", href: "/register" },
-  { label: "Student Dashboard", href: "/dashboard/student" },
-  { label: "Professor Dashboard", href: "/dashboard/professor" },
-  { label: "Admin Dashboard", href: "/dashboard/admin" },
+  { label: "Why Rockstar", href: "/why-rockstar" },
+  { label: "What’s New", href: "/why-rockstar" },
+  { label: "Pricing", href: "/get-started" },
+  { label: "For Universities", href: "/register/school" },
+  { label: "Log In", href: "/login" },
 ] as const;
