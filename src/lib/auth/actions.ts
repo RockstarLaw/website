@@ -2,8 +2,6 @@
 
 import { redirect } from "next/navigation";
 
-import { getDashboardRouteForRole } from "@/lib/auth/roles";
-import { getCurrentAppUserRole } from "@/lib/supabase/queries";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export async function signInWithEmailPassword(
@@ -24,13 +22,7 @@ export async function signInWithEmailPassword(
     return { error: error.message };
   }
 
-  const role = await getCurrentAppUserRole();
-
-  if (!role) {
-    return { error: "Your account was authenticated, but no app role is assigned yet." };
-  }
-
-  redirect(getDashboardRouteForRole(role));
+  redirect("/dashboard/student");
 }
 
 export async function signOut() {

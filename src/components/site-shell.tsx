@@ -25,7 +25,7 @@ export function SiteShell({
               RockStar Law
             </p>
             <p className="text-sm text-slate-500">
-              Practice Here. Litigate Anywhere.
+              Train Here. Litigate Anywhere.<br />Graduate Courtroom Ready.
             </p>
           </div>
           <nav className="flex flex-wrap gap-2 text-sm">
@@ -44,7 +44,7 @@ export function SiteShell({
 
       <main className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10">
         {hideIntro ? null : (
-          <section className="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-sm">
+          <section className="py-4">
             {eyebrow ? (
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-red-700">
                 {eyebrow}

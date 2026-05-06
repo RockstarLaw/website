@@ -34,9 +34,7 @@ export function LoginForm() {
       </label>
 
       {state.error ? (
-        <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
-          {state.error}
-        </p>
+        <p className="text-sm text-red-700">{state.error}</p>
       ) : null}
 
       <button

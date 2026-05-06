@@ -5,6 +5,7 @@ These are locked design constraints. Do not modify or expand without explicit ap
 ## Brand
 
 - **Brand name in text:** RockStar Law (capital S, capital L). Never "Rockstar Law" or "ROCKSTAR LAW" in body copy.
+- **Wordmark (logo/header position):** ROCKSTAR LAW — all caps, primary red. Used in the top-left logo and any branded header position. Not used inside body copy.
 - **Tagline (always two lines, in this order):**
   - Train Here. Litigate Anywhere.
   - Graduate Courtroom Ready.
