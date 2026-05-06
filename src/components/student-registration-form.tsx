@@ -2,18 +2,19 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 import { registerStudent } from "@/lib/registration/actions";
 import { COUNTRIES, ENROLLMENT_STATUSES, LAW_SCHOOL_YEARS, US_STATES } from "@/lib/registration/options";
 import { initialRegistrationState } from "@/lib/registration/types";
-import type { SchoolOption } from "@/lib/supabase/queries";
+import type { ProfessorOption, SchoolOption } from "@/lib/supabase/queries";
 
 const inputClassName =
   "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-red-700";
 
-export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }) {
+export function StudentRegistrationForm({ schools, professors }: { schools: SchoolOption[]; professors: ProfessorOption[] }) {
   const router = useRouter();
+  const [selectedSchoolId, setSelectedSchoolId] = useState("");
   const [state, formAction, pending] = useActionState(
     registerStudent,
     initialRegistrationState,
@@ -116,7 +117,13 @@ export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }
       </label>
       <label className="grid gap-2 md:col-span-2">
         <span>University / school</span>
-        <select name="schoolId" required className={inputClassName} defaultValue="">
+        <select
+          name="schoolId"
+          required
+          className={inputClassName}
+          defaultValue=""
+          onChange={(e) => setSelectedSchoolId(e.target.value)}
+        >
           <option value="" disabled>
             Select a school
           </option>
@@ -127,6 +134,35 @@ export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }
           ))}
         </select>
       </label>
+
+      {selectedSchoolId ? (
+        <div className="md:col-span-2 grid gap-2">
+          <span className="text-sm font-medium text-slate-700">Select your professor(s)</span>
+          {professors.filter((p) => p.university_id === selectedSchoolId).length > 0 ? (
+            <div className="grid gap-2">
+              {professors
+                .filter((p) => p.university_id === selectedSchoolId)
+                .map((p) => (
+                  <label key={p.id} className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="professorIds"
+                      value={p.id}
+                      className="h-4 w-4 accent-red-700"
+                    />
+                    <span className="text-sm text-slate-900">
+                      {p.first_name} {p.last_name}
+                    </span>
+                  </label>
+                ))}
+            </div>
+          ) : (
+            <p className="text-sm text-slate-500">
+              No professors registered for your school yet. You can add this from your dashboard later.
+            </p>
+          )}
+        </div>
+      ) : null}
 
       {state.error ? (
         <p className="md:col-span-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-700">

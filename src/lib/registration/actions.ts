@@ -30,6 +30,7 @@ const studentSchema = baseAccountSchema.extend({
   lawSchoolYear: z.string().trim().optional(),
   enrollmentStatus: z.string().trim().optional(),
   undergraduateInstitution: z.string().trim().optional(),
+  professorIds: z.array(z.string().uuid()).optional().default([]),
 });
 
 const professorSchema = baseAccountSchema.extend({
@@ -133,6 +134,7 @@ export async function registerStudent(
     lawSchoolYear: formData.get("lawSchoolYear"),
     enrollmentStatus: formData.get("enrollmentStatus"),
     undergraduateInstitution: formData.get("undergraduateInstitution"),
+    professorIds: formData.getAll("professorIds").map(String),
   });
 
   if (!parsed.success) {
@@ -200,6 +202,21 @@ export async function registerStudent(
 
     if (profileError || !profile) {
       throw new Error(profileError?.message ?? "Unable to create student profile.");
+    }
+
+    // Insert student → professor links for each selected professor.
+    const selectedProfessorIds = parsed.data.professorIds ?? [];
+    if (selectedProfessorIds.length > 0) {
+      const linkRows = selectedProfessorIds.map((professorId) => ({
+        student_id: profile.id,
+        professor_id: professorId,
+        school_id: school.id,
+        status: "requested",
+      }));
+      const { error: linkError } = await admin
+        .from("student_professor_links")
+        .insert(linkRows);
+      if (linkError) throw new Error(linkError.message);
     }
 
     await updateStudentOnboardingStatus(profile.id);

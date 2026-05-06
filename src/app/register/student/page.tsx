@@ -1,12 +1,15 @@
 import { ContentCard } from "@/components/content-card";
 import { SiteShell } from "@/components/site-shell";
 import { StudentRegistrationForm } from "@/components/student-registration-form";
-import { getSchoolOptions } from "@/lib/supabase/queries";
+import { getProfessorOptions, getSchoolOptions } from "@/lib/supabase/queries";
 
 export const dynamic = "force-dynamic";
 
 export default async function StudentRegistrationPage() {
-  const schools = await getSchoolOptions();
+  const [schools, professors] = await Promise.all([
+    getSchoolOptions(),
+    getProfessorOptions(),
+  ]);
 
   return (
     <SiteShell
@@ -15,7 +18,7 @@ export default async function StudentRegistrationPage() {
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <ContentCard title="Create your student account">
-          <StudentRegistrationForm schools={schools} />
+          <StudentRegistrationForm schools={schools} professors={professors} />
         </ContentCard>
 
       </div>

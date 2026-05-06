@@ -29,6 +29,28 @@ export async function getSchoolOptions() {
   return (data ?? []) as SchoolOption[];
 }
 
+export type ProfessorOption = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  university_id: string;
+};
+
+export async function getProfessorOptions(): Promise<ProfessorOption[]> {
+  const supabase = createSupabaseAdminClient();
+  const { data, error } = await supabase
+    .from("professor_profiles")
+    .select("id, first_name, last_name, university_id")
+    .order("last_name", { ascending: true })
+    .order("first_name", { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []) as ProfessorOption[];
+}
+
 export type ProfessorCourseOption = {
   id: string;
   professor_id: string;
