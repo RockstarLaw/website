@@ -1,9 +1,11 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 import { updateProfessorOnboardingStatus, updateStudentOnboardingStatus } from "@/lib/onboarding/status";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { RegistrationActionState } from "./types";
 
 const baseAccountSchema = z.object({
@@ -201,11 +203,7 @@ export async function registerStudent(
     }
 
     await updateStudentOnboardingStatus(profile.id);
-
-    return {
-      error: "",
-      success: "Account created. Sign in to get started.",
-    };
+    // Registration succeeded — fall through to auto sign-in
   } catch (error) {
     if (authUserId) {
       try {
@@ -220,6 +218,25 @@ export async function registerStudent(
       success: "",
     };
   }
+
+  // Attempt auto sign-in so the user lands on their dashboard directly.
+  // redirect() must live outside the try/catch — Next.js throws NEXT_REDIRECT
+  // internally and a surrounding catch would swallow it.
+  let signedIn = false;
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: parsed.data.email,
+      password: parsed.data.password,
+    });
+    if (!signInError) signedIn = true;
+  } catch (e) {
+    // cookies() is unavailable outside a Next.js request context (e.g. mvp_run.ts),
+    // or a transient Supabase failure occurred. Fall back to manual login.
+    console.error("Auto-sign-in after student registration failed:", e);
+  }
+  if (signedIn) redirect("/dashboard/student");
+  return { error: "", success: "Account created. Sign in to get started." };
 }
 
 export async function registerProfessor(
@@ -340,11 +357,7 @@ export async function registerProfessor(
     }
 
     await updateProfessorOnboardingStatus(profile.id);
-
-    return {
-      error: "",
-      success: "Account created. Sign in to get started.",
-    };
+    // Registration succeeded — fall through to auto sign-in
   } catch (error) {
     if (authUserId) {
       try {
@@ -359,6 +372,25 @@ export async function registerProfessor(
       success: "",
     };
   }
+
+  // Attempt auto sign-in so the user lands on their dashboard directly.
+  // redirect() must live outside the try/catch — Next.js throws NEXT_REDIRECT
+  // internally and a surrounding catch would swallow it.
+  let signedIn = false;
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: parsed.data.email,
+      password: parsed.data.password,
+    });
+    if (!signInError) signedIn = true;
+  } catch (e) {
+    // cookies() is unavailable outside a Next.js request context (e.g. mvp_run.ts),
+    // or a transient Supabase failure occurred. Fall back to manual login.
+    console.error("Auto-sign-in after professor registration failed:", e);
+  }
+  if (signedIn) redirect("/dashboard/professor");
+  return { error: "", success: "Account created. Sign in to get started." };
 }
 
 export async function registerSchoolRequest(
