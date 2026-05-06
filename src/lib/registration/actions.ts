@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import { updateProfessorOnboardingStatus, updateStudentOnboardingStatus } from "@/lib/onboarding/status";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import type { RegistrationActionState } from "./types";
 
 const baseAccountSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required."),
@@ -47,16 +48,6 @@ const schoolRequestSchema = z.object({
   adminContactEmail: z.string().trim().email("Enter a valid contact email."),
   domains: z.string().trim().optional(),
 });
-
-export type RegistrationActionState = {
-  error: string;
-  success: string;
-};
-
-export const initialRegistrationState: RegistrationActionState = {
-  error: "",
-  success: "",
-};
 
 function normalizeSchoolName(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();

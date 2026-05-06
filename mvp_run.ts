@@ -4,8 +4,8 @@ import type { AccessContext } from "./src/lib/auth/access.ts";
 import {
   registerProfessor,
   registerStudent,
-  type RegistrationActionState,
 } from "./src/lib/registration/actions.ts";
+import type { RegistrationActionState } from "./src/lib/registration/types.ts";
 import { createSupabaseAdminClient } from "./src/lib/supabase/admin.ts";
 import { getStudentDashboardDataForUser } from "./src/lib/supabase/queries.ts";
 

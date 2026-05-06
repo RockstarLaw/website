@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import {
-  initialRegistrationState,
-  registerProfessor,
-} from "@/lib/registration/actions";
+import { registerProfessor } from "@/lib/registration/actions";
+import { initialRegistrationState } from "@/lib/registration/types";
 import type { SchoolOption } from "@/lib/supabase/queries";
 
 const inputClassName =
