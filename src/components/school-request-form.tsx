@@ -8,7 +8,7 @@ import { COUNTRIES, US_STATES } from "@/lib/registration/options";
 import { initialRegistrationState } from "@/lib/registration/types";
 
 const inputClassName =
-  "rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-red-700";
+  "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-red-700";
 
 export function SchoolRequestForm() {
   const [state, formAction, pending] = useActionState(

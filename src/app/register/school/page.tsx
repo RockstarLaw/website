@@ -12,13 +12,7 @@ export default function SchoolRegistrationPage() {
         <ContentCard title="Submit a school request">
           <SchoolRequestForm />
         </ContentCard>
-        <ContentCard title="What happens next">
-          <ul className="grid gap-2 text-slate-700">
-            <li>The school is saved with pending_review status.</li>
-            <li>Admins can later approve, reject, or normalize it.</li>
-            <li>Students and professors can select approved or placeholder schools.</li>
-          </ul>
-        </ContentCard>
+
       </div>
     </SiteShell>
   );

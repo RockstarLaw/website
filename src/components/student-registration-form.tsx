@@ -9,7 +9,7 @@ import { initialRegistrationState } from "@/lib/registration/types";
 import type { SchoolOption } from "@/lib/supabase/queries";
 
 const inputClassName =
-  "rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-red-700";
+  "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-red-700";
 
 export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }) {
   const [state, formAction, pending] = useActionState(
