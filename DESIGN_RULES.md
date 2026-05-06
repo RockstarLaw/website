@@ -13,11 +13,13 @@ These are locked design constraints. Do not modify or expand without explicit ap
 
 There are two distinct visual treatments:
 
-**Core site** (homepage, About, Why RockStar Law, Pricing, etc.)
+### Core site
+(homepage, About, Why RockStar Law, Pricing, etc.)
 - Modern, editorial, light, premium SaaS feel
 - Inspiration: Upwork /hire page
 
-**Module simulation pages** (StarBiz, USPTO, eCO, EDGAR, IRS, Courts)
+### Module simulation pages
+(StarBiz, USPTO, eCO, EDGAR, IRS, Courts)
 - Faithfully replicate the actual government/agency UX
 - The "ugly UX" is intentional — fidelity is the product
 - This is the ONLY context where boxed/dated/government-style is correct
@@ -51,11 +53,12 @@ The only place red is constrained to a single instance is inside images, per the
 
 Inside images and photographs, red is signal — not decoration. Red identifies the hero of the scene.
 
-**Object/abstract images** (pencils, microphones, files, etc.)
+### Object/abstract images
+(pencils, microphones, files, etc.)
 - Exactly one red element per scene
 - Examples: a red microphone cable among gray vintage mics; a single red pencil among yellow pencils
 
-**People images**
+### People images
 - Red marks the hero of the scene
 - One red marker per hero
 - Multiple heroes allowed in the same scene = multiple red markers (rare, controlled, never random extras)
