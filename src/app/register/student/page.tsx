@@ -12,9 +12,8 @@ export default async function StudentRegistrationPage() {
 
   return (
     <SiteShell
-      eyebrow="Student onboarding"
-      title="Student registration"
-      description="This page now creates a real student auth account and student profile record in Supabase, then signs the student into the RockStar shell."
+      title="I got the brains, you got the looks. Let's make lots of money."
+      description="Set up your account, train on the same systems real lawyers use in real life, make millions, buy cool stuff."
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <ContentCard title="Create your student account">

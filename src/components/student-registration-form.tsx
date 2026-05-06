@@ -147,6 +147,10 @@ export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }
           {pending ? "Creating account..." : "Create student account"}
         </button>
       </div>
+
+      <p className="md:col-span-2 text-sm italic text-slate-500">
+        ...because reading cases ain&apos;t the same as filing them.
+      </p>
     </form>
   );
 }

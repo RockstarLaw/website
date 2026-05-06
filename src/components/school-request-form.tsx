@@ -95,6 +95,10 @@ export function SchoolRequestForm() {
           {pending ? "Submitting..." : "Submit school request"}
         </button>
       </div>
+
+      <p className="md:col-span-2 text-sm italic text-slate-500">
+        Bar passage is the floor, not the ceiling.
+      </p>
     </form>
   );
 }

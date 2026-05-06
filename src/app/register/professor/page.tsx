@@ -12,9 +12,8 @@ export default async function ProfessorRegistrationPage() {
 
   return (
     <SiteShell
-      eyebrow="Professor onboarding"
-      title="Professor registration"
-      description="This page now creates a real professor auth account and professor profile row in Supabase. New professor accounts start pending approval."
+      title="There's No Eddie Van Halen Without Jimi Hendrix."
+      description="Set up your faculty account, build your class roster, and assign work that increases student engagement by gamifying education."
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <ContentCard title="Create your professor account">
