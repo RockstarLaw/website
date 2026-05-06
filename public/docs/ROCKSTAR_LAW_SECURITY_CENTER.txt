@@ -1,0 +1,588 @@
+═══════════════════════════════════════════════════════════════════════
+ROCKSTAR LAW
+SECURITY CENTER
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+Version: 1.0
+
+Welcome to the RockStar Law Security Center. RockStar Law is a legal
+education simulation platform used by law students, professors, and
+institutions. Because the Platform handles student personal
+information, academic submissions, payment data, and accommodation
+records, security matters. This Security Center explains how we
+protect your account and your data, how to recognize suspicious
+activity, and how to report security concerns.
+
+═══════════════════════════════════════════════════════════════════════
+1. PROTECT YOUR ACCOUNT
+═══════════════════════════════════════════════════════════════════════
+
+Your RockStar Law account contains personal information, your work
+product, your grades, and your communications with your professor.
+Protecting it is your first line of defense.
+
+USE A STRONG, UNIQUE PASSWORD
+
+Your RockStar Law password should:
+
+  - Be at least 12 characters long
+  - Include a mix of upper-case and lower-case letters, numbers,
+    and symbols
+  - Be different from passwords you use on other sites — especially
+    your school email and other educational platforms
+  - Not contain your name, birthday, school name, or other
+    information that could be guessed
+
+Do not reuse passwords across services. If a password is compromised
+on another website, attackers will try the same password on every
+other account associated with your email address.
+
+Consider using a password manager (1Password, Bitwarden, Apple
+Keychain, etc.) to generate and store strong, unique passwords.
+
+ENABLE TWO-FACTOR AUTHENTICATION (2FA)
+
+When two-factor authentication is available, enable it. With 2FA,
+even if someone obtains your password, they cannot access your
+account without a second verification step (typically a code sent
+to your phone).
+
+PROTECT YOUR PHONE NUMBER
+
+The phone number associated with your account is used for SMS
+notifications and account verification. Treat it as part of your
+account security:
+
+  - Do not share verification codes with anyone, ever
+  - If someone calls or texts asking you to "read back" a code, it
+    is a scam
+  - Update your phone number through your account settings if you
+    change it
+
+NEVER SHARE YOUR CREDENTIALS
+
+RockStar Law staff will never ask for your password. Do not share
+your password, security questions, or 2FA codes with:
+
+  - Other students (even if they say they're trying to help)
+  - Anyone claiming to be from RockStar Law
+  - Anyone claiming to be from your law school
+  - Anyone claiming to need access for "technical support"
+
+Sharing credentials also violates the User Agreement and may result
+in account termination.
+
+LOG OUT WHEN YOU'RE DONE
+
+Especially on shared computers (library terminals, classroom
+machines, friend's laptop):
+
+  - Always log out of RockStar Law when you finish a session
+  - Do not select "remember me" or "stay logged in" on shared
+    devices
+  - Close the browser after logging out
+
+═══════════════════════════════════════════════════════════════════════
+2. PROTECT YOUR PRIVACY
+═══════════════════════════════════════════════════════════════════════
+
+LIMIT WHAT YOU SHARE
+
+When completing simulations on the Platform, use only the
+placeholder data the Platform provides. Do not enter:
+
+  - Your real Social Security number
+  - Real entity names (use ROCKSTAR DEMO ENTITY, INC.)
+  - Real addresses, phone numbers, or emails of third parties
+  - Real client information from any actual or hypothetical client
+  - Real EIN numbers, document numbers, or filing numbers
+
+The Platform is a simulation. Real data does not improve your
+training and creates privacy risks.
+
+DO NOT SHARE YOUR WORK PRODUCT
+
+Your simulated filings, drafts, and submissions are stored in your
+account and shared with your professor. Do not:
+
+  - Post your submissions on social media
+  - Share screenshots of the Platform with non-subscribers
+  - Distribute your work in ways that violate your User Agreement
+
+This protects you from accusations of academic dishonesty (others
+copying your work) and protects RockStar Law's intellectual property.
+
+PROTECT OTHER STUDENTS' INFORMATION
+
+If you encounter information about another student through the
+Platform — accidentally or otherwise — do not share, screenshot, or
+discuss it. Other students' submissions, grades, and accommodation
+information are private.
+
+═══════════════════════════════════════════════════════════════════════
+3. PROTECT YOUR DEVICES
+═══════════════════════════════════════════════════════════════════════
+
+RockStar Law accounts are only as secure as the devices you use to
+access them. A compromised device defeats even the strongest password.
+
+KEEP YOUR DEVICES UPDATED
+
+  - Install operating system updates as soon as they are available
+  - Keep your browser updated to the latest version
+  - Update your antivirus and security software regularly
+  - Apply security patches promptly
+
+LOCK YOUR DEVICES
+
+  - Use a strong PIN, password, or biometric (fingerprint, Face ID)
+    to lock your phone, tablet, and computer
+  - Set automatic screen-lock after short inactivity
+  - Never leave a logged-in device unattended in public
+
+USE TRUSTED NETWORKS
+
+When accessing RockStar Law:
+
+  - Prefer your home or school network over public WiFi
+  - If you must use public WiFi (coffee shops, airports), consider
+    using a VPN
+  - Verify that your connection to RockStar Law uses HTTPS (look
+    for the lock icon and "https://" in the URL bar)
+
+═══════════════════════════════════════════════════════════════════════
+4. RECOGNIZE FAKE COMMUNICATIONS
+═══════════════════════════════════════════════════════════════════════
+
+Scammers may impersonate RockStar Law to trick students or
+professors into giving up credentials, payment information, or
+sensitive data. Learn what real RockStar Law communications look
+like.
+
+LEGITIMATE ROCKSTAR LAW EMAILS
+
+Real RockStar Law emails:
+
+  - Come from email addresses ending in @rockstar.law
+  - Address you by your registered name (enrollment name or
+    preferred name)
+  - Reference specific account activity, not generic claims
+  - Do not ask for your password
+  - Do not threaten immediate account suspension to create panic
+  - Do not promise unrealistic discounts, refunds, or rewards
+
+Be especially suspicious of:
+
+  - Emails from addresses that look almost like rockstar.law but
+    aren't (rockstarlaw.com, rockstar-law.net, rockstarlaw.io, etc.)
+  - Emails with urgent demands ("verify your account in 24 hours
+    or lose access")
+  - Emails offering free access, scholarships, or discounts that
+    weren't initiated by you
+  - Emails with grammatical errors or unusual phrasing
+  - Emails asking you to "click here" to verify, especially if the
+    link previews show a non-rockstar.law destination
+
+VERIFYING A SUSPICIOUS EMAIL
+
+If you receive an email and aren't sure if it's legitimate:
+
+  1. Do not click any links in the email
+  2. Do not reply to the email
+  3. Open a new browser window and type rockstar.law directly
+  4. Log in normally and check whether the message appears in your
+     account notifications
+  5. If still unsure, contact security@rockstar.law from a fresh
+     email session (not by replying to the suspicious message)
+
+LEGITIMATE ROCKSTAR LAW WEB PAGES
+
+Real RockStar Law pages have URLs that include:
+
+  - rockstar.law (or a subdomain like trademark.rockstar.law,
+    starbiz.rockstar.law, etc.)
+  - HTTPS (the lock icon in your browser, "https://" at the start
+    of the URL)
+
+Real RockStar Law pages do NOT:
+
+  - Use shortened URLs (bit.ly, tinyurl, etc.) for login pages
+  - Ask you to log in through unusual paths
+  - Display payment forms outside the standard account billing flow
+  - Ask for your password to "verify" account information
+
+LEGITIMATE TEXT MESSAGES
+
+RockStar Law sends SMS for verification codes and account
+notifications. Real text messages from RockStar Law:
+
+  - Will identify themselves as RockStar Law
+  - Will not ask you to reply with codes, passwords, or personal
+    information
+  - Will not include urgent demands or threats
+
+═══════════════════════════════════════════════════════════════════════
+5. PAYMENT SECURITY
+═══════════════════════════════════════════════════════════════════════
+
+PROCESSING
+
+RockStar Law uses third-party payment processors to handle credit
+card transactions. RockStar Law does not store your full credit card
+number. When you pay, your card information is sent directly to the
+payment processor through encrypted channels.
+
+WHAT YOU SHOULD SEE
+
+When making a payment:
+
+  - The page should display the RockStar Law branding
+  - The URL should be on rockstar.law or the payment processor's
+    domain (Stripe, etc.)
+  - The connection should be HTTPS
+  - The form should request only the payment information needed
+    for the transaction
+
+WHAT TO REPORT
+
+Report immediately if you see:
+
+  - A request to pay outside the normal RockStar Law billing flow
+  - A request to wire funds, send cryptocurrency, or pay via gift
+    cards (RockStar Law never accepts these forms of payment)
+  - A request to pay through a different platform "to get a discount"
+  - A duplicate or unexpected charge on your statement
+  - A request from your professor to send payment directly to them
+    (professors do not collect payment on RockStar Law's behalf)
+
+═══════════════════════════════════════════════════════════════════════
+6. WHAT WE DO TO PROTECT YOU
+═══════════════════════════════════════════════════════════════════════
+
+RockStar Law applies industry-standard security practices to protect
+your account and data.
+
+ENCRYPTION
+
+  - All data transmitted between your device and RockStar Law is
+    encrypted using TLS (the protocol behind HTTPS)
+  - Sensitive data is encrypted at rest in our databases
+  - Passwords are hashed and salted using current industry standards
+  - Payment data is handled by PCI-compliant payment processors
+
+ACCESS CONTROLS
+
+  - Student data is accessible only to the student, their authorized
+    professor(s), and RockStar Law personnel with a legitimate need
+  - Professor access is limited to students enrolled in their
+    courses
+  - Administrative access requires multi-factor authentication and
+    is logged
+
+INFRASTRUCTURE
+
+  - The Platform is hosted on reputable cloud infrastructure
+    providers (Vercel, Supabase) with their own enterprise-grade
+    security
+  - Database backups are encrypted and stored separately
+  - System logs are retained and monitored for unusual activity
+
+INCIDENT RESPONSE
+
+If a security incident affects your data, RockStar Law will:
+
+  - Investigate promptly
+  - Take steps to contain and remediate the incident
+  - Notify affected users in accordance with applicable law
+  - Cooperate with law enforcement and regulators as appropriate
+
+═══════════════════════════════════════════════════════════════════════
+7. RESPONSIBLE DISCLOSURE FOR SECURITY RESEARCHERS
+═══════════════════════════════════════════════════════════════════════
+
+If you are a security researcher who has identified a potential
+security vulnerability in the RockStar Law Platform, we appreciate
+your help and ask you to follow responsible disclosure practices.
+
+ELIGIBLE DOMAINS
+
+Vulnerability reports are accepted for:
+
+  - rockstar.law and its subdomains
+  - The RockStar Law mobile applications (when launched)
+
+Out-of-scope:
+
+  - Third-party services we use (Vercel, Supabase, Stripe, etc.) —
+    please report those to the third party directly
+  - Replicas of government filing systems (these are intentionally
+    designed to mirror those systems' actual behavior, including
+    quirks and dated UX)
+  - Issues with publicly available content that does not affect
+    user data or platform integrity
+  - Social engineering attacks against RockStar Law staff
+  - Physical security of RockStar Law facilities
+
+HOW TO REPORT
+
+Submit security reports to:
+  security@rockstar.law
+
+Please include:
+
+  - A clear description of the vulnerability
+  - Steps to reproduce the issue
+  - The affected URL or system component
+  - Proof of concept (screenshots, code, or video) if applicable
+  - Your contact information
+
+WHAT WE ASK
+
+  - Do not publicly disclose the vulnerability before we have had a
+    reasonable opportunity to fix it
+  - Do not access, modify, or delete data belonging to other users
+  - Do not perform tests that could degrade Platform availability
+    for other users (no DoS, no large-scale automated scanning)
+  - Do not extort, threaten, or demand payment in exchange for
+    keeping the vulnerability private
+
+WHAT WE WILL DO
+
+  - Acknowledge receipt of your report within five (5) business
+    days
+  - Investigate the report and provide updates
+  - Notify you when the vulnerability has been resolved
+  - Credit you publicly (with your permission) once the issue is
+    fixed
+
+We do not currently offer monetary bounties, but we recognize and
+appreciate good-faith security research.
+
+═══════════════════════════════════════════════════════════════════════
+8. REPORTING SECURITY CONCERNS
+═══════════════════════════════════════════════════════════════════════
+
+Different concerns go to different places. Use the right channel
+for the fastest response.
+
+SUSPICIOUS ACCOUNT ACTIVITY ON YOUR ACCOUNT
+
+If you notice activity you didn't perform — login from an unfamiliar
+location, submissions you didn't make, payment charges you didn't
+authorize — act immediately:
+
+  1. Change your RockStar Law password
+  2. Enable 2FA if you have not already
+  3. Contact security@rockstar.law with details
+
+PHISHING EMAILS OR FAKE WEBSITES
+
+Forward suspicious emails to:
+  security@rockstar.law
+
+If you encounter a website impersonating RockStar Law, report the
+URL to security@rockstar.law.
+
+ACCOUNT TAKEOVER OR LOCKOUT
+
+If you believe your account has been compromised or you cannot
+access it:
+
+  - Contact: security@rockstar.law
+  - Use your institutional email when possible to help us verify
+    your identity
+
+PAYMENT DISPUTES OR FRAUDULENT CHARGES
+
+  - Contact: billing@rockstar.law
+  - For unauthorized charges, also contact your card issuer
+
+GENERAL SECURITY QUESTIONS
+
+  - Contact: security@rockstar.law
+
+ABUSE OR HARASSMENT THROUGH THE PLATFORM
+
+  - Contact: abuse@rockstar.law
+
+═══════════════════════════════════════════════════════════════════════
+9. LAW ENFORCEMENT REQUESTS
+═══════════════════════════════════════════════════════════════════════
+
+RockStar Law cooperates with valid law enforcement requests while
+protecting user privacy and complying with applicable law.
+
+For law enforcement inquiries, including subpoenas, court orders,
+and other legal process:
+
+  Contact: legal@rockstar.law
+
+Requests should:
+
+  - Be served via valid legal process
+  - Identify the specific account or data sought
+  - Cite the legal authority for the request
+  - Be made through proper channels (not directly to general
+    support staff)
+
+In emergencies involving imminent risk of death or serious physical
+injury, contact legal@rockstar.law with "EMERGENCY DISCLOSURE
+REQUEST" in the subject line.
+
+User notice: Where permitted by law, RockStar Law will notify users
+when their information is requested by law enforcement. Notice may
+be delayed or withheld where prohibited by law (e.g., under a
+non-disclosure order) or where notice would risk life, safety, or
+the integrity of an investigation.
+
+═══════════════════════════════════════════════════════════════════════
+10. STUDENT-SPECIFIC SECURITY GUIDANCE
+═══════════════════════════════════════════════════════════════════════
+
+DO NOT USE ROCKSTAR LAW FOR ACTUAL FILINGS
+
+The Platform is a simulation. Even if a RockStar Law replica looks
+identical to a real government filing system, it is not connected
+to that government system. Submitting information through RockStar
+Law does not create any real legal record.
+
+If you are dealing with an actual legal matter, consult a licensed
+attorney and use the actual government filing system.
+
+PROTECT YOUR ACADEMIC INTEGRITY
+
+Sharing your account credentials, allowing another student to
+submit work for you, or submitting another student's work as your
+own violates the User Agreement and your law school's academic
+integrity policies. Such conduct may also be a security concern
+that we will report to your institution.
+
+REPORT IF YOU OBSERVE OTHER STUDENTS' MISCONDUCT
+
+If you observe another student attempting to gain unauthorized
+access to the Platform, sharing credentials, or otherwise violating
+security practices, you may report it to security@rockstar.law.
+Reports will be handled confidentially and consistent with your
+institution's policies.
+
+═══════════════════════════════════════════════════════════════════════
+11. PROFESSOR-SPECIFIC SECURITY GUIDANCE
+═══════════════════════════════════════════════════════════════════════
+
+PROTECT STUDENT DATA
+
+As a professor, you have access to student submissions, grades, and
+accommodation information. This data is subject to FERPA and other
+privacy laws. Specifically:
+
+  - Do not download, screenshot, or distribute student submissions
+    outside the Platform
+  - Do not share student grades or feedback with other students,
+    family members, or third parties
+  - Do not access submissions in courses you do not teach
+  - Coordinate with your institution's disability services office
+    on accommodation-related information
+
+ROSTER ACCURACY
+
+Maintain accurate roster information. Remove students who have
+withdrawn from your course. Do not retain access for students no
+longer enrolled.
+
+REPORT INSTITUTIONAL CONCERNS
+
+If you become aware of institutional-level security issues —
+unauthorized access to your institutional account, suspicious
+activity from administrative users, or breaches of institutional
+licensing — contact security@rockstar.law and notify your
+institution's IT security office.
+
+═══════════════════════════════════════════════════════════════════════
+12. INSTITUTIONAL SECURITY GUIDANCE
+═══════════════════════════════════════════════════════════════════════
+
+For law schools and universities with institutional RockStar Law
+accounts:
+
+ADMINISTRATOR ACCOUNTS
+
+Institutional administrator accounts have elevated privileges.
+Administrators should:
+
+  - Use unique, strong passwords
+  - Enable 2FA
+  - Limit administrator privileges to those who need them
+  - Notify RockStar Law promptly when an administrator leaves the
+    institution or changes roles
+
+DATA PROCESSING AGREEMENTS
+
+Institutions handling student data through RockStar Law are subject
+to FERPA and the institutional licensing agreement. Specific data
+processing terms are set forth in that agreement.
+
+INTEGRATION WITH INSTITUTIONAL SYSTEMS
+
+If your institution integrates RockStar Law with other systems
+(LMS, identity provider, SSO), follow your institution's IT
+security standards. Contact security@rockstar.law to discuss
+integration options.
+
+═══════════════════════════════════════════════════════════════════════
+13. ADDITIONAL RESOURCES
+═══════════════════════════════════════════════════════════════════════
+
+GENERAL ONLINE SAFETY RESOURCES
+
+For additional guidance on protecting yourself online:
+
+  - StaySafeOnline (National Cybersecurity Alliance):
+    staysafeonline.org
+  - Federal Trade Commission consumer security:
+    consumer.ftc.gov
+  - Identity theft response: identitytheft.gov
+
+ROCKSTAR LAW POLICIES
+
+Related policies that affect your security:
+
+  - Privacy Policy (data collection and protection practices)
+  - Terms of Service (account responsibilities)
+  - Acceptable Use Policy (prohibited conduct)
+  - Data Retention Policy (how long data is kept)
+  - Consumer Health Data Notice (handling of accommodation data)
+
+═══════════════════════════════════════════════════════════════════════
+14. CONTACT
+═══════════════════════════════════════════════════════════════════════
+
+  Security concerns:           security@rockstar.law
+  Account compromise:          security@rockstar.law
+  Phishing reports:            security@rockstar.law
+  Vulnerability disclosure:    security@rockstar.law
+  Payment/billing fraud:       billing@rockstar.law
+  Abuse and harassment:        abuse@rockstar.law
+  Legal/law enforcement:       legal@rockstar.law
+
+═══════════════════════════════════════════════════════════════════════
+END OF SECURITY CENTER
+═══════════════════════════════════════════════════════════════════════
+
+NOTE TO READER: This Security Center is a draft template. Before
+publication, this document should be reviewed by qualified security
+and legal professionals to:
+
+  - Verify that the security practices described accurately reflect
+    RockStar Law's actual technical infrastructure
+  - Confirm responsible disclosure terms with platform engineers
+  - Confirm law enforcement response procedures with counsel
+  - Confirm incident response procedures match documented
+    operational practices
+
+Statements about security infrastructure (encryption, hashing,
+access controls) should not be published until they accurately
+describe what is actually implemented in the Platform. Promising
+security measures that aren't fully implemented creates legal
+exposure beyond reputational harm.
+═══════════════════════════════════════════════════════════════════════

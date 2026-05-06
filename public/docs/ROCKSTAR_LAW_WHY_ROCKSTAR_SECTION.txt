@@ -1,0 +1,176 @@
+═══════════════════════════════════════════════════════════════════════
+ROCKSTAR LAW
+HOMEPAGE — "WHY ROCKSTAR LAW" SECTION
+═══════════════════════════════════════════════════════════════════════
+
+
+WHY ROCKSTAR LAW?
+
+Learn the Systems You'll Use as a Lawyer.
+Not "Pretty Close." No Hypotheticals.
+Real 1:1 Simulation Learning.
+
+
+[BODY COPY]
+
+
+Other platforms describe legal systems. RockStar Law replicates
+them.
+
+That distinction sounds small until you see it in practice. A
+trademark filing module that "covers the major fields" of a USPTO
+application is not the same as a faithful replica of the actual
+USPTO Trademark Center — same forms, same validation rules, same
+buried buttons, same dated UX. A summary of how Form D works is
+not the same as filing one through a faithful EDGAR replica that
+behaves the way the real EDGAR behaves. A walkthrough of Sunbiz
+is not the same as actually completing an LLC formation through
+StarBiz, our 1:1 replica of the Florida Division of Corporations.
+
+Your students will use the real systems on day one of practice.
+They should train on the real systems before they get there.
+
+
+WHAT 1:1 ACTUALLY MEANS
+
+Every RockStar Law module is built from the actual government
+system it replicates. We capture the real interface, the real
+field structure, the real validation rules, the real page flow,
+the real terminology — and we recreate them faithfully in a
+training environment where students can fail, retry, and develop
+fluency without a client's clock running.
+
+That includes the parts other platforms quietly fix.
+
+Government filing systems are not famous for their design. They
+are dated. They are awkward. Their navigation is sometimes
+inscrutable. Their terminology shifts between systems and
+sometimes within them. Their forms can feel like they were last
+updated when floppy disks were a current technology.
+
+We replicate the awkwardness. Deliberately.
+
+A graduate who has trained on a clean, modernized version of
+Sunbiz will be slowed down on every line of the actual Sunbiz on
+day one of practice. A graduate who has trained on a faithful
+replica recognizes the patterns immediately. The familiarity
+transfers because the interface is the same.
+
+This is the platform's defining principle and the reason it
+works: the awkwardness of government UX is not a bug to be fixed.
+It is the actual training surface.
+
+
+WHAT YOU GET WITH ROCKSTAR LAW
+
+FAITHFUL FILING-SYSTEM REPLICAS
+
+Six modules, expanding:
+
+  StarBiz       — Florida business filings (LLC, corporation,
+                  partnership, fictitious name, annual report,
+                  state trademark)
+  Trademark     — USPTO Trademark Center
+  Copyright     — U.S. Copyright Office eCO
+  SEC           — EDGAR / Form D
+  IRS           — EIN application
+  Courts        — State and federal e-filing
+
+Each module operates at 1:1 fidelity with the real system.
+
+A GROWING LIBRARY OF PRACTICE PROJECTS
+
+Drafted by working entertainment, IP, and business attorneys
+based on real matters. Contract drafting. Multi-party
+negotiation with confidential role-specific materials. Client
+counseling memoranda with rich, ambiguous fact patterns.
+Issue-spotting across IP, contract, agency, and business law.
+
+Each project arrives with everything a professor needs:
+fact pattern, confidential role materials where applicable,
+deliverable specifications, supporting documents, and grading
+rubrics built by attorneys who have done the work.
+
+THREE PROFESSOR-CONTROLLED MODES
+
+The interface never changes. The support layer does.
+
+  GUIDED   — Full hints visible. Definitions, warnings, examples.
+  ASSISTED — Hints on demand. Errors trigger contextual feedback.
+  EXAM     — No hints. Real-world conditions.
+
+Same module, three pedagogical postures. Same tool can serve
+introduction, mid-course practice, and final assessment.
+
+AI-ASSISTED GRADING ON RUBRICS BUILT BY PRACTITIONERS
+
+Field-level accuracy on filings. Substantive evaluation on
+memoranda and contracts. Rubrics refined through real student
+submissions. Final grading authority always rests with the
+professor.
+
+INTELLIGENT ROSTER MATCHING
+
+Students register under the names they actually go by. The
+system matches them to professor rosters using fuzzy logic that
+handles the inevitable variations between official enrollment
+records and real-world preferences. Professors see both names
+where it matters; students see their preferred name throughout.
+
+INSTITUTIONAL-GRADE INFRASTRUCTURE
+
+FERPA-compliant data handling under our institutional licensing
+agreement. Roster integration with existing systems. Free
+professor accounts. Student subscriptions individually or
+through institutional licensing.
+
+
+WHAT MAKES THIS DIFFERENT
+
+There are other simulation platforms in legal education. Most
+take one of two approaches:
+
+  - They build generic legal "exercises" disconnected from any
+    specific real-world system, leaving students to translate the
+    abstraction into actual practice on their own.
+
+  - They build clean, modernized interfaces that feel impressive
+    in a demo but do not match the actual systems students will
+    encounter — meaning the training does not transfer.
+
+RockStar Law takes neither approach.
+
+We replicate the actual systems. We preserve the actual UX,
+including the parts that are not pretty. We pair the operational
+layer with practice projects drawn from real matters that teach
+strategic judgment, client counseling, and the kind of
+"reading-into-tone" skills no casebook captures.
+
+The result is training that transfers — directly, on day one,
+without a translation step.
+
+
+THE BOTTOM LINE
+
+If you want your students to recognize the systems they will use
+in practice, train them on faithful replicas of those systems.
+
+If you want your students to develop the strategic judgment that
+distinguishes a competent lawyer from an exceptional one, train
+them on real-practice projects with real complexity.
+
+If you want both, you want RockStar Law.
+
+Train Here. Litigate Anywhere. Graduate Courtroom Ready.
+
+
+[CTA BUTTONS]
+
+  [ FOR FACULTY: Request Demo Access ]
+  [ FOR STUDENTS: Tell Your Professor ]
+  [ FOR INSTITUTIONS: Contact Sales ]
+
+
+═══════════════════════════════════════════════════════════════════════
+END OF SECTION
+═══════════════════════════════════════════════════════════════════════

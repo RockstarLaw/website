@@ -1,0 +1,160 @@
+═══════════════════════════════════════════════════════════════════════
+ROCKSTAR LAW
+ABOUT
+═══════════════════════════════════════════════════════════════════════
+
+Train Here. Litigate Anywhere. Graduate Courtroom Ready.
+
+
+THE FIRST FILING
+
+Every new lawyer remembers their first real filing.
+
+The client signs the engagement letter. The supervising partner
+says go file this. And the new lawyer — top of their class in
+Business Associations, Trademarks, or Securities Reg — opens the
+actual government system for the first time and discovers that
+knowing the law is not the same as knowing the form.
+
+Sunbiz. USPTO TEAS and Trademark Center. The Copyright Office's
+eCO portal. EDGAR. The IRS EIN application. State court e-filing
+portals.
+
+Each one has its own logic, its own terminology, its own quirks,
+its own buried buttons and inscrutable validation rules. Each one
+takes hours to navigate the first time and minutes once you know
+it.
+
+A first copyright filing can take three hours. The tenth takes
+fifteen minutes.
+
+A first Form D between the SEC and EDGAR can take a full day. The
+tenth takes forty minutes.
+
+That gap is where billable hours go to die — or where new lawyers
+build the operational fluency that defines the rest of their
+careers.
+
+RockStar Law moves that learning curve into law school.
+
+
+WHAT IT IS
+
+RockStar Law is the first platform that lets law students train on
+faithful replicas of the actual filing systems they will use in
+practice.
+
+Not slideshow walkthroughs. Not screenshots in a casebook. Not
+abstract descriptions of what the system "does." The actual
+interface — same fields, same validation rules, same workflow,
+same dated government UX — recreated as a training environment
+where students can fail, retry, and develop fluency without a
+client's clock running.
+
+Six modules, expanding:
+
+  StarBiz       — Florida business filings (LLC, corporation,
+                  partnership, fictitious name, annual report,
+                  state trademark)
+  Trademark     — USPTO Trademark Center
+  Copyright     — U.S. Copyright Office eCO
+  SEC           — EDGAR / Form D
+  IRS           — EIN application
+  Courts        — State and federal e-filing
+
+Plus a growing library of practice simulation projects — drafted
+by working entertainment, IP, and business attorneys based on
+real matters. Contract drafting, multi-party negotiation, client
+counseling, issue-spotting across overlapping areas of law. The
+work that fills a transactional lawyer's actual day.
+
+
+WHY THE UGLY UX IS THE POINT
+
+A reasonable person looking at our replicas might ask why the
+interface looks like it was designed in 1998.
+
+Because that's exactly what it looks like in real life.
+
+This is the most important design decision the platform has made.
+The instinct to "modernize" government UX would feel impressive
+in a demo. It would also be useless training. A graduate who has
+practiced on a clean redesign of Sunbiz will be slowed down on
+every line of the actual Sunbiz on day one of practice. A graduate
+who has practiced on a faithful replica recognizes the patterns
+immediately.
+
+Government interfaces are dated, inconvenient, and sometimes
+genuinely confusing. They are also where the work happens. We
+replicate them as they are because that's the point of training.
+
+
+HOW THE PLATFORM WORKS FOR PROFESSORS
+
+Three modes for every module. The interface never changes — only
+the support layer does.
+
+  GUIDED   — Full hints visible. Definitions, warnings, examples.
+             First exposure.
+  ASSISTED — Hints on demand. Students attempt independently and
+             ask for help when needed. Where most learning happens.
+  EXAM     — No hints. Real-world conditions. Final assessment.
+
+Professors set the mode per assignment. Same module covers
+introduction, mid-course practice, and final exam.
+
+AI-assisted grading runs against rubrics built by practicing
+attorneys, refined through real student submissions. Field-level
+accuracy on filings. Substantive evaluation on memoranda and
+contracts. Final grading authority always rests with the
+professor.
+
+Roster matching handles the inevitable name variations between
+official enrollment lists and the names students actually go by.
+Submissions, grades, and feedback flow through the platform.
+
+Free professor accounts. Student subscriptions individually or
+through institutional licensing. Institutional registration unlocks
+course catalog integration and FERPA-compliant data handling.
+
+
+WHAT GRADUATES CAN DO ON DAY ONE
+
+Adopt RockStar Law and your graduates arrive at their first job
+already fluent in the systems that consume the first six months
+of every new lawyer's career.
+
+They have filed simulated LLCs. They have prosecuted simulated
+trademark applications through publication. They have registered
+simulated copyrights across multiple work types. They have drafted
+Form D filings and submitted them through a faithful EDGAR replica.
+They have responded to simulated cease-and-desist letters. They
+have negotiated simulated entertainment contracts under realistic
+client constraints.
+
+When their supervising partner says go file this, they know what
+that actually means. They know what to ask before they touch the
+system. They know how long it should take. They know what mistakes
+to avoid because they have already made those mistakes — in the
+classroom, where the cost of a mistake is a learning moment
+instead of a malpractice exposure.
+
+That is what your graduates will be able to do. That is what your
+school will be known for.
+
+
+THE BOTTOM LINE
+
+Filing systems are not glamorous. Drafting a Form D is not the
+work that fills the law school highlight reel.
+
+But filing systems are the operational backbone of every
+transactional, IP, and business practice. The lawyers who handle
+them with confidence are more valuable to their firms, their
+clients, and themselves.
+
+Train here. Litigate anywhere. Graduate courtroom ready.
+
+═══════════════════════════════════════════════════════════════════════
+END OF ABOUT PAGE
+═══════════════════════════════════════════════════════════════════════

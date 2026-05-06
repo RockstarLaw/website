@@ -1,0 +1,1405 @@
+═══════════════════════════════════════════════════════════════════════
+ROCKSTAR LAW — POLICIES PAGE
+═══════════════════════════════════════════════════════════════════════
+
+This document contains the suite of policies that should appear on the
+RockStar Law website. Each policy is presented as a separate section
+that can be deployed as a standalone page, with a master index page
+linking to all of them.
+
+IMPORTANT NOTE TO READER: This is a draft template prepared for
+internal review. Before publication, all policies should be reviewed
+by qualified legal counsel licensed in the jurisdiction(s) where
+RockStar Law operates. The platform's status as a legal education
+product (operated by a licensed attorney/professor) does not
+substitute for independent legal review of consumer-facing terms,
+privacy obligations under FERPA/COPPA/GDPR/state privacy laws, and
+payment processor compliance requirements.
+
+═══════════════════════════════════════════════════════════════════════
+DEPLOYMENT NOTES (FOR WEB DEVELOPMENT)
+═══════════════════════════════════════════════════════════════════════
+
+This master document is structured for drafting and review purposes.
+When deployed to the RockStar Law website, the policies should be
+implemented as follows:
+
+1. SEPARATE PAGES, NOT ONE LONG PAGE
+
+Each numbered section in this document becomes its own dedicated
+page with its own URL. Do not deploy this as a single long
+scrolling document.
+
+Suggested URL structure:
+  rockstar.law/legal                    → Policies index page
+  rockstar.law/legal/terms              → Terms of Service
+  rockstar.law/legal/privacy            → Privacy Policy
+  rockstar.law/legal/acceptable-use     → Acceptable Use Policy
+  rockstar.law/legal/educational        → Educational Disclaimer
+  rockstar.law/legal/refunds            → Refund and Cancellation
+  rockstar.law/legal/cookies            → Cookie Policy
+  rockstar.law/legal/accessibility      → Accessibility Statement
+  rockstar.law/legal/intellectual-property → IP Policy
+  rockstar.law/legal/student-conduct    → Student Code of Conduct
+  rockstar.law/legal/professor-agreement → Professor and Institution
+  rockstar.law/legal/data-retention     → Data Retention
+  rockstar.law/legal/dmca               → DMCA Policy
+  rockstar.law/legal/coppa              → Children's Privacy
+  rockstar.law/legal/ferpa              → FERPA Compliance
+  rockstar.law/legal/consumer-health    → Consumer Health Data Notice
+  rockstar.law/legal/contact            → Contact and Disputes
+
+2. FOOTER LINK PRIORITIES
+
+Not every policy belongs in the footer. The website footer should
+include direct links to (at minimum):
+
+  - Terms of Service
+  - Privacy Policy
+  - Consumer Health Data Notice (REQUIRED to be separately and
+    conspicuously linked, per Washington MHMDA and similar laws —
+    do not bury this inside the Privacy Policy link)
+  - Educational Disclaimer
+  - Accessibility Statement
+  - Cookie Policy (if applicable based on cookie banner approach)
+  - "Legal" or "Policies" link to the index page (which then links
+    to all other policies)
+
+Critical: The Consumer Health Data Notice must be a separate,
+conspicuous footer link — equal in visibility to Terms of Service
+and Privacy Policy. This is a statutory requirement, not a styling
+choice. eBay and other large platforms follow this same pattern.
+
+3. CROSS-REFERENCES
+
+Where one policy references another (e.g., Privacy Policy referring
+to the Cookie Policy), implement those references as hyperlinks to
+the corresponding standalone page.
+
+4. METADATA REQUIREMENTS
+
+Each policy page must display:
+  - The policy title
+  - The effective date
+  - The version number
+  - A "last updated" date
+  - A link back to the main /legal index
+
+5. VERSION CONTROL
+
+Each policy must be independently version-controlled. When a policy
+is updated, only that policy's effective date changes — not all
+policies.
+
+6. CONSENT TRACKING
+
+For policies requiring user consent (Terms of Service, Privacy
+Policy, Consumer Health Data Notice), the system must:
+  - Record the version of the policy the user accepted
+  - Timestamp the acceptance
+  - Re-prompt for consent when material changes occur
+
+═══════════════════════════════════════════════════════════════════════
+POLICIES INDEX PAGE
+═══════════════════════════════════════════════════════════════════════
+
+Title: Legal & Policies | RockStar Law
+
+Page content:
+
+Welcome to RockStar Law's policies center. Below you will find the
+complete set of legal and operational policies that govern your use
+of our platform. Please review the policy relevant to your situation,
+or contact us at legal@rockstar.law with any questions.
+
+  1.  Terms of Service
+  2.  Privacy Policy
+  3.  Acceptable Use Policy
+  4.  Educational Disclaimer
+  5.  Refund and Cancellation Policy
+  6.  Cookie Policy
+  7.  Accessibility Statement
+  8.  Intellectual Property Policy
+  9.  Student Code of Conduct
+  10. Professor and Institution Agreement
+  11. Data Retention and Account Deletion
+  12. DMCA / Copyright Infringement Policy
+  13. Children's Privacy (COPPA)
+  14. FERPA Compliance Statement
+  15. Consumer Health Data Notice
+  16. Contact and Disputes
+
+Last Updated: [DATE]
+Version: 1.0
+
+═══════════════════════════════════════════════════════════════════════
+1. TERMS OF SERVICE
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+Welcome to RockStar Law. These Terms of Service ("Terms") govern your
+access to and use of the RockStar Law platform, including the website
+located at rockstar.law and all associated agency simulation systems
+(StarBiz, RockStar Trademark & Patent Office, RockStar Copyright
+Office, RockStar Securities & Exchange Commission, RockStar Courts,
+RockStar IRS, and any future agency modules) (collectively, the
+"Platform"). By creating an account, registering, or otherwise using
+the Platform, you agree to be bound by these Terms.
+
+If you do not agree to these Terms, do not use the Platform.
+
+1.1 ABOUT ROCKSTAR LAW
+
+RockStar Law is a legal education simulation platform designed for
+use by law students, law school faculty, and law schools. The
+Platform provides faithful replicas of real legal filing systems for
+training and educational purposes. RockStar Law is not a law firm,
+does not provide legal advice, and does not file documents with any
+real government agency or court.
+
+1.2 ELIGIBILITY
+
+You must be at least 18 years old to register for and use the
+Platform. By creating an account, you represent and warrant that you
+are 18 years of age or older and have the legal capacity to enter
+into these Terms.
+
+If you are accessing the Platform on behalf of a law school or
+university, you represent that you have authority to bind that
+institution.
+
+1.3 ACCOUNT TYPES
+
+RockStar Law offers three account types:
+
+  STUDENT ACCOUNTS — for currently enrolled law students using the
+  Platform for educational purposes under the supervision of a
+  registered professor.
+
+  PROFESSOR ACCOUNTS — for law school faculty members who assign
+  Platform-based exercises to their students.
+
+  INSTITUTIONAL ACCOUNTS — for law schools and universities that
+  have entered into a formal agreement with RockStar Law for
+  institutional-level access.
+
+Each account type carries different rights, responsibilities, and
+access privileges, as detailed in the relevant policy sections.
+
+1.4 ACCOUNT REGISTRATION
+
+You agree to provide accurate, current, and complete information
+during registration and to update such information as needed to keep
+it accurate. You are responsible for maintaining the confidentiality
+of your account credentials and for all activities that occur under
+your account.
+
+You may not:
+  - Create an account using false information
+  - Impersonate another person or entity
+  - Share your account credentials with another person
+  - Allow another person to use your account
+  - Create multiple accounts to circumvent platform restrictions
+
+If you discover unauthorized access to your account, you must notify
+RockStar Law immediately at security@rockstar.law.
+
+1.5 PAYMENT TERMS
+
+Access to the Platform requires payment of applicable fees. Payment
+terms vary by account type and access tier:
+
+  - Individual student access fees are paid at registration
+  - Institutional licensing is governed by a separate written
+    agreement
+  - Professor accounts are provided at no charge as part of the
+    institutional or instructor relationship
+
+All payments are processed through third-party payment processors.
+RockStar Law does not store your full credit card information.
+Payment processing is subject to the payment processor's terms.
+
+Fees are non-refundable except as expressly stated in the Refund and
+Cancellation Policy.
+
+1.6 USE OF THE PLATFORM
+
+You agree to use the Platform only for its intended educational
+purpose. The Platform is provided for training and simulation only.
+You acknowledge and agree that:
+
+  - No filing made through the Platform constitutes a real legal
+    filing with any government agency or court.
+  - No information, document, or output generated by the Platform
+    constitutes legal advice.
+  - Use of the Platform does not create an attorney-client
+    relationship between you and RockStar Law, John Taddeo, or any
+    other person associated with RockStar Law.
+  - You may not use Platform-generated documents in actual legal
+    proceedings.
+
+1.7 INTELLECTUAL PROPERTY
+
+The Platform, including its software, content, simulations,
+rubrics, grading methodologies, design, and underlying systems, is
+the intellectual property of RockStar Law and is protected by
+copyright, trademark, and other intellectual property laws.
+
+You are granted a limited, non-exclusive, non-transferable license
+to access and use the Platform for educational purposes during the
+period of your authorized access.
+
+You may not:
+  - Copy, modify, distribute, or create derivative works of the
+    Platform
+  - Reverse engineer, decompile, or disassemble any part of the
+    Platform
+  - Use the Platform to develop a competing product
+  - Remove or alter any proprietary notices on the Platform
+  - Use automated tools (bots, scrapers, etc.) to access the
+    Platform
+
+User-generated content (your simulated filings, submissions, and
+work product) remains your intellectual property, subject to the
+license you grant RockStar Law in Section 1.8.
+
+1.8 USER CONTENT
+
+By submitting content through the Platform (including but not
+limited to simulated filings, uploaded documents, mark drawings,
+specimens, and written responses), you grant RockStar Law a
+worldwide, non-exclusive, royalty-free license to use, store,
+display, and process that content for the purposes of:
+
+  - Operating the Platform
+  - Providing AI-generated feedback and grading
+  - Sharing your work with the professor(s) you have authorized
+  - Improving the Platform's educational quality
+
+You retain ownership of your content. RockStar Law will not sell
+your individual student work product to third parties.
+
+1.9 PROHIBITED CONDUCT
+
+You agree not to:
+
+  - Use the Platform for any unlawful purpose
+  - Submit content that is defamatory, harassing, threatening, or
+    discriminatory
+  - Submit real personally identifiable information of third parties
+    without their consent (use the placeholder values provided by
+    the Platform)
+  - Attempt to gain unauthorized access to other users' accounts or
+    submissions
+  - Interfere with the proper functioning of the Platform
+  - Misrepresent yourself as a faculty member, student, or
+    institutional administrator if you are not
+  - Submit work that violates your law school's academic integrity
+    policies
+  - Use the Platform to conduct actual filings with real government
+    agencies or courts
+
+1.10 ACADEMIC INTEGRITY
+
+If you are a student, your use of the Platform is subject to the
+academic integrity policies of your law school. The Platform may
+record submission timestamps, IP addresses, and other metadata that
+could be relevant to academic integrity investigations conducted by
+your institution.
+
+1.11 TERMINATION
+
+RockStar Law may suspend or terminate your account at any time for
+violation of these Terms, for non-payment of fees, or for any other
+reason in our sole discretion. Upon termination:
+
+  - Your access to the Platform will end immediately
+  - Your data may be deleted in accordance with the Data Retention
+    Policy
+  - Sections of these Terms that by their nature should survive
+    (including Sections 1.7, 1.13, 1.14, 1.15) will survive
+
+You may terminate your account at any time by contacting
+support@rockstar.law or using the account deletion feature in your
+account settings.
+
+1.12 CHANGES TO THE PLATFORM AND TERMS
+
+RockStar Law reserves the right to modify the Platform and these
+Terms at any time. Material changes will be communicated via the
+email address associated with your account. Continued use of the
+Platform after notice of changes constitutes acceptance of the
+modified Terms.
+
+1.13 DISCLAIMERS
+
+THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT
+WARRANTY OF ANY KIND. ROCKSTAR LAW DISCLAIMS ALL WARRANTIES,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+NON-INFRINGEMENT.
+
+ROCKSTAR LAW DOES NOT WARRANT THAT THE PLATFORM WILL BE
+UNINTERRUPTED, ERROR-FREE, SECURE, OR THAT DEFECTS WILL BE
+CORRECTED.
+
+ROCKSTAR LAW DOES NOT WARRANT THAT PLATFORM REPLICAS OF GOVERNMENT
+FILING SYSTEMS ARE COMPLETE, CURRENT, OR ACCURATE IN EVERY DETAIL.
+THE PLATFORM IS A TRAINING TOOL AND IS NOT A SUBSTITUTE FOR
+CONSULTING THE LIVE GOVERNMENT FILING SYSTEM AT THE TIME OF AN
+ACTUAL FILING.
+
+1.14 LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, ROCKSTAR LAW AND ITS
+OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS WILL NOT BE LIABLE FOR
+ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE
+DAMAGES, INCLUDING BUT NOT LIMITED TO LOST PROFITS, LOST DATA, OR
+DAMAGES ARISING FROM RELIANCE ON PLATFORM-GENERATED OUTPUT.
+
+ROCKSTAR LAW'S TOTAL LIABILITY ARISING OUT OF OR RELATING TO THESE
+TERMS OR YOUR USE OF THE PLATFORM SHALL NOT EXCEED THE AMOUNT YOU
+HAVE PAID TO ROCKSTAR LAW IN THE TWELVE (12) MONTHS PRECEDING THE
+CLAIM.
+
+1.15 INDEMNIFICATION
+
+You agree to indemnify and hold harmless RockStar Law and its
+officers, directors, employees, and agents from any claims, losses,
+or damages arising out of:
+
+  - Your use of the Platform
+  - Your violation of these Terms
+  - Your violation of any law or third-party right
+  - Any content you submit through the Platform
+
+1.16 GOVERNING LAW AND DISPUTE RESOLUTION
+
+These Terms are governed by the laws of the State of Florida, without
+regard to its conflict of laws principles. Any dispute arising out of
+or relating to these Terms or the Platform shall be resolved
+exclusively in the state or federal courts located in Broward County,
+Florida, and you consent to the personal jurisdiction of those
+courts.
+
+1.17 GENERAL PROVISIONS
+
+  Entire Agreement: These Terms, together with the Privacy Policy
+  and any other policies referenced herein, constitute the entire
+  agreement between you and RockStar Law.
+
+  Severability: If any provision of these Terms is found to be
+  unenforceable, the remaining provisions will remain in full force
+  and effect.
+
+  No Waiver: RockStar Law's failure to enforce any provision of
+  these Terms is not a waiver of that provision.
+
+  Assignment: You may not assign these Terms without RockStar Law's
+  written consent. RockStar Law may assign these Terms freely.
+
+1.18 CONTACT
+
+Questions about these Terms should be directed to:
+legal@rockstar.law
+
+═══════════════════════════════════════════════════════════════════════
+2. PRIVACY POLICY
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+RockStar Law respects your privacy. This Privacy Policy explains how
+we collect, use, disclose, and safeguard your information when you
+use the Platform.
+
+2.1 INFORMATION WE COLLECT
+
+We collect the following categories of information:
+
+INFORMATION YOU PROVIDE DIRECTLY:
+  - Identity information: enrollment name, preferred name/nickname,
+    title (Mr., Mrs., Miss, Dr., Professor, Dean), date of birth
+  - Contact information: university email, additional emails, mobile
+    phone number, mailing address
+  - Photo: a headshot uploaded during registration
+  - Educational information: law school, year (1L, 2L, 3L, 4L), full-
+    time/part-time status, undergraduate institution, expected
+    graduation date, concentration or specialization
+  - Professional information (for professors): law school, courses
+    taught, title, biographical information
+  - Institutional information (for university accounts): institution
+    name, administrative contacts, course catalog, billing
+    information
+  - Payment information: processed by third-party payment processors;
+    RockStar Law receives confirmation of payment but not full
+    payment card numbers
+
+INFORMATION COLLECTED AUTOMATICALLY:
+  - Usage data: pages viewed, features used, time spent, navigation
+    patterns
+  - Submission data: filings completed, drafts saved, time-to-
+    completion metrics
+  - Device and connection data: IP address, browser type, operating
+    system, device identifiers
+  - Cookies and similar technologies (see Cookie Policy)
+
+INFORMATION FROM THIRD PARTIES:
+  - Roster information provided by professors or institutions
+  - Course catalog data provided by institutions
+  - Authentication data from sign-in providers (if used)
+
+2.2 HOW WE USE YOUR INFORMATION
+
+We use your information to:
+  - Provide, maintain, and improve the Platform
+  - Match students to professor rosters using fuzzy name matching
+  - Generate AI-based feedback and grading on student submissions
+  - Send notifications about assignments, grades, and platform
+    updates
+  - Process payments and manage subscriptions
+  - Communicate with you about your account
+  - Detect and prevent fraud, abuse, and security incidents
+  - Comply with legal obligations
+  - Develop new features and improve the Platform's educational
+    quality
+
+2.3 HOW WE SHARE YOUR INFORMATION
+
+We share your information only as described below:
+
+WITH YOUR PROFESSOR(S):
+  Student submissions, grades, and feedback are shared with the
+  professor(s) you have authorized in your account. Professors see
+  both your enrollment name and preferred name in grading contexts.
+
+WITH YOUR INSTITUTION:
+  If your institution has an institutional account, summary
+  information about your participation may be shared with
+  institutional administrators for billing and academic-integrity
+  purposes.
+
+WITH SERVICE PROVIDERS:
+  We share information with third-party service providers who help
+  us operate the Platform, including:
+    - Cloud hosting providers (Vercel)
+    - Database and authentication providers (Supabase)
+    - Payment processors (Stripe)
+    - SMS providers (Twilio)
+    - AI service providers (OpenAI) — for grading and feedback
+      generation
+  These providers are bound by confidentiality obligations and may
+  use your information only as needed to provide their services.
+
+WITH LEGAL AUTHORITIES:
+  We may disclose information when required by law, court order, or
+  to respond to lawful requests from government authorities,
+  including investigation of academic integrity matters by your
+  institution.
+
+IN BUSINESS TRANSACTIONS:
+  If RockStar Law is involved in a merger, acquisition, or sale of
+  assets, your information may be transferred as part of that
+  transaction.
+
+WE DO NOT SELL YOUR PERSONAL INFORMATION to third parties for their
+marketing purposes.
+
+2.4 DATA SECURITY
+
+We implement reasonable administrative, technical, and physical
+safeguards to protect your information. However, no system is
+perfectly secure, and we cannot guarantee absolute security.
+
+If we discover a security breach affecting your personal
+information, we will notify you in accordance with applicable law.
+
+2.5 DATA RETENTION
+
+We retain your information for as long as your account is active
+and as needed to provide the Platform. After account closure, we
+retain certain information as required by law, for legitimate
+business purposes (such as resolving disputes, enforcing
+agreements, and preventing fraud), or as described in our Data
+Retention Policy.
+
+2.6 YOUR PRIVACY RIGHTS
+
+Depending on your jurisdiction, you may have the following rights:
+
+  - Right to access your personal information
+  - Right to correct inaccurate information
+  - Right to delete your information (subject to legal limitations)
+  - Right to restrict or object to processing
+  - Right to data portability
+  - Right to withdraw consent
+
+To exercise these rights, contact privacy@rockstar.law. We will
+respond within the timeframes required by applicable law.
+
+2.7 CALIFORNIA RESIDENTS (CCPA/CPRA)
+
+California residents have additional rights under the California
+Consumer Privacy Act, including:
+  - Right to know what personal information is collected
+  - Right to know whether personal information is sold or disclosed
+  - Right to opt out of the sale of personal information (we do not
+    sell personal information)
+  - Right to non-discrimination for exercising these rights
+
+To exercise California-specific rights, contact privacy@rockstar.law.
+
+2.8 EUROPEAN UNION RESIDENTS (GDPR)
+
+If you are located in the European Union, your personal information
+is processed under the legal bases of contract performance,
+legitimate interests, and consent. You have rights under the GDPR
+including access, rectification, erasure, restriction, portability,
+and objection. The data controller is RockStar Law. Contact
+privacy@rockstar.law for GDPR-related inquiries.
+
+2.9 INTERNATIONAL DATA TRANSFERS
+
+The Platform is operated from the United States. If you access the
+Platform from outside the United States, your information will be
+transferred to and processed in the United States, which may have
+data protection laws different from those in your country.
+
+2.10 CHANGES TO THIS POLICY
+
+We may update this Privacy Policy from time to time. Material changes
+will be communicated via email. The "Effective Date" at the top
+indicates when this policy was last revised.
+
+2.11 CONTACT
+
+Privacy questions should be directed to:
+privacy@rockstar.law
+
+═══════════════════════════════════════════════════════════════════════
+3. ACCEPTABLE USE POLICY
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+This Acceptable Use Policy ("AUP") sets forth the rules governing
+your conduct on the Platform. Violation of this AUP may result in
+suspension or termination of your account.
+
+3.1 ACCEPTABLE USES
+
+The Platform is intended for:
+  - Law school students completing assigned coursework
+  - Law school faculty preparing and grading assignments
+  - Institutional administrators managing access and billing
+
+3.2 PROHIBITED USES
+
+You may not use the Platform to:
+
+  ATTEMPT REAL FILINGS:
+    - Submit fabricated information to actual government filing
+      systems based on Platform exercises
+    - Use Platform-generated documents in real legal proceedings
+    - Represent Platform output as official legal advice or
+      government records
+
+  IMPERSONATE OTHERS:
+    - Create accounts using another person's identity
+    - Misrepresent your role (student vs. professor vs. admin)
+    - Submit work claiming to be from another person
+
+  VIOLATE ACADEMIC INTEGRITY:
+    - Submit work created by another student
+    - Allow another student to submit work you created on their
+      behalf
+    - Use the Platform in violation of your law school's honor code
+
+  VIOLATE PRIVACY:
+    - Submit real personally identifiable information of third
+      parties without authorization (always use Platform-provided
+      placeholder values)
+    - Attempt to access another user's account or submissions
+    - Share screenshots of other users' work without permission
+
+  HARM THE PLATFORM:
+    - Use bots, scrapers, or automated tools to access the Platform
+    - Attempt to reverse engineer or copy the Platform
+    - Introduce malware, viruses, or harmful code
+    - Conduct denial-of-service attacks
+    - Probe, scan, or test the vulnerability of the Platform
+
+  ENGAGE IN HARMFUL CONDUCT:
+    - Harass, threaten, or discriminate against other users
+    - Submit content that is defamatory, obscene, or unlawful
+    - Use the Platform to facilitate illegal activity
+
+3.3 REPORTING VIOLATIONS
+
+If you become aware of a violation of this AUP, please report it to:
+abuse@rockstar.law
+
+3.4 ENFORCEMENT
+
+RockStar Law reserves the right to investigate suspected violations
+and take appropriate action, including but not limited to:
+  - Warning the user
+  - Suspending the account
+  - Terminating the account
+  - Notifying the user's institution
+  - Notifying law enforcement when appropriate
+
+═══════════════════════════════════════════════════════════════════════
+4. EDUCATIONAL DISCLAIMER
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+THIS IS A CRITICAL DISCLAIMER. READ CAREFULLY.
+
+4.1 PLATFORM PURPOSE
+
+RockStar Law is a legal education simulation platform. Its purpose is
+to train law students by providing faithful replicas of real legal
+filing systems. The Platform exists solely for educational and
+training purposes.
+
+4.2 NOT A LAW FIRM
+
+RockStar Law is not a law firm. RockStar Law does not provide legal
+representation, legal advice, or legal services to users.
+
+4.3 NO ATTORNEY-CLIENT RELATIONSHIP
+
+Use of the Platform does not create an attorney-client relationship
+between you and:
+  - RockStar Law
+  - John Taddeo
+  - Any other person, professor, or entity associated with the
+    Platform
+  - Any AI system used in the Platform
+
+Communications through the Platform are not protected by the
+attorney-client privilege.
+
+4.4 NOT LEGAL ADVICE
+
+No information, document, output, simulation result, AI-generated
+feedback, grading rubric, office action, or other content produced
+by or through the Platform constitutes legal advice. Platform
+content is for educational purposes only.
+
+If you need legal advice for a real legal matter, consult a licensed
+attorney in your jurisdiction.
+
+4.5 NO REAL FILINGS
+
+The Platform does not file documents with any real government agency
+or court. Simulated filings on the Platform have no legal effect.
+Information submitted to the Platform is not transmitted to:
+  - The U.S. Patent and Trademark Office
+  - The U.S. Copyright Office
+  - The U.S. Securities and Exchange Commission
+  - The IRS
+  - The Florida Division of Corporations
+  - Any state, federal, or local court
+  - Any other government agency or judicial body
+
+4.6 ACCURACY OF REPLICAS
+
+RockStar Law strives to replicate real filing systems accurately.
+However:
+  - Government filing systems change over time, and Platform replicas
+    may not reflect the most current version of any real system
+  - Platform replicas may contain errors, omissions, or
+    simplifications
+  - Validation rules, fee amounts, processing times, and other
+    details on the Platform may differ from those of the real system
+  - Before making any actual legal filing, you must consult the live
+    government system at the time of the filing
+
+4.7 USE AT YOUR OWN RISK
+
+Reliance on Platform content for any real-world legal decision is at
+your own risk. RockStar Law disclaims all liability for harm arising
+from such reliance.
+
+4.8 PROFESSIONAL RESPONSIBILITY
+
+If you are a licensed attorney or legal professional using the
+Platform for educational purposes, your professional responsibility
+obligations remain unchanged. The Platform does not relieve you of
+any duty owed to clients or the courts.
+
+═══════════════════════════════════════════════════════════════════════
+5. REFUND AND CANCELLATION POLICY
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+5.1 INDIVIDUAL ACCESS REFUNDS
+
+If you purchased individual access to the Platform, you may request a
+refund within fourteen (14) days of your initial purchase, provided
+that:
+  - You have completed fewer than 25% of the assigned exercises in
+    your purchased module(s)
+  - You have not received AI-generated grading or feedback that you
+    have submitted to a professor
+
+Refund requests after the 14-day window or after substantial use of
+the Platform will be evaluated on a case-by-case basis.
+
+5.2 INSTITUTIONAL LICENSING REFUNDS
+
+Refunds for institutional licenses are governed by the separate
+written agreement between RockStar Law and the licensing institution.
+
+5.3 CANCELLATION
+
+You may cancel your account at any time through your account
+settings or by contacting support@rockstar.law. Cancellation:
+  - Stops future billing immediately
+  - Does not entitle you to a refund of fees already paid (except as
+    provided in Section 5.1)
+  - Ends your access to the Platform at the end of the current
+    billing period
+
+5.4 NON-REFUNDABLE FEES
+
+The following are non-refundable:
+  - Setup fees
+  - One-time module access fees after the 14-day refund window
+  - Charges for completed exercises that have been graded
+  - Fees for previous billing periods
+
+5.5 REFUND METHOD
+
+Approved refunds will be issued to the original payment method used
+for the purchase, typically within 5-10 business days.
+
+5.6 REFUND REQUESTS
+
+To request a refund, contact:
+billing@rockstar.law
+
+═══════════════════════════════════════════════════════════════════════
+6. COOKIE POLICY
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+6.1 WHAT ARE COOKIES
+
+Cookies are small text files stored on your device when you visit a
+website. They allow the website to remember your actions and
+preferences over time.
+
+6.2 COOKIES WE USE
+
+ESSENTIAL COOKIES (cannot be disabled):
+  - Authentication cookies that keep you logged in
+  - Security cookies that protect against unauthorized access
+  - Session cookies that maintain your progress through filings
+
+FUNCTIONAL COOKIES:
+  - Preference cookies that remember your settings
+  - Language and accessibility preferences
+
+ANALYTICS COOKIES:
+  - Usage analytics that help us improve the Platform
+  - Performance monitoring cookies
+
+6.3 THIRD-PARTY COOKIES
+
+Some cookies are set by third-party services we use, including:
+  - Payment processors (during checkout)
+  - Analytics providers
+  - Authentication providers
+
+6.4 MANAGING COOKIES
+
+You can control cookies through your browser settings. Disabling
+essential cookies will prevent the Platform from functioning
+properly.
+
+6.5 CHANGES
+
+We may update this Cookie Policy from time to time. Material changes
+will be communicated through the Platform.
+
+═══════════════════════════════════════════════════════════════════════
+7. ACCESSIBILITY STATEMENT
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+7.1 OUR COMMITMENT
+
+RockStar Law is committed to making the Platform accessible to all
+users, including those with disabilities. We strive to comply with
+the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA and the
+Americans with Disabilities Act (ADA).
+
+7.2 IMPORTANT NOTE REGARDING REPLICA SYSTEMS
+
+The Platform's filing-system replicas intentionally reproduce the
+user experience of real government filing systems, which often have
+known accessibility limitations. The RockStar Law shell (landing
+page, dashboards, account management) is designed to meet modern
+accessibility standards. The replica filing systems may carry over
+some of the accessibility limitations of the real systems they
+replicate, because doing so is part of the educational mission.
+
+7.3 ACCOMMODATIONS
+
+If you have a disability that affects your ability to use the
+Platform, contact accessibility@rockstar.law to request
+accommodations. Possible accommodations include:
+  - Extended time on simulated exam exercises
+  - Alternative input methods
+  - Screen reader optimization where compatible
+  - Coordination with your institution's disability services office
+
+7.4 FEEDBACK
+
+We welcome feedback on the Platform's accessibility. Please send
+feedback to accessibility@rockstar.law.
+
+═══════════════════════════════════════════════════════════════════════
+8. INTELLECTUAL PROPERTY POLICY
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+8.1 ROCKSTAR LAW'S INTELLECTUAL PROPERTY
+
+The RockStar Law name, the RockStar Law brand and design, and all
+Platform software, content, simulations, rubrics, and grading
+methodologies are the intellectual property of RockStar Law.
+
+8.2 GOVERNMENT FILING SYSTEM REPLICAS
+
+The Platform replicates the workflow, terminology, and visual
+presentation of various government filing systems for educational
+purposes. The Platform does not claim ownership of:
+  - Government agency names, logos, or seals
+  - Government form names or numbers
+  - Statutory or regulatory language
+
+References to and replicas of government systems are made under
+principles of fair use for educational and training purposes.
+
+8.3 USER CONTENT
+
+You retain ownership of content you submit through the Platform,
+subject to the license you grant RockStar Law in the Terms of
+Service.
+
+8.4 THIRD-PARTY INTELLECTUAL PROPERTY
+
+The Platform may include third-party content, libraries, and tools.
+Such third-party materials remain the property of their respective
+owners and are used under appropriate licenses.
+
+═══════════════════════════════════════════════════════════════════════
+9. STUDENT CODE OF CONDUCT
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+As a student using RockStar Law, you agree to:
+
+9.1 ACADEMIC INTEGRITY
+
+  - Complete all assigned work yourself
+  - Not share your account credentials with others
+  - Not submit work created by another person
+  - Not allow another student to submit your work
+  - Comply with your law school's honor code and academic integrity
+    policies
+
+9.2 RESPECT FOR OTHERS
+
+  - Treat fellow students, professors, and Platform staff with
+    respect
+  - Not harass, threaten, or discriminate against any user
+  - Not share other users' work or personal information without
+    permission
+
+9.3 DATA INTEGRITY
+
+  - Use only Platform-provided placeholder data for personal
+    identifiers (do not submit real SSNs, real entity names, or real
+    third-party PII)
+  - Submit accurate information about yourself during registration
+  - Maintain accurate enrollment and contact information
+
+9.4 RESPONSIBLE USE
+
+  - Use the Platform only for its intended educational purpose
+  - Do not attempt to use Platform-generated content for real legal
+    filings
+  - Report security issues or vulnerabilities responsibly to
+    security@rockstar.law
+
+9.5 CONSEQUENCES OF VIOLATIONS
+
+Violations may result in:
+  - Account suspension or termination
+  - Notification to your law school's academic integrity office
+  - Loss of course credit (subject to your institution's policies)
+  - Legal action in serious cases
+
+═══════════════════════════════════════════════════════════════════════
+10. PROFESSOR AND INSTITUTION AGREEMENT
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+10.1 PROFESSOR RESPONSIBILITIES
+
+As a professor using RockStar Law, you agree to:
+
+  - Use the Platform only with currently enrolled students
+  - Maintain accurate roster information
+  - Protect student privacy and submissions
+  - Use grading information consistent with your institution's
+    policies
+  - Not share student work with unauthorized third parties
+  - Comply with FERPA and other applicable privacy laws
+
+10.2 INSTITUTIONAL RESPONSIBILITIES
+
+Institutions with formal RockStar Law accounts agree to:
+
+  - Designate authorized administrators
+  - Provide accurate roster and course catalog information
+  - Pay applicable institutional fees
+  - Notify RockStar Law of administrator changes
+  - Comply with the institutional licensing agreement
+
+10.3 STUDENT WORK ACCESS
+
+Professors may access:
+  - Student submissions assigned to their courses
+  - Grading rubrics and AI-generated feedback for those submissions
+  - Student progress data within their courses
+
+Professors may not:
+  - Access submissions from courses they do not teach
+  - Share student work with parties outside the educational context
+  - Use student work for purposes other than educational evaluation
+
+10.4 GRADING AUTHORITY
+
+RockStar Law's AI-generated grading is provided as a tool for
+professors. Final grading authority rests with the professor.
+Professors may use, modify, or disregard AI-generated grades
+according to their pedagogical judgment.
+
+═══════════════════════════════════════════════════════════════════════
+11. DATA RETENTION AND ACCOUNT DELETION
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+11.1 ACTIVE ACCOUNT DATA
+
+While your account is active, we retain your information as needed
+to provide the Platform.
+
+11.2 RETENTION AFTER ACCOUNT CLOSURE
+
+After account closure, we retain certain information for the
+following purposes and durations:
+
+  - Financial records: 7 years (tax and audit requirements)
+  - Student work product: 3 years (institutional academic records
+    requirements)
+  - Account access logs: 1 year (security and fraud prevention)
+  - Backup copies: 90 days (disaster recovery)
+
+11.3 ACCOUNT DELETION REQUESTS
+
+You may request deletion of your account by contacting
+privacy@rockstar.law. We will:
+
+  - Delete or anonymize your personal information within 30 days,
+    subject to legal retention requirements
+  - Preserve student work product if required by your institution
+    for academic integrity or grade verification purposes
+  - Confirm completion of the deletion request
+
+11.4 LEGAL HOLDS
+
+If your information is subject to a legal hold (litigation,
+investigation, regulatory inquiry), we may retain it beyond standard
+retention periods until the hold is released.
+
+═══════════════════════════════════════════════════════════════════════
+12. DMCA / COPYRIGHT INFRINGEMENT POLICY
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+12.1 RESPECT FOR COPYRIGHT
+
+RockStar Law respects the intellectual property rights of others and
+expects users to do the same. We respond to clear notices of alleged
+copyright infringement under the Digital Millennium Copyright Act
+(DMCA).
+
+12.2 FILING A DMCA NOTICE
+
+If you believe that material on the Platform infringes your
+copyright, you may submit a DMCA notice to our designated agent:
+
+  Designated Copyright Agent
+  RockStar Law
+  Email: dmca@rockstar.law
+
+Your notice must include:
+  - A physical or electronic signature
+  - Identification of the copyrighted work
+  - Identification of the allegedly infringing material with enough
+    detail to locate it
+  - Your contact information
+  - A statement that you have a good faith belief that the use is
+    not authorized
+  - A statement, under penalty of perjury, that the information in
+    your notice is accurate and that you are authorized to act on
+    behalf of the copyright owner
+
+12.3 COUNTER-NOTICES
+
+If material you posted has been removed under a DMCA notice and you
+believe the removal was in error, you may submit a counter-notice
+to dmca@rockstar.law containing the elements required by 17 U.S.C.
+§ 512(g)(3).
+
+12.4 REPEAT INFRINGERS
+
+RockStar Law will terminate the accounts of users who are repeat
+infringers.
+
+═══════════════════════════════════════════════════════════════════════
+13. CHILDREN'S PRIVACY (COPPA)
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+The Platform is intended for use by adults (age 18 and older).
+RockStar Law does not knowingly collect personal information from
+children under the age of 13.
+
+If you believe a child under 13 has provided personal information to
+the Platform, contact privacy@rockstar.law immediately. We will
+delete such information promptly upon verification.
+
+═══════════════════════════════════════════════════════════════════════
+14. FERPA COMPLIANCE STATEMENT
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+14.1 FERPA OVERVIEW
+
+The Family Educational Rights and Privacy Act (FERPA) protects the
+privacy of student education records.
+
+14.2 ROCKSTAR LAW AS A SCHOOL OFFICIAL
+
+When RockStar Law provides services to a law school under an
+institutional agreement, RockStar Law may act as a "school official"
+under FERPA with a "legitimate educational interest" in student
+records, as designated by the institution.
+
+In that capacity, RockStar Law:
+
+  - Uses student information only for the educational purposes for
+    which it was provided
+  - Does not redisclose student records except as authorized by the
+    institution or required by law
+  - Maintains appropriate safeguards for student records
+  - Returns or destroys student records when the institutional
+    relationship ends, except as needed for legal compliance
+
+14.3 STUDENT RIGHTS UNDER FERPA
+
+Students have rights under FERPA including:
+  - The right to inspect and review their educational records
+  - The right to request correction of inaccurate records
+  - The right to consent to certain disclosures of their records
+  - The right to file a complaint with the U.S. Department of
+    Education
+
+Rights under FERPA are exercised through the student's law school,
+not directly through RockStar Law.
+
+═══════════════════════════════════════════════════════════════════════
+15. CONSUMER HEALTH DATA NOTICE
+═══════════════════════════════════════════════════════════════════════
+
+Effective Date: [DATE]
+
+This Consumer Health Data Notice supplements the Privacy Policy and
+provides specific information about how RockStar Law collects, uses,
+shares, and protects consumer health data, as required by the
+Washington My Health My Data Act, the Nevada Consumer Health Data
+Privacy Law (SB 370), the Connecticut Data Privacy Act, and similar
+state laws governing health-related personal information.
+
+15.1 WHAT IS CONSUMER HEALTH DATA
+
+For purposes of this Notice, "Consumer Health Data" includes
+personal information that is linked or reasonably linkable to a
+consumer and that identifies the consumer's past, present, or
+future physical or mental health status. This includes information
+relating to:
+
+  - Diagnoses or anticipated diagnoses
+  - Conditions and treatments
+  - Diseases
+  - Disabilities and accessibility needs
+  - Mental health conditions and treatments
+  - Medications
+  - Reproductive or sexual health information
+  - Gender-affirming care information
+  - Biometric data
+  - Genetic data
+  - Precise location information that could indicate an attempt to
+    acquire or receive health services
+  - Information that identifies a consumer seeking health services
+  - Any inference about a consumer's health derived from non-health
+    information
+
+15.2 CONSUMER HEALTH DATA WE COLLECT
+
+In connection with operating the Platform, RockStar Law may collect
+the following categories of Consumer Health Data:
+
+ACCOMMODATION REQUESTS:
+  When a student requests academic accommodations through the
+  Platform — such as extended time on simulated exam exercises,
+  flexible deadlines, alternative input methods, or other
+  modifications related to a disability or health condition — we
+  may collect:
+    - The nature of the requested accommodation
+    - Information identifying the student as a person with a
+      qualifying condition
+    - Documentation provided in support of the accommodation request
+    - Communications about the accommodation between the student,
+      RockStar Law, and the student's institution
+
+DISABILITY-RELATED INFORMATION:
+  Information voluntarily provided by users in connection with
+  accessibility services, including disclosure of disabilities,
+  conditions, or limitations that affect Platform use.
+
+PHOTO/IMAGE DATA:
+  The headshot photo uploaded during registration, which may
+  contain visual information that could be processed as biometric
+  data under certain interpretations of state law. RockStar Law does
+  not currently use facial recognition technology or extract
+  biometric identifiers from photos.
+
+INSTITUTION-PROVIDED INFORMATION:
+  Health-related accommodation information provided to RockStar Law
+  by a user's law school or institution under an institutional
+  licensing agreement.
+
+15.3 HOW WE USE CONSUMER HEALTH DATA
+
+RockStar Law uses Consumer Health Data only for the following
+purposes:
+
+  - To provide accommodations and accessibility services requested
+    by users
+  - To comply with the Americans with Disabilities Act (ADA),
+    Section 504 of the Rehabilitation Act, and other applicable
+    accessibility laws
+  - To coordinate with institutions on accommodations consistent
+    with FERPA and institutional disability services policies
+  - To respond to user requests and inquiries
+  - To comply with legal obligations
+  - To protect the safety and rights of users
+
+RockStar Law does NOT use Consumer Health Data for:
+  - Targeted advertising
+  - Profiling for commercial purposes
+  - Selling to third parties
+  - Marketing of health-related products or services
+
+15.4 SHARING OF CONSUMER HEALTH DATA
+
+RockStar Law shares Consumer Health Data only as follows:
+
+WITH YOUR PROFESSOR:
+  When a student receives an accommodation, the existence of the
+  accommodation (but not necessarily the underlying medical reason)
+  is shared with the professor as needed to implement the
+  accommodation in the course.
+
+WITH YOUR INSTITUTION:
+  Information shared with the institution's disability services
+  office or designated FERPA-authorized officials in coordination
+  of accommodations.
+
+WITH SERVICE PROVIDERS:
+  Limited sharing with service providers (cloud hosting, database)
+  who are bound by confidentiality obligations and may use the data
+  only as needed to provide their services.
+
+WITH LEGAL AUTHORITIES:
+  When required by law, court order, or to respond to lawful
+  government requests.
+
+WE DO NOT SELL CONSUMER HEALTH DATA. We do not share Consumer
+Health Data with third parties for their marketing purposes.
+
+15.5 YOUR RIGHTS REGARDING CONSUMER HEALTH DATA
+
+You have the following rights regarding your Consumer Health Data:
+
+RIGHT TO CONFIRM AND ACCESS:
+  You may confirm whether RockStar Law collects, shares, or sells
+  Consumer Health Data about you and request access to that data.
+
+RIGHT TO WITHDRAW CONSENT:
+  Where we rely on your consent to collect or process Consumer
+  Health Data, you may withdraw that consent at any time. Withdrawal
+  of consent may affect our ability to provide certain services,
+  including accommodations.
+
+RIGHT TO DELETE:
+  You may request deletion of your Consumer Health Data, subject to
+  exceptions where retention is required by law or to fulfill the
+  purpose for which the data was collected (e.g., maintaining
+  records of accommodations granted while a subscription was
+  active).
+
+RIGHT TO NON-DISCRIMINATION:
+  RockStar Law will not discriminate against you for exercising
+  your rights under this Notice or applicable law.
+
+15.6 EXERCISING YOUR RIGHTS
+
+To exercise your rights under this Notice, contact:
+  privacy@rockstar.law
+
+Please specify "Consumer Health Data Request" in your communication.
+We will respond within the timeframes required by applicable law,
+typically within 45 days. We may need to verify your identity before
+processing your request.
+
+15.7 CONSENT FOR COLLECTION
+
+By submitting an accommodation request or other Consumer Health
+Data through the Platform, you consent to RockStar Law's collection,
+use, and sharing of that data as described in this Notice. You may
+withdraw consent as described in Section 15.5.
+
+15.8 DATA SECURITY
+
+RockStar Law applies enhanced security measures to Consumer Health
+Data, including:
+
+  - Restricted access to authorized personnel only
+  - Encryption of Consumer Health Data in storage and in transit
+  - Access logging for audit purposes
+  - Confidentiality agreements with personnel who handle the data
+
+15.9 DATA RETENTION
+
+Consumer Health Data is retained only as long as necessary for the
+purpose for which it was collected, plus any retention required by
+law. Specifically:
+
+  - Active accommodation records: retained while the user has an
+    active subscription
+  - Accommodation history records: retained for 3 years after the
+    subscription ends, to support institutional academic records
+    requirements
+  - Records subject to legal holds: retained as required by law
+
+15.10 INTERACTION WITH FERPA
+
+Where Consumer Health Data is part of an educational record under
+the Family Educational Rights and Privacy Act (FERPA), the FERPA
+Compliance Statement (Section 14) also applies. If there is a
+conflict between this Notice and FERPA requirements, FERPA controls.
+
+15.11 STATE-SPECIFIC RIGHTS
+
+WASHINGTON RESIDENTS:
+  Washington residents have specific rights under the My Health My
+  Data Act (MHMDA), including the right to confirm collection,
+  access data, request deletion, and withdraw consent. Washington
+  residents may also file complaints with the Washington Attorney
+  General.
+
+NEVADA RESIDENTS:
+  Nevada residents have rights under SB 370, including the right to
+  request that RockStar Law not sell or share Consumer Health Data.
+  RockStar Law does not sell Consumer Health Data.
+
+CONNECTICUT RESIDENTS:
+  Connecticut residents have rights under the Connecticut Data
+  Privacy Act, including additional protections for sensitive data
+  categories.
+
+OTHER STATES:
+  As state consumer health data laws expand, additional rights may
+  apply. Contact privacy@rockstar.law for jurisdiction-specific
+  inquiries.
+
+15.12 CHANGES TO THIS NOTICE
+
+RockStar Law may update this Notice from time to time. Material
+changes will be communicated via the email address associated with
+your account. The "Effective Date" at the top of this Notice
+indicates when it was last revised.
+
+15.13 CONTACT
+
+For questions or concerns about Consumer Health Data:
+  privacy@rockstar.law
+  Subject line: "Consumer Health Data"
+
+═══════════════════════════════════════════════════════════════════════
+16. CONTACT AND DISPUTES
+═══════════════════════════════════════════════════════════════════════
+
+16.1 GENERAL CONTACT
+
+  General inquiries:    info@rockstar.law
+  Support:              support@rockstar.law
+  Sales:                sales@rockstar.law
+
+16.2 LEGAL CONTACT
+
+  Legal/Terms:          legal@rockstar.law
+  Privacy:              privacy@rockstar.law
+  Accessibility:        accessibility@rockstar.law
+  DMCA Notices:         dmca@rockstar.law
+  Security:             security@rockstar.law
+  Abuse Reports:        abuse@rockstar.law
+  Billing:              billing@rockstar.law
+
+16.3 MAILING ADDRESS
+
+  RockStar Law
+  [STREET ADDRESS]
+  [CITY], FL [ZIP]
+
+16.4 DISPUTES
+
+Disputes are governed by the dispute resolution provisions of the
+Terms of Service. Before filing any formal claim, we encourage you
+to contact legal@rockstar.law to attempt informal resolution.
+
+═══════════════════════════════════════════════════════════════════════
+END OF POLICIES PAGE
+═══════════════════════════════════════════════════════════════════════
