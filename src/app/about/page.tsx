@@ -1,122 +1,331 @@
 import { SiteShell } from "@/components/site-shell";
 
-const sections = [
+const modules = [
   {
-    heading: "THE FIRST FILING",
-    paragraphs: [
-      "Every new lawyer remembers their first real filing.",
-      "The client signs the engagement letter. The supervising partner says go file this. And the new lawyer — top of their class in Business Associations, Trademarks, or Securities Reg — opens the actual government system for the first time and discovers that knowing the law is not the same as knowing the form.",
-      "Sunbiz. USPTO TEAS and Trademark Center. The Copyright Office's eCO portal. EDGAR. The IRS EIN application. State court e-filing portals.",
-      "Each one has its own logic, its own terminology, its own quirks, its own buried buttons and inscrutable validation rules. Each one takes hours to navigate the first time and minutes once you know it.",
-      "A first copyright filing can take three hours. The tenth takes fifteen minutes.",
-      "A first Form D between the SEC and EDGAR can take a full day. The tenth takes forty minutes.",
-      "That gap is where billable hours go to die — or where new lawyers build the operational fluency that defines the rest of their careers.",
-      "Rockstar Law moves that learning curve into law school.",
-    ],
+    name: "StarBiz",
+    description:
+      "RockStar Law's Portal based upon the State of Florida's Business Filings Portal. File articles of incorporations, articles of organization (LLCs), bylaws, membership agreements, annual reports, amendments, fictitious name filings, state trademark applications and more.",
   },
   {
-    heading: "WHAT IT IS",
-    paragraphs: [
-      "Rockstar Law is the first platform that lets law students train on faithful replicas of the actual filing systems they will use in practice.",
-      'Not slideshow walkthroughs. Not screenshots in a casebook. Not abstract descriptions of what the system "does." The actual interface — same fields, same validation rules, same workflow, same dated government UX — recreated as a training environment where students can fail, retry, and develop fluency without a client\'s clock running.',
-      "Six modules, expanding:",
-    ],
-    list: [
-      "StarBiz — Florida business filings (LLC, corporation, partnership, fictitious name, annual report, state trademark)",
-      "Trademark — USPTO Trademark Center",
-      "Copyright — U.S. Copyright Office eCO",
-      "SEC — EDGAR / Form D",
-      "IRS — EIN application",
-      "Courts — State and federal e-filing",
-    ],
-    closing: [
-      "Plus a growing library of practice simulation projects — drafted by working entertainment, IP, and business attorneys based on real matters. Contract drafting, multi-party negotiation, client counseling, issue-spotting across overlapping areas of law. The work that fills a transactional lawyer's actual day.",
-    ],
+    name: "USPTO",
+    description:
+      "Search the trademark database, file trademark applications, receive and answer office actions, file renewals, file for incontestability and more.",
   },
   {
-    heading: "WHY THE UGLY UX IS THE POINT",
-    paragraphs: [
-      "A reasonable person looking at our replicas might ask why the interface looks like it was designed in 1998.",
-      "Because that's exactly what it looks like in real life.",
-      "This is the most important design decision the platform has made. The instinct to \"modernize\" government UX would feel impressive in a demo. It would also be useless training. A graduate who has practiced on a clean redesign of Sunbiz will be slowed down on every line of the actual Sunbiz on day one of practice. A graduate who has practiced on a faithful replica recognizes the patterns immediately.",
-      "Government interfaces are dated, inconvenient, and sometimes genuinely confusing. They are also where the work happens. We replicate them as they are because that's the point of training.",
-    ],
+    name: "U.S. Copyright Office.",
+    description:
+      "File copyright applications, assign rights, record security interests, file DMCA designated agent registrations, file DMCA Section 1201 exemption petitions, file Notices of Intention and more.",
   },
   {
-    heading: "HOW THE PLATFORM WORKS FOR PROFESSORS",
-    paragraphs: [
-      "Three modes for every module. The interface never changes — only the support layer does.",
-    ],
-    list: [
-      "GUIDED — Full hints visible. Definitions, warnings, examples. First exposure.",
-      "ASSISTED — Hints on demand. Students attempt independently and ask for help when needed. Where most learning happens.",
-      "EXAM — No hints. Real-world conditions. Final assessment.",
-    ],
-    closing: [
-      "Professors set the mode per assignment. Same module covers introduction, mid-course practice, and final exam.",
-      "AI-assisted grading runs against rubrics built by practicing attorneys, refined through real student submissions. Field-level accuracy on filings. Substantive evaluation on memoranda and contracts. Final grading authority always rests with the professor.",
-      "Roster matching handles the inevitable name variations between official enrollment lists and the names students actually go by. Submissions, grades, and feedback flow through the platform.",
-      "Free professor accounts. Student subscriptions individually or through institutional licensing. Institutional registration unlocks course catalog integration and FERPA-compliant data handling.",
-    ],
+    name: "SECURITIES EXCHANGE COMMISSION",
+    description: "File Form Ds, 10-Ks, 10-Qs, 8-Ks, insider transaction reports and more.",
   },
   {
-    heading: "WHAT GRADUATES CAN DO ON DAY ONE",
-    paragraphs: [
-      "Adopt Rockstar Law and your graduates arrive at their first job already fluent in the systems that consume the first six months of every new lawyer's career.",
-      "They have filed simulated LLCs. They have prosecuted simulated trademark applications through publication. They have registered simulated copyrights across multiple work types. They have drafted Form D filings and submitted them through a faithful EDGAR replica. They have responded to simulated cease-and-desist letters. They have negotiated simulated entertainment contracts under realistic client constraints.",
-      "When their supervising partner says go file this, they know what that actually means. They know what to ask before they touch the system. They know how long it should take. They know what mistakes to avoid because they have already made those mistakes — in the classroom, where the cost of a mistake is a learning moment instead of a malpractice exposure.",
-      "That is what your graduates will be able to do. That is what your school will be known for.",
-    ],
+    name: "INTERNAL REVENUE SERVICE.",
+    description: "File for Employer Identification Numbers & more",
   },
   {
-    heading: "THE BOTTOM LINE",
-    paragraphs: [
-      "Filing systems are not glamorous. Drafting a Form D is not the work that fills the law school highlight reel.",
-      "But filing systems are the operational backbone of every transactional, IP, and business practice. The lawyers who handle them with confidence are more valuable to their firms, their clients, and themselves.",
-      "Train here. Litigate anywhere. Graduate courtroom ready.",
-    ],
+    name: "State, Federal and International Courts.",
+    description:
+      "We're adding more state, federal and international courts every month. If we do not feature them already, your local court systems can be ready within five (5) business days of registration.",
   },
 ] as const;
+
+const modes = [
+  {
+    name: "Guided",
+    description: "Full hints visible. Definitions, warnings, examples. First exposure.",
+  },
+  {
+    name: "Assisted",
+    description:
+      "Hints on demand. Students attempt independently and ask for help when needed. Where most learning happens.",
+  },
+  {
+    name: "Exam",
+    description: "No hints. Real-world conditions. Final assessment.",
+  },
+] as const;
+
+const dayOneItems = [
+  "They have filed LLCs.",
+  "They have prosecuted trademark applications through publication.",
+  "They have registered copyrights across multiple work types.",
+  "They have drafted Form D filings and submitted them through a faithful EDGAR replica.",
+  "They have responded to cease-and-desist letters.",
+  "They have negotiated entertainment contracts under realistic client constraints.",
+] as const;
+
+function SectionHeading({ children }: { children: string }) {
+  return (
+    <div className="space-y-4 text-center">
+      <h2 className="text-2xl font-semibold uppercase tracking-[0.08em] text-slate-950 md:text-3xl">
+        {children}
+      </h2>
+      <span className="mx-auto block h-0.5 w-10 bg-red-700" aria-hidden="true" />
+    </div>
+  );
+}
+
+function EllipsisDivider() {
+  return (
+    <div className="my-4 text-center text-xl font-bold leading-none tracking-[0.5em] text-red-700 md:my-5">
+      . . .
+    </div>
+  );
+}
 
 export default function AboutPage() {
   return (
     <SiteShell title="About RockStar Law" description="" hideIntro>
       <section className="flex justify-center py-2 md:py-4">
-        <div className="w-full max-w-4xl space-y-12 md:space-y-14">
-          <header className="space-y-4">
+        <div className="w-full max-w-[760px] space-y-14 px-2 text-base leading-7 text-slate-900 md:space-y-16 md:text-lg">
+          <header className="space-y-6 border-b border-slate-300 pb-12 text-center">
             <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
               ABOUT ROCKSTAR LAW
             </h1>
-            <p className="text-lg font-medium leading-7 text-slate-950 md:text-xl">
-              Train Here. Litigate Anywhere. Graduate Courtroom Ready.
+            <p className="space-y-1 text-lg italic leading-7 text-slate-700 md:text-xl">
+              <span className="block">Train Here. Litigate Anywhere.</span>
+              <span className="block font-semibold not-italic text-slate-950">Graduate Courtroom Ready.</span>
             </p>
           </header>
 
-          {sections.map((section) => (
-            <section key={section.heading} className="space-y-5">
-              <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">
-                {section.heading}
-              </h2>
+          <section className="space-y-8">
+            <p className="text-center text-xl font-semibold leading-8 text-slate-950 md:text-2xl">
+              Every new lawyer remembers their first real filing.
+            </p>
 
-              <div className="space-y-4 text-base leading-7 text-slate-900 md:text-lg">
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
+            <p>
+              The client signs the engagement letter. The supervising partner says go file this. And
+              the new lawyer — top of their class in Business Associations, Trademarks, or Securities
+              Reg — opens the actual government system for the first time and discovers that knowing
+              the law is not the same as knowing the form.
+            </p>
 
-                {"list" in section && section.list ? (
-                  <ul className="space-y-3 pl-5">
-                    {section.list.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                ) : null}
+            <div className="space-y-2 text-center text-lg font-semibold tracking-[0.02em] text-slate-950 md:text-xl">
+              <p>
+                <span>SUNBIZ</span>
+                <span className="mx-3 text-red-700">·</span>
+                <span>USPTO</span>
+                <span className="mx-3 text-red-700">·</span>
+                <span>eCO</span>
+              </p>
+              <p>
+                <span>EDGAR</span>
+                <span className="mx-3 text-red-700">·</span>
+                <span>IRS</span>
+                <span className="mx-3 text-red-700">·</span>
+                <span>Court e-Filing</span>
+              </p>
+            </div>
 
-                {"closing" in section && section.closing
-                  ? section.closing.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
-                  : null}
-              </div>
-            </section>
-          ))}
+            <div className="space-y-4">
+              <p>
+                Each one has its own logic, its own terminology, its own quirks, its own buried
+                buttons and inscrutable validation rules.
+              </p>
+              <p>Each one takes hours to navigate the first time and minutes once you know it.</p>
+            </div>
+
+            <div className="space-y-4 border-y border-slate-300 py-8 text-center">
+              <p className="text-slate-700">
+                A first copyright filing can take <span className="font-semibold text-red-700">three hours.</span>
+              </p>
+              <p className="font-semibold text-slate-950">The tenth takes fifteen minutes.</p>
+              <p className="pt-2 text-slate-700">
+                A first Form D between the SEC and EDGAR can take <span className="font-semibold text-red-700">a full day.</span>
+              </p>
+              <p className="font-semibold text-slate-950">The tenth takes forty minutes.</p>
+            </div>
+
+            <p>
+              That gap is where billable hours go to die — or where new lawyers build the operational
+              fluency that defines the rest of their careers.
+            </p>
+
+            <p className="text-center text-xl font-semibold italic leading-8 text-red-700 md:text-2xl">
+              Rockstar Law moves that learning curve into law school.
+            </p>
+
+            <p className="text-center text-lg italic leading-8 text-slate-950 md:text-xl">
+              Rockstar Law is the first platform that lets law students train on faithful replicas of
+              the actual filing systems they will use in practice.
+            </p>
+
+            <div className="space-y-3 text-center italic text-slate-900">
+              <p>Not slideshow walkthroughs.</p>
+              <p>Not screenshots in a casebook.</p>
+              <p>Not abstract descriptions of what the system &ldquo;does.&rdquo;</p>
+            </div>
+
+            <p>
+              The actual interface — same fields, same validation rules, same workflow, same dated
+              government UX — recreated as a training environment where students can fail, retry, and
+              develop fluency without a client&apos;s clock running.
+            </p>
+
+            <p className="text-center text-sm font-semibold uppercase tracking-[0.12em] text-red-700">
+              Six modules, expanding
+            </p>
+
+            <div className="border-t border-slate-300">
+              {modules.map((module) => (
+                <div
+                  key={module.name}
+                  className="grid gap-1 border-b border-slate-300 py-5 md:grid-cols-[160px_1fr] md:gap-6"
+                >
+                  <div className="text-lg font-semibold uppercase tracking-[0.05em] text-slate-950">
+                    {module.name}
+                  </div>
+                  <div className="italic text-slate-700">{module.description}</div>
+                </div>
+              ))}
+            </div>
+
+            <p>
+              Plus a growing library of practice simulation projects — drafted by working
+              entertainment, IP, and business attorneys based on real matters. Contract drafting,
+              multi-party negotiation, client counseling, issue-spotting across overlapping areas of
+              law. The work that fills a transactional lawyer&apos;s actual day.
+            </p>
+          </section>
+
+          <EllipsisDivider />
+
+          <section className="space-y-8">
+            <SectionHeading>WHY THE UGLY UX IS THE POINT</SectionHeading>
+
+            <p>
+              A reasonable person looking at our replicas might ask why the interface looks like it
+              was designed in 1998.
+            </p>
+
+            <p className="text-center text-xl font-semibold italic leading-8 text-red-700 md:text-2xl">
+              Because that&apos;s exactly what it looks like in real life.
+            </p>
+
+            <p>
+              This is the most important design decision the platform has made. The instinct to
+              &ldquo;modernize&rdquo; government UX would feel impressive in a demo. It would also be useless
+              training. A graduate who has practiced on a clean redesign of Sunbiz will be slowed
+              down on every line of the actual Sunbiz on day one of practice. A graduate who has
+              practiced on a faithful replica recognizes the patterns immediately.
+            </p>
+
+            <div className="space-y-3 text-center">
+              <p className="text-lg font-semibold leading-8 text-slate-950 md:text-xl">
+                Government interfaces are dated, inconvenient, and sometimes genuinely confusing.
+              </p>
+              <p className="text-lg italic leading-8 text-slate-950 md:text-xl">
+                They are also <span className="font-semibold not-italic">where the work happens.</span>
+              </p>
+            </div>
+
+            <p className="text-center">
+              We replicate them as they are
+              <br />
+              because <span className="font-semibold">that&apos;s the point of training.</span>
+            </p>
+          </section>
+
+          <EllipsisDivider />
+
+          <section className="space-y-8">
+            <SectionHeading>HOW THE PLATFORM WORKS FOR PROFESSORS</SectionHeading>
+
+            <p className="text-center text-lg font-semibold leading-8 text-slate-950 md:text-xl">
+              Three modes for every module.
+              <br />
+              The interface never changes — only the <span className="italic font-normal">support layer</span>{" "}
+              does.
+            </p>
+
+            <div className="border-t border-slate-300">
+              {modes.map((mode) => (
+                <div key={mode.name} className="border-b border-slate-300 py-6">
+                  <p className="mb-2 text-lg font-semibold uppercase tracking-[0.1em] text-red-700 md:text-xl">
+                    {mode.name}
+                  </p>
+                  <p className="text-[17px] leading-7 text-slate-700">{mode.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-4">
+              <p>
+                Professors set the mode per assignment. Same module covers introduction, mid-course
+                practice, and final exam.
+              </p>
+              <p>
+                AI-assisted grading runs against rubrics built by practicing attorneys, refined
+                through real student submissions. Field-level accuracy on filings. Substantive
+                evaluation on memoranda and contracts. Final grading authority always rests with the
+                professor.
+              </p>
+              <p>
+                Roster matching handles the inevitable name variations between official enrollment
+                lists and the names students actually go by. Submissions, grades, and feedback flow
+                through the platform.
+              </p>
+              <p>
+                Free professor accounts. Student subscriptions individually or through institutional
+                licensing. Institutional registration unlocks course catalog integration and
+                FERPA-compliant data handling.
+              </p>
+            </div>
+          </section>
+
+          <EllipsisDivider />
+
+          <section className="space-y-8">
+            <SectionHeading>YOUR GRADUATES CAN BE COURTROOM READY DAY ONE</SectionHeading>
+
+            <p className="text-center text-lg italic leading-8 text-slate-950 md:text-xl">
+              Adopt Rockstar Law and your graduates arrive at their first job already fluent in the
+              systems that consume the first six months of every new lawyer&apos;s career.
+            </p>
+
+            <ul className="space-y-4">
+              {dayOneItems.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="font-semibold leading-7 text-red-700" aria-hidden="true">
+                    →
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="space-y-4">
+              <p>When their supervising partner says go file this, they know what that actually means.</p>
+              <p>They know what to ask before they touch the system.</p>
+              <p>They know how long it should take.</p>
+              <p>
+                They know what mistakes to avoid because they have already made those mistakes — in
+                the classroom, where the cost of a mistake is a learning moment instead of a
+                malpractice exposure.
+              </p>
+            </div>
+
+            <p className="text-center text-xl font-semibold italic leading-8 text-red-700 md:text-2xl">
+              Finding work as a lawyer is easy if you can earn your firm money on your first day...that&apos;s why RockStar Law was created.
+            </p>
+          </section>
+
+          <EllipsisDivider />
+
+          <section className="space-y-8">
+            <SectionHeading>THE BOTTOM LINE</SectionHeading>
+
+            <div className="space-y-4">
+              <p>Practice does not make perfect. It makes permanent. That&apos;s why, &ldquo;How&rdquo; you practice is important.</p>
+            </div>
+
+            <p className="space-y-1 text-center text-xl font-semibold uppercase tracking-[0.05em] text-slate-950 md:text-2xl">
+              <span className="block">Train Here. Litigate Anywhere.</span>
+              <span className="block">Graduate Courtroom Ready.</span>
+            </p>
+          </section>
         </div>
       </section>
     </SiteShell>

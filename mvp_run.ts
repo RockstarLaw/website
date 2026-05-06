@@ -9,7 +9,9 @@ import type { RegistrationActionState } from "./src/lib/registration/types.ts";
 import { createSupabaseAdminClient } from "./src/lib/supabase/admin.ts";
 import { getStudentDashboardDataForUser } from "./src/lib/supabase/queries.ts";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const originalLoad = (Module as any)._load;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (Module as any)._load = function patchedLoad(
   request: string,
   parent: NodeModule | null,
