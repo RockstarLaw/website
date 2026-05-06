@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 
 import { registerStudent } from "@/lib/registration/actions";
+import { COUNTRIES, ENROLLMENT_STATUSES, LAW_SCHOOL_YEARS, US_STATES } from "@/lib/registration/options";
 import { initialRegistrationState } from "@/lib/registration/types";
 import type { SchoolOption } from "@/lib/supabase/queries";
 
@@ -52,7 +53,12 @@ export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }
       </label>
       <label className="grid gap-2">
         <span>Law school year</span>
-        <input name="lawSchoolYear" placeholder="1L, 2L, 3L" className={inputClassName} />
+        <select name="lawSchoolYear" className={inputClassName} defaultValue="">
+          <option value="">Select year</option>
+          {LAW_SCHOOL_YEARS.map((y) => (
+            <option key={y} value={y}>{y}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2 md:col-span-2">
         <span>Street address</span>
@@ -68,7 +74,12 @@ export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }
       </label>
       <label className="grid gap-2">
         <span>State</span>
-        <input name="state" required className={inputClassName} />
+        <select name="state" required className={inputClassName} defaultValue="">
+          <option value="" disabled>Select a state</option>
+          {US_STATES.map((s) => (
+            <option key={s.value} value={s.value}>{s.label}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2">
         <span>Postal code</span>
@@ -76,11 +87,20 @@ export function StudentRegistrationForm({ schools }: { schools: SchoolOption[] }
       </label>
       <label className="grid gap-2">
         <span>Country</span>
-        <input name="country" defaultValue="United States" required className={inputClassName} />
+        <select name="country" required className={inputClassName} defaultValue="United States">
+          {COUNTRIES.map((c) => (
+            <option key={c.value} value={c.value}>{c.label}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2 md:col-span-2">
         <span>Enrollment status</span>
-        <input name="enrollmentStatus" placeholder="Full-time, part-time, visiting" className={inputClassName} />
+        <select name="enrollmentStatus" className={inputClassName} defaultValue="">
+          <option value="">Select status</option>
+          {ENROLLMENT_STATUSES.map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2 md:col-span-2">
         <span>Undergraduate institution</span>

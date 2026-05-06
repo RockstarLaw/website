@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 
 import { registerProfessor } from "@/lib/registration/actions";
+import { COUNTRIES, PROFESSOR_TITLES, US_STATES } from "@/lib/registration/options";
 import { initialRegistrationState } from "@/lib/registration/types";
 import type { SchoolOption } from "@/lib/supabase/queries";
 
@@ -28,7 +29,12 @@ export function ProfessorRegistrationForm({ schools }: { schools: SchoolOption[]
       </label>
       <label className="grid gap-2">
         <span>Title</span>
-        <input name="title" placeholder="Professor, Adjunct Professor" className={inputClassName} />
+        <select name="title" className={inputClassName} defaultValue="">
+          <option value="">Select title</option>
+          {PROFESSOR_TITLES.map((t) => (
+            <option key={t} value={t}>{t}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2">
         <span>Mobile phone</span>
@@ -56,7 +62,12 @@ export function ProfessorRegistrationForm({ schools }: { schools: SchoolOption[]
       </label>
       <label className="grid gap-2">
         <span>State</span>
-        <input name="state" required className={inputClassName} />
+        <select name="state" required className={inputClassName} defaultValue="">
+          <option value="" disabled>Select a state</option>
+          {US_STATES.map((s) => (
+            <option key={s.value} value={s.value}>{s.label}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2">
         <span>Postal code</span>
@@ -64,7 +75,11 @@ export function ProfessorRegistrationForm({ schools }: { schools: SchoolOption[]
       </label>
       <label className="grid gap-2">
         <span>Country</span>
-        <input name="country" defaultValue="United States" required className={inputClassName} />
+        <select name="country" required className={inputClassName} defaultValue="United States">
+          {COUNTRIES.map((c) => (
+            <option key={c.value} value={c.value}>{c.label}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2 md:col-span-2">
         <span>University / school</span>

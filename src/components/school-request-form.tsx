@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 
 import { registerSchoolRequest } from "@/lib/registration/actions";
+import { COUNTRIES, US_STATES } from "@/lib/registration/options";
 import { initialRegistrationState } from "@/lib/registration/types";
 
 const inputClassName =
@@ -31,7 +32,12 @@ export function SchoolRequestForm() {
       </label>
       <label className="grid gap-2">
         <span>State</span>
-        <input name="state" required className={inputClassName} />
+        <select name="state" required className={inputClassName} defaultValue="">
+          <option value="" disabled>Select a state</option>
+          {US_STATES.map((s) => (
+            <option key={s.value} value={s.value}>{s.label}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2">
         <span>Postal code</span>
@@ -39,7 +45,11 @@ export function SchoolRequestForm() {
       </label>
       <label className="grid gap-2">
         <span>Country</span>
-        <input name="country" defaultValue="United States" required className={inputClassName} />
+        <select name="country" required className={inputClassName} defaultValue="United States">
+          {COUNTRIES.map((c) => (
+            <option key={c.value} value={c.value}>{c.label}</option>
+          ))}
+        </select>
       </label>
       <label className="grid gap-2">
         <span>Admin contact name</span>
