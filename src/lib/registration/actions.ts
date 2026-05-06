@@ -200,11 +200,11 @@ export async function registerStudent(
       throw new Error(profileError?.message ?? "Unable to create student profile.");
     }
 
-    const onboarding = await updateStudentOnboardingStatus(profile.id);
+    await updateStudentOnboardingStatus(profile.id);
 
     return {
       error: "",
-      success: `Student profile created successfully. Profile ID: ${profile.id}. Onboarding status: ${onboarding.onboardingStatus}`,
+      success: "Account created. Sign in to get started.",
     };
   } catch (error) {
     if (authUserId) {
@@ -339,11 +339,11 @@ export async function registerProfessor(
       throw new Error(professorCourseError.message);
     }
 
-    const onboarding = await updateProfessorOnboardingStatus(profile.id);
+    await updateProfessorOnboardingStatus(profile.id);
 
     return {
       error: "",
-      success: `Professor profile created successfully. Profile ID: ${profile.id}. Courses stored: ${insertedCourses.length}. Onboarding status: ${onboarding.onboardingStatus}`,
+      success: "Account created. Sign in to get started.",
     };
   } catch (error) {
     if (authUserId) {
@@ -416,6 +416,6 @@ export async function registerSchoolRequest(
 
   return {
     error: "",
-    success: "School request submitted. It is now marked pending review.",
+    success: "School request submitted. We'll review it and be in touch.",
   };
 }
