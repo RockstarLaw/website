@@ -276,6 +276,7 @@ export const COUNTRIES = [
   { value: "Vatican City", label: "Vatican City" },
   { value: "Venezuela", label: "Venezuela" },
   { value: "Vietnam", label: "Vietnam" },
+  { value: "Wakanda", label: "Wakanda" },
   { value: "Yemen", label: "Yemen" },
   { value: "Zambia", label: "Zambia" },
   { value: "Zimbabwe", label: "Zimbabwe" },
