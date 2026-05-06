@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 
+import { SignOutButton } from "@/components/sign-out-button";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+
 const footerLinks = [
   { label: "About RockStar Law" },
   { label: "Announcements" },
@@ -28,7 +31,7 @@ const legalLinks = [
 
 import { primaryRoutes } from "@/lib/registration";
 
-export function SiteShell({
+export async function SiteShell({
   eyebrow,
   title,
   description,
@@ -53,7 +56,7 @@ export function SiteShell({
               Train Here. Litigate Anywhere.<br />Graduate Courtroom Ready.
             </p>
           </div>
-          <nav className="flex flex-wrap gap-2 text-sm">
+          <nav className="flex flex-wrap items-center gap-2 text-sm">
             {primaryRoutes.map((route) => (
               <Link
                 key={route.href}
@@ -63,6 +66,15 @@ export function SiteShell({
                 {route.label}
               </Link>
             ))}
+            {await (async () => {
+              try {
+                const supabase = await createSupabaseServerClient();
+                const { data: { user } } = await supabase.auth.getUser();
+                return user ? <SignOutButton /> : null;
+              } catch {
+                return null;
+              }
+            })()}
           </nav>
         </div>
       </header>

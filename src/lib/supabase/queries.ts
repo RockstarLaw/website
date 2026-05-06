@@ -184,12 +184,83 @@ export type StudentDashboardProfessorItem = {
 export type StudentDashboardData = {
   studentId: string;
   studentName: string;
+  firstName: string;
+  preferredName: string | null;
   universityName: string;
   universityAddress: Record<string, unknown> | null;
   onboardingStatus: string;
   progressState: "incomplete" | "fully complete";
   professors: StudentDashboardProfessorItem[];
 };
+
+export type StudentModule = {
+  id: string;
+  slug: string;
+  display_name: string;
+  icon_path: string;
+  module_url: string;
+  category: string;
+  jurisdiction: string;
+};
+
+export async function getStudentEnabledModules(studentId: string): Promise<StudentModule[]> {
+  const admin = createSupabaseAdminClient();
+
+  // Step 1: professor IDs linked to this student
+  const { data: links, error: linksError } = await admin
+    .from("student_professor_links")
+    .select("professor_id")
+    .eq("student_id", studentId)
+    .neq("status", "inactive");
+
+  if (linksError) throw new Error(linksError.message);
+  if (!links || links.length === 0) return [];
+
+  const professorIds = links.map((l) => l.professor_id);
+
+  // Step 2: course IDs taught by those professors
+  const { data: profCourses, error: profCoursesError } = await admin
+    .from("professor_courses")
+    .select("course_id")
+    .in("professor_id", professorIds)
+    .neq("status", "inactive");
+
+  if (profCoursesError) throw new Error(profCoursesError.message);
+  if (!profCourses || profCourses.length === 0) return [];
+
+  const courseIds = [...new Set(profCourses.map((pc) => pc.course_id))];
+
+  // Step 3: modules enabled for those courses (join course_modules → modules)
+  const { data: courseModules, error: courseModulesError } = await admin
+    .from("course_modules")
+    .select("module_id, modules(id, slug, display_name, icon_path, module_url, category, jurisdiction)")
+    .in("course_id", courseIds);
+
+  if (courseModulesError) throw new Error(courseModulesError.message);
+  if (!courseModules || courseModules.length === 0) return [];
+
+  // Deduplicate by module id
+  const seen = new Set<string>();
+  const modules: StudentModule[] = [];
+
+  for (const cm of courseModules) {
+    const mod = Array.isArray(cm.modules) ? cm.modules[0] : cm.modules;
+    if (!mod || seen.has((mod as StudentModule).id)) continue;
+    seen.add((mod as StudentModule).id);
+    modules.push(mod as StudentModule);
+  }
+
+  // Sort: federal → state → county → international, then display_name
+  const categoryOrder: Record<string, number> = { federal: 0, state: 1, county: 2, international: 3 };
+  modules.sort((a, b) => {
+    const aOrd = categoryOrder[a.category] ?? 4;
+    const bOrd = categoryOrder[b.category] ?? 4;
+    if (aOrd !== bOrd) return aOrd - bOrd;
+    return a.display_name.localeCompare(b.display_name);
+  });
+
+  return modules;
+}
 
 export type ProfessorDashboardData = {
   professorId: string;
@@ -209,7 +280,7 @@ export async function getStudentDashboardDataForUser(
   const supabase = createSupabaseAdminClient();
   const { data: student, error: studentError } = await supabase
     .from("student_profiles")
-    .select("id, first_name, last_name, university_id, university_name_snapshot, university_address_snapshot, onboarding_status")
+    .select("id, first_name, last_name, preferred_name, university_id, university_name_snapshot, university_address_snapshot, onboarding_status")
     .eq("user_id", userId)
     .maybeSingle();
 
@@ -254,6 +325,8 @@ export async function getStudentDashboardDataForUser(
     return {
       studentId: student.id,
       studentName: `${student.first_name} ${student.last_name}`,
+      firstName: student.first_name,
+      preferredName: (student.preferred_name as string | null) ?? null,
       universityName: student.university_name_snapshot,
       universityAddress: (student.university_address_snapshot as Record<string, unknown> | null) ?? null,
       onboardingStatus: student.onboarding_status,
@@ -387,6 +460,8 @@ export async function getStudentDashboardDataForUser(
   return {
     studentId: student.id,
     studentName: `${student.first_name} ${student.last_name}`,
+    firstName: student.first_name,
+    preferredName: (student.preferred_name as string | null) ?? null,
     universityName: student.university_name_snapshot,
     universityAddress: (student.university_address_snapshot as Record<string, unknown> | null) ?? null,
     onboardingStatus: student.onboarding_status,
