@@ -1,4 +1,4 @@
-export type AppRole = "student" | "professor" | "school_admin" | "admin";
+export type AppRole = "student" | "professor" | "university" | "admin";
 
 export function getDashboardRouteForRole(role: AppRole) {
   switch (role) {
@@ -6,7 +6,8 @@ export function getDashboardRouteForRole(role: AppRole) {
       return "/dashboard/student";
     case "professor":
       return "/dashboard/professor";
-    case "school_admin":
+    case "university":
+      return "/dashboard/university";
     case "admin":
       return "/dashboard/admin";
     default:

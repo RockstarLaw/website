@@ -55,7 +55,7 @@ export async function requireAccessContext(override?: AccessContext | null): Pro
 export async function requireAdminAccess(override?: AccessContext | null): Promise<AccessContext> {
   const context = await requireAccessContext(override);
 
-  if (context.role !== "admin" && context.role !== "school_admin") {
+  if (context.role !== "admin" && context.role !== "university") {
     throw new Error("Unauthorized.");
   }
 
@@ -97,7 +97,7 @@ export async function assertStudentAccess(requestedUserId: string, override?: Ac
   if (
     context.userId !== requestedUserId &&
     context.role !== "admin" &&
-    context.role !== "school_admin"
+    context.role !== "university"
   ) {
     throw new Error("Unauthorized.");
   }
