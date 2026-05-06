@@ -48,30 +48,6 @@ const howItWorksSteps = [
   },
 ];
 
-const footerLinks = [
-  "About RockStar Law",
-  "Announcements",
-  "Community",
-  "Security Center",
-  "University Center",
-  "Policies",
-  "Affiliates",
-  "Product Safety",
-  "Tips",
-  "Help & Contact",
-  "Site Map",
-];
-
-const legalLinks = [
-  "Accessibility",
-  "User Agreement",
-  "Privacy",
-  "Consumer Health Data",
-  "Payments Terms of Use",
-  "Cookies",
-  "CA Privacy Notice",
-  "Your Privacy Choices",
-];
 
 export default function HomePage() {
   return (
@@ -207,39 +183,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <footer className="mt-10 bg-slate-100 px-6 py-12 text-slate-800 md:px-8 md:py-14">
-          <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm leading-7 md:gap-x-10 md:gap-y-5">
-            {footerLinks.map((item) =>
-              item === "Policies" ? (
-                <Link key={item} href="/policies">
-                  {item}
-                </Link>
-              ) : item === "Security Center" ? (
-                <Link key={item} href="/security-center">
-                  {item}
-                </Link>
-              ) : (
-                <span key={item}>{item}</span>
-              ),
-            )}
-          </div>
 
-          <p className="mt-10 text-sm leading-7 text-slate-700 md:mt-12">
-            Copyright © 2026 RockStar Law Education Services Inc. All Rights Reserved.
-          </p>
-
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm leading-7 text-slate-700 md:mt-6 md:gap-x-8 md:gap-y-4">
-            {legalLinks.map((item) =>
-              item === "User Agreement" ? (
-                <Link key={item} href="/policies/user-agreement">
-                  {item}
-                </Link>
-              ) : (
-                <span key={item}>{item}</span>
-              ),
-            )}
-          </div>
-        </footer>
       </div>
     </SiteShell>
   );
