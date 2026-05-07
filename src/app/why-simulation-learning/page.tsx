@@ -23,7 +23,6 @@ function getRtfHtml(): { css: string; body: string } {
   return { css, body };
 }
 
-// No More Dumping (landscape) moved to text area alongside Superman.
 // Bottom row: three full paintings, natural aspect ratios, no crop.
 const BOTTOM_PAINTINGS = [
   {
@@ -63,22 +62,7 @@ export default async function WhySimulationLearningPage() {
         <style dangerouslySetInnerHTML={{ __html: "p.p2, p.p3 { font-size: 18px !important; }" }} />
 
         {/* ── Hero + text block ──────────────────────────────────────── */}
-        {/* No More Dumping (landscape) floats left; Superman (portrait) floats right.
-            Text wraps in between and continues full-width below both paintings. */}
         <div className="rtf-content overflow-hidden">
-
-          {/* Left float — No More Dumping (landscape 3:2) */}
-          <div className="mb-4 mr-0 w-full md:float-left md:mb-2 md:mr-8 md:w-[42%]">
-            <Image
-              src="/images/projects/braingasm_x/Braingasm_X_No_More_Dumping.jpg"
-              alt="No More Dumping"
-              title="No More Dumping"
-              width={1536}
-              height={1024}
-              className="w-full h-auto rounded-sm"
-              priority
-            />
-          </div>
 
           {/* Right float — Superman / The Man in Steel (portrait 2:3) */}
           <div className="mb-4 ml-0 w-full md:float-right md:mb-2 md:ml-8 md:w-[42%]">
