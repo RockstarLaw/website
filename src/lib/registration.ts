@@ -55,7 +55,7 @@ export const matchStatuses = [
 export const primaryRoutes = [
   { label: "Home", href: "/" },
   { label: "About RockStar Law", href: "/about" },
-  { label: "PROJECT SHOP", href: "/project-shop" },
+  { label: "Project Shop", href: "/project-shop" },
   { label: "Pricing", href: "/get-started" },
   { label: "For Universities", href: "/register/school" },
   { label: "Log In", href: "/login" },
