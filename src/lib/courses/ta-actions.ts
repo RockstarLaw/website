@@ -116,20 +116,28 @@ export async function inviteTA(
     };
   }
 
-  const { error: insertError } = await admin.from("course_tas").insert({
-    professor_course_id: professorCourseId,
-    user_id: studentProfile.id,
-    slot_type: "free",
-    status: "pending",
-    invited_by_professor: professor.id,
-  });
+  try {
+    const { error: insertError } = await admin.from("course_tas").insert({
+      professor_course_id: professorCourseId,
+      user_id: studentProfile.id,
+      slot_type: "free",
+      status: "pending",
+      invited_by_professor: professor.id,
+    });
 
-  if (insertError) {
-    // Trigger exception message contains "slot limit"
-    if (insertError.message.includes("slot limit")) {
-      return { error: "Free TA slots are full for this course.", success: "" };
+    if (insertError) {
+      // Trigger exception for slot cap
+      if (insertError.message.includes("slot limit")) {
+        return { error: "Free TA slots are full for this course.", success: "" };
+      }
+      // Partial unique index violation — active invite already exists
+      if (insertError.code === "23505") {
+        return { error: "This student is already invited to this course.", success: "" };
+      }
+      return { error: "Unable to send invitation. Please try again.", success: "" };
     }
-    return { error: insertError.message, success: "" };
+  } catch {
+    return { error: "Unable to send invitation. Please try again.", success: "" };
   }
 
   revalidatePath("/professor/courses", "layout");

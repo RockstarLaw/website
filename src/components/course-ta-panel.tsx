@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import { inviteTA, revokeTA } from "@/lib/courses/ta-actions";
 import { initialTAState } from "@/lib/courses/ta-types";
@@ -48,7 +49,16 @@ export function CourseTAPanel({
   professorCourseId: string;
   initialTAs: CourseTARow[];
 }) {
+  const router = useRouter();
   const [inviteState, inviteAction, invitePending] = useActionState(inviteTA, initialTAState);
+
+  // Clear stale invite message after success by refreshing the server component.
+  useEffect(() => {
+    if (inviteState.success) {
+      const t = setTimeout(() => router.refresh(), 1500);
+      return () => clearTimeout(t);
+    }
+  }, [inviteState.success, router]);
 
   const freeSlotsUsed = initialTAs.filter(
     (ta) =>
