@@ -18,8 +18,8 @@ const FILING_TYPES = [
     label:       "Profit Corporation",
     description: "File Articles of Incorporation — Form CR2E022",
     fee:         "$70.00",
-    href:        null,
-    active:      false,
+    href:        "/starbiz/filing/profit-corp",
+    active:      true,
   },
   {
     label:       "Non-Profit Corporation",
