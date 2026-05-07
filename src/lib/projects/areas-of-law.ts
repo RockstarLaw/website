@@ -13,12 +13,13 @@ export const AREAS_OF_LAW = [
   "Employment / Labor Law",
   "Entertainment Law",
   "Environmental Law",
-  "Estate Planning / Trusts & Estates",
+  "Estate Planning",
   "Evidence",
   "Family Law",
+  "1st Amendment",
   "Health Law",
   "Immigration",
-  "Intellectual Property (Survey)",
+  "Intellectual Property",
   "International Law",
   "Legal Ethics",
   "Legal Writing & Research",
@@ -35,6 +36,8 @@ export const AREAS_OF_LAW = [
   "Torts",
   "Trademark",
   "Trial Advocacy",
+  "Wills",
+  "Wills & Trusts",
 ] as const;
 
 export type AreaOfLaw = (typeof AREAS_OF_LAW)[number];

@@ -101,6 +101,15 @@ export async function createProject(
       return { error: `Invalid area(s) of law: ${invalidAreas.join(", ")}`, success: "" };
     }
 
+    // Image 1 is required — projects without visuals cannot appear in the Project Shop
+    const image1File = formData.get("image_1") as File | null;
+    if (!image1File || image1File.size === 0) {
+      return {
+        error: "Please upload at least one catalog image (Image 1) — your project needs visual marketing to appear in the Project Shop.",
+        success: "",
+      };
+    }
+
     // Generate project ID before storage uploads so paths can use it
     const projectId = crypto.randomUUID();
     const admin = createSupabaseAdminClient();

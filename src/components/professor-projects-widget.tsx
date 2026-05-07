@@ -327,7 +327,7 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
                 Title <span className="text-red-700 ml-0.5">*</span>
                 <HelpTooltip text="The official name of your project as it appears in the Project Shop and on student dashboards. Be specific and memorable." />
               </span>
-              <input type="text" name="title" required maxLength={200} placeholder="e.g. Nike v. Kool Kiy" className={inputCls} />
+              <input type="text" name="title" required maxLength={200} placeholder="That's Eat-tertainment: The Frank & Dino's Theme Restaurant Problem" className={inputCls} />
             </label>
             <label className="grid gap-2">
               <span className="flex items-center text-sm font-medium text-slate-700">
@@ -398,7 +398,7 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
               Area of Law
               <HelpTooltip text="The legal subject matter this project teaches. Multi-select — most projects span multiple areas. Faculty filter the catalog by area to find projects relevant to their courses." />
             </span>
-            <div className="grid grid-flow-col grid-rows-12 grid-cols-3 gap-x-6 gap-y-2">
+            <div className="grid grid-flow-col grid-rows-13 grid-cols-3 gap-x-6 gap-y-2">
               {AREAS_OF_LAW.map((area) => (
                 <label key={area} className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" name="area_of_law" value={area} className="h-4 w-4 accent-red-700" />
@@ -411,11 +411,23 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
           {/* Catalog images */}
           <div className="grid gap-3">
             <span className="flex items-center text-sm font-medium text-slate-700">
-              Catalog images (optional)
-              <HelpTooltip text="Up to three visual assets for your project's storefront listing. The first image is the hero. Use images that capture the project's tone — illustration, photography, character art, screenshots." />
+              Catalog Images
+              <HelpTooltip text="At least one image is required. Without catalog images, your project cannot appear in the Project Shop. Up to three total — the first is the hero. Use visuals that capture the project's tone: illustration, photography, character art, screenshots." />
             </span>
             <div className="grid gap-3 md:grid-cols-3">
-              {[1, 2, 3].map((n) => (
+              <label className="grid gap-1.5">
+                <span className="flex items-center text-xs font-medium text-slate-700">
+                  Image 1 <span className="text-red-700 ml-0.5">*</span>
+                </span>
+                <input
+                  type="file"
+                  name="image_1"
+                  accept={ACCEPTED_IMAGES}
+                  required
+                  className="text-xs text-slate-600 file:mr-2 file:rounded-full file:border-0 file:bg-slate-100 file:px-2 file:py-1 file:text-xs file:text-slate-700 hover:file:bg-slate-200"
+                />
+              </label>
+              {[2, 3].map((n) => (
                 <label key={n} className="grid gap-1.5">
                   <span className="text-xs text-slate-500">Image {n}</span>
                   <input
