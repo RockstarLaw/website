@@ -4,9 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-
-export type TAActionState = { error: string; success: string };
-export const initialTAState: TAActionState = { error: "", success: "" };
+import type { TAActionState } from "./ta-types";
 
 async function getCurrentProfessor() {
   const supabase = await createSupabaseServerClient();

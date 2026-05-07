@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 
-import { initialTAState, inviteTA, revokeTA } from "@/lib/courses/ta-actions";
+import { inviteTA, revokeTA } from "@/lib/courses/ta-actions";
+import { initialTAState } from "@/lib/courses/ta-types";
 import type { CourseTARow } from "@/lib/supabase/queries";
 
 const inputClassName =
