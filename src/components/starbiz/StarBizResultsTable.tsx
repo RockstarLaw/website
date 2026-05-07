@@ -1,12 +1,13 @@
-// Sunbiz-faithful results table.
-// Phase 3: always empty-state. Slice 2 populates real entities.
+// Sunbiz-faithful results table. Document numbers link to entity detail.
+
+import Link from "next/link";
 
 type EntityRow = {
-  documentNumber: string;
+  document_number: string;
   name: string;
   status: string;
-  filingType: string;
-  filedDate: string;
+  filing_type: string;
+  filed_date: string;
 };
 
 const NAVY  = "#003366";
@@ -39,6 +40,7 @@ const monoStyle: React.CSSProperties = {
   fontSize: "11px",
 };
 
+export type { EntityRow };
 export function StarBizResultsTable({ rows = [] }: { rows?: EntityRow[] }) {
   return (
     <div>
@@ -77,12 +79,16 @@ export function StarBizResultsTable({ rows = [] }: { rows?: EntityRow[] }) {
             </tr>
           ) : (
             rows.map((row, i) => (
-              <tr key={row.documentNumber} style={{ backgroundColor: i % 2 === 1 ? YELLOW : WHITE }}>
-                <td style={monoStyle}>{row.documentNumber}</td>
-                <td style={{ ...tdStyle, color: "#800000", textDecoration: "underline", cursor: "pointer" }}>{row.name}</td>
+              <tr key={row.document_number} style={{ backgroundColor: i % 2 === 1 ? YELLOW : WHITE }}>
+                <td style={monoStyle}>
+                  <Link href={`/starbiz/entity/${row.document_number}`} style={{ color: "#800000", textDecoration: "underline" }}>
+                    {row.document_number}
+                  </Link>
+                </td>
+                <td style={{ ...tdStyle, color: "#800000" }}>{row.name}</td>
                 <td style={tdStyle}>{row.status}</td>
-                <td style={tdStyle}>{row.filingType}</td>
-                <td style={tdStyle}>{row.filedDate}</td>
+                <td style={tdStyle}>{row.filing_type}</td>
+                <td style={tdStyle}>{row.filed_date}</td>
               </tr>
             ))
           )}
