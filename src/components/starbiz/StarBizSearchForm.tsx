@@ -1,6 +1,8 @@
 // Sunbiz-faithful search form. Native GET form — on submit routes to
 // /starbiz/results?type=<type>&q=<query> for Slice 2 to pick up.
 
+import { HelpTip } from "@/components/assisted-mode/HelpTip";
+
 const NAVY = "#003366";
 const WHITE = "#FFFFFF";
 
@@ -51,7 +53,14 @@ function SearchByName() {
     <table cellPadding={4} cellSpacing={0} style={{ fontFamily: "Arial, Helvetica, sans-serif", fontSize: "12px" }}>
       <tbody>
         <tr>
-          <td style={labelStyle}>Entity Name:</td>
+          <td style={labelStyle}>
+            Entity Name:
+            {/* Demo HelpTip — proves component end-to-end. Slice 2 adds the rest. */}
+            <HelpTip
+              helpText="Search by the exact or partial name of a Florida business entity. Partial matches return entities whose names contain your search term."
+              label="Entity Name search"
+            />
+          </td>
           <td><input type="text" name="q" size={40} style={inputStyle} autoFocus /></td>
         </tr>
         <tr>

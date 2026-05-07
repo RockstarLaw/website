@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 
+import { AssistedModeToggle } from "@/components/assisted-mode/AssistedModeToggle";
+import { HelpTip } from "@/components/assisted-mode/HelpTip";
+
 // ─── Sunbiz-faithful palette ──────────────────────────────────────────────────
 const C = {
   cream:   "#F5F0E1",
@@ -105,8 +108,13 @@ export function StarBizShell({ children }: { children: ReactNode }) {
             <div style={{ fontSize: "10px", color: "#aabbcc" }}>
               (parody — for educational simulation)
             </div>
-            {/* AssistedMode toggle slot — Phase 4 inserts here */}
-            <div id="assisted-mode-slot" />
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
+              <AssistedModeToggle />
+              <HelpTip
+                helpText="Assisted Mode shows help tooltips next to fields when ON. When OFF, the help icons stop working and you're on your own — like the real Sunbiz. Toggle anytime."
+                label="Assisted Mode"
+              />
+            </div>
           </div>
         </div>
       </div>
