@@ -23,8 +23,8 @@ function getRtfHtml(): { css: string; body: string } {
   return { css, body };
 }
 
-// Bottom row: 4 items. Love Is Love is treated as two paintings (shown twice)
-// so all four columns are the same width. Natural aspect ratios, no crop.
+// Bottom row: same height for all three. Love Is Love (landscape) centered.
+// Portraits are narrower at the same height; landscape is wider — balanced.
 const BOTTOM_PAINTINGS = [
   {
     file: "Braingasm_X_Keep_Girls_Out_of_Male_Sports.jpg",
@@ -33,22 +33,16 @@ const BOTTOM_PAINTINGS = [
     height: 1536,
   },
   {
+    file: "Braingasm_X_Love_Is_Love.jpg",
+    title: "Love is Love",
+    width: 1536,
+    height: 1024,
+  },
+  {
     file: "Braingasm_X_The_Perfect_Body.jpg",
     title: "The Perfect Body",
     width: 1024,
     height: 1536,
-  },
-  {
-    file: "Braingasm_X_Love_Is_Love.jpg",
-    title: "Love is Love",
-    width: 1536,
-    height: 1024,
-  },
-  {
-    file: "Braingasm_X_Love_Is_Love.jpg",
-    title: "Love is Love",
-    width: 1536,
-    height: 1024,
   },
 ];
 
@@ -92,17 +86,17 @@ export default async function WhySimulationLearningPage() {
         <div className="clear-both" />
 
         {/* ── Three bottom paintings — full images, no crop ─────────── */}
-        <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
-          {BOTTOM_PAINTINGS.map(({ file, title, width, height }, i) => (
+        {/* Same height for all three; Love Is Love (landscape) naturally wider in center */}
+        <div className="mt-16 flex flex-wrap justify-center items-end gap-6">
+          {BOTTOM_PAINTINGS.map(({ file, title, width, height }) => (
             <Image
-              key={`${file}-${i}`}
+              key={file}
               src={`/images/projects/braingasm_x/${file}`}
               alt={title}
               title={title}
               width={width}
               height={height}
-              className="w-full h-auto"
-              sizes="(min-width: 768px) 25vw, 50vw"
+              style={{ height: "240px", width: "auto" }}
             />
           ))}
         </div>
