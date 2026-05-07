@@ -1164,6 +1164,22 @@ export async function getProjectsForTAUser(
   return groups;
 }
 
+export async function getRandomApprovedQuote(): Promise<{ quote: string; attribution: string } | null> {
+  const admin = createSupabaseAdminClient();
+  // Fetch all approved quotes and pick one randomly in JS.
+  // Dataset is small (O(100) rows) so this is efficient enough.
+  const { data, error } = await admin
+    .from("quote_submissions")
+    .select("quote, attribution")
+    .eq("status", "approved");
+
+  if (error) throw new Error(error.message);
+  if (!data || data.length === 0) return null;
+
+  const pick = data[Math.floor(Math.random() * data.length)];
+  return { quote: pick.quote, attribution: pick.attribution };
+}
+
 export async function getCurrentAppUserRole(): Promise<AppRole | null> {
   const supabase = await createSupabaseServerClient();
   const {
