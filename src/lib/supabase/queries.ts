@@ -870,6 +870,59 @@ export type CourseTARow = {
   };
 };
 
+export type StudentTARow = {
+  assignmentId: string;
+  professorCourseId: string;
+  courseName: string;
+  professorName: string; // "Professor {lastName}, Esq."
+  invitedAt: string;
+  acceptedAt: string | null;
+};
+
+export async function getStudentTAState(
+  studentProfileId: string,
+): Promise<{ pending: StudentTARow[]; accepted: StudentTARow[] }> {
+  const admin = createSupabaseAdminClient();
+  const { data, error } = await admin
+    .from("course_tas")
+    .select(
+      "id, status, invited_at, accepted_at, professor_course_id, professor_courses(custom_course_name, courses(course_name), professor_profiles(last_name))",
+    )
+    .eq("user_id", studentProfileId)
+    .in("status", ["pending", "accepted"])
+    .order("invited_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+
+  const rows: StudentTARow[] = (data ?? []).map((row) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pc = (Array.isArray(row.professor_courses) ? row.professor_courses[0] : row.professor_courses) as any;
+    const course = Array.isArray(pc?.courses) ? pc.courses[0] : pc?.courses;
+    const prof = Array.isArray(pc?.professor_profiles) ? pc.professor_profiles[0] : pc?.professor_profiles;
+    const courseName = pc?.custom_course_name ?? course?.course_name ?? "Course";
+    const lastName = prof?.last_name ?? "";
+    return {
+      assignmentId: row.id,
+      professorCourseId: row.professor_course_id,
+      courseName,
+      professorName: `Professor ${lastName}, Esq.`,
+      invitedAt: row.invited_at,
+      acceptedAt: (row.accepted_at as string | null) ?? null,
+    };
+  });
+
+  return {
+    pending: rows.filter((r) => {
+      const raw = (data ?? []).find((d) => d.id === r.assignmentId);
+      return raw?.status === "pending";
+    }),
+    accepted: rows.filter((r) => {
+      const raw = (data ?? []).find((d) => d.id === r.assignmentId);
+      return raw?.status === "accepted";
+    }),
+  };
+}
+
 export async function getCourseTAs(professorCourseId: string): Promise<CourseTARow[]> {
   const admin = createSupabaseAdminClient();
   const { data, error } = await admin

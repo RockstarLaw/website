@@ -1,8 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { StudentTAInvitations } from "@/components/student-ta-invitations";
 import { SiteShell } from "@/components/site-shell";
-import { getCurrentStudentDashboardData, getStudentEnabledModules } from "@/lib/supabase/queries";
+import {
+  getCurrentStudentDashboardData,
+  getStudentEnabledModules,
+  getStudentTAState,
+} from "@/lib/supabase/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -26,8 +31,9 @@ export default async function StudentDashboardPage() {
     );
   }
 
-  const [modules] = await Promise.all([
+  const [modules, taState] = await Promise.all([
     getStudentEnabledModules(dashboard.studentId),
+    getStudentTAState(dashboard.studentId),
   ]);
 
   const displayName = dashboard.preferredName ?? dashboard.firstName;
@@ -90,6 +96,39 @@ export default async function StudentDashboardPage() {
             <p className="text-sm text-slate-500">No modules enabled for your courses yet.</p>
           )}
         </section>
+
+        {/* ── TA Invitations (pending — only when non-empty) ──────────────── */}
+        {taState.pending.length > 0 && (
+          <section className="flex flex-col gap-4">
+            <SectionHeading>TA Invitations</SectionHeading>
+            <StudentTAInvitations pending={taState.pending} />
+          </section>
+        )}
+
+        {/* ── Your TA Assignments (accepted — only when non-empty) ─────────── */}
+        {taState.accepted.length > 0 && (
+          <section className="flex flex-col gap-4">
+            <SectionHeading>Your TA Assignments</SectionHeading>
+            <ul className="grid gap-4">
+              {taState.accepted.map((row) => (
+                <li key={row.assignmentId} className="border-b border-slate-200 pb-4">
+                  <p className="font-medium text-slate-950">{row.courseName}</p>
+                  <p className="text-sm text-slate-600">{row.professorName}</p>
+                  <p className="text-xs text-slate-400">
+                    Accepted{" "}
+                    {row.acceptedAt
+                      ? new Date(row.acceptedAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : ""}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* ── Your courses ──────────────────────────────────────────────────── */}
         <section className="flex flex-col gap-4">
