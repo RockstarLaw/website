@@ -29,7 +29,7 @@ const SEARCH_LINKS = [
 ];
 
 const FILING_LINKS = [
-  { label: "File LLC Articles of Organization",    href: "#" },
+  { label: "File LLC Articles of Organization",    href: "/starbiz/filing/llc" },
   { label: "File Profit Articles of Incorporation",href: "#" },
   { label: "File Non-Profit Articles",             href: "#" },
   { label: "File Limited Partnership",             href: "#" },
