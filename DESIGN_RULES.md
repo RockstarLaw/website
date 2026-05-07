@@ -112,3 +112,23 @@ UI red and image red obey different rules. UI red is the brand design language a
 - In images, never use red as decoration — red in images is reserved for the hero marker
 - In a single image, never give a non-hero a red item
 - Never use generic stock-photo framing
+
+## Asset folders
+
+Project images live under `public/images/projects/<project_slug>/`. Each project gets its own folder, named with the project's canonical slug (lowercase, underscored, matching the project identifier used elsewhere in the system).
+
+Module icons live under `public/images/modules/`. Site-level assets (hero images, etc.) live at the root of `public/images/`.
+
+Do not place project-specific images at the root of `public/images/` or in any other ad-hoc location. The folder structure is:
+
+    public/images/
+    ├── modules/                  module seal icons
+    ├── projects/                 per-project asset folders
+    │   └── <project_slug>/       all images for that project
+    └── *.png                     site-level assets only
+
+Filenames inside a project folder are at the project author's discretion. The folder name provides the namespace, so descriptive author-chosen filenames are fine and preferable to imposed conventions — the author knows their files by those names.
+
+Keep extensions matching the actual file format (.jpg stays .jpg, .png stays .png — do not convert formats).
+
+When adding a new project's images, create `public/images/projects/<slug>/` and place that project's image assets inside.
