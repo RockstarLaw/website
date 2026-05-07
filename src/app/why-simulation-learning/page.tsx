@@ -23,22 +23,26 @@ function getRtfHtml(): { css: string; body: string } {
   return { css, body };
 }
 
+// No More Dumping (landscape) moved to text area alongside Superman.
+// Bottom row: three full paintings, natural aspect ratios, no crop.
 const BOTTOM_PAINTINGS = [
   {
     file: "Braingasm_X_Keep_Girls_Out_of_Male_Sports.jpg",
     title: "Keep Girls Out of Mens Sports",
+    width: 1024,
+    height: 1536,
   },
   {
     file: "Braingasm_X_The_Perfect_Body.jpg",
     title: "The Perfect Body",
+    width: 1024,
+    height: 1536,
   },
   {
     file: "Braingasm_X_Love_Is_Love.jpg",
     title: "Love is Love",
-  },
-  {
-    file: "Braingasm_X_No_More_Dumping.jpg",
-    title: "No More Dumping",
+    width: 1536,
+    height: 1024,
   },
 ] as const;
 
@@ -59,49 +63,56 @@ export default async function WhySimulationLearningPage() {
         <style dangerouslySetInnerHTML={{ __html: "p.p2, p.p3 { font-size: 18px !important; }" }} />
 
         {/* ── Hero + text block ──────────────────────────────────────── */}
-        {/*
-          Desktop: painting floats right, prose wraps alongside it (magazine spread).
-          Mobile: stacked — painting full-width on top, prose below.
-          overflow-hidden on the outer div allows the float to work within the prose.
-        */}
+        {/* No More Dumping (landscape) floats left; Superman (portrait) floats right.
+            Text wraps in between and continues full-width below both paintings. */}
         <div className="rtf-content overflow-hidden">
-          {/* Float the painting right so prose wraps alongside it on desktop */}
-          <div
-            className="mb-4 ml-0 w-full md:float-right md:mb-2 md:ml-8 md:w-[45%]"
-          >
+
+          {/* Left float — No More Dumping (landscape 3:2) */}
+          <div className="mb-4 mr-0 w-full md:float-left md:mb-2 md:mr-8 md:w-[42%]">
+            <Image
+              src="/images/projects/braingasm_x/Braingasm_X_No_More_Dumping.jpg"
+              alt="No More Dumping"
+              title="No More Dumping"
+              width={1536}
+              height={1024}
+              className="w-full h-auto rounded-sm"
+              priority
+            />
+          </div>
+
+          {/* Right float — Superman / The Man in Steel (portrait 2:3) */}
+          <div className="mb-4 ml-0 w-full md:float-right md:mb-2 md:ml-8 md:w-[42%]">
             <Image
               src="/images/projects/braingasm_x/Braingasm_X_Superman_Arrested_by_Ice.jpg"
               alt="The Man in Steel — Superman on his knees in the custody of federal agents"
               title="The Man in Steel"
               width={480}
               height={720}
-              className="w-full rounded-sm object-cover"
+              className="w-full h-auto rounded-sm"
               priority
             />
           </div>
 
           {/* RTF body — formatting preserved via the injected CSS */}
-          <div
-            dangerouslySetInnerHTML={{ __html: body }}
-          />
+          <div dangerouslySetInnerHTML={{ __html: body }} />
         </div>
 
-        {/* Clear the float before the bottom row */}
+        {/* Clear the floats before the bottom row */}
         <div className="clear-both" />
 
-        {/* ── Four bottom paintings ─────────────────────────────────── */}
-        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
-          {BOTTOM_PAINTINGS.map(({ file, title }) => (
-            <div key={file} className="aspect-[2/3] relative overflow-hidden">
-              <Image
-                src={`/images/projects/braingasm_x/${file}`}
-                alt={title}
-                title={title}
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 25vw, 50vw"
-              />
-            </div>
+        {/* ── Three bottom paintings — full images, no crop ─────────── */}
+        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+          {BOTTOM_PAINTINGS.map(({ file, title, width, height }) => (
+            <Image
+              key={file}
+              src={`/images/projects/braingasm_x/${file}`}
+              alt={title}
+              title={title}
+              width={width}
+              height={height}
+              className="w-full h-auto"
+              sizes="(min-width: 768px) 33vw, 100vw"
+            />
           ))}
         </div>
 
