@@ -59,12 +59,15 @@ export default function HomePage() {
     >
       <div className="flex flex-col gap-8 pt-2 pb-8 md:gap-12 md:pt-4 md:pb-12">
         <section
-          className="flex min-h-[340px] flex-col gap-8 pt-2 pb-4 md:min-h-[440px] md:pt-4 md:pb-6"
+          className="flex flex-col gap-8 pt-2 pb-4 md:pt-4 md:pb-6"
           style={{
             backgroundImage: "url('/images/hero-microphone-background.png')",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "left -10% bottom",
             backgroundSize: "min(78vw, 1080px) auto",
+            // min-height ties the section to the image's aspect ratio (916/1717 ≈ 0.5335)
+            // so the full microphone stays visible as the viewport widens.
+            minHeight: "max(340px, calc(min(78vw, 1080px) * 0.5335))",
           }}
         >
           <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 md:text-7xl">
