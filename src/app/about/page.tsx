@@ -81,8 +81,8 @@ export default function AboutPage() {
   return (
     <SiteShell title="About RockStar Law" description="" hideIntro>
       <section className="flex justify-center py-2 md:py-4">
-        <div className="w-full max-w-[760px] space-y-14 px-2 text-base leading-7 text-slate-900 md:space-y-16 md:text-lg">
-          <header className="space-y-6 border-b border-slate-300 pb-12 text-center">
+        <div className="w-full max-w-[760px] space-y-8 px-2 text-base leading-7 text-slate-900 md:space-y-10 md:text-lg">
+          <header className="space-y-6 border-b border-slate-300 pb-6 text-center">
             <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
               ABOUT ROCKSTAR LAW
             </h1>
