@@ -44,6 +44,7 @@ async function ensureBucket(id: string, isPublic: boolean) {
 async function main() {
   await ensureBucket("projects", false);
   await ensureBucket("professor-photos", false);
+  await ensureBucket("starbiz-documents", false); // public corpus; RLS grants authenticated SELECT
   console.log("Storage setup complete.");
 }
 
