@@ -5,33 +5,39 @@ import { SiteShell } from "@/components/site-shell";
 const modules = [
   {
     name: "StarBiz",
+    iconSrc: "/images/modules/icon_florida_starbiz.png",
     description:
       "RockStar Law's Portal based upon the State of Florida's Business Filings Portal. File articles of incorporations, articles of organization (LLCs), bylaws, membership agreements, annual reports, amendments, fictitious name filings, state trademark applications and more.",
   },
   {
     name: "USPTO",
+    iconSrc: "/images/modules/icon_federal_uspto.png",
     description:
       "Search the trademark database, file trademark applications, receive and answer office actions, file renewals, file for incontestability and more.",
   },
   {
     name: "U.S. Copyright Office.",
+    iconSrc: "/images/modules/icon_federal_copyright_office.png",
     description:
       "File copyright applications, assign rights, record security interests, file DMCA designated agent registrations, file DMCA Section 1201 exemption petitions, file Notices of Intention and more.",
   },
   {
-    name: "SECURITIES EXCHANGE COMMISSION",
+    name: "Securities Exchange Commission",
+    iconSrc: "/images/modules/icon_federal_sec.png",
     description: "File Form Ds, 10-Ks, 10-Qs, 8-Ks, insider transaction reports and more.",
   },
   {
-    name: "INTERNAL REVENUE SERVICE.",
+    name: "Internal Revenue Service",
+    iconSrc: "/images/modules/icon_federal_irs.png",
     description: "File for Employer Identification Numbers & more",
   },
   {
-    name: "State, Federal and International Courts.",
+    name: "State, Federal and International Courts",
+    iconSrc: "/images/modules/icon_broward_county_courts.png",
     description:
       "We're adding more state, federal and international courts every month. If we do not feature them already, your local court systems can be ready within five (5) business days of registration.",
   },
-] as const;
+];
 
 const modes = [
   {
@@ -182,8 +188,15 @@ export default function AboutPage() {
                   key={module.name}
                   className="grid gap-1 border-b border-slate-300 py-5 md:grid-cols-[160px_1fr] md:gap-6"
                 >
-                  <div className="text-lg font-semibold uppercase tracking-[0.05em] text-slate-950">
-                    {module.name}
+                  <div className="flex items-start">
+                    <Image
+                      src={module.iconSrc}
+                      alt={module.name}
+                      title={module.name}
+                      width={64}
+                      height={64}
+                      className="rounded-full object-cover"
+                    />
                   </div>
                   <div className="italic text-slate-700">{module.description}</div>
                 </div>
