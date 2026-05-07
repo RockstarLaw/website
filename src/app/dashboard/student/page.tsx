@@ -111,19 +111,30 @@ export default async function StudentDashboardPage() {
             <SectionHeading>Your TA Assignments</SectionHeading>
             <ul className="grid gap-4">
               {taState.accepted.map((row) => (
-                <li key={row.assignmentId} className="border-b border-slate-200 pb-4">
-                  <p className="font-medium text-slate-950">{row.courseName}</p>
-                  <p className="text-sm text-slate-600">{row.professorName}</p>
-                  <p className="text-xs text-slate-400">
-                    Accepted{" "}
-                    {row.acceptedAt
-                      ? new Date(row.acceptedAt).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })
-                      : ""}
-                  </p>
+                <li
+                  key={row.assignmentId}
+                  className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4"
+                >
+                  <div>
+                    <p className="font-medium text-slate-950">{row.courseName}</p>
+                    <p className="text-sm text-slate-600">{row.professorName}</p>
+                    <p className="text-xs text-slate-400">
+                      Accepted{" "}
+                      {row.acceptedAt
+                        ? new Date(row.acceptedAt).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })
+                        : ""}
+                    </p>
+                  </div>
+                  <Link
+                    href="/dashboard/student/ta-projects"
+                    className="shrink-0 text-sm text-red-700 hover:underline"
+                  >
+                    View Projects →
+                  </Link>
                 </li>
               ))}
             </ul>

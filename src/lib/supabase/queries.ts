@@ -1005,6 +1005,111 @@ export async function getProfessorProjects(
   }));
 }
 
+export type TAProfessorProjectGroup = {
+  professorId: string;
+  professorName: string;   // "Professor {lastName}, Esq."
+  courseNames: string[];   // sections this TA is assigned to under this professor
+  projects: ProfessorProject[];
+};
+
+export async function getProjectsForTAUser(
+  userId: string,
+): Promise<TAProfessorProjectGroup[]> {
+  const admin = createSupabaseAdminClient();
+
+  // Step 1: get student profile id
+  const { data: student } = await admin
+    .from("student_profiles")
+    .select("id")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (!student) return [];
+
+  // Step 2: accepted course_tas rows with professor + course names
+  const { data: taRows, error: taError } = await admin
+    .from("course_tas")
+    .select(
+      "professor_course_id, professor_courses(professor_id, custom_course_name, courses(course_name), professor_profiles(id, last_name))",
+    )
+    .eq("user_id", student.id)
+    .eq("status", "accepted");
+
+  if (taError) throw new Error(taError.message);
+  if (!taRows || taRows.length === 0) return [];
+
+  // Step 3: build professor map (dedup by professor_id)
+  type ProfEntry = { professorId: string; lastName: string; courseNames: string[] };
+  const profMap = new Map<string, ProfEntry>();
+
+  for (const row of taRows) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pc = (Array.isArray(row.professor_courses) ? row.professor_courses[0] : row.professor_courses) as any;
+    if (!pc) continue;
+    const prof = Array.isArray(pc.professor_profiles) ? pc.professor_profiles[0] : pc.professor_profiles;
+    const course = Array.isArray(pc.courses) ? pc.courses[0] : pc.courses;
+    const professorId = prof?.id ?? pc.professor_id;
+    const lastName = prof?.last_name ?? "";
+    const courseName = pc.custom_course_name ?? course?.course_name ?? "Unknown course";
+    const existing = profMap.get(professorId);
+    if (existing) {
+      if (!existing.courseNames.includes(courseName)) existing.courseNames.push(courseName);
+    } else {
+      profMap.set(professorId, { professorId, lastName, courseNames: [courseName] });
+    }
+  }
+
+  // Step 4: for each unique professor, fetch their projects
+  const groups: TAProfessorProjectGroup[] = [];
+
+  for (const entry of profMap.values()) {
+    const { data: projRows, error: projError } = await admin
+      .from("projects")
+      .select(
+        "id, title, description, original_filename, file_size_bytes, mime_type, storage_path, uploaded_at",
+      )
+      .eq("professor_id", entry.professorId)
+      .order("uploaded_at", { ascending: false });
+
+    if (projError) throw new Error(projError.message);
+    if (!projRows || projRows.length === 0) {
+      groups.push({
+        professorId: entry.professorId,
+        professorName: `Professor ${entry.lastName}, Esq.`,
+        courseNames: entry.courseNames,
+        projects: [],
+      });
+      continue;
+    }
+
+    const paths = projRows.map((r) => r.storage_path);
+    const { data: signedData } = await admin.storage
+      .from("projects")
+      .createSignedUrls(paths, 86400);
+    const urlMap = new Map((signedData ?? []).map((s) => [s.path, s.signedUrl]));
+
+    groups.push({
+      professorId: entry.professorId,
+      professorName: `Professor ${entry.lastName}, Esq.`,
+      courseNames: entry.courseNames,
+      projects: projRows.map((r) => ({
+        id: r.id,
+        title: r.title,
+        description: r.description ?? null,
+        originalFilename: r.original_filename,
+        fileSizeBytes: r.file_size_bytes,
+        mimeType: r.mime_type,
+        uploadedAt: r.uploaded_at,
+        downloadUrl: urlMap.get(r.storage_path) ?? "",
+      })),
+    });
+  }
+
+  // Sort groups by professor name
+  groups.sort((a, b) => a.professorName.localeCompare(b.professorName));
+  return groups;
+}
+
 export async function getCurrentAppUserRole(): Promise<AppRole | null> {
   const supabase = await createSupabaseServerClient();
   const {
