@@ -55,6 +55,8 @@ export default async function WhySimulationLearningPage() {
         <style
           dangerouslySetInnerHTML={{ __html: css }}
         />
+        {/* Bring all paragraphs to the 18px size of the first paragraph */}
+        <style dangerouslySetInnerHTML={{ __html: "p.p2, p.p3 { font-size: 18px !important; }" }} />
 
         {/* ── Hero + text block ──────────────────────────────────────── */}
         {/*
