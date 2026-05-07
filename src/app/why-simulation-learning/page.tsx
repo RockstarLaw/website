@@ -55,13 +55,6 @@ export default async function WhySimulationLearningPage() {
     <SiteShell title="Why Simulation Learning" description="" hideIntro>
       <div className="mx-auto w-full max-w-[760px] px-2">
 
-        {/* Inject the RTF's own CSS so class-based formatting is preserved exactly */}
-        <style
-          dangerouslySetInnerHTML={{ __html: css }}
-        />
-        {/* Bring all paragraphs to the 18px size of the first paragraph */}
-        <style dangerouslySetInnerHTML={{ __html: "p.p2, p.p3 { font-size: 18px !important; }" }} />
-
         {/* ── Hero + text block ──────────────────────────────────────── */}
         <div className="rtf-content overflow-hidden">
 
@@ -78,8 +71,12 @@ export default async function WhySimulationLearningPage() {
             />
           </div>
 
-          {/* RTF body — formatting preserved via the injected CSS */}
-          <div dangerouslySetInnerHTML={{ __html: body }} />
+          {/* RTF body — CSS injected inline to avoid JSX <style> element issues */}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `<style>${css}\np.p2, p.p3 { font-size: 18px !important; }</style>${body}`,
+            }}
+          />
         </div>
 
         {/* Clear the floats before the bottom row */}
