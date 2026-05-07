@@ -23,7 +23,8 @@ function getRtfHtml(): { css: string; body: string } {
   return { css, body };
 }
 
-// Bottom row: three full paintings, natural aspect ratios, no crop.
+// Bottom row: 4 items. Love Is Love is treated as two paintings (shown twice)
+// so all four columns are the same width. Natural aspect ratios, no crop.
 const BOTTOM_PAINTINGS = [
   {
     file: "Braingasm_X_Keep_Girls_Out_of_Male_Sports.jpg",
@@ -43,7 +44,13 @@ const BOTTOM_PAINTINGS = [
     width: 1536,
     height: 1024,
   },
-] as const;
+  {
+    file: "Braingasm_X_Love_Is_Love.jpg",
+    title: "Love is Love",
+    width: 1536,
+    height: 1024,
+  },
+];
 
 export const dynamic = "force-dynamic";
 
@@ -85,17 +92,17 @@ export default async function WhySimulationLearningPage() {
         <div className="clear-both" />
 
         {/* ── Three bottom paintings — full images, no crop ─────────── */}
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
-          {BOTTOM_PAINTINGS.map(({ file, title, width, height }) => (
+        <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
+          {BOTTOM_PAINTINGS.map(({ file, title, width, height }, i) => (
             <Image
-              key={file}
+              key={`${file}-${i}`}
               src={`/images/projects/braingasm_x/${file}`}
               alt={title}
               title={title}
               width={width}
               height={height}
               className="w-full h-auto"
-              sizes="(min-width: 768px) 33vw, 100vw"
+              sizes="(min-width: 768px) 25vw, 50vw"
             />
           ))}
         </div>
