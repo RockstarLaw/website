@@ -855,6 +855,55 @@ export async function getCurrentProfessorDashboardData(): Promise<ProfessorDashb
   };
 }
 
+export type CourseTARow = {
+  id: string;
+  professorCourseId: string;
+  userId: string;
+  slotType: "free" | "paid";
+  status: "pending" | "accepted" | "declined";
+  invitedAt: string;
+  acceptedAt: string | null;
+  student: {
+    firstName: string;
+    lastName: string;
+    universityEmail: string;
+  };
+};
+
+export async function getCourseTAs(professorCourseId: string): Promise<CourseTARow[]> {
+  const admin = createSupabaseAdminClient();
+  const { data, error } = await admin
+    .from("course_tas")
+    .select(
+      "id, professor_course_id, user_id, slot_type, status, invited_at, accepted_at, student_profiles(first_name, last_name, university_email)",
+    )
+    .eq("professor_course_id", professorCourseId)
+    .neq("status", "revoked")
+    .order("invited_at", { ascending: true });
+
+  if (error) throw new Error(error.message);
+
+  return (data ?? []).map((row) => {
+    const sp = Array.isArray(row.student_profiles)
+      ? row.student_profiles[0]
+      : row.student_profiles;
+    return {
+      id: row.id,
+      professorCourseId: row.professor_course_id,
+      userId: row.user_id,
+      slotType: row.slot_type as "free" | "paid",
+      status: row.status as "pending" | "accepted" | "declined",
+      invitedAt: row.invited_at,
+      acceptedAt: (row.accepted_at as string | null) ?? null,
+      student: {
+        firstName: (sp as { first_name: string } | null)?.first_name ?? "",
+        lastName: (sp as { last_name: string } | null)?.last_name ?? "",
+        universityEmail: (sp as { university_email: string } | null)?.university_email ?? "",
+      },
+    };
+  });
+}
+
 export async function getCurrentAppUserRole(): Promise<AppRole | null> {
   const supabase = await createSupabaseServerClient();
   const {
