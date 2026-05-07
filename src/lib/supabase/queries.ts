@@ -271,6 +271,8 @@ export type ProfessorDashboardData = {
   progressState: "incomplete" | "partially complete" | "fully complete";
   courseCount: number;
   rosterCount: number;
+  photoPath: string | null;
+  photoUrl: string | null; // signed URL (1h TTL) for professor-photos bucket
 };
 
 export type ProfessorCourseDetail = {
@@ -802,7 +804,7 @@ export async function getCurrentProfessorDashboardData(): Promise<ProfessorDashb
   const admin = createSupabaseAdminClient();
   const { data: professor, error: professorError } = await admin
     .from("professor_profiles")
-    .select("id, first_name, last_name, university_name_snapshot, onboarding_status")
+    .select("id, first_name, last_name, university_name_snapshot, onboarding_status, photo_path")
     .eq("user_id", user.id)
     .maybeSingle();
 
@@ -843,6 +845,16 @@ export async function getCurrentProfessorDashboardData(): Promise<ProfessorDashb
         ? "partially complete"
         : "incomplete";
 
+  // Generate signed URL for professor photo (private bucket, 1h TTL)
+  let photoUrl: string | null = null;
+  const photoPath = (professor.photo_path as string | null) ?? null;
+  if (photoPath) {
+    const { data: signedPhoto } = await admin.storage
+      .from("professor-photos")
+      .createSignedUrl(photoPath, 3600);
+    photoUrl = signedPhoto?.signedUrl ?? null;
+  }
+
   return {
     professorId: professor.id,
     professorName: `${professor.first_name} ${professor.last_name}`,
@@ -852,6 +864,8 @@ export async function getCurrentProfessorDashboardData(): Promise<ProfessorDashb
     progressState,
     courseCount: courseCount ?? 0,
     rosterCount: rosterCount ?? 0,
+    photoPath,
+    photoUrl,
   };
 }
 
@@ -957,51 +971,129 @@ export async function getCourseTAs(professorCourseId: string): Promise<CourseTAR
   });
 }
 
-export type ProfessorProject = {
+export type ProjectFile = {
   id: string;
-  title: string;
-  description: string | null;
+  label: string;
+  audienceTag: "general" | "side_a" | "side_b" | "team_a" | "team_b" | "solo" | "ta_only";
   originalFilename: string;
   fileSizeBytes: number;
   mimeType: string;
   uploadedAt: string;
-  downloadUrl: string; // signed URL, 24-hour TTL
+  downloadUrl: string; // signed URL, 24h TTL
+};
+
+export type ProfessorProject = {
+  id: string;
+  title: string;
+  tagline: string;
+  pitch: string;
+  modes: {
+    versus: boolean;
+    drafting: boolean;
+    oralArgument: boolean;
+    solo: boolean;
+    team: boolean;
+    creativity: boolean;
+  };
+  duration: "1hr" | "3hr" | "1wk" | "2wk" | "30day" | "semester";
+  realWorld: boolean;
+  worldRankQualifying: boolean;
+  popularity: number;
+  imagePaths: { image1: string | null; image2: string | null; image3: string | null };
+  imageUrls:  { image1: string | null; image2: string | null; image3: string | null };
+  createdAt: string;
+  files: ProjectFile[];
 };
 
 export async function getProfessorProjects(
   professorId: string,
 ): Promise<ProfessorProject[]> {
   const admin = createSupabaseAdminClient();
-  const { data, error } = await admin
+
+  // Query 1: all projects for this professor
+  const { data: projects, error: projError } = await admin
     .from("projects")
     .select(
-      "id, title, description, original_filename, file_size_bytes, mime_type, storage_path, uploaded_at",
+      "id, title, tagline, pitch, versus, drafting, oral_argument, solo, team, creativity, duration, real_world, world_rank_qualifying, popularity, image_1_path, image_2_path, image_3_path, created_at",
     )
     .eq("professor_id", professorId)
-    .order("uploaded_at", { ascending: false });
+    .order("created_at", { ascending: false });
 
-  if (error) throw new Error(error.message);
-  if (!data || data.length === 0) return [];
+  if (projError) throw new Error(projError.message);
+  if (!projects || projects.length === 0) return [];
 
-  // Batch-generate signed URLs (24h TTL) in a single call
-  const paths = data.map((r) => r.storage_path);
-  const { data: signedData } = await admin.storage
-    .from("projects")
-    .createSignedUrls(paths, 86400);
+  // Query 2: all project_files for those projects
+  const projectIds = projects.map((p) => p.id);
+  const { data: fileRows, error: fileError } = await admin
+    .from("project_files")
+    .select("id, project_id, label, audience_tag, original_filename, file_size_bytes, mime_type, storage_path, uploaded_at")
+    .in("project_id", projectIds)
+    .order("uploaded_at", { ascending: true });
 
-  const urlMap = new Map(
-    (signedData ?? []).map((s) => [s.path, s.signedUrl]),
-  );
+  if (fileError) throw new Error(fileError.message);
 
-  return data.map((r) => ({
-    id: r.id,
-    title: r.title,
-    description: r.description ?? null,
-    originalFilename: r.original_filename,
-    fileSizeBytes: r.file_size_bytes,
-    mimeType: r.mime_type,
-    uploadedAt: r.uploaded_at,
-    downloadUrl: urlMap.get(r.storage_path) ?? "",
+  // Batch-generate signed URLs for all files (24h)
+  const filePaths = (fileRows ?? []).map((f) => f.storage_path);
+  const { data: fileSignedData } = filePaths.length
+    ? await admin.storage.from("projects").createSignedUrls(filePaths, 86400)
+    : { data: [] };
+  const fileUrlMap = new Map((fileSignedData ?? []).map((s) => [s.path, s.signedUrl]));
+
+  // Batch-generate signed URLs for catalog images (24h)
+  const imagePaths = projects
+    .flatMap((p) => [p.image_1_path, p.image_2_path, p.image_3_path])
+    .filter(Boolean) as string[];
+  const { data: imgSignedData } = imagePaths.length
+    ? await admin.storage.from("projects").createSignedUrls(imagePaths, 86400)
+    : { data: [] };
+  const imgUrlMap = new Map((imgSignedData ?? []).map((s) => [s.path, s.signedUrl]));
+
+  // Group files by project
+  const filesByProject = new Map<string, ProjectFile[]>();
+  for (const f of fileRows ?? []) {
+    const list = filesByProject.get(f.project_id) ?? [];
+    list.push({
+      id: f.id,
+      label: f.label,
+      audienceTag: f.audience_tag as ProjectFile["audienceTag"],
+      originalFilename: f.original_filename,
+      fileSizeBytes: f.file_size_bytes,
+      mimeType: f.mime_type,
+      uploadedAt: f.uploaded_at,
+      downloadUrl: fileUrlMap.get(f.storage_path) ?? "",
+    });
+    filesByProject.set(f.project_id, list);
+  }
+
+  return projects.map((p) => ({
+    id: p.id,
+    title: p.title,
+    tagline: p.tagline,
+    pitch: p.pitch,
+    modes: {
+      versus:       p.versus,
+      drafting:     p.drafting,
+      oralArgument: p.oral_argument,
+      solo:         p.solo,
+      team:         p.team,
+      creativity:   p.creativity,
+    },
+    duration: p.duration as ProfessorProject["duration"],
+    realWorld:            p.real_world,
+    worldRankQualifying:  p.world_rank_qualifying,
+    popularity:           p.popularity,
+    imagePaths: {
+      image1: (p.image_1_path as string | null) ?? null,
+      image2: (p.image_2_path as string | null) ?? null,
+      image3: (p.image_3_path as string | null) ?? null,
+    },
+    imageUrls: {
+      image1: p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
+      image2: p.image_2_path ? (imgUrlMap.get(p.image_2_path) ?? null) : null,
+      image3: p.image_3_path ? (imgUrlMap.get(p.image_3_path) ?? null) : null,
+    },
+    createdAt: p.created_at,
+    files: filesByProject.get(p.id) ?? [],
   }));
 }
 
@@ -1009,7 +1101,7 @@ export type TAProfessorProjectGroup = {
   professorId: string;
   professorName: string;   // "Professor {lastName}, Esq."
   courseNames: string[];   // sections this TA is assigned to under this professor
-  projects: ProfessorProject[];
+  projects: ProfessorProject[]; // TAs see all audience tags — no filtering at query layer
 };
 
 export async function getProjectsForTAUser(
@@ -1017,16 +1109,13 @@ export async function getProjectsForTAUser(
 ): Promise<TAProfessorProjectGroup[]> {
   const admin = createSupabaseAdminClient();
 
-  // Step 1: get student profile id
   const { data: student } = await admin
     .from("student_profiles")
     .select("id")
     .eq("user_id", userId)
     .maybeSingle();
-
   if (!student) return [];
 
-  // Step 2: accepted course_tas rows with professor + course names
   const { data: taRows, error: taError } = await admin
     .from("course_tas")
     .select(
@@ -1038,10 +1127,8 @@ export async function getProjectsForTAUser(
   if (taError) throw new Error(taError.message);
   if (!taRows || taRows.length === 0) return [];
 
-  // Step 3: build professor map (dedup by professor_id)
   type ProfEntry = { professorId: string; lastName: string; courseNames: string[] };
   const profMap = new Map<string, ProfEntry>();
-
   for (const row of taRows) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pc = (Array.isArray(row.professor_courses) ? row.professor_courses[0] : row.professor_courses) as any;
@@ -1059,53 +1146,18 @@ export async function getProjectsForTAUser(
     }
   }
 
-  // Step 4: for each unique professor, fetch their projects
   const groups: TAProfessorProjectGroup[] = [];
-
   for (const entry of profMap.values()) {
-    const { data: projRows, error: projError } = await admin
-      .from("projects")
-      .select(
-        "id, title, description, original_filename, file_size_bytes, mime_type, storage_path, uploaded_at",
-      )
-      .eq("professor_id", entry.professorId)
-      .order("uploaded_at", { ascending: false });
-
-    if (projError) throw new Error(projError.message);
-    if (!projRows || projRows.length === 0) {
-      groups.push({
-        professorId: entry.professorId,
-        professorName: `Professor ${entry.lastName}, Esq.`,
-        courseNames: entry.courseNames,
-        projects: [],
-      });
-      continue;
-    }
-
-    const paths = projRows.map((r) => r.storage_path);
-    const { data: signedData } = await admin.storage
-      .from("projects")
-      .createSignedUrls(paths, 86400);
-    const urlMap = new Map((signedData ?? []).map((s) => [s.path, s.signedUrl]));
-
+    // Reuse getProfessorProjects — returns full shape with files + signed URLs
+    const projects = await getProfessorProjects(entry.professorId);
     groups.push({
       professorId: entry.professorId,
       professorName: `Professor ${entry.lastName}, Esq.`,
       courseNames: entry.courseNames,
-      projects: projRows.map((r) => ({
-        id: r.id,
-        title: r.title,
-        description: r.description ?? null,
-        originalFilename: r.original_filename,
-        fileSizeBytes: r.file_size_bytes,
-        mimeType: r.mime_type,
-        uploadedAt: r.uploaded_at,
-        downloadUrl: urlMap.get(r.storage_path) ?? "",
-      })),
+      projects,
     });
   }
 
-  // Sort groups by professor name
   groups.sort((a, b) => a.professorName.localeCompare(b.professorName));
   return groups;
 }

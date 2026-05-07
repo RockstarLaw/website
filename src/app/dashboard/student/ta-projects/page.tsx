@@ -69,27 +69,28 @@ export default async function TaProjectsPage() {
                 ) : (
                   <ul className="grid gap-4">
                     {group.projects.map((p) => (
-                      <li
-                        key={p.id}
-                        className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4"
-                      >
-                        <div className="flex flex-col gap-0.5">
-                          <p className="font-medium text-slate-950">{p.title}</p>
-                          <p className="text-sm text-slate-500">{p.originalFilename}</p>
-                          <p className="text-xs text-slate-400">
-                            {formatBytes(p.fileSizeBytes)} · {formatDate(p.uploadedAt)}
-                          </p>
-                        </div>
-                        {p.downloadUrl ? (
-                          <a
-                            href={p.downloadUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="shrink-0 text-sm text-red-700 hover:underline"
-                          >
-                            Download
-                          </a>
-                        ) : null}
+                      <li key={p.id} className="flex flex-col gap-3 border-b border-slate-200 pb-4">
+                        <p className="font-medium text-slate-950">{p.title}</p>
+                        <p className="text-sm text-slate-500 italic">{p.tagline}</p>
+                        {p.files.length === 0 ? (
+                          <p className="text-xs text-slate-400">No files uploaded yet.</p>
+                        ) : (
+                          <ul className="grid gap-2">
+                            {p.files.map((f) => (
+                              <li key={f.id} className="flex items-center justify-between gap-4">
+                                <div>
+                                  <span className="text-sm text-slate-700">{f.label}</span>
+                                  <span className="ml-2 text-xs text-slate-400">{f.originalFilename} · {formatBytes(f.fileSizeBytes)} · {formatDate(f.uploadedAt)}</span>
+                                </div>
+                                {f.downloadUrl ? (
+                                  <a href={f.downloadUrl} target="_blank" rel="noopener noreferrer" className="shrink-0 text-sm text-red-700 hover:underline">
+                                    Download
+                                  </a>
+                                ) : null}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </li>
                     ))}
                   </ul>
