@@ -188,13 +188,13 @@ export default function AboutPage() {
                   key={module.name}
                   className="grid gap-1 border-b border-slate-300 py-5 md:grid-cols-[160px_1fr] md:gap-6"
                 >
-                  <div className="flex items-start">
+                  <div className="flex items-center">
                     <Image
                       src={module.iconSrc}
                       alt={module.name}
                       title={module.name}
-                      width={64}
-                      height={64}
+                      width={120}
+                      height={120}
                       className="rounded-full object-cover"
                     />
                   </div>
