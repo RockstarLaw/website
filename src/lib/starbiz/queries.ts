@@ -33,6 +33,15 @@ export type EntityFiling = {
   fee_paid_cents: number | null;
 };
 
+export type EntityFilingDocument = {
+  id: string;
+  filing_id: string;
+  entity_id: string | null;
+  document_kind: string;
+  storage_path: string;
+  generated_at: string;
+};
+
 export type EntityDetail = {
   id: string;
   document_number: string;
@@ -50,6 +59,7 @@ export type EntityDetail = {
   type_specific_data: Record<string, unknown>;
   officers: EntityOfficer[];
   filings: EntityFiling[];
+  filing_documents: EntityFilingDocument[];
 };
 
 // ─── Display helpers ──────────────────────────────────────────────────────────
@@ -67,10 +77,26 @@ export function entityTypeLabel(t: string): string {
   return ENTITY_TYPE_LABELS[t] ?? t.toUpperCase();
 }
 
+// Single function for both date-only ('YYYY-MM-DD') and timestamptz inputs.
+// Date-only strings are calendar dates and must NOT be shifted by viewer tz —
+// new Date('YYYY-MM-DD') parses as UTC midnight, which silently subtracts a
+// day in any negative-offset zone. We hand-parse instead.
+// Timestamps are converted to America/New_York for display so DATE FILED and
+// EFFECTIVE DATE agree for filings made late in the day in ET.
+const ET_DATE_FMT = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/New_York",
+  year:  "numeric",
+  month: "2-digit",
+  day:   "2-digit",
+});
+
 function formatDate(ts: string | null | undefined): string {
   if (!ts) return "N/A";
-  const d = new Date(ts);
-  return `${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}/${d.getFullYear()}`;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(ts)) {
+    const [y, m, d] = ts.split("-");
+    return `${m}/${d}/${y}`;
+  }
+  return ET_DATE_FMT.format(new Date(ts));
 }
 
 function toResultRow(row: {
@@ -184,9 +210,10 @@ export async function getEntityByDocumentNumber(docNum: string): Promise<EntityD
   if (entityError) { console.error("[getEntityByDocumentNumber]", entityError.message); return null; }
   if (!entity) return null;
 
-  const [{ data: officers }, { data: filings }] = await Promise.all([
+  const [{ data: officers }, { data: filings }, { data: filingDocs }] = await Promise.all([
     admin.from("entity_officers").select("id, role, name, title, address, ownership_percent").eq("entity_id", entity.id).order("name"),
     admin.from("entity_filings").select("id, filing_type, filed_at, effective_date, fee_paid_cents").eq("entity_id", entity.id).order("filed_at", { ascending: true }),
+    admin.from("filing_documents").select("id, filing_id, entity_id, document_kind, storage_path, generated_at").eq("entity_id", entity.id),
   ]);
 
   return {
@@ -204,8 +231,9 @@ export async function getEntityByDocumentNumber(docNum: string): Promise<EntityD
     registered_agent_name:      entity.registered_agent_name,
     registered_agent_address:   entity.registered_agent_address as EntityDetail["registered_agent_address"],
     type_specific_data:         (entity.type_specific_data ?? {}) as Record<string, unknown>,
-    officers:                   (officers ?? []) as EntityOfficer[],
-    filings:                    (filings  ?? []) as EntityFiling[],
+    officers:                   (officers     ?? []) as EntityOfficer[],
+    filings:                    (filings      ?? []) as EntityFiling[],
+    filing_documents:           (filingDocs   ?? []) as EntityFilingDocument[],
   };
 }
 

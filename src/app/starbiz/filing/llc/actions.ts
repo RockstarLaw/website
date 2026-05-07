@@ -5,6 +5,15 @@ import { redirect } from "next/navigation";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { LLCSubmitResult, PersonRow, WizardData } from "@/lib/starbiz/llc-types";
+import { renderArticlesOfOrganization, type ArticlesData } from "@/lib/starbiz/pdf/render";
+import { uploadFilingPdf } from "@/lib/starbiz/pdf/upload";
+import { formatDate } from "@/lib/starbiz/queries";
+
+type Address = { street: string; city: string; state: string; zip: string };
+
+function asAddress(v: Partial<Address> | null | undefined): Address {
+  return { street: v?.street ?? "", city: v?.city ?? "", state: v?.state ?? "", zip: v?.zip ?? "" };
+}
 
 // ─── Server-side validation (mirrors client; never trust the client) ──────────
 
@@ -106,7 +115,63 @@ export async function submitLLCFormation(
     return { error: "Filing could not be submitted. Please try again." };
   }
 
-  // 5. Redirect to entity detail page (Phase 2.3 builds the full page)
-  const documentNumber = (result as { document_number: string }).document_number;
+  // 5. Generate Articles of Organization PDF (best-effort; entity is filed regardless)
+  const { document_number: documentNumber, entity_id: entityId, filing_id: filingId } =
+    result as { document_number: string; entity_id: string; filing_id: string };
+
+  try {
+    const { data: entity } = await admin
+      .from("entities")
+      .select("name, filed_at, effective_date, principal_address, mailing_address, registered_agent_name, registered_agent_address, type_specific_data")
+      .eq("document_number", documentNumber)
+      .maybeSingle();
+
+    if (entity) {
+      const { data: officers } = await admin
+        .from("entity_officers")
+        .select("name, title, address")
+        .eq("entity_id", entityId)
+        .order("name");
+
+      const filedDateLabel     = formatDate(entity.filed_at);
+      const effectiveDateLabel = formatDate(entity.effective_date);
+      const principal = asAddress(entity.principal_address as Partial<Address>);
+      const mailing   = asAddress(entity.mailing_address   as Partial<Address>);
+      const sameMailing =
+        principal.street === mailing.street && principal.city === mailing.city &&
+        principal.state  === mailing.state  && principal.zip  === mailing.zip;
+      const tsd = (entity.type_specific_data ?? {}) as { organizer?: { name?: string; address?: unknown } };
+
+      const pdfData: ArticlesData = {
+        documentNumber,
+        entityName:         entity.name,
+        filedDateLabel,
+        effectiveDateLabel,
+        effectiveOnFiling:  filedDateLabel === effectiveDateLabel,
+        principalAddress:   principal,
+        mailingAddress:     sameMailing ? null : mailing,
+        registeredAgent: {
+          name:    entity.registered_agent_name ?? "",
+          address: asAddress(entity.registered_agent_address as Partial<Address>),
+        },
+        authorizedPersons: (officers ?? []).map((o) => ({
+          title:   o.title,
+          name:    o.name,
+          address: asAddress(o.address as Partial<Address>),
+        })),
+        organizer: {
+          name:    tsd.organizer?.name ?? "",
+          address: asAddress(tsd.organizer?.address as Partial<Address>),
+        },
+      };
+
+      const buffer = await renderArticlesOfOrganization(pdfData);
+      await uploadFilingPdf({ documentNumber, entityId, filingId, kind: "articles_of_organization", buffer });
+    }
+  } catch (pdfErr) {
+    console.error("[submitLLCFormation] PDF gen failed (entity still filed):", pdfErr);
+  }
+
+  // 6. Redirect to entity detail page
   redirect(`/starbiz/entity/${documentNumber}`);
 }

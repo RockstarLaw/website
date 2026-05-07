@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { StarBizShell } from "@/components/starbiz/StarBizShell";
+import { PdfViewButton } from "@/components/starbiz/PdfViewButton";
 import { entityTypeLabel, formatDate, getEntityByDocumentNumber } from "@/lib/starbiz/queries";
+import { regenerateFilingPdf } from "@/lib/starbiz/actions/regenerate-pdf";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +39,12 @@ function formatAddr(addr: { street?: string; city?: string; state?: string; zip?
 }
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
+
+async function handleRetry(formData: FormData) {
+  "use server";
+  const entityId = formData.get("entityId") as string;
+  await regenerateFilingPdf(entityId);
+}
 
 export default async function EntityDetailPage({
   params,
@@ -200,21 +208,43 @@ export default async function EntityDetailPage({
         </thead>
         <tbody>
           {entity.filings.length > 0 ? (
-            entity.filings.map((f, i) => (
-              <tr key={f.id} style={{ backgroundColor: i % 2 === 1 ? YELLOW : WHITE }}>
-                <td style={monoTd}>{entity.document_number}</td>
-                <td style={tdBorder}>
-                  <span style={{ fontFamily: "Arial", fontSize: "11px", color: "#888", fontStyle: "italic" }}>
-                    Document not yet generated
-                  </span>
-                </td>
-                <td style={tdBorder}>
-                  {f.filing_type === "formation" ? "ARTICLES OF ORGANIZATION" : f.filing_type.toUpperCase()}
-                </td>
-                <td style={tdBorder}>{formatDate(f.effective_date ?? f.filed_at)}</td>
-                <td style={tdBorder}>{formatDate(f.filed_at)}</td>
-              </tr>
-            ))
+            entity.filings.map((f, i) => {
+              const doc = entity.filing_documents.find(d => d.filing_id === f.id);
+              return (
+                <tr key={f.id} style={{ backgroundColor: i % 2 === 1 ? YELLOW : WHITE }}>
+                  <td style={monoTd}>{entity.document_number}</td>
+                  <td style={tdBorder}>
+                    {doc ? (
+                      <PdfViewButton filingDocumentId={doc.id} label="View" />
+                    ) : (
+                      <form action={handleRetry} style={{ display: "inline" }}>
+                        <input type="hidden" name="entityId" value={entity.id} />
+                        <button
+                          type="submit"
+                          style={{
+                            fontFamily: "Arial, Helvetica, sans-serif",
+                            fontSize: "11px",
+                            color: "#800000",
+                            background: "none",
+                            border: "none",
+                            padding: 0,
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Retry
+                        </button>
+                      </form>
+                    )}
+                  </td>
+                  <td style={tdBorder}>
+                    {f.filing_type === "formation" ? "ARTICLES OF ORGANIZATION" : f.filing_type.toUpperCase()}
+                  </td>
+                  <td style={tdBorder}>{formatDate(f.effective_date ?? f.filed_at)}</td>
+                  <td style={tdBorder}>{formatDate(f.filed_at)}</td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
               <td colSpan={5} style={{ ...sTd, textAlign: "center", fontStyle: "italic", color: "#888" }}>
