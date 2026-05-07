@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { DevQuickLoginPanel } from "@/components/dev-quick-login-panel";
 import { LoginForm } from "@/components/login-form";
 import { SiteShell } from "@/components/site-shell";
 
@@ -34,6 +35,11 @@ export default function LoginPage() {
             </li>
           </ul>
         </div>
+
+        {/* Dev quick-login — only when explicitly enabled; never in production */}
+        {process.env.NEXT_PUBLIC_ALLOW_DEV_QUICK_LOGIN === "true" && (
+          <DevQuickLoginPanel />
+        )}
       </div>
     </SiteShell>
   );

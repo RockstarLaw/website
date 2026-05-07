@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "mvp": "node --env-file=.env.local ./node_modules/.bin/tsx mvp_run.ts",
-    "setup:buckets": "node --env-file=.env.local node_modules/.bin/tsx scripts/setup-buckets.ts"
+    "setup:buckets": "node --env-file=.env.local node_modules/.bin/tsx scripts/setup-buckets.ts",
+    "seed:dev-users": "node --env-file=.env.local node_modules/.bin/tsx scripts/seed-dev-users.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",
