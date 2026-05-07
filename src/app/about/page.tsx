@@ -339,7 +339,7 @@ export default function AboutPage() {
             <SectionHeading>THE BOTTOM LINE</SectionHeading>
 
             <div className="space-y-4">
-              <p>Practice does not make perfect. It makes permanent. That&apos;s why, &ldquo;How&rdquo; you practice is important.</p>
+              <p>Practice does not make perfect. It makes permanent. &ldquo;How&rdquo; you practice is important.</p>
             </div>
 
             <p className="space-y-1 text-center text-xl font-semibold uppercase tracking-[0.05em] text-slate-950 md:text-2xl">
