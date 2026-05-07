@@ -265,12 +265,165 @@ export async function getStudentEnabledModules(studentId: string): Promise<Stude
 export type ProfessorDashboardData = {
   professorId: string;
   professorName: string;
+  lastName: string;
   universityName: string;
   onboardingStatus: string;
   progressState: "incomplete" | "partially complete" | "fully complete";
   courseCount: number;
   rosterCount: number;
 };
+
+export type ProfessorCourseDetail = {
+  professorCourseId: string;
+  courseName: string;
+  sectionName: string | null;
+  term: string | null;
+  courseId: string;
+  rosterStats: {
+    matched: number;
+    pendingReview: number;
+    unmatched: number;
+    notRegistered: number;
+    total: number;
+  };
+  enabledModules: StudentModule[];
+};
+
+export async function getProfessorDashboardCourses(
+  professorId: string,
+): Promise<ProfessorCourseDetail[]> {
+  const admin = createSupabaseAdminClient();
+
+  // 1. Professor's courses
+  const { data: profCourses, error: profCoursesError } = await admin
+    .from("professor_courses")
+    .select("id, custom_course_name, section_name, term, course_id, courses(id, course_name)")
+    .eq("professor_id", professorId)
+    .neq("status", "inactive")
+    .order("created_at", { ascending: true });
+
+  if (profCoursesError) throw new Error(profCoursesError.message);
+  if (!profCourses || profCourses.length === 0) return [];
+
+  const profCourseIds = profCourses.map((pc) => pc.id);
+  const courseIds = [...new Set(profCourses.map((pc) => pc.course_id))];
+
+  // 2. Rosters for these professor_courses, plus course_modules — parallel
+  const [{ data: rosters, error: rostersError }, { data: courseModulesData, error: courseModulesError }] =
+    await Promise.all([
+      admin
+        .from("rosters")
+        .select("id, professor_course_id")
+        .in("professor_course_id", profCourseIds)
+        .neq("status", "archived"),
+      admin
+        .from("course_modules")
+        .select(
+          "course_id, modules(id, slug, display_name, icon_path, module_url, category, jurisdiction)",
+        )
+        .in("course_id", courseIds),
+    ]);
+
+  if (rostersError) throw new Error(rostersError.message);
+  if (courseModulesError) throw new Error(courseModulesError.message);
+
+  const rosterIds = (rosters ?? []).map((r) => r.id);
+
+  // 3. Roster entries for those rosters
+  const { data: entries, error: entriesError } = rosterIds.length
+    ? await admin
+        .from("roster_entries")
+        .select("id, roster_id")
+        .in("roster_id", rosterIds)
+        .neq("status", "inactive")
+    : { data: [], error: null };
+
+  if (entriesError) throw new Error(entriesError.message);
+
+  const entryIds = (entries ?? []).map((e) => e.id);
+
+  // 4. Roster matches for those entries
+  const { data: matchRows, error: matchesError } = entryIds.length
+    ? await admin
+        .from("roster_matches")
+        .select("id, roster_entry_id, match_status")
+        .in("roster_entry_id", entryIds)
+    : { data: [], error: null };
+
+  if (matchesError) throw new Error(matchesError.message);
+
+  // Build lookup maps
+  const rosterToProfCourse = new Map<string, string>();
+  for (const r of rosters ?? []) rosterToProfCourse.set(r.id, r.professor_course_id);
+
+  const entryToProfCourse = new Map<string, string>();
+  const entryCountByProfCourse = new Map<string, number>();
+  for (const e of entries ?? []) {
+    const pcId = rosterToProfCourse.get(e.roster_id);
+    if (!pcId) continue;
+    entryToProfCourse.set(e.id, pcId);
+    entryCountByProfCourse.set(pcId, (entryCountByProfCourse.get(pcId) ?? 0) + 1);
+  }
+
+  const matchCountsByProfCourse = new Map<string, Record<string, number>>();
+  for (const m of matchRows ?? []) {
+    const pcId = entryToProfCourse.get(m.roster_entry_id);
+    if (!pcId) continue;
+    if (!matchCountsByProfCourse.has(pcId)) matchCountsByProfCourse.set(pcId, {});
+    const c = matchCountsByProfCourse.get(pcId)!;
+    c[m.match_status] = (c[m.match_status] ?? 0) + 1;
+  }
+
+  // course_id → deduplicated sorted modules
+  const categoryOrder: Record<string, number> = {
+    federal: 0,
+    state: 1,
+    county: 2,
+    international: 3,
+  };
+  const modulesByCourseId = new Map<string, StudentModule[]>();
+  for (const cm of courseModulesData ?? []) {
+    const mod = Array.isArray(cm.modules) ? cm.modules[0] : cm.modules;
+    if (!mod) continue;
+    const list = modulesByCourseId.get(cm.course_id) ?? [];
+    if (!list.find((m) => m.id === (mod as StudentModule).id)) {
+      list.push(mod as StudentModule);
+    }
+    modulesByCourseId.set(cm.course_id, list);
+  }
+  for (const mods of modulesByCourseId.values()) {
+    mods.sort((a, b) => {
+      const diff = (categoryOrder[a.category] ?? 4) - (categoryOrder[b.category] ?? 4);
+      return diff !== 0 ? diff : a.display_name.localeCompare(b.display_name);
+    });
+  }
+
+  return profCourses.map((pc) => {
+    const counts = matchCountsByProfCourse.get(pc.id) ?? {};
+    const matched = (counts["confirmed"] ?? 0) + (counts["auto_matched"] ?? 0);
+    const pendingReview = counts["needs_review"] ?? 0;
+    const unmatched = (counts["no_match"] ?? 0) + (counts["rejected"] ?? 0);
+    const totalEntries = entryCountByProfCourse.get(pc.id) ?? 0;
+    // Proxy: notRegistered = entries with no match row at all
+    const notRegistered = Math.max(0, totalEntries - matched - pendingReview - unmatched);
+
+    const courseData = Array.isArray(pc.courses) ? pc.courses[0] : pc.courses;
+    const courseName =
+      pc.custom_course_name ??
+      (courseData as { course_name: string } | null)?.course_name ??
+      "Unnamed course";
+
+    return {
+      professorCourseId: pc.id,
+      courseName,
+      sectionName: pc.section_name ?? null,
+      term: pc.term ?? null,
+      courseId: pc.course_id,
+      rosterStats: { matched, pendingReview, unmatched, notRegistered, total: totalEntries },
+      enabledModules: modulesByCourseId.get(pc.course_id) ?? [],
+    };
+  });
+}
 
 export async function getStudentDashboardDataForUser(
   userId: string,
@@ -693,6 +846,7 @@ export async function getCurrentProfessorDashboardData(): Promise<ProfessorDashb
   return {
     professorId: professor.id,
     professorName: `${professor.first_name} ${professor.last_name}`,
+    lastName: professor.last_name,
     universityName: professor.university_name_snapshot,
     onboardingStatus: professor.onboarding_status,
     progressState,
