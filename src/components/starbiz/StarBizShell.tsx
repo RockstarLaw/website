@@ -90,10 +90,10 @@ export function StarBizShell({ children }: { children: ReactNode }) {
               alt="StarBiz"
               width={40}
               height={40}
-              style={{ borderRadius: 0, imageRendering: "auto" }}
+              style={{ borderRadius: 0, imageRendering: "auto", mixBlendMode: "multiply" }}
             />
             <div>
-              <div style={{ fontSize: "11px", color: "#ccddff" }}>Florida Department of State</div>
+              <div style={{ fontSize: "11px", color: "#ccddff" }}>RockStar Department of State (Florida)</div>
               <div style={{ fontSize: "18px", fontFamily: "Times New Roman, Georgia, serif", fontWeight: "bold" }}>
                 Division of Corporations
               </div>
