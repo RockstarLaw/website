@@ -178,7 +178,7 @@ export default function HomePage() {
             <div>
               <Link
                 className="inline-flex rounded-xl border border-red-700 bg-red-700 px-4 py-3 font-semibold text-white transition hover:bg-red-800"
-                href="/why-rockstar"
+                href="/why-simulation-learning"
               >
                 Learn More
               </Link>
