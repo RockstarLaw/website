@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { SiteShell } from "@/components/site-shell";
 
 const modules = [
@@ -102,21 +104,27 @@ export default function AboutPage() {
               the law is not the same as knowing the form.
             </p>
 
-            <div className="space-y-2 text-center text-lg font-semibold tracking-[0.02em] text-slate-950 md:text-xl">
-              <p>
-                <span>SUNBIZ</span>
-                <span className="mx-3 text-red-700">·</span>
-                <span>USPTO</span>
-                <span className="mx-3 text-red-700">·</span>
-                <span>eCO</span>
-              </p>
-              <p>
-                <span>EDGAR</span>
-                <span className="mx-3 text-red-700">·</span>
-                <span>IRS</span>
-                <span className="mx-3 text-red-700">·</span>
-                <span>Court e-Filing</span>
-              </p>
+            <div className="overflow-x-auto">
+              <div className="flex justify-center gap-6 md:gap-8">
+                {[
+                  { src: "/images/modules/icon_florida_starbiz.png",          name: "SUNBIZ" },
+                  { src: "/images/modules/icon_federal_uspto.png",            name: "USPTO" },
+                  { src: "/images/modules/icon_federal_copyright_office.png", name: "eCO" },
+                  { src: "/images/modules/icon_federal_sec.png",              name: "EDGAR" },
+                  { src: "/images/modules/icon_federal_irs.png",              name: "IRS" },
+                  { src: "/images/modules/icon_broward_county_courts.png",   name: "Court e-Filing" },
+                ].map(({ src, name }) => (
+                  <Image
+                    key={name}
+                    src={src}
+                    alt={name}
+                    title={name}
+                    width={80}
+                    height={80}
+                    className="rounded-full object-cover"
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="space-y-4">
