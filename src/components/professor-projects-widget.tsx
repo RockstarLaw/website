@@ -2,6 +2,9 @@
 
 import { useActionState, useState } from "react";
 
+import { HelpTooltip } from "@/components/help-tooltip";
+import { AREAS_OF_LAW } from "@/lib/projects/areas-of-law";
+
 import {
   addFileToProject,
   createProject,
@@ -50,6 +53,19 @@ function ModeChips({ modes }: { modes: ProfessorProject["modes"] }) {
       {active.map((k) => (
         <span key={k} className="rounded-full bg-red-700 px-2 py-0.5 text-xs font-medium text-white">
           {MODE_LABELS[k] ?? k}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function AreaChips({ areas }: { areas: string[] }) {
+  if (!areas.length) return null;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {areas.map((a) => (
+        <span key={a} className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+          {a}
         </span>
       ))}
     </div>
@@ -118,15 +134,17 @@ function AddFileForm({ project }: { project: ProfessorProject }) {
 
       <div className="grid gap-3 md:grid-cols-2">
         <label className="grid gap-1.5">
-          <span className="text-xs font-medium text-slate-700">
-            Label <span className="text-red-700">*</span>
+          <span className="flex items-center text-xs font-medium text-slate-700">
+            Label <span className="text-red-700 ml-0.5">*</span>
+            <HelpTooltip text="The name students will see for this file. Examples: General Rules, Plaintiff's Confidential Brief, Auction Catalog Exhibit A." />
           </span>
           <input type="text" name="label" required placeholder="e.g. General Rules" className={inputCls} />
         </label>
 
         <label className="grid gap-1.5">
-          <span className="text-xs font-medium text-slate-700">
-            Audience <span className="text-red-700">*</span>
+          <span className="flex items-center text-xs font-medium text-slate-700">
+            Audience <span className="text-red-700 ml-0.5">*</span>
+            <HelpTooltip text="Who receives this file when the project is deployed. The dropdown only shows tags that match your project's mode flags. general means everyone; side_a/side_b are for Versus projects; team_a/team_b for Team; solo for Solo; ta_only is TA-facing setup material students never see." />
           </span>
           <select name="audienceTag" required className={inputCls} defaultValue="">
             <option value="" disabled>Select audience</option>
@@ -183,6 +201,7 @@ function ProjectRow({
           <p className="font-semibold text-slate-950">{project.title}</p>
           <p className="text-sm italic text-slate-600">{project.tagline}</p>
           <ModeChips modes={project.modes} />
+          <AreaChips areas={project.areaOfLaw} />
           <p className="text-xs text-slate-400">
             {project.files.length} file{project.files.length !== 1 ? "s" : ""} ·{" "}
             {project.duration} ·{" "}
@@ -304,17 +323,26 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
 
           <div className="grid gap-4 md:grid-cols-2">
             <label className="grid gap-2">
-              <span className="text-sm font-medium text-slate-700">Title <span className="text-red-700">*</span></span>
+              <span className="flex items-center text-sm font-medium text-slate-700">
+                Title <span className="text-red-700 ml-0.5">*</span>
+                <HelpTooltip text="The official name of your project as it appears in the Project Shop and on student dashboards. Be specific and memorable." />
+              </span>
               <input type="text" name="title" required maxLength={200} placeholder="e.g. Nike v. Kool Kiy" className={inputCls} />
             </label>
             <label className="grid gap-2">
-              <span className="text-sm font-medium text-slate-700">Tagline <span className="text-red-700">*</span></span>
+              <span className="flex items-center text-sm font-medium text-slate-700">
+                Tagline <span className="text-red-700 ml-0.5">*</span>
+                <HelpTooltip text="A short hook (a few words to one short sentence) that captures the project's energy. Think movie poster tagline." />
+              </span>
               <input type="text" name="tagline" required placeholder="Short hook line" className={inputCls} />
             </label>
           </div>
 
           <label className="grid gap-2">
-            <span className="text-sm font-medium text-slate-700">Pitch <span className="text-red-700">*</span></span>
+            <span className="flex items-center text-sm font-medium text-slate-700">
+              Pitch <span className="text-red-700 ml-0.5">*</span>
+              <HelpTooltip text="The longer marketing description that sells the project to faculty browsing the catalog. Explain what students will do, what they'll learn, what makes the project memorable." />
+            </span>
             <textarea name="pitch" required maxLength={2000} rows={4} placeholder="Full description for the catalog" className={inputCls} />
           </label>
 
@@ -322,10 +350,18 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
           <div className="grid gap-2">
             <span className="text-sm font-medium text-slate-700">Mode flags</span>
             <div className="flex flex-wrap gap-4">
-              {(Object.keys(MODE_LABELS) as (keyof typeof MODE_LABELS)[]).map((key) => (
-                <label key={key} className="flex items-center gap-2 cursor-pointer">
+              {[
+                { key: "versus",        tooltip: "Students compete head-to-head, paired against each other. Each takes one side of an adversarial scenario. Used for negotiations, debates, oral argument competitions." },
+                { key: "drafting",      tooltip: "Students produce a written work product. A memo, motion, brief, contract, or other formal legal document. The deliverable is the writing itself." },
+                { key: "oral_argument", tooltip: "Students present, debate, or argue verbally. Includes negotiations, moot courts, depositions, and live in-class debates." },
+                { key: "solo",          tooltip: "Each student works individually. Their work and grade reflect only their own effort." },
+                { key: "team",          tooltip: "Students work in groups with shared deliverables and shared accountability." },
+                { key: "creativity",    tooltip: "This project rewards creative or lateral thinking — finding win-win solutions, reframing problems, recognizing collaborative possibilities, creating value where there seems to be none. Some professors prefer traditional 'Adversarial' training; others develop integrative-bargaining instincts. This flag tells faculty if creative thinking has potential to play a significant role." },
+              ].map(({ key, tooltip }) => (
+                <label key={key} className="flex items-center gap-1.5 cursor-pointer">
                   <input type="checkbox" name={key} value="true" className="h-4 w-4 accent-red-700" />
-                  <span className="text-sm text-slate-700">{MODE_LABELS[key]}</span>
+                  <span className="text-sm text-slate-700">{MODE_LABELS[key as keyof typeof MODE_LABELS] ?? key}</span>
+                  <HelpTooltip text={tooltip} />
                 </label>
               ))}
             </div>
@@ -333,7 +369,10 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
 
           <div className="grid gap-4 md:grid-cols-3">
             <label className="grid gap-2">
-              <span className="text-sm font-medium text-slate-700">Duration <span className="text-red-700">*</span></span>
+              <span className="flex items-center text-sm font-medium text-slate-700">
+                Duration <span className="text-red-700 ml-0.5">*</span>
+                <HelpTooltip text="How long the project takes from assignment to completion. 1 Hour fits a single class period; Semester is a full-term running matter." />
+              </span>
               <select name="duration" required className={inputCls} defaultValue="">
                 <option value="" disabled>Select</option>
                 {DURATION_OPTIONS.map((d) => (
@@ -341,19 +380,40 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
                 ))}
               </select>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer pt-7">
+            <label className="flex items-center gap-1.5 cursor-pointer pt-7">
               <input type="checkbox" name="real_world" value="true" className="h-4 w-4 accent-red-700" />
               <span className="text-sm text-slate-700">Real World</span>
+              <HelpTooltip text="Check if this project is based on or adapted from a real legal matter the author worked on, was involved in, or is drawing from public record. Real World projects should play like an 'Augmented Reality' game, where techniques like Googling or industry knowledge have potential to give initiated students an advantage." />
             </label>
-            <label className="flex items-center gap-2 cursor-pointer pt-7">
+            <label className="flex items-center gap-1.5 cursor-pointer pt-7">
               <input type="checkbox" name="world_rank_qualifying" value="true" className="h-4 w-4 accent-red-700" />
               <span className="text-sm text-slate-700">World Rank Qualifying</span>
+              <HelpTooltip text="Check if this project produces a deliverable that can be objectively scored and compared against every other student submission ever made for this project. WRQ projects feed the global leaderboard. Appropriate for projects with structured written deliverables; not appropriate for live negotiations or projects without comparable outputs." />
             </label>
+          </div>
+
+          {/* Area of Law */}
+          <div className="grid gap-2">
+            <span className="flex items-center text-sm font-medium text-slate-700">
+              Area of Law
+              <HelpTooltip text="The legal subject matter this project teaches. Multi-select — most projects span multiple areas. Faculty filter the catalog by area to find projects relevant to their courses." />
+            </span>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2 md:grid-cols-3">
+              {AREAS_OF_LAW.map((area) => (
+                <label key={area} className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="area_of_law" value={area} className="h-4 w-4 accent-red-700" />
+                  <span className="text-xs text-slate-700">{area}</span>
+                </label>
+              ))}
+            </div>
           </div>
 
           {/* Catalog images */}
           <div className="grid gap-3">
-            <span className="text-sm font-medium text-slate-700">Catalog images (optional)</span>
+            <span className="flex items-center text-sm font-medium text-slate-700">
+              Catalog images (optional)
+              <HelpTooltip text="Up to three visual assets for your project's storefront listing. The first image is the hero. Use images that capture the project's tone — illustration, photography, character art, screenshots." />
+            </span>
             <div className="grid gap-3 md:grid-cols-3">
               {[1, 2, 3].map((n) => (
                 <label key={n} className="grid gap-1.5">

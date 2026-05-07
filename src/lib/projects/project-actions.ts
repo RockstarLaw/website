@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { AREAS_OF_LAW } from "./areas-of-law";
 import { VALID_DURATIONS } from "./project-types";
 import type { DeleteProjectState, FileActionState, ProjectActionState } from "./project-types";
 
@@ -92,6 +93,14 @@ export async function createProject(
     const real_world     = formData.get("real_world")     === "true";
     const world_rank_qualifying = formData.get("world_rank_qualifying") === "true";
 
+    const areaOfLaw = formData.getAll("area_of_law").map(String).filter(Boolean);
+    const invalidAreas = areaOfLaw.filter(
+      (a) => !(AREAS_OF_LAW as readonly string[]).includes(a),
+    );
+    if (invalidAreas.length > 0) {
+      return { error: `Invalid area(s) of law: ${invalidAreas.join(", ")}`, success: "" };
+    }
+
     // Generate project ID before storage uploads so paths can use it
     const projectId = crypto.randomUUID();
     const admin = createSupabaseAdminClient();
@@ -111,6 +120,7 @@ export async function createProject(
       image_1_path: image1Path,
       image_2_path: image2Path,
       image_3_path: image3Path,
+      area_of_law: areaOfLaw,
     });
 
     if (dbError) {

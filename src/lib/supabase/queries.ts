@@ -1001,6 +1001,7 @@ export type ProfessorProject = {
   popularity: number;
   imagePaths: { image1: string | null; image2: string | null; image3: string | null };
   imageUrls:  { image1: string | null; image2: string | null; image3: string | null };
+  areaOfLaw: string[];
   createdAt: string;
   files: ProjectFile[];
 };
@@ -1014,7 +1015,7 @@ export async function getProfessorProjects(
   const { data: projects, error: projError } = await admin
     .from("projects")
     .select(
-      "id, title, tagline, pitch, versus, drafting, oral_argument, solo, team, creativity, duration, real_world, world_rank_qualifying, popularity, image_1_path, image_2_path, image_3_path, created_at",
+      "id, title, tagline, pitch, versus, drafting, oral_argument, solo, team, creativity, duration, real_world, world_rank_qualifying, popularity, image_1_path, image_2_path, image_3_path, area_of_law, created_at",
     )
     .eq("professor_id", professorId)
     .order("created_at", { ascending: false });
@@ -1092,6 +1093,7 @@ export async function getProfessorProjects(
       image2: p.image_2_path ? (imgUrlMap.get(p.image_2_path) ?? null) : null,
       image3: p.image_3_path ? (imgUrlMap.get(p.image_3_path) ?? null) : null,
     },
+    areaOfLaw: Array.isArray(p.area_of_law) ? (p.area_of_law as string[]) : [],
     createdAt: p.created_at,
     files: filesByProject.get(p.id) ?? [],
   }));
