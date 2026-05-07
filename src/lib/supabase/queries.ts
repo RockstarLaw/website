@@ -957,6 +957,54 @@ export async function getCourseTAs(professorCourseId: string): Promise<CourseTAR
   });
 }
 
+export type ProfessorProject = {
+  id: string;
+  title: string;
+  description: string | null;
+  originalFilename: string;
+  fileSizeBytes: number;
+  mimeType: string;
+  uploadedAt: string;
+  downloadUrl: string; // signed URL, 24-hour TTL
+};
+
+export async function getProfessorProjects(
+  professorId: string,
+): Promise<ProfessorProject[]> {
+  const admin = createSupabaseAdminClient();
+  const { data, error } = await admin
+    .from("projects")
+    .select(
+      "id, title, description, original_filename, file_size_bytes, mime_type, storage_path, uploaded_at",
+    )
+    .eq("professor_id", professorId)
+    .order("uploaded_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+  if (!data || data.length === 0) return [];
+
+  // Batch-generate signed URLs (24h TTL) in a single call
+  const paths = data.map((r) => r.storage_path);
+  const { data: signedData } = await admin.storage
+    .from("projects")
+    .createSignedUrls(paths, 86400);
+
+  const urlMap = new Map(
+    (signedData ?? []).map((s) => [s.path, s.signedUrl]),
+  );
+
+  return data.map((r) => ({
+    id: r.id,
+    title: r.title,
+    description: r.description ?? null,
+    originalFilename: r.original_filename,
+    fileSizeBytes: r.file_size_bytes,
+    mimeType: r.mime_type,
+    uploadedAt: r.uploaded_at,
+    downloadUrl: urlMap.get(r.storage_path) ?? "",
+  }));
+}
+
 export async function getCurrentAppUserRole(): Promise<AppRole | null> {
   const supabase = await createSupabaseServerClient();
   const {

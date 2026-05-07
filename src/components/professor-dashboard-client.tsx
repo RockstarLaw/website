@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import type { ProfessorCourseDetail } from "@/lib/supabase/queries";
 
@@ -34,17 +34,8 @@ function StatTile({
 
 export function ProfessorCoursePanel({ courses }: { courses: ProfessorCourseDetail[] }) {
   const [selectedIdx, setSelectedIdx] = useState(0);
-  const [uploadMessage, setUploadMessage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const selected = courses[selectedIdx];
-
-  function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files && e.target.files.length > 0) {
-      setUploadMessage("Upload received — project processing isn't built yet.");
-      e.target.value = "";
-    }
-  }
 
   return (
     <div className="flex flex-col gap-10">
@@ -65,22 +56,16 @@ export function ProfessorCoursePanel({ courses }: { courses: ProfessorCourseDeta
         </Link>
         <button
           type="button"
-          onClick={() => fileInputRef.current?.click()}
+          onClick={() =>
+            document
+              .getElementById("upload-project-form")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
           className="inline-flex rounded-full bg-red-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-800"
         >
           Upload a Project
         </button>
-        <input
-          ref={fileInputRef}
-          type="file"
-          className="hidden"
-          onChange={handleFileSelect}
-        />
       </div>
-
-      {uploadMessage && (
-        <p className="text-sm text-slate-600">{uploadMessage}</p>
-      )}
 
       {/* ── Course panel ───────────────────────────────────────────────── */}
       {courses.length === 0 ? (

@@ -1,9 +1,11 @@
 import { SiteShell } from "@/components/site-shell";
 import { ProfessorCoursePanel } from "@/components/professor-dashboard-client";
+import { ProfessorProjectsWidget } from "@/components/professor-projects-widget";
 import { getRandomGreeting } from "@/lib/greetings";
 import {
   getCurrentProfessorDashboardData,
   getProfessorDashboardCourses,
+  getProfessorProjects,
 } from "@/lib/supabase/queries";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +21,10 @@ export default async function ProfessorDashboardPage() {
     );
   }
 
-  const [courses] = await Promise.all([getProfessorDashboardCourses(dashboard.professorId)]);
+  const [courses, projects] = await Promise.all([
+    getProfessorDashboardCourses(dashboard.professorId),
+    getProfessorProjects(dashboard.professorId),
+  ]);
   const greeting = getRandomGreeting();
 
   return (
@@ -41,6 +46,17 @@ export default async function ProfessorDashboardPage() {
 
         {/* ── Course panel (client: CTAs + selector + body) ───────────── */}
         <ProfessorCoursePanel courses={courses} />
+
+        {/* ── MY PROJECTS widget ──────────────────────────────────────── */}
+        <section className="flex flex-col gap-6">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
+              MY PROJECTS
+            </h2>
+            <div className="mt-1 h-0.5 w-12 bg-red-700" />
+          </div>
+          <ProfessorProjectsWidget projects={projects} />
+        </section>
 
       </div>
     </SiteShell>
