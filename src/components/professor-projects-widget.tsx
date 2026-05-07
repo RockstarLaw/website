@@ -398,7 +398,7 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
               Area of Law
               <HelpTooltip text="The legal subject matter this project teaches. Multi-select — most projects span multiple areas. Faculty filter the catalog by area to find projects relevant to their courses." />
             </span>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2 md:grid-cols-3">
+            <div className="grid grid-flow-col grid-rows-12 grid-cols-3 gap-x-6 gap-y-2">
               {AREAS_OF_LAW.map((area) => (
                 <label key={area} className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" name="area_of_law" value={area} className="h-4 w-4 accent-red-700" />
