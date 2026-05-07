@@ -163,7 +163,7 @@ export default async function EntityDetailPage({
           <tbody>
             {entity.officers.map((o, i) => (
               <tr key={o.id} style={{ backgroundColor: i % 2 === 1 ? YELLOW : WHITE }}>
-                <td style={tdBorder}>{o.title ?? o.role.toUpperCase()}</td>
+                <td style={tdBorder}>{o.title}</td>
                 <td style={tdBorder}>{o.name}</td>
                 <td style={tdBorder}>{formatAddr(o.address)}</td>
               </tr>

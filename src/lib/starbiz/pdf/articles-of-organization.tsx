@@ -226,7 +226,7 @@ export default function ArticlesOfOrganization({ data }: { data: ArticlesData })
           </View>
           {data.authorizedPersons.map((p, i) => (
             <View key={`${p.name}-${i}`} style={styles.tr}>
-              <Text style={[styles.td, styles.thTitle]}>{p.title ?? ""}</Text>
+              <Text style={[styles.td, styles.thTitle]}>{p.title}</Text>
               <Text style={[styles.td, styles.thName]}>{p.name}</Text>
               <Text style={[styles.td, styles.thAddress]}>{formatAddressLine(p.address)}</Text>
             </View>
