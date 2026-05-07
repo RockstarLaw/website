@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { sendEmail } from "@/lib/notifications/email";
+import { taInvitationEmail } from "@/lib/notifications/ta-emails";
 import type { TAActionState } from "./ta-types";
 
 async function getCurrentProfessor() {
@@ -141,6 +143,47 @@ export async function inviteTA(
   }
 
   revalidatePath("/professor/courses", "layout");
+
+  // Best-effort email notification to the invited student.
+  try {
+    const admin = createSupabaseAdminClient();
+    const { data: authUser } = await admin.auth.admin.getUserById(studentProfile.user_id);
+    const studentEmail = authUser?.user?.email;
+    const { data: pc } = await admin
+      .from("professor_courses")
+      .select("custom_course_name, courses(course_name), professor_profiles(last_name)")
+      .eq("id", professorCourseId)
+      .maybeSingle();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pcAny = pc as any;
+    const courseName =
+      pcAny?.custom_course_name ??
+      (Array.isArray(pcAny?.courses) ? pcAny.courses[0]?.course_name : pcAny?.courses?.course_name) ??
+      "your course";
+    const profLastName =
+      (Array.isArray(pcAny?.professor_profiles)
+        ? pcAny.professor_profiles[0]?.last_name
+        : pcAny?.professor_profiles?.last_name) ?? "";
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://rockstarlaw.com";
+    if (studentEmail) {
+      const { data: sp } = await admin
+        .from("student_profiles")
+        .select("first_name")
+        .eq("id", studentProfile.id)
+        .maybeSingle();
+      const firstName = sp?.first_name ?? email.split("@")[0];
+      const tmpl = taInvitationEmail({
+        studentFirstName: firstName,
+        professorLastName: profLastName,
+        courseName,
+        dashboardUrl: `${appUrl}/dashboard/student`,
+      });
+      await sendEmail({ to: studentEmail, ...tmpl });
+    }
+  } catch (e) {
+    console.error("[inviteTA] email lookup failed:", e);
+  }
+
   return { error: "", success: "Invitation sent." };
 }
 
