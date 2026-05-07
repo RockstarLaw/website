@@ -1,7 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendEmail({
   to,
   subject,
@@ -13,9 +11,16 @@ export async function sendEmail({
   text: string;
   html?: string;
 }): Promise<void> {
-  const from = process.env.EMAIL_FROM ?? "RockStar Law <onboarding@resend.dev>";
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    console.warn("[email] RESEND_API_KEY not set — skipping send to", to);
+    return;
+  }
 
   try {
+    const resend = new Resend(apiKey);
+    const from = process.env.EMAIL_FROM ?? "RockStar Law <onboarding@resend.dev>";
     const { error } = await resend.emails.send({ from, to, subject, text, html });
     if (error) {
       console.error("[email] Resend error:", error.message ?? error);
