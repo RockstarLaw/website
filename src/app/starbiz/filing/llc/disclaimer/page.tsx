@@ -1,284 +1,88 @@
 /**
- * LLC Disclaimer Page — Retrofit R1
+ * LLC Disclaimer Page — Retrofit R7b-1
  *
- * Matches the real Sunbiz disclaimer page (efile.sunbiz.org/llc_file.html)
- * captured in Florida_Sunbiz_website/3_Step_3_2_SUNBIZ FILING AN LLC/
- * 2_Articles of Organization for Florida Limited Liability Company - Sunbiz.html
+ * 1:1 clone of the real Sunbiz llc_file.html disclaimer page.
+ * The HTML is stored as a transformed static asset at public/sunbiz/disclaimer.html
+ * and served verbatim via dangerouslySetInnerHTML — no React component wrappers,
+ * no StarBizShell, no EFilingShell.  The cloned HTML carries its own complete
+ * chrome (header, breadcrumbs, disclaimer box, footer, dosbanner).
  *
- * Two-column layout:
- *   LEFT  — "File Articles of Organization" → posts to /starbiz/filing/llc/form (Phase R2)
- *   RIGHT — "Correct Articles of Organization" → placeholder only, deferred
+ * Auth gate is enforced here before any HTML is returned.
  *
- * DO NOT import or touch /starbiz/filing/llc/page.tsx.
- * The existing 4-step wizard stays functional during the retrofit.
+ * Transformations already baked into disclaimer.html (SESSION_HANDOFF §2):
+ *   • Analytics/MM_reloadPage scripts stripped.
+ *   • "Florida Department of State" → "RockStar Department of State" (chrome only).
+ *   • Asset paths rewritten to /sunbiz/<basename>.
+ *   • Form action → /starbiz/filing/llc/form (method=GET).
+ *   • "Correct Articles" form disabled.
+ *   • Breadcrumb hrefs → /starbiz routes.
+ *
+ * STYLE NOTES:
+ *   The root layout applies Tailwind classes to <body> (flex, min-h-full, bg-white).
+ *   We undo those with a scoped <style> block that React 19 hoists to <head>.
+ *   The Sunbiz CSS then takes over via its own body / #wrapper / #content rules.
  */
 
-import { StarBizShell } from "@/components/starbiz/StarBizShell";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { redirect } from "next/navigation";
 
-// ─── Style constants ────────────────────────────────────────────────────────────
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-const NAVY   = "#003366";
-const MAROON = "#800000";
-const WHITE  = "#FFFFFF";
-const CREAM  = "#FFFFF0";
+export const dynamic = "force-dynamic";
 
-const sPageTitle: React.CSSProperties = {
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "16px",
-  fontWeight: "bold",
-  color: NAVY,
-  marginBottom: "10px",
-  marginTop: "4px",
-};
+export default async function DisclaimerPage() {
+  // ── Auth check ──────────────────────────────────────────────────────────────
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
 
-const sDisclaimerBox: React.CSSProperties = {
-  border: "1px solid #999",
-  backgroundColor: CREAM,
-  padding: "8px 12px",
-  marginBottom: "14px",
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "12px",
-};
+  // ── Read the pre-transformed static HTML ────────────────────────────────────
+  const fullHtml = readFileSync(
+    join(process.cwd(), "public/sunbiz/disclaimer.html"),
+    "utf-8",
+  );
 
-const sDisclaimerHeading: React.CSSProperties = {
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "13px",
-  fontWeight: "bold",
-  color: NAVY,
-  marginBottom: "6px",
-  marginTop: "2px",
-};
+  // Extract the content of <body>…</body> for injection.
+  // React renders inside the root layout's <body>, so we inject only the
+  // body's innerHTML — the <head> CSS links are added via React 19 <link> hoisting.
+  const bodyMatch = fullHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  const bodyContent = bodyMatch ? bodyMatch[1] : fullHtml;
 
-const sListItem: React.CSSProperties = {
-  marginBottom: "5px",
-  lineHeight: "1.5",
-};
-
-const sColumnHeading: React.CSSProperties = {
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "13px",
-  fontWeight: "bold",
-  color: MAROON,
-  marginBottom: "8px",
-};
-
-const sBodyText: React.CSSProperties = {
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "12px",
-  color: "#333",
-  lineHeight: "1.5",
-};
-
-const sLabel: React.CSSProperties = {
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "12px",
-  fontWeight: "bold",
-  color: "#333",
-  padding: "3px 8px 3px 0",
-  whiteSpace: "nowrap",
-  verticalAlign: "middle",
-};
-
-const sInput: React.CSSProperties = {
-  border: "1px solid #666",
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "12px",
-  padding: "2px 4px",
-};
-
-const sBtn: React.CSSProperties = {
-  backgroundColor: WHITE,
-  border: "2px outset #aaa",
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "12px",
-  padding: "3px 12px",
-  cursor: "pointer",
-};
-
-const sBtnDisabled: React.CSSProperties = {
-  ...sBtn,
-  cursor: "not-allowed",
-  color: "#999",
-};
-
-const sDivider: React.CSSProperties = {
-  borderLeft: "1px solid #ccc",
-  margin: "0 18px",
-  alignSelf: "stretch",
-};
-
-// ─── Page ───────────────────────────────────────────────────────────────────────
-
-export default function LLCDisclaimerPage() {
   return (
-    <StarBizShell>
+    <>
+      {/*
+       * React 19 automatically hoists <link> and <style> to <head>.
+       * Loading Sunbiz CSS this way means no FOUC and no layout.tsx changes.
+       */}
+      {/* eslint-disable-next-line @next/next/no-css-tags */}
+      <link rel="stylesheet" href="/sunbiz/sunbiz_style.css" />
+      {/* eslint-disable-next-line @next/next/no-css-tags */}
+      <link rel="stylesheet" href="/sunbiz/sunbiz_dos_style.css" />
 
-      {/* ── Page title ────────────────────────────────────────────────── */}
-      <h1 style={sPageTitle}>
-        Articles of Organization for Florida Limited Liability Company
-      </h1>
+      {/*
+       * The root layout applies `display:flex; flex-direction:column` to <body>
+       * via Tailwind classes.  Those break Sunbiz's `margin:0 auto` centering
+       * on #wrapper.  Reset them here — Tailwind classes have no !important so
+       * one specificity step is enough, but !important is safest.
+       */}
+      <style>{`
+        body {
+          display: block !important;
+          flex-direction: initial !important;
+          align-items: initial !important;
+          min-height: auto !important;
+        }
+      `}</style>
 
-      {/* ── Disclaimer ───────────────────────────────────────────────── */}
-      <div style={sDisclaimerBox}>
-        <h3 style={sDisclaimerHeading}>Disclaimer</h3>
-        <ul style={{ margin: "0", paddingLeft: "20px" }}>
-          <li style={sListItem}>
-            <strong>
-              This form creates a Florida Limited Liability Company OR corrects
-              your rejected online filing.
-            </strong>
-          </li>
-          <li style={sListItem}>
-            Review and verify your information for accuracy. Once submitted, the
-            Articles of Organization cannot be changed, removed, canceled or
-            refunded.
-          </li>
-          <li style={sListItem}>
-            Review the{" "}
-            <a
-              href="#"
-              style={{ color: MAROON }}
-              title="Phase R-future: will link to hosted instructions PDF"
-            >
-              instructions for filing the Articles of Organization for Florida
-              Limited Liability Company
-            </a>
-            .
-          </li>
-        </ul>
-      </div>
-
-      {/* ── Two-column layout ─────────────────────────────────────────── */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 0,
-          border: "1px solid #ccc",
-          padding: "14px",
-          backgroundColor: WHITE,
-        }}
-      >
-
-        {/* LEFT — File Articles of Organization */}
-        <div style={{ flex: "0 0 auto", minWidth: "340px" }}>
-          <h3 style={sColumnHeading}>File Articles of Organization</h3>
-
-          {/*
-           * Form posts to /starbiz/filing/llc/form (Phase R2).
-           * Returns 404 until R2 ships — that is expected and acceptable for R1.
-           * The `required` attribute on the checkbox enforces HTML5 validation
-           * so the browser prevents submission if unchecked.
-           */}
-          <form
-            action="/starbiz/filing/llc/form"
-            method="get"
-            style={{ margin: 0 }}
-          >
-            <p style={{ ...sBodyText, marginBottom: "10px" }}>
-              <label style={{ display: "flex", alignItems: "flex-start", gap: "6px", cursor: "pointer" }}>
-                <input
-                  type="checkbox"
-                  name="Disclaimer"
-                  value="accept"
-                  required
-                  style={{ marginTop: "3px", flexShrink: 0 }}
-                />
-                <span>
-                  I have read and accept the terms of this disclaimer and
-                  acknowledge receipt of the{" "}
-                  <a
-                    href="#"
-                    style={{ color: MAROON }}
-                    title="Phase R-future: will link to filing information page"
-                  >
-                    filing information
-                  </a>{" "}
-                  provided.
-                </span>
-              </label>
-            </p>
-
-            <div style={{ textAlign: "center", marginTop: "10px" }}>
-              <input type="submit" value="Start New Filing" style={sBtn} />
-            </div>
-          </form>
-        </div>
-
-        {/* Vertical divider */}
-        <div style={sDivider} />
-
-        {/* RIGHT — Correct Articles of Organization */}
-        {/*
-         * Correction flow not implemented yet — placeholder layout only.
-         * Phase R-future: wire to correction/amendment workflow.
-         */}
-        <div style={{ flex: "1 1 auto", paddingLeft: "4px" }}>
-          <h3 style={sColumnHeading}>Correct Articles of Organization</h3>
-
-          <p style={{ ...sBodyText, marginBottom: "10px", color: "#555" }}>
-            Enter the tracking number and PIN (supplied in the rejection email)
-            and click &ldquo;Update Filing&rdquo;.
-          </p>
-
-          <table cellPadding={0} cellSpacing={0}>
-            <tbody>
-              <tr>
-                <td style={sLabel}>
-                  <label htmlFor="track_number">Tracking Number:</label>
-                </td>
-                <td style={{ padding: "3px 0" }}>
-                  <input
-                    type="text"
-                    id="track_number"
-                    name="track_number"
-                    size={12}
-                    maxLength={12}
-                    disabled
-                    style={{ ...sInput, color: "#aaa", backgroundColor: "#f5f5f5" }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td style={sLabel}>
-                  <label htmlFor="pin_number">PIN:</label>
-                </td>
-                <td style={{ padding: "3px 0" }}>
-                  <input
-                    type="text"
-                    id="pin_number"
-                    name="pin_number"
-                    size={4}
-                    maxLength={4}
-                    disabled
-                    style={{ ...sInput, color: "#aaa", backgroundColor: "#f5f5f5" }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td colSpan={2} style={{ paddingTop: "8px" }}>
-                  <button type="button" disabled style={sBtnDisabled}>
-                    Update Filing
-                  </button>
-                  <span
-                    style={{
-                      fontFamily: "Arial",
-                      fontSize: "10px",
-                      color: "#888",
-                      marginLeft: "8px",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    (not available — deferred)
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-
-    </StarBizShell>
+      {/*
+       * Single wrapper div — the minimum wrapper React requires for
+       * dangerouslySetInnerHTML.  Sunbiz CSS targets #wrapper / #content /
+       * #dosbanner, not this div, so it is visually transparent.
+       */}
+      <div dangerouslySetInnerHTML={{ __html: bodyContent }} />
+    </>
   );
 }

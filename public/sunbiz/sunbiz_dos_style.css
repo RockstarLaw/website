@@ -1,0 +1,184 @@
+@import "dosbanner.css";
+
+/* Zero down margin and padding on all elements */
+.breadcrumbs, .breadcrumbs * {
+  margin:0;
+  padding:0;
+}
+
+
+
+/*GENERAL STYLES*/
+body {
+  font-family: Arial, Helvetica, sans-serif; 
+  line-height:1.5; 
+  background: #333;
+ background: #fff url("/images/pattern-background.gif") repeat;
+  font-size: 80%; 
+  text-align: center;
+  
+}
+
+h1, h2, h3 {
+        font-family: 'Trebuchet MS', Verdana, sans-serif;
+        color: #515151;
+}
+
+#dosbanner .division-name {
+	font-size: 1.6em;
+	margin: 0;	
+}
+
+
+/*this is the wrapper for everything */
+#wrapper {
+  width: 65em; 
+  background-color: #fff; 
+  border:#fff 1px solid; 
+  margin: 0 auto; 
+  text-align: left; 
+  /*max-width:100%;May need to remove*/
+  /*min-width:50em;May need to remove*/
+}
+
+#mainNav {
+  padding: 1.5em 0 .5em .01em;
+   margin-left:.4em;
+  /*max-width:15%;May need to remove*/
+  /*min-width:15%;May need to remove*/
+ /*float:left;   this was removed because the navigation pops down when the font size is reduced*/
+}
+#footer { 
+  clear: both; 
+  background-color:#000; 
+  text-align:center; 
+  /*height:3em;*/
+ border:none;
+  color:#fff;
+  padding: .25em 1em 1em;
+	width: auto;
+
+}
+
+#content { 
+ /* width:46.5em; 
+  float:right; */
+  background-color:#ffffff; 
+  font-size: 1.1em;
+  margin: .75em;
+  padding: 1.5em;
+}
+
+.disclaimer {
+	background-color:#FFFFCC;
+	border-bottom: 2px solid #eaeab4;	
+	margin-bottom: 1em;
+}
+.disclaimer .body {
+	min-height: 100px;
+	padding-left: 110px; 
+	background-image:url(/images/stop-150px.png); 
+	background-repeat:no-repeat;
+	background-position: 10px;
+	padding: .5em 1em .5em  110px;
+	
+}
+
+.disclaimer h3 {
+
+	background-color: #eaeab4;
+	margin: 0;
+	padding: 5px;
+	border-top: 2px solid red;	
+
+	
+}
+
+.rightmargin {
+	margin: 10px 10px;
+}
+
+.leftmargin {
+	margin-left: 10px;
+}
+
+.label {
+	align: left; 
+	width: 132px;
+}
+
+.number {
+	aligh: left;
+	width: 85px;
+}
+
+a:link, a:visited {
+	font-size: inherit;	
+}
+
+/* #region 5.7. Breadcrumbs */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   5.7. [Breadcrumbs] / .breadcrumbs
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+ul.breadcrumbs {
+    font-size: 14px;
+
+    margin-left: 0;
+	margin-top:1em;
+
+	margin-bottom:1em;
+}
+
+    ul.breadcrumbs li {
+        display: inline;
+        padding-right: 0;
+        padding-left: 0;
+        text-indent: 0;
+        margin-left: 0;
+    }
+
+
+        .breadcrumbs li:after {
+            content: "/";
+            padding-left: 7px;
+            padding-right: 5px;
+        }
+
+        .breadcrumbs li.active:after {
+            content: none;
+        }
+
+        .breadcrumbs li:first-child {
+            padding-left: 0;
+        }
+
+        .breadcrumbs li:before {   content: none !important; }
+
+        
+/* #endregion */
+
+/* sunbiz overrides */
+
+#header {background-color: #002649; width: auto; padding-bottom: 10px;}
+#header .logo {margin: auto; display:block;}
+#main {
+	width: auto;
+}
+
+#maincontent {margin: 1em; display: inline-block;}
+
+.pagetitle {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 1.75em;
+	color: #515151;	
+
+}
+
+#efilmainmenu a:link, #efilmainmenu a:visited {
+	position:static;
+}
+
+#efilcormenu a:link, #efilcormenu a:link {
+	position:static;
+}
