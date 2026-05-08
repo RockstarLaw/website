@@ -7,6 +7,7 @@ import { getRandomGreeting } from "@/lib/greetings";
 import {
   getCurrentProfessorDashboardData,
   getProfessorDashboardCourses,
+  getProfessorLibrary,
   getProfessorProjects,
   getRandomApprovedQuote,
 } from "@/lib/supabase/queries";
@@ -24,9 +25,10 @@ export default async function ProfessorDashboardPage() {
     );
   }
 
-  const [courses, projects, randomQuoteRow] = await Promise.all([
+  const [courses, projects, libraryProjects, randomQuoteRow] = await Promise.all([
     getProfessorDashboardCourses(dashboard.professorId),
     getProfessorProjects(dashboard.professorId),
+    getProfessorLibrary(dashboard.professorId),
     getRandomApprovedQuote(),
   ]);
 
@@ -71,7 +73,7 @@ export default async function ProfessorDashboardPage() {
         <ProfessorCoursePanel courses={courses} />
 
         {/* ── MY PROJECTS widget ──────────────────────────────────────── */}
-        <ProfessorProjectsWidget projects={projects} />
+        <ProfessorProjectsWidget projects={projects} libraryProjects={libraryProjects} />
 
       </div>
     </SiteShell>

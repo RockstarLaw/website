@@ -12,6 +12,10 @@ import {
   deleteProject,
 } from "@/lib/projects/project-actions";
 import {
+  initialLibraryState,
+  removeFromLibrary,
+} from "@/lib/projects/library-actions";
+import {
   AUDIENCE_TAG_LABELS,
   DURATION_OPTIONS,
   MODE_LABELS,
@@ -118,6 +122,28 @@ function DeleteProjectForm({ project }: { project: ProfessorProject }) {
         className="text-sm text-red-700 hover:underline disabled:opacity-50"
       >
         {pending ? "Deleting…" : "Delete"}
+      </button>
+      {state.error && <span className="ml-2 text-xs text-red-700">{state.error}</span>}
+    </form>
+  );
+}
+
+function RemoveFromLibraryForm({ project }: { project: ProfessorProject }) {
+  const [state, formAction, pending] = useActionState(removeFromLibrary, initialLibraryState);
+  return (
+    <form
+      action={formAction}
+      onSubmit={(e) => {
+        if (!confirm(`Remove "${project.title}" from your library? You can re-add it from the Project Shop anytime.`)) e.preventDefault();
+      }}
+    >
+      <input type="hidden" name="projectId" value={project.id} />
+      <button
+        type="submit"
+        disabled={pending}
+        className="text-sm text-red-700 hover:underline disabled:opacity-50"
+      >
+        {pending ? "Removing…" : "Remove from Library"}
       </button>
       {state.error && <span className="ml-2 text-xs text-red-700">{state.error}</span>}
     </form>
@@ -265,13 +291,100 @@ function ProjectRow({
   );
 }
 
+// ─── Library project row (from Project Shop, read-only file access) ─────────
+
+function LibraryProjectRow({
+  project,
+  isOpen,
+  onToggle,
+}: {
+  project: ProfessorProject;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="border-b border-slate-200 pb-5">
+      {/* Collapsed header */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-1.5">
+          <p className="font-semibold text-slate-950">{project.title}</p>
+          <p className="text-sm italic text-slate-600">{project.tagline}</p>
+          <ModeChips modes={project.modes} />
+          <AreaChips areas={project.areaOfLaw} />
+          <p className="text-xs text-slate-400">
+            {project.files.length} file{project.files.length !== 1 ? "s" : ""} ·{" "}
+            {project.duration} ·{" "}
+            Added{" "}
+            {new Date(project.createdAt).toLocaleDateString("en-US", {
+              month: "short", day: "numeric", year: "numeric",
+            })}
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-3">
+          <button
+            type="button"
+            onClick={onToggle}
+            className="rounded-full border border-slate-300 px-3 py-1.5 text-xs text-slate-700 transition hover:border-red-700 hover:text-slate-950"
+          >
+            {isOpen ? "Collapse ▴" : "View Files ▾"}
+          </button>
+          <RemoveFromLibraryForm project={project} />
+        </div>
+      </div>
+
+      {/* Expanded panel — file list, no add/delete (it's not yours) */}
+      {isOpen && (
+        <div className="mt-4 flex flex-col gap-4">
+          {project.files.length > 0 ? (
+            <ul className="grid gap-2">
+              {project.files.map((f) => (
+                <li
+                  key={f.id}
+                  className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <AudienceTagChip tag={f.audienceTag} />
+                    <span className="text-sm font-medium text-slate-900">{f.label}</span>
+                    <span className="text-xs text-slate-400">
+                      {f.originalFilename} · {formatBytes(f.fileSizeBytes)}
+                    </span>
+                  </div>
+                  {f.downloadUrl && (
+                    <a
+                      href={f.downloadUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-red-700 hover:underline"
+                    >
+                      Download
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-xs text-slate-400">No files attached to this project.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Main widget ──────────────────────────────────────────────────────────────
 
-export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProject[] }) {
+export function ProfessorProjectsWidget({
+  projects,
+  libraryProjects = [],
+}: {
+  projects: ProfessorProject[];
+  libraryProjects?: ProfessorProject[];
+}) {
   // openPanels: user explicitly opened. closedPanels: user explicitly closed.
   // Newly-created project (createState.projectId) is auto-open unless in closedPanels.
   const [openPanels, setOpenPanels]   = useState<Set<string>>(new Set());
   const [closedPanels, setClosedPanels] = useState<Set<string>>(new Set());
+  const [openLibPanels, setOpenLibPanels] = useState<Set<string>>(new Set());
   const [createState, createAction, createPending] = useActionState(
     createProject,
     initialProjectState,
@@ -292,6 +405,19 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
     }
   }
 
+  function isLibOpen(id: string): boolean {
+    return openLibPanels.has(id);
+  }
+
+  function toggleLibPanel(id: string) {
+    setOpenLibPanels((prev) => {
+      const n = new Set(prev);
+      if (n.has(id)) n.delete(id);
+      else n.add(id);
+      return n;
+    });
+  }
+
   return (
     <div className="flex flex-col gap-8">
       {/* ── MY PROJECTS heading ── */}
@@ -300,20 +426,51 @@ export function ProfessorProjectsWidget({ projects }: { projects: ProfessorProje
         <div className="mt-1 h-0.5 w-12 bg-red-700" />
       </div>
 
-      {/* ── Project list ── */}
-      {projects.length > 0 ? (
-        <div className="flex flex-col gap-0">
-          {projects.map((p) => (
-            <ProjectRow
-              key={p.id}
-              project={p}
-              isOpen={isOpen(p.id)}
-              onToggle={() => togglePanel(p.id)}
-            />
-          ))}
+      {/* ── Authored projects ── */}
+      <div className="flex flex-col gap-3">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          Authored by you
+        </h3>
+        {projects.length > 0 ? (
+          <div className="flex flex-col gap-0">
+            {projects.map((p) => (
+              <ProjectRow
+                key={p.id}
+                project={p}
+                isOpen={isOpen(p.id)}
+                onToggle={() => togglePanel(p.id)}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-slate-500">No projects yet. Create your first below.</p>
+        )}
+      </div>
+
+      {/* ── Your Library (downloaded from Project Shop) ── */}
+      {libraryProjects.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Your Library
+          </h3>
+          <p className="text-xs text-slate-500">
+            Projects you&apos;ve added from the{" "}
+            <a href="/project-shop" className="font-medium text-red-700 hover:underline">
+              Project Shop
+            </a>
+            . You can launch these for your courses just like authored projects.
+          </p>
+          <div className="flex flex-col gap-0">
+            {libraryProjects.map((p) => (
+              <LibraryProjectRow
+                key={p.id}
+                project={p}
+                isOpen={isLibOpen(p.id)}
+                onToggle={() => toggleLibPanel(p.id)}
+              />
+            ))}
+          </div>
         </div>
-      ) : (
-        <p className="text-sm text-slate-500">No projects yet. Create your first below.</p>
       )}
 
       {/* ── Create Project form ── */}
