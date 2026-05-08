@@ -16,19 +16,12 @@ export default async function ProjectShopAuthorPage({
 }: {
   params: Promise<{ professor_id: string }>;
 }) {
+  // Public page — anonymous visitors view authors without signing in.
   const viewer = await getCurrentProfessorDashboardData();
-  if (!viewer) {
-    return (
-      <SiteShell title="Project Shop" description="" hideIntro>
-        <p className="text-slate-600">
-          The Project Shop is for professors. Sign in with a professor account to view this author.
-        </p>
-      </SiteShell>
-    );
-  }
+  const viewerProfessorId = viewer?.professorId ?? null;
 
   const { professor_id } = await params;
-  const author = await getAuthorPageData(professor_id, viewer.professorId);
+  const author = await getAuthorPageData(professor_id, viewerProfessorId);
   if (!author) notFound();
 
   const initials = author.professorName

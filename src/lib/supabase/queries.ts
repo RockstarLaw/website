@@ -1336,7 +1336,7 @@ export async function getCatalogProjects(
        versus, drafting, oral_argument, solo, team, creativity,
        duration, real_world, world_rank_qualifying,
        price, popularity, usage_count, created_at, image_1_path,
-       professor_id, professor_profiles(id, first_name, last_name)`,
+       professor_id, professor_profiles!projects_professor_id_fkey(id, first_name, last_name)`,
     );
 
   // Keyword: ILIKE across title / tagline / pitch
@@ -1437,7 +1437,7 @@ export type AuthorPageData = {
 
 export async function getAuthorPageData(
   authorProfessorId: string,
-  viewerProfessorId: string,
+  viewerProfessorId: string | null,
 ): Promise<AuthorPageData | null> {
   const admin = createSupabaseAdminClient();
 
@@ -1515,7 +1515,7 @@ export async function getAuthorPageData(
     professorName:  authorName,
     photoUrl,
     universityName: (prof.university_name_snapshot as string | null) ?? "",
-    isViewerSelf:   authorProfessorId === viewerProfessorId,
+    isViewerSelf:   viewerProfessorId !== null && authorProfessorId === viewerProfessorId,
     projects,
   };
 }
@@ -1568,7 +1568,7 @@ export type ProjectShopDetail = {
 
 export async function getProjectShopDetail(
   projectId:           string,
-  viewerProfessorId:   string,
+  viewerProfessorId:   string | null,
 ): Promise<ProjectShopDetail | null> {
   const admin = createSupabaseAdminClient();
 
@@ -1580,7 +1580,7 @@ export async function getProjectShopDetail(
        duration, real_world, world_rank_qualifying,
        price, popularity, usage_count, created_at,
        image_1_path, image_2_path, image_3_path,
-       professor_id, professor_profiles(id, first_name, last_name, photo_path)`,
+       professor_id, professor_profiles!projects_professor_id_fkey(id, first_name, last_name, photo_path)`,
     )
     .eq("id", projectId)
     .maybeSingle();
@@ -1588,11 +1588,12 @@ export async function getProjectShopDetail(
   if (projErr) throw new Error(projErr.message);
   if (!p) return null;
 
-  const isViewerAuthor = p.professor_id === viewerProfessorId;
+  // Anonymous / non-professor viewers get no author/library status
+  const isViewerAuthor = viewerProfessorId !== null && p.professor_id === viewerProfessorId;
 
   // Check if viewer has this project in their library (status='active')
   let viewerHasInLibrary = false;
-  if (!isViewerAuthor) {
+  if (viewerProfessorId !== null && !isViewerAuthor) {
     const { data: libRow } = await admin
       .from("professor_project_library")
       .select("status")

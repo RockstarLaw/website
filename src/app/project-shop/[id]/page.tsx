@@ -31,19 +31,13 @@ export default async function ProjectShopDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // Public page — anonymous visitors view the detail without signing in.
+  // Action gating (Add to MY PROJECTS) is conditional on professor sign-in below.
   const professor = await getCurrentProfessorDashboardData();
-  if (!professor) {
-    return (
-      <SiteShell title="Project Shop" description="" hideIntro>
-        <p className="text-slate-600">
-          The Project Shop is for professors. Sign in with a professor account to view this project.
-        </p>
-      </SiteShell>
-    );
-  }
+  const viewerProfessorId = professor?.professorId ?? null;
 
   const { id } = await params;
-  const project = await getProjectShopDetail(id, professor.professorId);
+  const project = await getProjectShopDetail(id, viewerProfessorId);
   if (!project) notFound();
 
   // Marker rows
@@ -192,12 +186,27 @@ export default async function ProjectShopDetailPage({
                     Manage from your dashboard →
                   </Link>
                 </div>
-              ) : (
+              ) : viewerProfessorId ? (
                 <AddToLibraryButton
                   projectId={project.id}
                   price={project.price}
                   alreadyInLibrary={project.viewerHasInLibrary}
                 />
+              ) : (
+                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                  <p className="font-semibold text-slate-900">Sign in to add this to your courses</p>
+                  <p className="mt-1 text-slate-600">
+                    The Project Shop is browsable by anyone. Adding a project to your{" "}
+                    <span className="font-semibold">MY PROJECTS</span> dashboard — where you can download
+                    or deploy it to your students — requires a professor account.
+                  </p>
+                  <Link
+                    href="/login"
+                    className="mt-3 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-semibold text-white transition hover:bg-red-800"
+                  >
+                    Sign in
+                  </Link>
+                </div>
               )}
               <p className="text-xs text-slate-500">
                 {project.usageCount > 0

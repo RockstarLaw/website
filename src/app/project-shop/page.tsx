@@ -4,7 +4,6 @@ import { ProjectCard } from "@/components/project-shop/project-card";
 import { SortDropdown } from "@/components/project-shop/sort-dropdown";
 import {
   getCatalogProjects,
-  getCurrentProfessorDashboardData,
   type CatalogFilters,
   type CatalogSortKey,
 } from "@/lib/supabase/queries";
@@ -31,17 +30,7 @@ export default async function ProjectShopPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const professor = await getCurrentProfessorDashboardData();
-  if (!professor) {
-    return (
-      <SiteShell title="Project Shop" description="" hideIntro>
-        <p className="text-slate-600">
-          The Project Shop is for professors. Sign in with a professor account to browse the catalog.
-        </p>
-      </SiteShell>
-    );
-  }
-
+  // Public page — anonymous visitors browse without signing in.
   const sp = await searchParams;
   const filters: CatalogFilters = {
     keyword:   asScalar(sp.q),
