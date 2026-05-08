@@ -1,641 +1,441 @@
 /**
- * LLC Formation — Review Page (Retrofit R3)
- * Shared infrastructure for all formation filings.
+ * LLC Review Page — Retrofit R7b-3
  *
- * Reference: Florida_Sunbiz_website/3_Step_3_2_SUNBIZ FILING AN LLC/
- *            4_sunbiz.org - Florida Department of State_CONFIRM INFO PAGE.html
+ * 1:1 clone of the real Sunbiz coredisp.exe "Filing Information" review page.
+ * HTML template stored at public/sunbiz/review.html.
+ * Served via dangerouslySetInnerHTML — no React rebuild, no StarBizShell.
  *
- * Matches coredisp.exe: readonly display of every submitted field,
- * then a "Continue" button that navigates to the filing-info step (R4).
+ * Auth-gated. Reads the most recent in-progress llc filing_session for the
+ * current user. If none → redirect to disclaimer. Generates tracking_number
+ * if null (first 12 hex chars of session UUID, uppercase). Persists
+ * current_step='review'. Substitutes {{TEMPLATE_PLACEHOLDERS}} from
+ * filing_sessions.form_data before render.
  *
- * Per-filing-type labels live in FILING_CONFIG — extending to Profit Corp /
- * Non-Profit / LP requires only a new entry there, no structural changes.
- *
- * Route:  /starbiz/filing/llc/review?session=<uuid>
- * Source: form page (R2) inserts filing_session, redirects here.
- * Next:   /starbiz/filing/llc/filing-info?session=<uuid> (R4 — 404 until then)
- *
- * CRITICAL: Reads form_data using Sunbiz field names (corp_name, princ_addr1,
- *           etc.) — NOT camelCase wizard keys.
+ * Scoped <style> block: verbatim copy of form/page.tsx (d0cd4c8) with two changes:
+ *   • [6] selector updated from #detailtable → #MainContentEfiling
+ *   • [8] added .redtext alias — review HTML uses class="redtext" (lowercase)
+ *         while sunbiz_style.css defines .RedText (PascalCase — case-sensitive mismatch)
  */
 
-import type { CSSProperties } from "react";
-import { notFound, redirect } from "next/navigation";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { redirect } from "next/navigation";
 
-import { StarBizShell } from "@/components/starbiz/StarBizShell";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-// ─── Per-filing-type configuration ───────────────────────────────────────────
-// Add entries here as new formation types ship. Nothing else needs changing.
+export const dynamic = "force-dynamic";
 
-type FilingConfig = {
-  /** Label for the entity name review row (§ entity name). */
-  entityLabel: string;
-  /** Section heading for the manager/officer block (§ manager slots). */
-  managersHeading: string;
-  /** All-caps mailing-same notice (replaces address rows when same_addr_flag=Y). */
-  mailingSameText: string;
-};
-
-const FILING_CONFIG: Record<string, FilingConfig> = {
-  llc: {
-    entityLabel: "Limited Liability Company Name",
-    managersHeading: "Name And Address of Person(s) Authorized to Manage LLC",
-    mailingSameText:
-      "LIMITED LIABILITY COMPANY MAILING ADDRESS SAME AS PRINCIPAL ADDRESS.",
-  },
-  "profit-corp": {
-    entityLabel: "Corporate Name",
-    managersHeading: "Name And Address of Officer(s)/Director(s)",
-    mailingSameText: "CORPORATION MAILING ADDRESS SAME AS PRINCIPAL ADDRESS.",
-  },
-  "non-profit": {
-    entityLabel: "Non-Profit Corporation Name",
-    managersHeading: "Name And Address of Officer(s)/Director(s)",
-    mailingSameText:
-      "NON-PROFIT CORPORATION MAILING ADDRESS SAME AS PRINCIPAL ADDRESS.",
-  },
-  lp: {
-    entityLabel: "Limited Partnership Name",
-    managersHeading: "Name And Address of General Partner(s)",
-    mailingSameText:
-      "LIMITED PARTNERSHIP MAILING ADDRESS SAME AS PRINCIPAL ADDRESS.",
-  },
-};
-
-const DEFAULT_CONFIG = FILING_CONFIG["llc"];
-
-// ─── Style constants (faithful to Sunbiz CSS classes) ────────────────────────
-
-const F = "Arial, Helvetica, sans-serif";
-
-const sPageTitle: CSSProperties = {
-  fontFamily: F,
-  fontSize: "15px",
-  fontWeight: "bold",
-  color: "#003366",
-};
-
-const sHeading: CSSProperties = {
-  fontFamily: F,
-  fontSize: "13px",
-  fontWeight: "bold",
-  backgroundColor: "#d0d8e8",
-  border: "1px solid #aabbcc",
-  padding: "2px 6px",
-  whiteSpace: "nowrap",
-};
-
-/** .descript — italic label cells */
-const sLabel: CSSProperties = {
-  fontFamily: F,
-  fontSize: "12px",
-  fontStyle: "italic",
-  whiteSpace: "nowrap",
-  paddingRight: "6px",
-  verticalAlign: "top",
-};
-
-/** .data — value cells */
-const sData: CSSProperties = {
-  fontFamily: F,
-  fontSize: "12px",
-  verticalAlign: "top",
-  paddingLeft: "8px",
-};
-
-const sRedText: CSSProperties = {
-  fontFamily: F,
-  fontSize: "12px",
-  color: "red",
-  fontWeight: "bold",
-};
-
-const sButton: CSSProperties = {
-  fontFamily: F,
-  fontSize: "13px",
-  padding: "3px 18px",
-  cursor: "pointer",
-};
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-/** Trim a key from form_data; returns "" if missing. */
-function v(fd: Record<string, string>, key: string): string {
-  return (fd[key] ?? "").trim();
+// ── Helper: escape value for safe insertion into HTML attribute value ─────────
+function esc(v: string | undefined | null): string {
+  return (v ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
-/**
- * Format individual name as "Last, First, Middle, TitleSrJr"
- * — empty parts still emit a trailing comma, matching the real coredisp.exe output.
- */
-function fmtName(last: string, first: string, middle: string, titleSr: string): string {
-  return [last, first, middle, titleSr].join(", ");
+// ── Helper: escape for HTML text content ─────────────────────────────────────
+function escText(v: string | undefined | null): string {
+  return (v ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
-/** Null-safe join: skips undefined/empty-string parts from city+state / zip+country. */
-function pair(a: string, b: string): string {
-  if (a && b) return `${a}, ${b}`;
-  return a || b;
+// ── Build manager display block for one slot ──────────────────────────────────
+function buildManagerBlock(n: number, fd: Record<string, string>): string {
+  const title    = (fd[`off${n}_name_title`]    ?? "").trim();
+  const last     = (fd[`off${n}_name_last_name`]  ?? "").trim();
+  const first    = (fd[`off${n}_name_first_name`] ?? "").trim();
+  const middle   = (fd[`off${n}_name_m_name`]     ?? "").trim();
+  const suffix   = (fd[`off${n}_name_title_name`] ?? "").trim();
+  const corpName = (fd[`off${n}_name_corp_name`]  ?? "").trim();
+  const addr1    = (fd[`off${n}_name_addr1`]      ?? "").trim();
+  const city     = (fd[`off${n}_name_city`]       ?? "").trim();
+  const st       = (fd[`off${n}_name_st`]         ?? "").trim();
+  const zip      = (fd[`off${n}_name_zip`]        ?? "").trim();
+  const cntry    = (fd[`off${n}_name_cntry`]      ?? "").trim();
+
+  // Occupied if has a title AND (individual name OR entity name) AND address
+  if (!title || (!(last && first) && !corpName) || !addr1) return "";
+
+  const isIndividual = !!(last && first);
+  // Build name display matching reference format:
+  //   Individual — strip trailing empty parts (reference shows "BILL, JAY" not "BILL, JAY, , ")
+  //   Entity     — show entity name as-is
+  let displayName: string;
+  let nameLabel: string;
+  if (isIndividual) {
+    const parts = [last, first, middle, suffix];
+    while (parts.length > 2 && !parts[parts.length - 1]) parts.pop();
+    displayName = parts.map(escText).join(", ");
+    nameLabel = "Name (Last, First, Middle, Title)";
+  } else {
+    displayName = escText(corpName);
+    nameLabel = "Entity Name";
+  }
+
+  const citySt   = [escText(city), escText(st)].filter(Boolean).join(", ");
+  const zipCntry = [escText(zip), escText(cntry)].filter(Boolean).join(", ");
+
+  return `<tr><td><table summary="Table displays the officers name and address or the Entity Name to serve as Officer/Director and address, depending on filing type that was input by user on 1st page for review.">
+<tbody><tr><td><span class="heading">Name And Address #${n}</span></td></tr>
+<tr><td align="left" nowrap="" class="descript">Title</td><td class="data">${escText(title)}</td></tr>
+<tr><td align="left" nowrap="" class="descript">${nameLabel}</td><td class="data">${displayName}
+</td></tr>
+<tr><td align="left" nowrap="" class="descript">Street Address</td><td class="data">${escText(addr1)}</td></tr>
+<tr><td align="left" nowrap="" class="descript">City, State</td><td class="data">${citySt}</td></tr>
+<tr><td align="left" nowrap="" class="descript">Zip Code &amp; Country</td><td class="data">${zipCntry}</td></tr>
+</tbody></table></td></tr>`;
 }
 
-// ─── Sub-components (server-side, no 'use client' needed) ────────────────────
-
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <tr>
-      <td>
-        <table>
-          <tbody>
-            <tr>
-              <td style={sHeading}>{children}</td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  );
-}
-
-function LabelValueRow({ label, value }: { label: string; value: string }) {
-  return (
-    <tr>
-      <td style={sLabel}>{label}</td>
-      <td />
-      <td style={sData}>{value}</td>
-    </tr>
-  );
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
-export default async function ReviewPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ session?: string | string[] }>;
-}) {
-  // ── 1. Resolve session ID from query param ─────────────────────────────────
-  const params = await searchParams;
-  const rawSession = params.session;
-  const sessionId = Array.isArray(rawSession) ? rawSession[0] : rawSession;
-  if (!sessionId) notFound();
-
-  // ── 2. Auth check ──────────────────────────────────────────────────────────
+export default async function LLCReviewPage() {
+  // ── Auth check ──────────────────────────────────────────────────────────────
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  // ── 3. Load filing session (must belong to this user, still in-progress) ───
+  // ── Fetch most recent in-progress LLC session ────────────────────────────────
   const admin = createSupabaseAdminClient();
-  const { data: session } = await admin
+  const { data: session, error } = await admin
     .from("filing_sessions")
-    .select("id, filing_type, form_data")
-    .eq("id", sessionId)
+    .select("id, form_data, tracking_number, current_step")
     .eq("user_id", user.id)
+    .eq("filing_type", "llc")
     .eq("status", "in_progress")
-    .maybeSingle();
+    .order("started_at", { ascending: false })
+    .limit(1)
+    .single();
 
-  if (!session) notFound();
+  if (error || !session) redirect("/starbiz/filing/llc/disclaimer");
 
-  // ── 4. Derive display values ───────────────────────────────────────────────
-  const fd = (session.form_data ?? {}) as Record<string, string>;
-  const config: FilingConfig =
-    FILING_CONFIG[session.filing_type as string] ?? DEFAULT_CONFIG;
+  const fd: Record<string, string> = (session.form_data as Record<string, string>) ?? {};
+
+  // ── Generate tracking number if null (first 12 hex of UUID, uppercase) ───────
+  let trackingNumber = session.tracking_number;
+  if (!trackingNumber) {
+    trackingNumber = session.id.replace(/-/g, "").slice(0, 12).toUpperCase();
+    await admin
+      .from("filing_sessions")
+      .update({ tracking_number: trackingNumber, last_saved_at: new Date().toISOString() })
+      .eq("id", session.id);
+  }
+
+  // ── Update current_step to 'review' ─────────────────────────────────────────
+  if (session.current_step !== "review") {
+    await admin
+      .from("filing_sessions")
+      .update({ current_step: "review", last_saved_at: new Date().toISOString() })
+      .eq("id", session.id);
+  }
+
+  // ── Compose display values ───────────────────────────────────────────────────
 
   // Effective date
-  const effMm   = v(fd, "eff_date_mm");
-  const effDd   = v(fd, "eff_date_dd");
-  const effYyyy = v(fd, "eff_date_yyyy");
-  const effDate =
-    effMm && effDd && effYyyy
-      ? `${effMm}/${effDd}/${effYyyy}`
-      : "Immediate upon filing";
+  const effMm   = fd.eff_date_mm?.trim()   ?? "";
+  const effDd   = fd.eff_date_dd?.trim()   ?? "";
+  const effYyyy = fd.eff_date_yyyy?.trim() ?? "";
+  const displayEffDate = effMm && effDd && effYyyy
+    ? `${effMm}/${effDd}/${effYyyy}`
+    : "";
 
-  // Cert of status / certified copy
-  const certStatus = v(fd, "cos_num_flag")  === "Y" ? "Yes" : "No";
-  const certCopy   = v(fd, "cert_num_flag") === "Y" ? "Yes" : "No";
+  // Certificate of Status / Certified Copy
+  const displayCos  = fd.cos_num_flag  === "Y" ? "Yes" : "No";
+  const displayCert = fd.cert_num_flag === "Y" ? "Yes" : "No";
+  // Hidden input values (real Sunbiz used 1/0 integers)
+  const fieldCosNum  = fd.cos_num_flag  === "Y" ? "1" : "0";
+  const fieldCertNum = fd.cert_num_flag === "Y" ? "1" : "0";
 
-  // Mailing same-as-principal
-  const mailingIsSame = v(fd, "same_addr_flag") === "Y";
+  // Principal Place of Business
+  const princCitySt    = [fd.princ_city, fd.princ_st].filter(Boolean).map(v => v.trim()).join(", ");
+  const princZipCntry  = [fd.princ_zip,  fd.princ_cntry].filter(Boolean).map(v => v.trim()).join(", ");
 
-  // Registered Agent — individual path vs business path
-  const raLast  = v(fd, "ra_name_last_name");
-  const raFirst = v(fd, "ra_name_first_name");
-  const raIsIndividual = raLast.length > 0 || raFirst.length > 0;
+  // Mailing address — resolve same-as-principal
+  const isSameAddr = fd.same_addr_flag === "Y";
+  const effMailAddr1  = isSameAddr ? (fd.princ_addr1  ?? "") : (fd.mail_addr1  ?? "");
+  const effMailAddr2  = isSameAddr ? (fd.princ_addr2  ?? "") : (fd.mail_addr2  ?? "");
+  const effMailCity   = isSameAddr ? (fd.princ_city   ?? "") : (fd.mail_city   ?? "");
+  const effMailSt     = isSameAddr ? (fd.princ_st     ?? "") : (fd.mail_st     ?? "");
+  const effMailZip    = isSameAddr ? (fd.princ_zip    ?? "") : (fd.mail_zip    ?? "");
+  const effMailCntry  = isSameAddr ? (fd.princ_cntry  ?? "") : (fd.mail_cntry  ?? "");
 
-  // Populated manager slots: any slot where title + (lastName OR corpName) is non-empty
-  const populatedSlots = [1, 2, 3, 4, 5, 6].filter((n) => {
-    const title = v(fd, `off${n}_name_title`);
-    const last  = v(fd, `off${n}_name_last_name`);
-    const corp  = v(fd, `off${n}_name_corp_name`);
-    return title.length > 0 && (last.length > 0 || corp.length > 0);
-  });
+  // Mailing address section HTML (verbatim structure from capture)
+  let mailingAddressSection: string;
+  if (isSameAddr) {
+    mailingAddressSection =
+      `<tbody><tr><td nowrap="" align="left" class="data">LIMITED LIABILITY COMPANY MAILING ADDRESS SAME AS PRINCIPAL ADDRESS.</td></tr></tbody>`;
+  } else {
+    const mailCitySt   = [effMailCity, effMailSt].filter(Boolean).join(", ");
+    const mailZipCntry = [effMailZip,  effMailCntry].filter(Boolean).join(", ");
+    mailingAddressSection = `<tbody>
+<tr><td nowrap="" align="left" class="descript">Address</td><td class="data">${escText(effMailAddr1)}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Suite, Apt. #, etc.</td><td class="data">${escText(effMailAddr2)}</td></tr>
+<tr><td nowrap="" align="left" class="descript">City, State</td><td class="data">${escText(mailCitySt)}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Zip Code &amp; Country</td><td class="data">${escText(mailZipCntry)}</td></tr>
+</tbody>`;
+  }
 
-  // ── 5. Render ──────────────────────────────────────────────────────────────
+  // Registered Agent
+  const raLast   = (fd.ra_name_last_name  ?? "").trim();
+  const raFirst  = (fd.ra_name_first_name ?? "").trim();
+  const raMiddle = (fd.ra_name_m_name     ?? "").trim();
+  const raTitle  = (fd.ra_name_title_name ?? "").trim();
+  const raCorp   = (fd.ra_name_corp_name  ?? "").trim();
+  const raIsIndividual = !!(raLast && raFirst);
+  const displayRaName = raIsIndividual
+    ? `${escText(raLast)}, ${escText(raFirst)}, ${escText(raMiddle)}, ${escText(raTitle)}`
+    : escText(raCorp);
+  const raCitySt   = [fd.ra_city, "FL"].filter(Boolean).join(", ");
+  const raZipCntry = [(fd.ra_zip ?? "").trim(), "US"].filter(Boolean).join(", ");
+
+  // Manager blocks — render only occupied slots (off1–off6)
+  const managerBlocks = [1, 2, 3, 4, 5, 6]
+    .map(n => buildManagerBlock(n, fd))
+    .join("\n");
+
+  // off{N}_name_type — P for individual, C for entity/empty
+  function nameType(n: number): string {
+    const last = (fd[`off${n}_name_last_name`] ?? "").trim();
+    const first = (fd[`off${n}_name_first_name`] ?? "").trim();
+    return last && first ? "P" : "C";
+  }
+
+  // ── Read template and substitute placeholders ────────────────────────────────
+  let html = readFileSync(
+    join(process.cwd(), "public/sunbiz/review.html"),
+    "utf-8",
+  );
+
+  // Display replacements
+  const displayMap: Record<string, string> = {
+    "{{display_eff_date}}":        escText(displayEffDate),
+    "{{display_cos}}":             displayCos,
+    "{{display_cert}}":            displayCert,
+    "{{display_corp_name}}":       escText((fd.corp_name ?? "").trim()),
+    "{{display_princ_addr1}}":     escText((fd.princ_addr1 ?? "").trim()),
+    "{{display_princ_addr2}}":     escText((fd.princ_addr2 ?? "").trim()),
+    "{{display_princ_city_st}}":   escText(princCitySt),
+    "{{display_princ_zip_cntry}}": escText(princZipCntry),
+    "{{mailing_address_section}}": mailingAddressSection,
+    "{{display_ra_name}}":         displayRaName,
+    "{{display_ra_addr1}}":        escText((fd.ra_addr1 ?? "").trim()),
+    "{{display_ra_addr2}}":        escText((fd.ra_addr2 ?? "").trim()),
+    "{{display_ra_city_st}}":      escText(raCitySt),
+    "{{display_ra_zip_cntry}}":    escText(raZipCntry),
+    "{{display_ra_signature}}":    escText((fd.ra_signature ?? "").trim()),
+    "{{display_purpose}}":         escText((fd.purpose ?? "").trim()),
+    "{{display_ret_name}}":        escText((fd.ret_name ?? "").trim()),
+    "{{display_ret_email}}":       escText((fd.ret_email_addr ?? "").trim()),
+    "{{display_signature}}":       escText((fd.signature ?? "").trim()),
+    "{{manager_blocks}}":          managerBlocks,
+  };
+
+  // Hidden input field replacements (escaped for attribute value context)
+  const fieldMap: Record<string, string> = {
+    "{{field_track_number}}":          esc(trackingNumber),
+    "{{field_eff_date_mm}}":           esc(fd.eff_date_mm),
+    "{{field_eff_date_dd}}":           esc(fd.eff_date_dd),
+    "{{field_eff_date_yyyy}}":         esc(fd.eff_date_yyyy),
+    "{{field_corp_name}}":             esc(fd.corp_name),
+    "{{field_cos_num}}":               fieldCosNum,
+    "{{field_cert_num}}":              fieldCertNum,
+    "{{field_princ_addr1}}":           esc(fd.princ_addr1),
+    "{{field_princ_addr2}}":           esc(fd.princ_addr2),
+    "{{field_princ_city}}":            esc(fd.princ_city),
+    "{{field_princ_st}}":              esc(fd.princ_st),
+    "{{field_princ_zip}}":             esc(fd.princ_zip),
+    "{{field_princ_cntry}}":           esc(fd.princ_cntry),
+    "{{field_mail_addr1}}":            esc(effMailAddr1),
+    "{{field_mail_addr2}}":            esc(effMailAddr2),
+    "{{field_mail_city}}":             esc(effMailCity),
+    "{{field_mail_st}}":               esc(effMailSt),
+    "{{field_mail_zip}}":              esc(effMailZip),
+    "{{field_mail_cntry}}":            esc(effMailCntry),
+    "{{field_ra_name_last_name}}":     esc(fd.ra_name_last_name),
+    "{{field_ra_name_first_name}}":    esc(fd.ra_name_first_name),
+    "{{field_ra_name_m_name}}":        esc(fd.ra_name_m_name),
+    "{{field_ra_name_title_name}}":    esc(fd.ra_name_title_name),
+    "{{field_ra_name_corp_name}}":     esc(fd.ra_name_corp_name),
+    "{{field_ra_addr1}}":              esc(fd.ra_addr1),
+    "{{field_ra_addr2}}":              esc(fd.ra_addr2),
+    "{{field_ra_city}}":               esc(fd.ra_city),
+    "{{field_ra_zip}}":                esc(fd.ra_zip),
+    "{{field_ra_signature}}":          esc(fd.ra_signature),
+    "{{field_signature}}":             esc(fd.signature),
+    "{{field_purpose}}":               esc(fd.purpose),
+    "{{field_ret_name}}":              esc(fd.ret_name),
+    "{{field_ret_email_addr}}":        esc(fd.ret_email_addr),
+    "{{field_off1_name_type}}":        nameType(1),
+    "{{field_off1_name_title}}":       esc(fd.off1_name_title),
+    "{{field_off1_name_last_name}}":   esc(fd.off1_name_last_name),
+    "{{field_off1_name_first_name}}":  esc(fd.off1_name_first_name),
+    "{{field_off1_name_m_name}}":      esc(fd.off1_name_m_name),
+    "{{field_off1_name_title_name}}":  esc(fd.off1_name_title_name),
+    "{{field_off1_name_corp_name}}":   esc(fd.off1_name_corp_name),
+    "{{field_off1_name_addr1}}":       esc(fd.off1_name_addr1),
+    "{{field_off1_name_city}}":        esc(fd.off1_name_city),
+    "{{field_off1_name_st}}":          esc(fd.off1_name_st),
+    "{{field_off1_name_zip}}":         esc(fd.off1_name_zip),
+    "{{field_off1_name_cntry}}":       esc(fd.off1_name_cntry),
+    "{{field_off2_name_type}}":        nameType(2),
+    "{{field_off2_name_title}}":       esc(fd.off2_name_title),
+    "{{field_off2_name_last_name}}":   esc(fd.off2_name_last_name),
+    "{{field_off2_name_first_name}}":  esc(fd.off2_name_first_name),
+    "{{field_off2_name_m_name}}":      esc(fd.off2_name_m_name),
+    "{{field_off2_name_title_name}}":  esc(fd.off2_name_title_name),
+    "{{field_off2_name_corp_name}}":   esc(fd.off2_name_corp_name),
+    "{{field_off2_name_addr1}}":       esc(fd.off2_name_addr1),
+    "{{field_off2_name_city}}":        esc(fd.off2_name_city),
+    "{{field_off2_name_st}}":          esc(fd.off2_name_st),
+    "{{field_off2_name_zip}}":         esc(fd.off2_name_zip),
+    "{{field_off2_name_cntry}}":       esc(fd.off2_name_cntry),
+    "{{field_off3_name_type}}":        nameType(3),
+    "{{field_off3_name_title}}":       esc(fd.off3_name_title),
+    "{{field_off3_name_last_name}}":   esc(fd.off3_name_last_name),
+    "{{field_off3_name_first_name}}":  esc(fd.off3_name_first_name),
+    "{{field_off3_name_m_name}}":      esc(fd.off3_name_m_name),
+    "{{field_off3_name_title_name}}":  esc(fd.off3_name_title_name),
+    "{{field_off3_name_corp_name}}":   esc(fd.off3_name_corp_name),
+    "{{field_off3_name_addr1}}":       esc(fd.off3_name_addr1),
+    "{{field_off3_name_city}}":        esc(fd.off3_name_city),
+    "{{field_off3_name_st}}":          esc(fd.off3_name_st),
+    "{{field_off3_name_zip}}":         esc(fd.off3_name_zip),
+    "{{field_off3_name_cntry}}":       esc(fd.off3_name_cntry),
+    "{{field_off4_name_type}}":        nameType(4),
+    "{{field_off4_name_title}}":       esc(fd.off4_name_title),
+    "{{field_off4_name_last_name}}":   esc(fd.off4_name_last_name),
+    "{{field_off4_name_first_name}}":  esc(fd.off4_name_first_name),
+    "{{field_off4_name_m_name}}":      esc(fd.off4_name_m_name),
+    "{{field_off4_name_title_name}}":  esc(fd.off4_name_title_name),
+    "{{field_off4_name_corp_name}}":   esc(fd.off4_name_corp_name),
+    "{{field_off4_name_addr1}}":       esc(fd.off4_name_addr1),
+    "{{field_off4_name_city}}":        esc(fd.off4_name_city),
+    "{{field_off4_name_st}}":          esc(fd.off4_name_st),
+    "{{field_off4_name_zip}}":         esc(fd.off4_name_zip),
+    "{{field_off4_name_cntry}}":       esc(fd.off4_name_cntry),
+    "{{field_off5_name_type}}":        nameType(5),
+    "{{field_off5_name_title}}":       esc(fd.off5_name_title),
+    "{{field_off5_name_last_name}}":   esc(fd.off5_name_last_name),
+    "{{field_off5_name_first_name}}":  esc(fd.off5_name_first_name),
+    "{{field_off5_name_m_name}}":      esc(fd.off5_name_m_name),
+    "{{field_off5_name_title_name}}":  esc(fd.off5_name_title_name),
+    "{{field_off5_name_corp_name}}":   esc(fd.off5_name_corp_name),
+    "{{field_off5_name_addr1}}":       esc(fd.off5_name_addr1),
+    "{{field_off5_name_city}}":        esc(fd.off5_name_city),
+    "{{field_off5_name_st}}":          esc(fd.off5_name_st),
+    "{{field_off5_name_zip}}":         esc(fd.off5_name_zip),
+    "{{field_off5_name_cntry}}":       esc(fd.off5_name_cntry),
+    "{{field_off6_name_type}}":        nameType(6),
+    "{{field_off6_name_title}}":       esc(fd.off6_name_title),
+    "{{field_off6_name_last_name}}":   esc(fd.off6_name_last_name),
+    "{{field_off6_name_first_name}}":  esc(fd.off6_name_first_name),
+    "{{field_off6_name_m_name}}":      esc(fd.off6_name_m_name),
+    "{{field_off6_name_title_name}}":  esc(fd.off6_name_title_name),
+    "{{field_off6_name_corp_name}}":   esc(fd.off6_name_corp_name),
+    "{{field_off6_name_addr1}}":       esc(fd.off6_name_addr1),
+    "{{field_off6_name_city}}":        esc(fd.off6_name_city),
+    "{{field_off6_name_st}}":          esc(fd.off6_name_st),
+    "{{field_off6_name_zip}}":         esc(fd.off6_name_zip),
+    "{{field_off6_name_cntry}}":       esc(fd.off6_name_cntry),
+  };
+
+  // Apply all substitutions
+  for (const [token, value] of Object.entries(displayMap)) {
+    html = html.replaceAll(token, value);
+  }
+  for (const [token, value] of Object.entries(fieldMap)) {
+    html = html.replaceAll(token, value);
+  }
+
+  // Extract body innerHTML
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  const bodyContent = bodyMatch ? bodyMatch[1] : html;
+
   return (
-    <StarBizShell>
+    <>
+      {/* eslint-disable-next-line @next/next/no-css-tags */}
+      <link rel="stylesheet" href="/sunbiz/sunbiz_style.css" />
+      {/* eslint-disable-next-line @next/next/no-css-tags */}
+      <link rel="stylesheet" href="/sunbiz/sunbiz_dos_style.css" />
+
       {/*
-       * The real coredisp.exe POSTs all fields as hidden inputs to corefile.exe.
-       * We carry state in the filing_session row; the "Continue" button just
-       * navigates to the next step with the session ID in the URL.
+       * Scoped reset — verbatim copy of form/page.tsx (d0cd4c8) with:
+       *   [6] selector #detailtable → #MainContentEfiling
+       *   [8] .redtext alias added (review HTML uses lowercase; CSS defines .RedText)
        */}
-      <form method="GET" action="/starbiz/filing/llc/filing-info">
-        <input type="hidden" name="session" value={sessionId} />
+      <style>{`
+        body {
+          display: block !important;
+          flex-direction: initial !important;
+          align-items: initial !important;
+          min-height: auto !important;
+          line-height: normal !important;
+        }
 
-        <table
-          summary="This table is used for page layout."
-          style={{ borderCollapse: "collapse" }}
-          cellPadding={4}
-          cellSpacing={2}
-        >
-          <tbody>
+        #wrapper table {
+          border-collapse: separate !important;
+        }
 
-            {/* ══ Page title ════════════════════════════════════════════════ */}
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={2}>
-                  <tbody>
-                    <tr>
-                      <td style={sPageTitle}>Filing Information</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        #wrapper input,
+        #wrapper textarea,
+        #wrapper select {
+          border-width: revert !important;
+          border-style: revert !important;
+          border-color: revert !important;
+          appearance: revert !important;
+          -webkit-appearance: revert !important;
+          padding: revert !important;
+          background-color: revert !important;
+        }
 
-            {/* ══ Red accuracy warning ══════════════════════════════════════ */}
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={2}>
-                  <tbody>
-                    <tr>
-                      <td colSpan={2} style={sRedText}>
-                        Please review the filing for accuracy. If you need to make
-                        corrections, do so at this time. The filing information will
-                        be added/edited exactly as you have entered it. Once you have
-                        submitted the information, your filing cannot be updated,
-                        removed, cancelled or refunded.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        .heading {
+          font: bold 13px Arial, sans-serif !important;
+          border-bottom: 1px solid #333 !important;
+          color: #333 !important;
+        }
 
-            {/* ══ Effective date ════════════════════════════════════════════ */}
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    <LabelValueRow
-                      label="Effective date for this filing"
-                      value={effDate}
-                    />
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        .bodytext {
+          font-family: Arial, Helvetica, sans-serif !important;
+          font-size: 9pt !important;
+          font-weight: normal;
+          color: #000000;
+        }
 
-            {/* ══ Cert flags ════════════════════════════════════════════════ */}
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={2}>
-                  <tbody>
-                    <LabelValueRow
-                      label="Certificate of Status Requested"
-                      value={certStatus}
-                    />
-                    <LabelValueRow
-                      label="Certified Copy Requested"
-                      value={certCopy}
-                    />
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        /* [8] .redtext alias — review HTML uses class="redtext" (all lowercase).
+               sunbiz_style.css defines .RedText (PascalCase) — case-sensitive mismatch.
+               Mirror .RedText rules here so the review warning paragraph renders correctly. */
+        .redtext {
+          font-family: Arial, Helvetica, sans-serif !important;
+          font-size: 12pt !important;
+          font-weight: bold !important;
+          color: red !important;
+        }
 
-            {/* ══ Entity name (type-parameterized label) ════════════════════ */}
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={2}>
-                  <tbody>
-                    <tr>
-                      <td style={sLabel}>{config.entityLabel}</td>
-                      <td style={sData}>{v(fd, "corp_name")}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        #wrapper #content {
+          font-size: 1em !important;
+        }
 
-            {/* ══ Principal Place of Business ══════════════════════════════ */}
-            <SectionHeading>Principal Place of Business</SectionHeading>
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    <LabelValueRow label="Address"           value={v(fd, "princ_addr1")} />
-                    <LabelValueRow label="Suite, Apt. #, etc." value={v(fd, "princ_addr2")} />
-                    <LabelValueRow
-                      label="City, State"
-                      value={pair(v(fd, "princ_city"), v(fd, "princ_st"))}
-                    />
-                    <LabelValueRow
-                      label="Zip Code &amp; Country"
-                      value={pair(v(fd, "princ_zip"), v(fd, "princ_cntry"))}
-                    />
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        /* [6] Outer table row padding — updated selector for review page.
+               Review page uses #MainContentEfiling (not #detailtable). */
+        #wrapper #MainContentEfiling > form > table > tbody > tr > td {
+          padding-top: 2px !important;
+          padding-bottom: 2px !important;
+        }
 
-            {/* ══ Mailing Address ═══════════════════════════════════════════ */}
-            <SectionHeading>Mailing Address</SectionHeading>
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    {mailingIsSame ? (
-                      <tr>
-                        <td style={sData}>{config.mailingSameText}</td>
-                      </tr>
-                    ) : (
-                      <>
-                        <LabelValueRow label="Address"             value={v(fd, "mail_addr1")} />
-                        <LabelValueRow label="Suite, Apt. #, etc." value={v(fd, "mail_addr2")} />
-                        <LabelValueRow
-                          label="City, State"
-                          value={pair(v(fd, "mail_city"), v(fd, "mail_st"))}
-                        />
-                        <LabelValueRow
-                          label="Zip Code &amp; Country"
-                          value={pair(v(fd, "mail_zip"), v(fd, "mail_cntry"))}
-                        />
-                      </>
-                    )}
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        #wrapper a:link,
+        #wrapper a:visited {
+          color: #236faf !important;
+          text-decoration: underline !important;
+        }
+        #wrapper a:hover {
+          color: #5582a9 !important;
+        }
+      `}</style>
 
-            {/* ══ Name and Address of Registered Agent ═════════════════════ */}
-            <SectionHeading>Name and Address of Registered Agent</SectionHeading>
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    {raIsIndividual ? (
-                      <LabelValueRow
-                        label="Name (Last, First, Middle, Title)"
-                        value={fmtName(
-                          v(fd, "ra_name_last_name"),
-                          v(fd, "ra_name_first_name"),
-                          v(fd, "ra_name_m_name"),
-                          v(fd, "ra_name_title_name"),
-                        )}
-                      />
-                    ) : (
-                      <LabelValueRow
-                        label="Business Name"
-                        value={v(fd, "ra_name_corp_name")}
-                      />
-                    )}
-                    <LabelValueRow label="Address"             value={v(fd, "ra_addr1")} />
-                    <LabelValueRow label="Suite, Apt. #, etc." value={v(fd, "ra_addr2")} />
-                    <LabelValueRow
-                      label="City, State"
-                      value={pair(v(fd, "ra_city"), "FL")}
-                    />
-                    <LabelValueRow
-                      label="Zip Code &amp; Country"
-                      value={pair(v(fd, "ra_zip"), "US")}
-                    />
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-
-            {/* ══ Registered Agent Signature ════════════════════════════════ */}
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    <tr>
-                      <td style={sLabel}>Registered Agent Signature</td>
-                      <td style={sData}>{v(fd, "ra_signature")}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-
-            {/* ══ Any Other Provision(s) — Optional ════════════════════════ */}
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    <tr>
-                      <td>
-                        {/* Matches: <span class="heading"><label for="llcpurposetext">…</label></span> */}
-                        <span style={sHeading}>
-                          <label htmlFor="llcpurposetext">
-                            Any Other Provision(s) - Optional (Purpose, Statements, etc.)
-                          </label>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        id="llcpurposetext"
-                        style={{ fontFamily: F, fontSize: "12px", paddingTop: "4px" }}
-                      >
-                        {v(fd, "purpose")}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-
-            {/* ══ Correspondence Name And E-mail Address ════════════════════ */}
-            <SectionHeading>Correspondence Name And E-mail Address</SectionHeading>
-            <tr>
-              <td>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td style={sLabel}>
-                        Name and e-mail address to whom correspondence should be
-                        e-mailed
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    <LabelValueRow label="Name"           value={v(fd, "ret_name")} />
-                    <LabelValueRow label="E-mail Address" value={v(fd, "ret_email_addr")} />
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-
-            {/* ══ Signature of member ═══════════════════════════════════════ */}
-            <SectionHeading>
-              Signature of a member or an authorized representative.
-            </SectionHeading>
-            <tr>
-              <td>
-                <table cellPadding={2} cellSpacing={0}>
-                  <tbody>
-                    <LabelValueRow label="Signature" value={v(fd, "signature")} />
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-
-            {/* ══ Manager/Officer slots (type-parameterized heading) ════════ */}
-            <SectionHeading>
-              <span style={{ whiteSpace: "normal" }}>
-                {config.managersHeading}
-              </span>
-            </SectionHeading>
-
-            {populatedSlots.map((n) => {
-              const p          = `off${n}`;
-              const offTitle   = v(fd, `${p}_name_title`);
-              const offLast    = v(fd, `${p}_name_last_name`);
-              const offFirst   = v(fd, `${p}_name_first_name`);
-              const offMiddle  = v(fd, `${p}_name_m_name`);
-              const offTitleSr = v(fd, `${p}_name_title_name`);
-              const offCorp    = v(fd, `${p}_name_corp_name`);
-              const isIndiv    = offLast.length > 0;
-              const offAddr1   = v(fd, `${p}_name_addr1`);
-              const offCity    = v(fd, `${p}_name_city`);
-              const offSt      = v(fd, `${p}_name_st`);
-              const offZip     = v(fd, `${p}_name_zip`);
-              const offCntry   = v(fd, `${p}_name_cntry`);
-
-              return (
-                <tr key={n}>
-                  <td>
-                    <table cellPadding={2} cellSpacing={0}>
-                      <tbody>
-                        {/* "Name And Address #N" subheading — matches <span class="heading"> in capture */}
-                        <tr>
-                          <td>
-                            <span style={sHeading}>Name And Address #{n}</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style={sLabel}>Title</td>
-                          <td style={sData}>{offTitle}</td>
-                        </tr>
-                        {isIndiv ? (
-                          <tr>
-                            <td style={sLabel}>Name (Last, First, Middle, Title)</td>
-                            <td style={sData}>
-                              {fmtName(offLast, offFirst, offMiddle, offTitleSr)}
-                            </td>
-                          </tr>
-                        ) : (
-                          <tr>
-                            <td style={sLabel}>Entity Name</td>
-                            <td style={sData}>{offCorp}</td>
-                          </tr>
-                        )}
-                        <tr>
-                          <td style={sLabel}>Street Address</td>
-                          <td style={sData}>{offAddr1}</td>
-                        </tr>
-                        <tr>
-                          <td style={sLabel}>City, State</td>
-                          <td style={sData}>{pair(offCity, offSt)}</td>
-                        </tr>
-                        <tr>
-                          <td style={sLabel}>Zip Code &amp; Country</td>
-                          <td style={sData}>{pair(offZip, offCntry)}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              );
-            })}
-
-            {/* Empty-slot fallback — shown only when zero slots were populated */}
-            {populatedSlots.length === 0 && (
-              <tr>
-                <td
-                  style={{ fontFamily: F, fontSize: "12px", color: "#888", padding: "4px 8px" }}
-                >
-                  (No managers or authorized representatives entered.)
-                </td>
-              </tr>
-            )}
-
-            {/* ══ Continue button ═══════════════════════════════════════════ */}
-            <tr>
-              <td>
-                <table
-                  style={{ width: "80%", textAlign: "center" }}
-                  cellPadding={4}
-                  cellSpacing={0}
-                >
-                  <tbody>
-                    <tr>
-                      <td style={{ textAlign: "center" }}>
-                        {/*
-                         * Navigates to /starbiz/filing/llc/filing-info?session=<id>
-                         * (Phase R4 — will 404 until R4 ships — expected behaviour)
-                         *
-                         * We use GET + hidden field so the URL carries the session ID
-                         * cleanly, matching our session-based state model.
-                         * The real Sunbiz posted all form data as hidden fields;
-                         * our equivalent is the filing_session row.
-                         */}
-                        <button type="submit" style={sButton}>
-                          Continue
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-
-        {/* Back-link — not in real Sunbiz but useful during dev/testing */}
-        <p style={{ fontFamily: F, fontSize: "11px", color: "#888", marginTop: "12px" }}>
-          <a
-            href={`/starbiz/filing/llc/form`}
-            style={{ color: "#003366" }}
-          >
-            ← Return to filing form
-          </a>
-          {" · "}
-          <a
-            href="/starbiz/filing/llc/disclaimer"
-            style={{ color: "#003366" }}
-          >
-            Start over (disclaimer)
-          </a>
-        </p>
-
-      </form>
-    </StarBizShell>
+      <div dangerouslySetInnerHTML={{ __html: bodyContent }} />
+    </>
   );
 }
-
-// Keep Next.js from caching this page — it reads live DB data
-export const dynamic = "force-dynamic";
-

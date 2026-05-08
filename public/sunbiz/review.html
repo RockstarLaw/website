@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0045)https://efile.sunbiz.org/scripts/coredisp.exe -->
+<!-- 1:1 clone — R7b-3 — branding swapped, user data replaced with {{TEMPLATE_PLACEHOLDERS}} -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>sunbiz.org - RockStar Department of State</title>
+<link href="/sunbiz/sunbiz_style.css" rel="stylesheet" type="text/css">
+<link href="/sunbiz/sunbiz_dos_style.css" rel="stylesheet" type="text/css">
+<link href="/sunbiz/sunbiz_dos_print_style.css" rel="stylesheet" type="text/css" media="print">
+</head>
+<body>
+<div id="wrapper">
+<div id="content">
+<div id="header">
+<img src="/sunbiz/sunbiz-logo-new.png" class="logo" alt="RockStar Division of Corporations">
+</div>
+<div id="MainContentEfiling">
+<form action="/starbiz/filing/llc/filing-info" name="filingform" method="POST">
+<table summary="This table is used for page layout." cellpadding="4" cellspacing="2">
+<tbody><tr><td><table summary="Table displays the Filing Information heading." cellpadding="2" cellspacing="2">
+<tbody><tr><td><span class="pagetitle">Filing Information</span></td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table contains our Please review the filing for accuracy statement." border="0" cellpadding="2" cellspacing="2">
+<tbody><tr><td colspan="2" align="left" class="redtext">Please review the filing for accuracy.  If you need to make corrections, 
+do so at this time.  The filing information will be added/edited exactly as you have entered it.  Once you have submitted the information, 
+your filing cannot be updated, removed, cancelled or refunded.</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays the effective date user input on first page." cellpadding="2" cellspacing="0">
+<tbody><tr><td nowrap="" align="left" class="descript">Effective date for this filing</td><td></td><td class="data">{{display_eff_date}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays if a certificate of status and certified copy requested." cellpadding="2" cellspacing="2">
+<tbody><tr><td nowrap="" align="left" class="descript">Certificate of Status Requested</td><td></td><td class="data">{{display_cos}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Certified Copy Requested</td><td></td><td class="data">{{display_cert}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays the Corporate Name and Corporate Stock Shares or the Limited Partnership Name or the Limited Liability Company Name for this filing.  Depends on type which text will appear." cellpadding="2" cellspacing="2">
+<tbody><tr><td nowrap="" align="left" class="descript">Limited Liability Company Name</td><td class="data">{{display_corp_name}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table is used for page layout.">
+<tbody><tr><td nowrap="" align="left" class="heading">Principal Place of Business</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays the Street Address of Initial Office or the Principal Place of Business, depending on filing type.">
+<tbody><tr><td nowrap="" align="left" class="descript">Address</td><td class="data">{{display_princ_addr1}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Suite, Apt. #, etc.</td><td class="data">{{display_princ_addr2}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">City, State</td><td class="data">{{display_princ_city_st}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Zip Code &amp; Country</td><td class="data">{{display_princ_zip_cntry}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table contains the Mailing Address section heading.">
+<tbody><tr><td nowrap="" align="left" class="heading">Mailing Address</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays the mailing address, if provided.">
+{{mailing_address_section}}
+</table></td></tr>
+<tr><td><table summary="Table displays the Name and Address of Registered Agent section heading.">
+<tbody><tr><td nowrap="" align="left" class="heading">Name and Address of Registered Agent</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays the name (if a person) or Business to serve as name of registered agent. Also displays the address.">
+<tbody><tr><td nowrap="" align="left" class="descript">Name (Last, First, Middle, Title)</td><td class="data">{{display_ra_name}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Address</td><td class="data">{{display_ra_addr1}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Suite, Apt. #, etc.</td><td class="data">{{display_ra_addr2}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">City, State</td><td class="data">{{display_ra_city_st}}</td></tr>
+<tr><td nowrap="" align="left" class="descript">Zip Code &amp; Country</td><td class="data">{{display_ra_zip_cntry}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays the Registered Agent Signature section heading.">
+<tbody><tr><td nowrap=""><span class="descript">Registered Agent Signature</span></td><td class="data">{{display_ra_signature}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays what user input on first page for the Limited Liability Any Other Provision(s).">
+<tbody><tr><td nowrap=""><span class="heading"><label for="llcpurposetext">Any Other Provision(s) - Optional (Purpose, Statements, etc.)</label></span></td></tr>
+<tr><td>{{display_purpose}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays the Correspondence Name And E-mail Address section heading.">
+<tbody><tr><td nowrap="" class="heading">Correspondence Name And E-mail Address</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="This table is used for page layout.">
+<tbody><tr><td nowrap="" class="descript">Name and e-mail address to whom correspondence should be e-mailed</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table contains an input field for the name and address of whom should receive the email correspondence.">
+<tbody><tr><td nowrap="" class="descript">Name</td><td>{{display_ret_name}}</td></tr>
+<tr><td nowrap="" class="descript">E-mail Address</td><td>{{display_ret_email}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="This table is used for page layout.">
+<tbody><tr><td nowrap="" class="heading">Signature of a member or an authorized representative.</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table contains an input field for the Signature of a member or an authorized representative of a member.">
+<tbody><tr><td nowrap="" class="descript">Signature</td><td> {{display_signature}} </td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table is used for page lay out.">
+<tbody><tr><td nowrap="" align="left" class="heading">Name And Address of Person(s) Authorized to Manage LLC</td></tr>
+</tbody></table></td></tr>
+{{manager_blocks}}
+<input type="hidden" name="filing_type" value="LLC">
+<input type="hidden" name="track_number" value="{{field_track_number}}">
+<input type="hidden" name="menu_function" value="ADD">
+<input type="hidden" name="eff_date_mm" value="{{field_eff_date_mm}}">
+<input type="hidden" name="eff_date_dd" value="{{field_eff_date_dd}}">
+<input type="hidden" name="eff_date_yyyy" value="{{field_eff_date_yyyy}}">
+<input type="hidden" name="corp_name" value="{{field_corp_name}}">
+<input type="hidden" name="cos_num" value="{{field_cos_num}}">
+<input type="hidden" name="cert_num" value="{{field_cert_num}}">
+<input type="hidden" name="princ_addr1" value="{{field_princ_addr1}}">
+<input type="hidden" name="princ_addr2" value="{{field_princ_addr2}}">
+<input type="hidden" name="princ_city" value="{{field_princ_city}}">
+<input type="hidden" name="princ_st" value="{{field_princ_st}}">
+<input type="hidden" name="princ_zip" value="{{field_princ_zip}}">
+<input type="hidden" name="princ_cntry" value="{{field_princ_cntry}}">
+<input type="hidden" name="mail_addr1" value="{{field_mail_addr1}}">
+<input type="hidden" name="mail_addr2" value="{{field_mail_addr2}}">
+<input type="hidden" name="mail_city" value="{{field_mail_city}}">
+<input type="hidden" name="mail_st" value="{{field_mail_st}}">
+<input type="hidden" name="mail_zip" value="{{field_mail_zip}}">
+<input type="hidden" name="mail_cntry" value="{{field_mail_cntry}}">
+<input type="hidden" name="ra_name_last_name" value="{{field_ra_name_last_name}}">
+<input type="hidden" name="ra_name_first_name" value="{{field_ra_name_first_name}}">
+<input type="hidden" name="ra_name_m_name" value="{{field_ra_name_m_name}}">
+<input type="hidden" name="ra_name_title_name" value="{{field_ra_name_title_name}}">
+<input type="hidden" name="ra_name_corp_name" value="{{field_ra_name_corp_name}}">
+<input type="hidden" name="ra_addr1" value="{{field_ra_addr1}}">
+<input type="hidden" name="ra_addr2" value="{{field_ra_addr2}}">
+<input type="hidden" name="ra_city" value="{{field_ra_city}}">
+<input type="hidden" name="ra_zip" value="{{field_ra_zip}}">
+<input type="hidden" name="ra_signature" value="{{field_ra_signature}}">
+<input type="hidden" name="signature" value="{{field_signature}}">
+<input type="hidden" name="purpose" value="{{field_purpose}}">
+<input type="hidden" name="ret_name" value="{{field_ret_name}}">
+<input type="hidden" name="ret_email_addr" value="{{field_ret_email_addr}}">
+<input type="hidden" name="off1_name_type" value="{{field_off1_name_type}}">
+<input type="hidden" name="off1_name_seq" value="0">
+<input type="hidden" name="off1_name_title" value="{{field_off1_name_title}}">
+<input type="hidden" name="off1_name_last_name" value="{{field_off1_name_last_name}}">
+<input type="hidden" name="off1_name_first_name" value="{{field_off1_name_first_name}}">
+<input type="hidden" name="off1_name_m_name" value="{{field_off1_name_m_name}}">
+<input type="hidden" name="off1_name_title_name" value="{{field_off1_name_title_name}}">
+<input type="hidden" name="off1_name_corp_name" value="{{field_off1_name_corp_name}}">
+<input type="hidden" name="off1_name_addr1" value="{{field_off1_name_addr1}}">
+<input type="hidden" name="off1_name_city" value="{{field_off1_name_city}}">
+<input type="hidden" name="off1_name_st" value="{{field_off1_name_st}}">
+<input type="hidden" name="off1_name_zip" value="{{field_off1_name_zip}}">
+<input type="hidden" name="off1_name_cntry" value="{{field_off1_name_cntry}}">
+<input type="hidden" name="off2_name_type" value="{{field_off2_name_type}}">
+<input type="hidden" name="off2_name_seq" value="0">
+<input type="hidden" name="off2_name_title" value="{{field_off2_name_title}}">
+<input type="hidden" name="off2_name_last_name" value="{{field_off2_name_last_name}}">
+<input type="hidden" name="off2_name_first_name" value="{{field_off2_name_first_name}}">
+<input type="hidden" name="off2_name_m_name" value="{{field_off2_name_m_name}}">
+<input type="hidden" name="off2_name_title_name" value="{{field_off2_name_title_name}}">
+<input type="hidden" name="off2_name_corp_name" value="{{field_off2_name_corp_name}}">
+<input type="hidden" name="off2_name_addr1" value="{{field_off2_name_addr1}}">
+<input type="hidden" name="off2_name_city" value="{{field_off2_name_city}}">
+<input type="hidden" name="off2_name_st" value="{{field_off2_name_st}}">
+<input type="hidden" name="off2_name_zip" value="{{field_off2_name_zip}}">
+<input type="hidden" name="off2_name_cntry" value="{{field_off2_name_cntry}}">
+<input type="hidden" name="off3_name_type" value="{{field_off3_name_type}}">
+<input type="hidden" name="off3_name_seq" value="0">
+<input type="hidden" name="off3_name_title" value="{{field_off3_name_title}}">
+<input type="hidden" name="off3_name_last_name" value="{{field_off3_name_last_name}}">
+<input type="hidden" name="off3_name_first_name" value="{{field_off3_name_first_name}}">
+<input type="hidden" name="off3_name_m_name" value="{{field_off3_name_m_name}}">
+<input type="hidden" name="off3_name_title_name" value="{{field_off3_name_title_name}}">
+<input type="hidden" name="off3_name_corp_name" value="{{field_off3_name_corp_name}}">
+<input type="hidden" name="off3_name_addr1" value="{{field_off3_name_addr1}}">
+<input type="hidden" name="off3_name_city" value="{{field_off3_name_city}}">
+<input type="hidden" name="off3_name_st" value="{{field_off3_name_st}}">
+<input type="hidden" name="off3_name_zip" value="{{field_off3_name_zip}}">
+<input type="hidden" name="off3_name_cntry" value="{{field_off3_name_cntry}}">
+<input type="hidden" name="off4_name_type" value="{{field_off4_name_type}}">
+<input type="hidden" name="off4_name_seq" value="0">
+<input type="hidden" name="off4_name_title" value="{{field_off4_name_title}}">
+<input type="hidden" name="off4_name_last_name" value="{{field_off4_name_last_name}}">
+<input type="hidden" name="off4_name_first_name" value="{{field_off4_name_first_name}}">
+<input type="hidden" name="off4_name_m_name" value="{{field_off4_name_m_name}}">
+<input type="hidden" name="off4_name_title_name" value="{{field_off4_name_title_name}}">
+<input type="hidden" name="off4_name_corp_name" value="{{field_off4_name_corp_name}}">
+<input type="hidden" name="off4_name_addr1" value="{{field_off4_name_addr1}}">
+<input type="hidden" name="off4_name_city" value="{{field_off4_name_city}}">
+<input type="hidden" name="off4_name_st" value="{{field_off4_name_st}}">
+<input type="hidden" name="off4_name_zip" value="{{field_off4_name_zip}}">
+<input type="hidden" name="off4_name_cntry" value="{{field_off4_name_cntry}}">
+<input type="hidden" name="off5_name_type" value="{{field_off5_name_type}}">
+<input type="hidden" name="off5_name_seq" value="0">
+<input type="hidden" name="off5_name_title" value="{{field_off5_name_title}}">
+<input type="hidden" name="off5_name_last_name" value="{{field_off5_name_last_name}}">
+<input type="hidden" name="off5_name_first_name" value="{{field_off5_name_first_name}}">
+<input type="hidden" name="off5_name_m_name" value="{{field_off5_name_m_name}}">
+<input type="hidden" name="off5_name_title_name" value="{{field_off5_name_title_name}}">
+<input type="hidden" name="off5_name_corp_name" value="{{field_off5_name_corp_name}}">
+<input type="hidden" name="off5_name_addr1" value="{{field_off5_name_addr1}}">
+<input type="hidden" name="off5_name_city" value="{{field_off5_name_city}}">
+<input type="hidden" name="off5_name_st" value="{{field_off5_name_st}}">
+<input type="hidden" name="off5_name_zip" value="{{field_off5_name_zip}}">
+<input type="hidden" name="off5_name_cntry" value="{{field_off5_name_cntry}}">
+<input type="hidden" name="off6_name_type" value="{{field_off6_name_type}}">
+<input type="hidden" name="off6_name_seq" value="0">
+<input type="hidden" name="off6_name_title" value="{{field_off6_name_title}}">
+<input type="hidden" name="off6_name_last_name" value="{{field_off6_name_last_name}}">
+<input type="hidden" name="off6_name_first_name" value="{{field_off6_name_first_name}}">
+<input type="hidden" name="off6_name_m_name" value="{{field_off6_name_m_name}}">
+<input type="hidden" name="off6_name_title_name" value="{{field_off6_name_title_name}}">
+<input type="hidden" name="off6_name_corp_name" value="{{field_off6_name_corp_name}}">
+<input type="hidden" name="off6_name_addr1" value="{{field_off6_name_addr1}}">
+<input type="hidden" name="off6_name_city" value="{{field_off6_name_city}}">
+<input type="hidden" name="off6_name_st" value="{{field_off6_name_st}}">
+<input type="hidden" name="off6_name_zip" value="{{field_off6_name_zip}}">
+<input type="hidden" name="off6_name_cntry" value="{{field_off6_name_cntry}}">
+<tr><td><table summary="Table contains the continue button." align="center" width="80%">
+<tbody><tr><td align="center"><input type="submit" name="submit" value="Continue"></td></tr></tbody></table></td></tr>
+</tbody></table></form></div>
+</div>
+<div id="footer">
+<p>RockStar Department of State, Division of Corporations</p></div></div>
+<div id="dosbanner">
+<div class="clearfix">
+<div>
+<p class="replace" id="dosLogo"><a href="http://dos.myflorida.com/" target="_blank"><span></span>RockStar Department of State</a></p>
+<ul class="clearfix division-name" id="dosDivision">
+<li><a href="http://dos.myflorida.com/sunbiz/" target="_blank">Division of Corporations</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+</body></html>
