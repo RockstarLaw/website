@@ -1,28 +1,33 @@
 /**
- * IRS EIN Info Page — Phase IRS-I1
+ * IRS Responsible Parties & Nominees Info Page — Phase IRS-I2
  *
- * 1:1 clone of the real IRS "Get an employer identification number" page.
- * HTML stored as a transformed static asset at public/irs/ein-info.html
+ * 1:1 clone of the real IRS "Responsible parties and nominees" page.
+ * HTML stored as a transformed static asset at public/irs/responsible-party.html
  * and served verbatim via dangerouslySetInnerHTML — no React wrappers,
  * no SiteShell, no auth gate. The cloned HTML carries its own complete
  * IRS chrome (header, breadcrumbs, nav, footer).
  *
- * Transformations baked into ein-info.html (SESSION_HANDOFF §2):
+ * Transformations baked into responsible-party.html (SESSION_HANDOFF §2):
  *   • Analytics scripts stripped (gtag, gtm, UA, generic, page.js, etc.)
- *   • Chat scripts stripped (egain, launchva, custoffers)
- *   • JS-injected overlays stripped (#addtoany, #egain-chat-wrapper)
- *   • Asset paths rewritten: ./..._files/X → /irs/page-1/X
+ *   • Drupal runtime JS stripped (drupal-settings-json, js_KDJr..., etc.)
+ *   • JS-injected overlays stripped (#egain-chat-wrapper, a2a sidecars)
+ *   • Asset paths rewritten: ./..._files/X → /irs/page-2/X
  *   • Title: "… | Internal Revenue Service" → "… | RockStar IRS"
  *   • irs.gov hrefs kept as-is (per 00_PLAN.md)
  *   • IRS logo SVG kept as-is (no swap — per diagnosis-step decision)
  *
- * STYLE NOTES:
- *   The root layout applies Tailwind classes to <body> (flex, min-h-full).
- *   We undo those with a scoped <style> block that React 19 hoists to <head>.
- *   IRS USWDS/Drupal CSS then takes over via its own body and layout rules.
+ * INFRASTRUCTURE FROM IRS-I1 (commit 71dddbf):
+ *   • Font Awesome 4.7.0, Glyphicons, Source Sans Pro already on disk at
+ *     /public/themes/custom/pup_base/fonts/ — NOT re-downloaded.
+ *   • Scoped <style> override pattern proven in src/app/irs/ein/page.tsx.
  *
- * PUBLIC PAGE: No auth gate — this is a public IRS info page. Matches the
- * public info pattern documented in 00_PLAN.md.
+ * STYLE NOTES:
+ *   Same Tailwind preflight collision as IRS-I1:
+ *   The root layout applies `display:flex; flex-direction:column` to <body>
+ *   via Tailwind utility classes. Overridden in the scoped <style> block.
+ *   All other Tailwind resets handled by IRS aggregated CSS specificity.
+ *
+ * PUBLIC PAGE: No auth gate — this is a public IRS info page.
  */
 
 import { readFileSync } from "fs";
@@ -30,10 +35,10 @@ import { join } from "path";
 
 export const dynamic = "force-dynamic";
 
-export default function IrsEinPage() {
+export default function IrsResponsiblePartyPage() {
   // ── Read the pre-transformed static HTML ────────────────────────────────────
   const fullHtml = readFileSync(
-    join(process.cwd(), "public/irs/ein-info.html"),
+    join(process.cwd(), "public/irs/responsible-party.html"),
     "utf-8",
   );
 
@@ -46,45 +51,38 @@ export default function IrsEinPage() {
     <>
       {/*
        * React 19 automatically hoists <link> and <style> to <head>.
-       * Loading IRS CSS this way prevents FOUC and requires no layout.tsx
-       * changes. The 4 files are Drupal-aggregated bundles containing
-       * USWDS + Bootstrap + all IRS custom styles.
+       * IRS CSS paths point to /irs/page-2/ for this page's asset subfolder.
+       * Font files at /themes/custom/pup_base/fonts/ are inherited from IRS-I1.
        */}
       {/* eslint-disable-next-line @next/next/no-css-tags */}
       <link
         rel="stylesheet"
         media="all"
-        href="/irs/page-1/css_NVvP9_xN__Mg2RByu9OI--5ZTpMmH8LC8b-qER6dfbU.css"
+        href="/irs/page-2/css_NVvP9_xN__Mg2RByu9OI--5ZTpMmH8LC8b-qER6dfbU.css"
       />
       {/* eslint-disable-next-line @next/next/no-css-tags */}
       <link
         rel="stylesheet"
         media="all"
-        href="/irs/page-1/css_yZKZQeQr-6FrHttDTNN7zbNgJyap3lvwbJyU-3QfwV8.css"
+        href="/irs/page-2/css_yZKZQeQr-6FrHttDTNN7zbNgJyap3lvwbJyU-3QfwV8.css"
       />
       {/* eslint-disable-next-line @next/next/no-css-tags */}
       <link
         rel="stylesheet"
         media="print"
-        href="/irs/page-1/css_xEYcgzIIMA7tFIeVzSOrKRPyoYDIuxzHyZ88T5D_SPY.css"
+        href="/irs/page-2/css_xEYcgzIIMA7tFIeVzSOrKRPyoYDIuxzHyZ88T5D_SPY.css"
       />
       {/* eslint-disable-next-line @next/next/no-css-tags */}
       <link
         rel="stylesheet"
         media="all"
-        href="/irs/page-1/css_EbWGjClhsStXbsvwOq9iT6yGxHCg86ApUzr4bYwsoHk.css"
+        href="/irs/page-2/css_EbWGjClhsStXbsvwOq9iT6yGxHCg86ApUzr4bYwsoHk.css"
       />
 
       {/*
-       * Tailwind Preflight Collision Fix
-       *
-       * The root layout applies `display:flex; flex-direction:column;
-       * min-height:100vh` to <body> via Tailwind utility classes.
-       * Those break the IRS USWDS/Bootstrap container centering which
-       * relies on standard block-level flow. Reset them here.
-       *
-       * All other Tailwind resets (heading margins, list-style, link colors)
-       * are overridden by the IRS aggregated CSS's own specificity.
+       * Tailwind Preflight Collision Fix — verbatim from IRS-I1 (src/app/irs/ein/page.tsx).
+       * The root layout applies flex layout to <body>; reset to standard block flow.
+       * AddToAny overlay modals need display:none restored (a2a CSS was stripped).
        */}
       <style>{`
         body {
@@ -94,10 +92,8 @@ export default function IrsEinPage() {
           min-height: auto !important;
           background-color: initial !important;
         }
-        /* AddToAny overlay modals survived the HTML strip (nested-div regex limit).
-           The a2a CSS that gave them display:none was stripped with analytics;
-           restore the minimal hide rule. The visible Share/Print button
-           (.a2a_kit.addtoany_list) is not affected by these selectors. */
+        /* AddToAny overlay modals — captured in HTML but a2a CSS stripped.
+           Restore display:none so hidden overlays don't pollute layout. */
         .a2a_hide,
         .a2a_menu.a2a_full,
         .a2a_menu.a2a_mini,
@@ -106,18 +102,7 @@ export default function IrsEinPage() {
         }
         /*
          * FONT-DISPLAY FIX — IRS-I1 / IRS-I2 shared chrome
-         *
-         * The IRS CSS bundles declare @font-face without font-display,
-         * causing Chrome to FOIT (hide text/icons) during the block period.
-         * Pseudo-elements (FA magnifying glass in .form-submit::after,
-         * breadcrumb separators, external-link icons) appear invisible in
-         * headless screenshots when the font swap hasn't composited yet.
-         *
-         * Override: font-display:swap on FontAwesome and Source Sans Pro
-         * tells Chrome to render fallback immediately (zero block period)
-         * and swap in the custom font as soon as it loads. For our locally
-         * hosted fonts (< 1ms load time), the swap happens before any
-         * paint event, so screenshots capture the custom font correctly.
+         * Same override as src/app/irs/ein/page.tsx — see comments there.
          */
         @font-face {
           font-family: FontAwesome;
@@ -146,12 +131,7 @@ export default function IrsEinPage() {
         }
         /*
          * BULLET POINT FIX — IRS article body content
-         *
-         * The IRS aggregated CSS globally resets ul{list-style:none}
-         * (in css_EbWGj bundle, no @media wrapper — applies at all widths).
-         * The bundle has no re-add rule for article body ul li content.
-         * The live IRS site shows bullets — we restore them here for the
-         * article body, matching the screenshot-wins source of truth.
+         * Same override as src/app/irs/ein/page.tsx — see comments there.
          */
         .field--name-body ul,
         .field--item ul,
@@ -169,7 +149,7 @@ export default function IrsEinPage() {
       {/*
        * Single wrapper div — minimum wrapper React requires for
        * dangerouslySetInnerHTML. IRS CSS targets #navbar / .container /
-       * .pup-main-container / footer, not this div, so it is transparent.
+       * .pup-main-container / footer, not this div.
        */}
       <div dangerouslySetInnerHTML={{ __html: bodyContent }} />
     </>
