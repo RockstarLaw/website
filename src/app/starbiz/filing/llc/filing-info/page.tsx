@@ -36,6 +36,7 @@ import { redirect } from "next/navigation";
 
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import FilingInfoAlert from "./FilingInfoAlert";
 
 export const dynamic = "force-dynamic";
 
@@ -193,6 +194,9 @@ export default async function LLCFilingInfoPage() {
       `}</style>
 
       <div dangerouslySetInnerHTML={{ __html: bodyContent }} />
+
+      {/* Reproduces review_document_alert(true) popup from real Sunbiz corefile.exe */}
+      <FilingInfoAlert />
     </>
   );
 }
