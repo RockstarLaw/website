@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0045)https://efile.sunbiz.org/scripts/corenrtn.exe -->
+<!-- 1:1 clone — R7b-5 — branding swapped, user data replaced with {{TEMPLATE_PLACEHOLDERS}}
+     Form-action surgery:
+       • CC form: NIC hidden fields stripped, action → /starbiz/filing/llc/receipt
+       • Empty corepymt.exe form stripped (Sunbiz HTML bug)
+       • E-file section: wrapped in new form → /starbiz/filing/llc/receipt
+-->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>sunbiz.org - RockStar Department of State</title>
+<link href="/sunbiz/sunbiz_style.css" rel="stylesheet" type="text/css">
+<link href="/sunbiz/sunbiz_dos_style.css" rel="stylesheet" type="text/css">
+<link href="/sunbiz/sunbiz_dos_print_style.css" rel="stylesheet" type="text/css" media="print">
+</head>
+<body>
+<div id="wrapper">
+<div id="content">
+<div id="header">
+<img src="/sunbiz/sunbiz-logo-new.png" class="logo" alt="RockStar Division of Corporations">
+</div>
+<div id="MainContentEfiling">
+<table summary="Table is used for page lay out." cellpadding="4" cellspacing="2">
+<tbody><tr><td><table summary="Table is used for page lay out." cellpadding="2" cellspacing="2">
+<tbody><tr><td nowrap="" align="left" class="pagetitle">Payment Page</td></tr>
+</tbody></table></td></tr><tr><td><table summary="Table displays the Document Tracking #." cellpadding="2" cellspacing="2">
+<tbody><tr><td nowrap="" align="left" class="descript">Document Tracking #: </td><td class="efiledata">{{TRACKING_NUMBER}}</td></tr>
+</tbody></table></td></tr><tr><td><table summary="Table displays the charge amount for this filing." cellpadding="2" cellspacing="2">
+<tbody><tr><td nowrap="" align="left" class="descript">The charge amount for your Corporate filing is: </td><td class="efiledata"> ${{FILING_CHARGE}}</td></tr>
+</tbody></table></td></tr>
+<tr><td><table summary="Table displays information regarding the processing of payment." cellpadding="2" cellspacing="2">
+<tbody><tr><td align="justified">When your payment approval is received, we will process your filing request.
+When your document is filed, an e-mail confirmation will be sent to the address entered on the form.</td></tr>
+<tr><td><br></td></tr>
+<tr><td align="center"><strong>Please select one of the payment options listed below.</strong><br><br>
+<form action="/starbiz/filing/llc/receipt" method="POST">
+<input type="hidden" name="filing_type" value="LLC">
+<input type="hidden" name="track_number" value="{{TRACKING_NUMBER}}">
+<input type="submit" name="submit" value="Credit Card Payment"></form></td></tr></tbody></table></td></tr>
+<tr><td align="justified">If you press the "Credit Card Payment" button from this screen, you will be sent to the payment screen to be charged for this filing.</td></tr>
+<tr><td><input type="hidden" size="12" name="filing_type" value="LLC">
+<input type="hidden" size="12" name="track_number" value="{{TRACKING_NUMBER}}"></td></tr>
+</tbody></table>
+<form action="/starbiz/filing/llc/receipt" method="POST">
+<input type="hidden" name="filing_type" value="LLC">
+<input type="hidden" name="track_number" value="{{TRACKING_NUMBER}}">
+<table summary="Table contains the input fields needed to file using a SunBiz E-file account." align="center">
+<tbody><tr><td nowrap="" align="center"><label for="acct_number">Sunbiz E-file account number</label></td><td><input type="text" size="12" maxlength="12" name="acct_number" id="acct_number"></td></tr>
+<tr><td nowrap="" align="center"><label for="acct_password">Password</label></td><td><input type="password" size="12" maxlength="12" name="acct_password" id="acct_password"></td></tr>
+<tr><td nowrap="" align="center"><label for="email_addr">E-mail Address</label></td><td><input type="text" size="20" maxlength="80" name="email_addr" id="email_addr"></td></tr>
+</tbody></table>
+<table summary="Table that holds the Sunbiz E-file Account Payment button." align="center">
+<tbody><tr><td align="justified"><input type="submit" value="Sunbiz E-file Account Payment"></td></tr></tbody></table>
+</form>
+If you enter an account number and password and press the "Sunbiz E-file Account Payment" button from this screen, your account will be charged.
+</div>
+</div>
+<div id="footer">
+<p>RockStar Department of State, Division of Corporations</p></div></div>
+<div id="dosbanner">
+<div class="clearfix">
+<div>
+<p class="replace" id="dosLogo"><a href="http://dos.myflorida.com/" target="_blank"><span></span>RockStar Department of State</a></p>
+<ul class="clearfix division-name" id="dosDivision">
+<li><a href="http://dos.myflorida.com/sunbiz/" target="_blank">Division of Corporations</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+</body></html>

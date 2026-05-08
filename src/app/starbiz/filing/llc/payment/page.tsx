@@ -1,305 +1,187 @@
 /**
- * LLC Formation — Payment Page (Retrofit R5)
- * Shared infrastructure for all formation filings.
+ * LLC Payment Page — Retrofit R7b-5
  *
- * Reference: Florida_Sunbiz_website/3_Step_3_2_SUNBIZ FILING AN LLC/
- *            6_sunbiz.org - Florida Department of State.html
- *            (saved from corenrtn.exe)
+ * 1:1 clone of the real Sunbiz corenrtn.exe payment page.
+ * HTML template stored at public/sunbiz/payment.html.
+ * Served via dangerouslySetInnerHTML — no React rebuild, no StarBizShell.
  *
- * Displays computed charge, two payment options (both simulated),
- * and the cash-register easter egg (CashRegisterButton) on both buttons.
+ * Auth-gated. Reads the most recent in-progress llc filing_session.
+ * If none → redirect to disclaimer.
  *
- * Route:  /starbiz/filing/llc/payment?session=<uuid>
- * Source: /starbiz/filing/llc/review (R3) → [R4 filing-info, not yet built] → here
- * Next:   /starbiz/filing/llc/receipt?session=<uuid>&method=credit|account  (R6 — 404 until then)
+ * Injects {{TRACKING_NUMBER}} and {{FILING_CHARGE}} from session data.
+ * Charge formula: $125.00 + $5.00 if COS + $30.00 if certified copy
+ * (matches filing-info/page.tsx formula and capture value of $160.00).
  *
- * Shared: per-type labels and base fees come from FILING_CONFIG.
- *         To add Profit Corp: add one entry to FILING_CONFIG, no structural changes.
+ * Sets current_step = 'payment' before render.
+ *
+ * Cash register easter egg: PaymentCashRegister client component intercepts
+ * both submit buttons, plays the ka-ching sound, then submits with 250ms delay.
+ *
+ * Scoped <style> block: verbatim copy of filing-info/page.tsx (58e34f9).
  */
 
-import type { CSSProperties } from "react";
-import { notFound, redirect } from "next/navigation";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { redirect } from "next/navigation";
 
-import { StarBizShell } from "@/components/starbiz/StarBizShell";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-import { PaymentButtons } from "./PaymentButtons";
+import { PaymentCashRegister } from "./PaymentCashRegister";
 
-// ─── Per-filing-type configuration ───────────────────────────────────────────
-// Extend here for Corp / Non-Profit / LP — no structural page changes needed.
+export const dynamic = "force-dynamic";
 
-type FilingConfig = {
-  /** Human-readable entity type used in the charge sentence. */
-  entityLabel: string;
-  /** Base filing fee in USD (before optional add-ons). */
-  baseFee: number;
-};
-
-const FILING_CONFIG: Record<string, FilingConfig> = {
-  llc: {
-    entityLabel: "Limited Liability Company",
-    baseFee: 125.0,
-  },
-  "profit-corp": {
-    entityLabel: "Corporate",
-    baseFee: 125.0,
-  },
-  "non-profit": {
-    entityLabel: "Non-Profit Corporation",
-    baseFee: 70.0,
-  },
-  lp: {
-    entityLabel: "Limited Partnership",
-    baseFee: 125.0,
-  },
-};
-
-const DEFAULT_CONFIG = FILING_CONFIG["llc"];
-
-// Optional add-on fees (same across all entity types — matches real Sunbiz schedule)
-const FEE_CERT_OF_STATUS = 5.0;
-const FEE_CERTIFIED_COPY  = 30.0;
-
-// ─── Style constants (faithful to Sunbiz CSS) ─────────────────────────────────
-
-const F = "Arial, Helvetica, sans-serif";
-
-const sPageTitle: CSSProperties = {
-  fontFamily: F,
-  fontSize: "15px",
-  fontWeight: "bold",
-  color: "#003366",
-  whiteSpace: "nowrap",
-};
-
-const sLabel: CSSProperties = {
-  fontFamily: F,
-  fontSize: "12px",
-  fontStyle: "italic",
-  whiteSpace: "nowrap",
-  paddingRight: "6px",
-  verticalAlign: "middle",
-};
-
-/** .efiledata — value cells on the payment page */
-const sEfileData: CSSProperties = {
-  fontFamily: F,
-  fontSize: "12px",
-  fontWeight: "bold",
-  verticalAlign: "middle",
-};
-
-const sBodyText: CSSProperties = {
-  fontFamily: F,
-  fontSize: "12px",
-};
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function v(fd: Record<string, string>, key: string): string {
-  return (fd[key] ?? "").trim();
-}
-
-/**
- * Derive a display tracking number from the session UUID.
- * Format mirrors real Sunbiz track_numbers (12 numeric-ish chars).
- * The real tracking number is assigned at receipt time (R6).
- */
-function deriveTrackingNum(sessionId: string): string {
-  return sessionId.replace(/-/g, "").slice(0, 12).toUpperCase();
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
-export default async function PaymentPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ session?: string | string[] }>;
-}) {
-  // ── 1. Resolve session ID ──────────────────────────────────────────────────
-  const params    = await searchParams;
-  const rawSess   = params.session;
-  const sessionId = Array.isArray(rawSess) ? rawSess[0] : rawSess;
-  if (!sessionId) notFound();
-
-  // ── 2. Auth check ──────────────────────────────────────────────────────────
+export default async function LLCPaymentPage() {
+  // ── Auth check ──────────────────────────────────────────────────────────────
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  // ── 3. Load filing session (must belong to this user, still in-progress) ───
+  // ── Fetch most recent in-progress LLC session ────────────────────────────────
   const admin = createSupabaseAdminClient();
-  const { data: session } = await admin
+  const { data: session, error } = await admin
     .from("filing_sessions")
-    .select("id, filing_type, form_data")
-    .eq("id", sessionId)
+    .select("id, form_data, tracking_number, current_step")
     .eq("user_id", user.id)
+    .eq("filing_type", "llc")
     .eq("status", "in_progress")
-    .maybeSingle();
+    .order("started_at", { ascending: false })
+    .limit(1)
+    .single();
 
-  if (!session) notFound();
+  if (error || !session) redirect("/starbiz/filing/llc/disclaimer");
 
-  // ── 4. Compute charge ─────────────────────────────────────────────────────
-  const fd     = (session.form_data ?? {}) as Record<string, string>;
-  const config: FilingConfig =
-    FILING_CONFIG[session.filing_type as string] ?? DEFAULT_CONFIG;
+  const fd: Record<string, string> = (session.form_data as Record<string, string>) ?? {};
 
-  let total = config.baseFee;
-  if (v(fd, "cos_num_flag")  === "Y") total += FEE_CERT_OF_STATUS;
-  if (v(fd, "cert_num_flag") === "Y") total += FEE_CERTIFIED_COPY;
-  const totalStr = `$${total.toFixed(2)}`;
+  // ── Tracking number (should already exist from filing-info visit) ─────────────
+  let trackingNumber = session.tracking_number;
+  if (!trackingNumber) {
+    trackingNumber = session.id.replace(/-/g, "").slice(0, 12).toUpperCase();
+    await admin
+      .from("filing_sessions")
+      .update({ tracking_number: trackingNumber, last_saved_at: new Date().toISOString() })
+      .eq("id", session.id);
+  }
 
-  // ── 5. Build URLs for receipt page (R6 — 404 until R6 ships) ─────────────
-  const trackingNum = deriveTrackingNum(sessionId);
-  const creditUrl  = `/starbiz/filing/llc/receipt?session=${sessionId}&method=credit`;
-  const accountUrl = `/starbiz/filing/llc/receipt?session=${sessionId}&method=account`;
+  // ── Update current_step to 'payment' ────────────────────────────────────────
+  if (session.current_step !== "payment") {
+    await admin
+      .from("filing_sessions")
+      .update({ current_step: "payment", last_saved_at: new Date().toISOString() })
+      .eq("id", session.id);
+  }
 
-  // ── 6. Render ──────────────────────────────────────────────────────────────
+  // ── Compute filing charge (same formula as filing-info/page.tsx) ─────────────
+  let charge = 125.00;
+  if (fd.cos_num_flag  === "Y") charge += 5.00;
+  if (fd.cert_num_flag === "Y") charge += 30.00;
+  const filingCharge = charge.toFixed(2);
+
+  // ── Read template and substitute placeholders ────────────────────────────────
+  let html = readFileSync(
+    join(process.cwd(), "public/sunbiz/payment.html"),
+    "utf-8",
+  );
+
+  html = html.replaceAll("{{TRACKING_NUMBER}}", trackingNumber);
+  html = html.replaceAll("{{FILING_CHARGE}}", filingCharge);
+
+  // Extract body innerHTML
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  const bodyContent = bodyMatch ? bodyMatch[1] : html;
+
   return (
-    <StarBizShell>
-      <table
-        summary="Table is used for page lay out."
-        cellPadding={4}
-        cellSpacing={2}
-      >
-        <tbody>
+    <>
+      {/* eslint-disable-next-line @next/next/no-css-tags */}
+      <link rel="stylesheet" href="/sunbiz/sunbiz_style.css" />
+      {/* eslint-disable-next-line @next/next/no-css-tags */}
+      <link rel="stylesheet" href="/sunbiz/sunbiz_dos_style.css" />
 
-          {/* ══ Page title ══════════════════════════════════════════════════ */}
-          <tr>
-            <td>
-              <table cellPadding={2} cellSpacing={2}>
-                <tbody>
-                  <tr>
-                    <td style={sPageTitle}>Payment Page</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
+      {/*
+       * Scoped reset — verbatim copy of filing-info/page.tsx (58e34f9).
+       * Same set of CSS leakage fixes + .efiledata alias.
+       */}
+      <style>{`
+        body {
+          display: block !important;
+          flex-direction: initial !important;
+          align-items: initial !important;
+          min-height: auto !important;
+          line-height: normal !important;
+        }
 
-          {/* ══ Document tracking # ═════════════════════════════════════════ */}
-          <tr>
-            <td>
-              <table cellPadding={2} cellSpacing={2}>
-                <tbody>
-                  <tr>
-                    <td style={sLabel}>Document Tracking #: </td>
-                    <td style={sEfileData}>{trackingNum}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
+        #wrapper table {
+          border-collapse: separate !important;
+        }
 
-          {/* ══ Charge amount ════════════════════════════════════════════════ */}
-          <tr>
-            <td>
-              <table cellPadding={2} cellSpacing={2}>
-                <tbody>
-                  <tr>
-                    <td style={sLabel}>
-                      The charge amount for your {config.entityLabel} filing
-                      is:{" "}
-                    </td>
-                    <td style={sEfileData}>{totalStr}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
+        #wrapper input,
+        #wrapper textarea,
+        #wrapper select {
+          border-width: revert !important;
+          border-style: revert !important;
+          border-color: revert !important;
+          appearance: revert !important;
+          -webkit-appearance: revert !important;
+          padding: revert !important;
+          background-color: revert !important;
+        }
 
-          {/* ══ Processing notice + payment options ═════════════════════════ */}
-          <tr>
-            <td>
-              <table cellPadding={2} cellSpacing={2}>
-                <tbody>
-                  {/* Verbatim body text from capture */}
-                  <tr>
-                    <td style={{ ...sBodyText, textAlign: "justify" }}>
-                      When your payment approval is received, we will process
-                      your filing request. When your document is filed, an
-                      e-mail confirmation will be sent to the address entered
-                      on the form.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <br />
-                    </td>
-                  </tr>
+        .heading {
+          font: bold 13px Arial, sans-serif !important;
+          border-bottom: 1px solid #333 !important;
+          color: #333 !important;
+        }
 
-                  {/* ── Payment options ─────────────────────────────────── */}
-                  <tr>
-                    <td style={{ textAlign: "center" }}>
-                      <strong style={sBodyText}>
-                        Please select one of the payment options listed below.
-                      </strong>
-                      <br />
-                      <br />
+        .bodytext {
+          font-family: Arial, Helvetica, sans-serif !important;
+          font-size: 9pt !important;
+          font-weight: normal;
+          color: #000000;
+        }
 
-                      {/*
-                       * PaymentButtons is a 'use client' island.
-                       * It owns CashRegisterButton (sound + navigation) and the
-                       * E-file account number / password / email inputs.
-                       * Both buttons navigate to the receipt page (R6 — 404
-                       * until R6 ships). No real payment is processed.
-                       */}
-                      <PaymentButtons
-                        creditUrl={creditUrl}
-                        accountUrl={accountUrl}
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
+        .redtext {
+          font-family: Arial, Helvetica, sans-serif !important;
+          font-size: 12pt !important;
+          font-weight: bold !important;
+          color: red !important;
+        }
 
-          {/* ══ Credit card explanatory text (verbatim from capture) ════════ */}
-          <tr>
-            <td style={{ ...sBodyText, textAlign: "justify" }}>
-              If you press the &ldquo;Credit Card Payment&rdquo; button from
-              this screen, you will be sent to the payment screen to be charged
-              for this filing.
-            </td>
-          </tr>
+        #wrapper #content {
+          font-size: 1em !important;
+        }
 
-          {/* ══ E-file account explanatory text (verbatim from capture) ═════ */}
-          <tr>
-            <td style={sBodyText}>
-              If you enter an account number and password and press the
-              &ldquo;Sunbiz E-file Account Payment&rdquo; button from this
-              screen, your account will be charged.
-            </td>
-          </tr>
+        #wrapper #MainContentEfiling > form > table > tbody > tr > td {
+          padding-top: 2px !important;
+          padding-bottom: 2px !important;
+        }
 
-          {/* ══ Back-link (dev/testing aid — not in real Sunbiz) ═══════════ */}
-          <tr>
-            <td
-              style={{
-                fontFamily: F,
-                fontSize: "11px",
-                color: "#888",
-                paddingTop: "16px",
-              }}
-            >
-              <a
-                href={`/starbiz/filing/llc/review?session=${sessionId}`}
-                style={{ color: "#003366" }}
-              >
-                ← Back to review
-              </a>
-            </td>
-          </tr>
+        #wrapper a:link,
+        #wrapper a:visited {
+          color: #236faf !important;
+          text-decoration: underline !important;
+        }
+        #wrapper a:hover {
+          color: #5582a9 !important;
+        }
 
-        </tbody>
-      </table>
-    </StarBizShell>
+        /* .efiledata — payment page uses this class for tracking# and charge values.
+               Not in Sunbiz CSS. Mirrors .data (normal weight).
+               !important on font-weight prevents bold inheritance from adjacent .descript. */
+        .efiledata {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 10pt;
+          font-weight: normal !important;
+          color: #000000;
+          vertical-align: top;
+        }
+      `}</style>
+
+      {/* Cash register easter egg — attaches click handlers to both submit buttons */}
+      <PaymentCashRegister />
+
+      <div dangerouslySetInnerHTML={{ __html: bodyContent }} />
+    </>
   );
 }
-
-// Live DB read — do not cache
-export const dynamic = "force-dynamic";
