@@ -1,0 +1,19 @@
+/* CSS Document */
+
+#dosbanner {
+	display:none;
+}
+
+#header {
+	padding-bottom:0px;
+}
+
+#header .logo {height: 100px;}
+#footer {
+	display:none;
+}
+
+#content {
+	padding:0px;
+	margin:0px;
+}

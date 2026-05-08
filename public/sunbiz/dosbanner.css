@@ -1,38 +1,106 @@
-/* dosbanner.css — minimal stub (original not available in captures)
-   Styles the Florida / RockStar Department of State banner bar. */
+/* dosbanner.css — screenshot-matched fixed-position top bar
+   R7b-2 fix: pinned to viewport top, black bar, left/right layout.
+   Affects disclaimer page (370fe44) and form page equally — both correct per new §2 rule.
+*/
 
+/* ── Fixed top bar ────────────────────────────────────────────────────────────
+   Reference screenshot: ~24px tall, pure black, small-caps sans-serif at ~11px.
+   Left side: "ROCKSTAR DEPARTMENT of STATE" (underlined link)
+   Right side: "DIVISION OF CORPORATIONS" (no underline)
+*/
 #dosbanner {
-  background-color: #002649;
-  color: #fff;
-  padding: 8px 14px;
-  clear: both;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  height: 24px;
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 11px;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
 }
 
-#dosbanner a:link,
-#dosbanner a:visited {
-  color: #fff;
-  text-decoration: none;
+/* Direct child .clearfix — the outer flex row container.
+   NOTE: Use `> .clearfix` (direct child) to avoid matching #dosDivision,
+   which also has class="clearfix division-name". */
+#dosbanner > .clearfix {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
-#dosbanner a:hover {
-  text-decoration: underline;
+/* Inner <div> containing #dosLogo and #dosDivision:
+   space-between pushes dept name left, division name right. */
+#dosbanner > .clearfix > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-#dosbanner #dosLogo span {
-  display: none; /* hides the original image sprite */
-}
-
-#dosbanner .division-name {
-  font-size: 1.3em;
-  list-style: none;
-  margin: 2px 0 0 0;
+/* ── Left: Department name ───────────────────────────────────────────────────*/
+#dosbanner #dosLogo {
+  margin: 0;
   padding: 0;
 }
 
-#dosbanner .clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
+/* Hide the image sprite span */
+#dosbanner #dosLogo span {
+  display: none;
 }
+
+/* Department name link — underlined white small-caps, no-wrap */
+#dosbanner #dosLogo a,
+#dosbanner #dosLogo a:link,
+#dosbanner #dosLogo a:visited {
+  color: #ffffff;
+  text-decoration: underline;
+  font-variant: small-caps;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+#dosbanner #dosLogo a:hover {
+  opacity: 0.85;
+}
+
+/* ── Right: Division name ────────────────────────────────────────────────────*/
+#dosbanner .division-name {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  font-variant: small-caps;
+  white-space: nowrap;
+}
+
+#dosbanner .division-name li {
+  display: inline;
+}
+
+#dosbanner .division-name a,
+#dosbanner .division-name a:link,
+#dosbanner .division-name a:visited {
+  color: #ffffff;
+  text-decoration: none;
+  font-variant: small-caps;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+#dosbanner .division-name a:hover {
+  text-decoration: underline;
+}
+
+/* ── Content offset ──────────────────────────────────────────────────────────
+   The fixed dosbanner overlays the top of #wrapper naturally (original Sunbiz
+   behaviour: no offset — the dosbanner floats above the top of the navy header).
+   The navy header is ~120px tall so the ~24px overlap hides only blank navy
+   background, not the logo or any content. No margin-top needed.
+*/
