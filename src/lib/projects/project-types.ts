@@ -45,3 +45,24 @@ export const MODE_LABELS: Record<string, string> = {
   team:          "Team",
   creativity:    "Creativity",
 };
+
+// ─── Project Shop catalog sort ────────────────────────────────────────────────
+// Lives here (not queries.ts) so client components can import without dragging
+// in next/headers via the supabase server client.
+
+export type CatalogSortKey =
+  | "most_popular" | "least_popular"
+  | "price_high"   | "price_low"
+  | "oldest"       | "newest"
+  | "most_used"    | "least_used";
+
+export const CATALOG_SORT_OPTIONS: { value: CatalogSortKey; label: string }[] = [
+  { value: "newest",        label: "Newest"        },
+  { value: "oldest",        label: "Oldest"        },
+  { value: "most_popular",  label: "Most Popular"  },
+  { value: "least_popular", label: "Least Popular" },
+  { value: "most_used",     label: "Most Used"     },
+  { value: "least_used",    label: "Least Used"    },
+  { value: "price_high",    label: "Price: High to Low" },
+  { value: "price_low",     label: "Price: Low to High" },
+];

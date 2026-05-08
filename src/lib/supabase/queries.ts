@@ -1099,6 +1099,117 @@ export async function getProfessorProjects(
   }));
 }
 
+// ─── Project Shop — professor's library (downloaded projects) ────────────────
+
+export async function getProfessorLibrary(
+  professorId: string,
+): Promise<ProfessorProject[]> {
+  const admin = createSupabaseAdminClient();
+
+  // 1. Library project IDs (active only)
+  const { data: libRows, error: libErr } = await admin
+    .from("professor_project_library")
+    .select("project_id, added_at")
+    .eq("professor_id", professorId)
+    .eq("status", "active")
+    .order("added_at", { ascending: false });
+  if (libErr) throw new Error(libErr.message);
+  if (!libRows || libRows.length === 0) return [];
+
+  const projectIds = libRows.map((r) => r.project_id);
+
+  // 2. The projects themselves
+  const { data: projects, error: projErr } = await admin
+    .from("projects")
+    .select(
+      "id, title, tagline, pitch, versus, drafting, oral_argument, solo, team, creativity, duration, real_world, world_rank_qualifying, popularity, image_1_path, image_2_path, image_3_path, area_of_law, created_at",
+    )
+    .in("id", projectIds);
+  if (projErr) throw new Error(projErr.message);
+  if (!projects || projects.length === 0) return [];
+
+  // 3. Files for those projects
+  const { data: fileRows, error: fileErr } = await admin
+    .from("project_files")
+    .select("id, project_id, label, audience_tag, original_filename, file_size_bytes, mime_type, storage_path, uploaded_at")
+    .in("project_id", projectIds)
+    .order("uploaded_at", { ascending: true });
+  if (fileErr) throw new Error(fileErr.message);
+
+  // 4. Signed URLs for files (24h)
+  const filePaths = (fileRows ?? []).map((f) => f.storage_path);
+  const { data: fileSignedData } = filePaths.length
+    ? await admin.storage.from("projects").createSignedUrls(filePaths, 86400)
+    : { data: [] };
+  const fileUrlMap = new Map((fileSignedData ?? []).map((s) => [s.path, s.signedUrl]));
+
+  // 5. Signed URLs for catalog images (24h)
+  const imagePaths = projects
+    .flatMap((p) => [p.image_1_path, p.image_2_path, p.image_3_path])
+    .filter(Boolean) as string[];
+  const { data: imgSignedData } = imagePaths.length
+    ? await admin.storage.from("projects").createSignedUrls(imagePaths, 86400)
+    : { data: [] };
+  const imgUrlMap = new Map((imgSignedData ?? []).map((s) => [s.path, s.signedUrl]));
+
+  // 6. Files grouped by project_id
+  const filesByProject = new Map<string, ProjectFile[]>();
+  for (const f of fileRows ?? []) {
+    const list = filesByProject.get(f.project_id) ?? [];
+    list.push({
+      id: f.id,
+      label: f.label,
+      audienceTag: f.audience_tag as ProjectFile["audienceTag"],
+      originalFilename: f.original_filename,
+      fileSizeBytes: f.file_size_bytes,
+      mimeType: f.mime_type,
+      uploadedAt: f.uploaded_at,
+      downloadUrl: fileUrlMap.get(f.storage_path) ?? "",
+    });
+    filesByProject.set(f.project_id, list);
+  }
+
+  // 7. Preserve library added_at order
+  const projectMap = new Map(projects.map((p) => [p.id, p]));
+  return libRows
+    .map((libRow) => {
+      const p = projectMap.get(libRow.project_id);
+      if (!p) return null;
+      return {
+        id: p.id,
+        title: p.title,
+        tagline: p.tagline,
+        pitch: p.pitch,
+        modes: {
+          versus: p.versus,
+          drafting: p.drafting,
+          oralArgument: p.oral_argument,
+          solo: p.solo,
+          team: p.team,
+          creativity: p.creativity,
+        },
+        duration: p.duration as ProfessorProject["duration"],
+        realWorld: p.real_world,
+        worldRankQualifying: p.world_rank_qualifying,
+        popularity: p.popularity,
+        imagePaths: {
+          image1: (p.image_1_path as string | null) ?? null,
+          image2: (p.image_2_path as string | null) ?? null,
+          image3: (p.image_3_path as string | null) ?? null,
+        },
+        imageUrls: {
+          image1: p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
+          image2: p.image_2_path ? (imgUrlMap.get(p.image_2_path) ?? null) : null,
+          image3: p.image_3_path ? (imgUrlMap.get(p.image_3_path) ?? null) : null,
+        },
+        areaOfLaw: Array.isArray(p.area_of_law) ? (p.area_of_law as string[]) : [],
+        createdAt: p.created_at,
+        files: filesByProject.get(p.id) ?? [],
+      } satisfies ProfessorProject;
+    })
+    .filter((p): p is ProfessorProject => p !== null);
+}
+
 export type TAProfessorProjectGroup = {
   professorId: string;
   professorName: string;   // "Professor {lastName}, Esq."
@@ -1162,6 +1273,425 @@ export async function getProjectsForTAUser(
 
   groups.sort((a, b) => a.professorName.localeCompare(b.professorName));
   return groups;
+}
+
+// ─── Project Shop catalog ─────────────────────────────────────────────────────
+// Note: CatalogSortKey and CATALOG_SORT_OPTIONS live in
+// src/lib/projects/project-types.ts so client components (sort-dropdown.tsx)
+// can import them without pulling next/headers into their bundle. Re-export
+// here so server-side callers don't need a second import path.
+
+export type { CatalogSortKey } from "@/lib/projects/project-types";
+export { CATALOG_SORT_OPTIONS } from "@/lib/projects/project-types";
+
+import type { CatalogSortKey } from "@/lib/projects/project-types";
+
+export type CatalogFilters = {
+  keyword:       string;
+  areas:         string[];
+  modes:         string[];   // "versus" | "drafting" | "oral_argument" | "solo" | "team" | "creativity"
+  durations:     string[];   // "1hr" | "3hr" | "1wk" | "2wk" | "30day" | "semester"
+  realWorld:     boolean;    // true => only real_world=true
+  worldRank:     boolean;    // true => only world_rank_qualifying=true
+};
+
+export type ProjectShopCard = {
+  id:            string;
+  title:         string;
+  tagline:       string;
+  pitch:         string;
+  areaOfLaw:     string[];
+  modes: {
+    versus:        boolean;
+    drafting:      boolean;
+    oralArgument:  boolean;
+    solo:          boolean;
+    team:          boolean;
+    creativity:    boolean;
+  };
+  duration:           "1hr" | "3hr" | "1wk" | "2wk" | "30day" | "semester";
+  realWorld:          boolean;
+  worldRankQualifying:boolean;
+  price:              number;       // numeric(10,2)
+  popularity:         number;
+  usageCount:         number;
+  createdAt:          string;
+  imageUrl:           string | null; // signed URL for image_1_path
+  authorId:           string;
+  authorName:         string;       // "First Last"
+};
+
+const MODE_KEYS = ["versus", "drafting", "oral_argument", "solo", "team", "creativity"] as const;
+
+export async function getCatalogProjects(
+  filters: CatalogFilters,
+  sort: CatalogSortKey,
+): Promise<ProjectShopCard[]> {
+  const admin = createSupabaseAdminClient();
+
+  let query = admin
+    .from("projects")
+    .select(
+      `id, title, tagline, pitch, area_of_law,
+       versus, drafting, oral_argument, solo, team, creativity,
+       duration, real_world, world_rank_qualifying,
+       price, popularity, usage_count, created_at, image_1_path,
+       professor_id, professor_profiles(id, first_name, last_name)`,
+    );
+
+  // Keyword: ILIKE across title / tagline / pitch
+  const k = filters.keyword.trim();
+  if (k) {
+    const escaped = k.replace(/[%_]/g, (c) => `\\${c}`);
+    query = query.or(
+      `title.ilike.%${escaped}%,tagline.ilike.%${escaped}%,pitch.ilike.%${escaped}%`,
+    );
+  }
+
+  // Area of Law: text[] overlaps
+  if (filters.areas.length) query = query.overlaps("area_of_law", filters.areas);
+
+  // Mode booleans: any-of (OR over selected mode columns)
+  const modeFilters = filters.modes.filter((m) =>
+    (MODE_KEYS as readonly string[]).includes(m),
+  );
+  if (modeFilters.length) {
+    query = query.or(modeFilters.map((m) => `${m}.eq.true`).join(","));
+  }
+
+  // Duration: in
+  if (filters.durations.length) query = query.in("duration", filters.durations);
+
+  // Real World / World Rank toggles
+  if (filters.realWorld) query = query.eq("real_world", true);
+  if (filters.worldRank) query = query.eq("world_rank_qualifying", true);
+
+  // Sort
+  switch (sort) {
+    case "most_popular":  query = query.order("popularity",   { ascending: false }); break;
+    case "least_popular": query = query.order("popularity",   { ascending: true  }); break;
+    case "price_high":    query = query.order("price",        { ascending: false }); break;
+    case "price_low":     query = query.order("price",        { ascending: true  }); break;
+    case "most_used":     query = query.order("usage_count",  { ascending: false }); break;
+    case "least_used":    query = query.order("usage_count",  { ascending: true  }); break;
+    case "oldest":        query = query.order("created_at",   { ascending: true  }); break;
+    case "newest":
+    default:              query = query.order("created_at",   { ascending: false }); break;
+  }
+
+  const { data, error } = await query;
+  if (error) throw new Error(error.message);
+  if (!data || data.length === 0) return [];
+
+  // Batch-sign image_1 URLs
+  const imagePaths = data.map((p) => p.image_1_path).filter(Boolean) as string[];
+  const { data: imgSigned } = imagePaths.length
+    ? await admin.storage.from("projects").createSignedUrls(imagePaths, 86400)
+    : { data: [] };
+  const imgUrlMap = new Map((imgSigned ?? []).map((s) => [s.path, s.signedUrl]));
+
+  return data.map((p) => {
+    const prof = Array.isArray(p.professor_profiles)
+      ? p.professor_profiles[0]
+      : p.professor_profiles;
+    return {
+      id:        p.id,
+      title:     p.title,
+      tagline:   p.tagline,
+      pitch:     p.pitch,
+      areaOfLaw: Array.isArray(p.area_of_law) ? (p.area_of_law as string[]) : [],
+      modes: {
+        versus:       p.versus,
+        drafting:     p.drafting,
+        oralArgument: p.oral_argument,
+        solo:         p.solo,
+        team:         p.team,
+        creativity:   p.creativity,
+      },
+      duration:            p.duration as ProjectShopCard["duration"],
+      realWorld:           p.real_world,
+      worldRankQualifying: p.world_rank_qualifying,
+      price:               Number(p.price ?? 0),
+      popularity:          p.popularity ?? 0,
+      usageCount:          p.usage_count ?? 0,
+      createdAt:           p.created_at,
+      imageUrl:            p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
+      authorId:            (prof as { id: string } | null)?.id ?? p.professor_id,
+      authorName:          prof
+        ? `${(prof as { first_name: string }).first_name} ${(prof as { last_name: string }).last_name}`
+        : "Unknown author",
+    };
+  });
+}
+
+// ─── Project Shop — author page ───────────────────────────────────────────────
+
+export type AuthorPageData = {
+  professorId:    string;
+  professorName:  string;
+  photoUrl:       string | null;
+  universityName: string;
+  isViewerSelf:   boolean;
+  projects:       ProjectShopCard[];
+};
+
+export async function getAuthorPageData(
+  authorProfessorId: string,
+  viewerProfessorId: string,
+): Promise<AuthorPageData | null> {
+  const admin = createSupabaseAdminClient();
+
+  // 1. Author profile
+  const { data: prof, error: profErr } = await admin
+    .from("professor_profiles")
+    .select("id, first_name, last_name, photo_path, university_name_snapshot")
+    .eq("id", authorProfessorId)
+    .maybeSingle();
+  if (profErr) throw new Error(profErr.message);
+  if (!prof) return null;
+
+  // 2. Author's authored projects (newest first)
+  const { data: projectRows, error: projErr } = await admin
+    .from("projects")
+    .select(
+      `id, title, tagline, pitch, area_of_law,
+       versus, drafting, oral_argument, solo, team, creativity,
+       duration, real_world, world_rank_qualifying,
+       price, popularity, usage_count, created_at, image_1_path, professor_id`,
+    )
+    .eq("professor_id", authorProfessorId)
+    .order("created_at", { ascending: false });
+  if (projErr) throw new Error(projErr.message);
+
+  // 3. Author photo signed URL (1h)
+  let photoUrl: string | null = null;
+  const photoPath = (prof.photo_path as string | null) ?? null;
+  if (photoPath) {
+    const { data: signedPhoto } = await admin.storage
+      .from("professor-photos")
+      .createSignedUrl(photoPath, 3600);
+    photoUrl = signedPhoto?.signedUrl ?? null;
+  }
+
+  // 4. Batch-sign poster images (24h)
+  const imagePaths = (projectRows ?? [])
+    .map((p) => p.image_1_path)
+    .filter(Boolean) as string[];
+  const { data: imgSigned } = imagePaths.length
+    ? await admin.storage.from("projects").createSignedUrls(imagePaths, 86400)
+    : { data: [] };
+  const imgUrlMap = new Map((imgSigned ?? []).map((s) => [s.path, s.signedUrl]));
+
+  const authorName = `${prof.first_name} ${prof.last_name}`;
+
+  const projects: ProjectShopCard[] = (projectRows ?? []).map((p) => ({
+    id:        p.id,
+    title:     p.title,
+    tagline:   p.tagline,
+    pitch:     p.pitch,
+    areaOfLaw: Array.isArray(p.area_of_law) ? (p.area_of_law as string[]) : [],
+    modes: {
+      versus:       p.versus,
+      drafting:     p.drafting,
+      oralArgument: p.oral_argument,
+      solo:         p.solo,
+      team:         p.team,
+      creativity:   p.creativity,
+    },
+    duration:            p.duration as ProjectShopCard["duration"],
+    realWorld:           p.real_world,
+    worldRankQualifying: p.world_rank_qualifying,
+    price:               Number(p.price ?? 0),
+    popularity:          p.popularity ?? 0,
+    usageCount:          p.usage_count ?? 0,
+    createdAt:           p.created_at,
+    imageUrl:            p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
+    authorId:            authorProfessorId,
+    authorName,
+  }));
+
+  return {
+    professorId:    authorProfessorId,
+    professorName:  authorName,
+    photoUrl,
+    universityName: (prof.university_name_snapshot as string | null) ?? "",
+    isViewerSelf:   authorProfessorId === viewerProfessorId,
+    projects,
+  };
+}
+
+// ─── Project Shop detail page ─────────────────────────────────────────────────
+
+export type ProjectShopDetailFile = {
+  id:               string;
+  label:            string;
+  audienceTag:      "general" | "side_a" | "side_b" | "team_a" | "team_b" | "solo" | "ta_only";
+  originalFilename: string;
+  fileSizeBytes:    number;
+  mimeType:         string;
+  uploadedAt:       string;
+  // Only set when viewer is the author. Other professors see metadata only.
+  downloadUrl:      string | null;
+};
+
+export type ProjectShopDetail = {
+  id:            string;
+  title:         string;
+  tagline:       string;
+  pitch:         string;
+  areaOfLaw:     string[];
+  modes: {
+    versus:        boolean;
+    drafting:      boolean;
+    oralArgument:  boolean;
+    solo:          boolean;
+    team:          boolean;
+    creativity:    boolean;
+  };
+  duration:            "1hr" | "3hr" | "1wk" | "2wk" | "30day" | "semester";
+  realWorld:           boolean;
+  worldRankQualifying: boolean;
+  price:               number;
+  popularity:          number;
+  usageCount:          number;
+  createdAt:           string;
+  imageUrls:           { image1: string | null; image2: string | null; image3: string | null };
+  authorId:            string;
+  authorName:          string;
+  authorPhotoUrl:      string | null;
+  files:               ProjectShopDetailFile[];
+  // Convenience flag — true if the current viewer is the author of this project
+  isViewerAuthor:      boolean;
+  // Convenience flag — true if the current viewer has this project in their library (status='active')
+  viewerHasInLibrary:  boolean;
+};
+
+export async function getProjectShopDetail(
+  projectId:           string,
+  viewerProfessorId:   string,
+): Promise<ProjectShopDetail | null> {
+  const admin = createSupabaseAdminClient();
+
+  const { data: p, error: projErr } = await admin
+    .from("projects")
+    .select(
+      `id, title, tagline, pitch, area_of_law,
+       versus, drafting, oral_argument, solo, team, creativity,
+       duration, real_world, world_rank_qualifying,
+       price, popularity, usage_count, created_at,
+       image_1_path, image_2_path, image_3_path,
+       professor_id, professor_profiles(id, first_name, last_name, photo_path)`,
+    )
+    .eq("id", projectId)
+    .maybeSingle();
+
+  if (projErr) throw new Error(projErr.message);
+  if (!p) return null;
+
+  const isViewerAuthor = p.professor_id === viewerProfessorId;
+
+  // Check if viewer has this project in their library (status='active')
+  let viewerHasInLibrary = false;
+  if (!isViewerAuthor) {
+    const { data: libRow } = await admin
+      .from("professor_project_library")
+      .select("status")
+      .eq("professor_id", viewerProfessorId)
+      .eq("project_id", projectId)
+      .eq("status", "active")
+      .maybeSingle();
+    viewerHasInLibrary = !!libRow;
+  }
+
+  // Batch-sign image URLs (24h)
+  const imagePaths = [p.image_1_path, p.image_2_path, p.image_3_path].filter(Boolean) as string[];
+  const { data: imgSigned } = imagePaths.length
+    ? await admin.storage.from("projects").createSignedUrls(imagePaths, 86400)
+    : { data: [] };
+  const imgUrlMap = new Map((imgSigned ?? []).map((s) => [s.path, s.signedUrl]));
+
+  // Sign author photo URL if present (professor-photos is a public bucket but
+  // we keep this consistent with ProfessorPhotoWidget pattern using signed URLs)
+  const prof = Array.isArray(p.professor_profiles)
+    ? p.professor_profiles[0]
+    : p.professor_profiles;
+  const photoPath = (prof as { photo_path: string | null } | null)?.photo_path ?? null;
+  let authorPhotoUrl: string | null = null;
+  if (photoPath) {
+    const { data: signedPhoto } = await admin.storage
+      .from("professor-photos")
+      .createSignedUrl(photoPath, 3600);
+    authorPhotoUrl = signedPhoto?.signedUrl ?? null;
+  }
+
+  // Files — fetch metadata for everyone; only generate download URLs if viewer is author
+  const { data: fileRows, error: fileErr } = await admin
+    .from("project_files")
+    .select("id, label, audience_tag, original_filename, file_size_bytes, mime_type, storage_path, uploaded_at")
+    .eq("project_id", projectId)
+    .order("uploaded_at", { ascending: true });
+  if (fileErr) throw new Error(fileErr.message);
+
+  let fileUrlMap = new Map<string, string>();
+  if (isViewerAuthor && fileRows && fileRows.length > 0) {
+    const filePaths = fileRows.map((f) => f.storage_path);
+    const { data: fileSigned } = await admin.storage
+      .from("projects")
+      .createSignedUrls(filePaths, 86400);
+    fileUrlMap = new Map<string, string>(
+      (fileSigned ?? [])
+        .flatMap((s) =>
+          s.path != null && s.signedUrl != null ? [[s.path, s.signedUrl] as [string, string]] : []
+        )
+    );
+  }
+
+  const files: ProjectShopDetailFile[] = (fileRows ?? []).map((f) => ({
+    id:               f.id,
+    label:            f.label,
+    audienceTag:      f.audience_tag as ProjectShopDetailFile["audienceTag"],
+    originalFilename: f.original_filename,
+    fileSizeBytes:    f.file_size_bytes,
+    mimeType:         f.mime_type,
+    uploadedAt:       f.uploaded_at,
+    downloadUrl:      isViewerAuthor ? (fileUrlMap.get(f.storage_path) ?? null) : null,
+  }));
+
+  return {
+    id:        p.id,
+    title:     p.title,
+    tagline:   p.tagline,
+    pitch:     p.pitch,
+    areaOfLaw: Array.isArray(p.area_of_law) ? (p.area_of_law as string[]) : [],
+    modes: {
+      versus:       p.versus,
+      drafting:     p.drafting,
+      oralArgument: p.oral_argument,
+      solo:         p.solo,
+      team:         p.team,
+      creativity:   p.creativity,
+    },
+    duration:            p.duration as ProjectShopDetail["duration"],
+    realWorld:           p.real_world,
+    worldRankQualifying: p.world_rank_qualifying,
+    price:               Number(p.price ?? 0),
+    popularity:          p.popularity ?? 0,
+    usageCount:          p.usage_count ?? 0,
+    createdAt:           p.created_at,
+    imageUrls: {
+      image1: p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
+      image2: p.image_2_path ? (imgUrlMap.get(p.image_2_path) ?? null) : null,
+      image3: p.image_3_path ? (imgUrlMap.get(p.image_3_path) ?? null) : null,
+    },
+    authorId:        (prof as { id: string } | null)?.id ?? p.professor_id,
+    authorName:      prof
+      ? `${(prof as { first_name: string }).first_name} ${(prof as { last_name: string }).last_name}`
+      : "Unknown author",
+    authorPhotoUrl,
+    files,
+    isViewerAuthor,
+    viewerHasInLibrary,
+  };
 }
 
 export async function getRandomApprovedQuote(): Promise<{ quote: string; attribution: string } | null> {
