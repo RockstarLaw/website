@@ -58,7 +58,9 @@ export default async function EntityDetailPage({
   const filedDate     = formatDate(entity.filed_at);
   const effectiveDate = formatDate(entity.effective_date);
   const hasDifferentMailing = JSON.stringify(entity.principal_address) !== JSON.stringify(entity.mailing_address);
-  const lastEvent     = "LIMITED LIABILITY COMPANY FILING"; // Phase 2.3: always formation
+  const lastEvent = entity.entity_type === "corp"
+    ? "FLORIDA PROFIT CORPORATION"
+    : "LIMITED LIABILITY COMPANY FILING";
 
   return (
     <StarBizShell>
@@ -137,6 +139,33 @@ export default async function EntityDetailPage({
         </tbody>
       </table>
 
+      {/* ── Capital Stock (corp only) ──────────────────────────────────── */}
+      {entity.entity_type === "corp" && (() => {
+        const tsd = entity.type_specific_data as {
+          shares_authorized?: number;
+          par_value_cents?: number | null;
+          share_class_name?: string;
+        };
+        const shares    = tsd.shares_authorized;
+        const parCents  = tsd.par_value_cents;
+        const className = tsd.share_class_name ?? "Common";
+        const parLabel  = (parCents == null)
+          ? "No Par Value"
+          : `$${(parCents / 100).toFixed(parCents % 100 === 0 ? 2 : 4).replace(/\.?0+$/, "")} per share`;
+        return (
+          <>
+            <div style={sHeader}>Capital Stock</div>
+            <table cellPadding={0} cellSpacing={0} style={{ width: "100%", border: `1px solid ${BLACK}`, borderTop: "none" }}>
+              <tbody>
+                <tr><td style={sLabel}>AUTHORIZED SHARES</td><td style={sTd}>{shares != null ? shares.toLocaleString() : "N/A"}</td></tr>
+                <tr style={{ backgroundColor: "#F5F0E1" }}><td style={sLabel}>SHARE CLASS</td><td style={sTd}>{className}</td></tr>
+                <tr><td style={sLabel}>PAR VALUE</td><td style={sTd}>{parLabel}</td></tr>
+              </tbody>
+            </table>
+          </>
+        );
+      })()}
+
       {/* ── Registered Agent ──────────────────────────────────────────── */}
       <div style={sHeader}>Registered Agent Name &amp; Address</div>
       <table cellPadding={0} cellSpacing={0} style={{ width: "100%", border: `1px solid ${BLACK}`, borderTop: "none" }}>
@@ -148,6 +177,25 @@ export default async function EntityDetailPage({
           <tr><td style={sLabel}>ZIP</td><td style={sTd}>{entity.registered_agent_address?.zip ?? "N/A"}</td></tr>
         </tbody>
       </table>
+
+      {/* ── Incorporator (corp only) ──────────────────────────────────── */}
+      {entity.entity_type === "corp" && (() => {
+        const tsd = entity.type_specific_data as {
+          incorporator?: { name?: string; address?: { street?: string; city?: string; state?: string; zip?: string } };
+        };
+        const inc = tsd.incorporator;
+        return (
+          <>
+            <div style={sHeader}>Incorporator</div>
+            <table cellPadding={0} cellSpacing={0} style={{ width: "100%", border: `1px solid ${BLACK}`, borderTop: "none" }}>
+              <tbody>
+                <tr><td style={sLabel}>NAME</td><td style={sTd}>{inc?.name ?? "N/A"}</td></tr>
+                <tr style={{ backgroundColor: "#F5F0E1" }}><td style={sLabel}>ADDRESS</td><td style={sTd}>{formatAddr(inc?.address ?? null)}</td></tr>
+              </tbody>
+            </table>
+          </>
+        );
+      })()}
 
       {/* ── Authorized Persons ────────────────────────────────────────── */}
       <div style={sHeader}>Authorized Person(s) Detail</div>
@@ -238,7 +286,11 @@ export default async function EntityDetailPage({
                     )}
                   </td>
                   <td style={tdBorder}>
-                    {f.filing_type === "formation" ? "ARTICLES OF ORGANIZATION" : f.filing_type.toUpperCase()}
+                    {f.filing_type === "formation"
+                      ? entity.entity_type === "corp"
+                        ? "ARTICLES OF INCORPORATION"
+                        : "ARTICLES OF ORGANIZATION"
+                      : f.filing_type.toUpperCase()}
                   </td>
                   <td style={tdBorder}>{formatDate(f.effective_date ?? f.filed_at)}</td>
                   <td style={tdBorder}>{formatDate(f.filed_at)}</td>
