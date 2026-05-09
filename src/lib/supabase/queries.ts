@@ -991,6 +991,112 @@ export async function getCourseTAs(professorCourseId: string): Promise<CourseTAR
   });
 }
 
+// ─── DASH-2: Student Roster widget ────────────────────────────────────────
+// One row per student in the active roster for a given professor_course.
+// Sourced from roster_entries → roster_matches → student_profiles, with TA
+// status from course_tas. Unmatched entries (no profile yet) still render —
+// name from the raw CSV, year/enrollment shown as null.
+
+export type StudentRosterRow = {
+  rosterEntryId: string;
+  studentProfileId: string | null;
+  firstName: string;
+  middleName: string | null;
+  lastName: string;
+  fullNameRaw: string;
+  email: string | null;
+  matchStatus:
+    | "auto_matched"
+    | "needs_review"
+    | "confirmed"
+    | "rejected"
+    | "no_match"
+    | null;
+  lawSchoolYear: string | null;
+  enrollmentStatus: string | null;
+  isTA: boolean;
+  taStatus: "pending" | "accepted" | null;
+};
+
+export async function getProfessorRoster(
+  professorCourseId: string,
+): Promise<StudentRosterRow[]> {
+  const admin = createSupabaseAdminClient();
+
+  // 1. Active rosters for this section. Multiple rosters per course are
+  //    technically possible (CSV re-upload + manual additions); we union
+  //    their entries so the widget shows the full picture.
+  const { data: rosters, error: rosterError } = await admin
+    .from("rosters")
+    .select("id")
+    .eq("professor_course_id", professorCourseId)
+    .eq("status", "active");
+  if (rosterError) throw new Error(rosterError.message);
+  if (!rosters || rosters.length === 0) return [];
+
+  const rosterIds = rosters.map((r) => r.id);
+
+  // 2. Active roster entries with their match (if any) and the matched
+  //    student_profile (if confirmed/auto-matched). We left-join: an entry
+  //    without a profile still renders with the raw-CSV name.
+  const { data: entries, error: entriesError } = await admin
+    .from("roster_entries")
+    .select(
+      `id, first_name, middle_name, last_name, full_name_raw, email,
+       roster_matches (
+         match_status,
+         student_id,
+         student_profiles (id, first_name, last_name, law_school_year, enrollment_status)
+       )`,
+    )
+    .in("roster_id", rosterIds)
+    .eq("status", "active")
+    .order("last_name", { ascending: true });
+  if (entriesError) throw new Error(entriesError.message);
+
+  // 3. TA assignments for this section (active = pending or accepted).
+  //    Map by student_profile.id so we can tag rows in the join below.
+  const { data: tas, error: taError } = await admin
+    .from("course_tas")
+    .select("user_id, status")
+    .eq("professor_course_id", professorCourseId)
+    .in("status", ["pending", "accepted"]);
+  if (taError) throw new Error(taError.message);
+
+  const taByProfileId = new Map<string, "pending" | "accepted">();
+  for (const t of tas ?? []) {
+    if (t.user_id) taByProfileId.set(t.user_id, t.status as "pending" | "accepted");
+  }
+
+  // 4. Compose rows. Supabase types `roster_matches` and `student_profiles`
+  //    as either object-or-array depending on the join cardinality — handle
+  //    both shapes defensively.
+  return (entries ?? []).map((entry) => {
+    const match = Array.isArray(entry.roster_matches)
+      ? entry.roster_matches[0]
+      : entry.roster_matches;
+    const profileRaw = match?.student_profiles ?? null;
+    const profile = Array.isArray(profileRaw) ? profileRaw[0] : profileRaw;
+    const profileId = profile?.id ?? null;
+    const taStatus = profileId ? (taByProfileId.get(profileId) ?? null) : null;
+
+    return {
+      rosterEntryId: entry.id,
+      studentProfileId: profileId,
+      firstName: profile?.first_name ?? entry.first_name,
+      middleName: entry.middle_name,
+      lastName: profile?.last_name ?? entry.last_name,
+      fullNameRaw: entry.full_name_raw,
+      email: entry.email ?? null,
+      matchStatus: (match?.match_status as StudentRosterRow["matchStatus"]) ?? null,
+      lawSchoolYear: profile?.law_school_year ?? null,
+      enrollmentStatus: profile?.enrollment_status ?? null,
+      isTA: !!taStatus,
+      taStatus,
+    };
+  });
+}
+
 export type ProjectFile = {
   id: string;
   label: string;

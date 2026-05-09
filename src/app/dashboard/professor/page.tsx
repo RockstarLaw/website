@@ -3,18 +3,30 @@ import { ProfessorCoursePanel } from "@/components/professor-dashboard-client";
 import { ProfessorPhotoWidget } from "@/components/professor-photo-widget";
 import { ProfessorProjectsWidget } from "@/components/professor-projects-widget";
 import { QuoteWidget } from "@/components/quote-widget";
+import { StudentRosterWidget } from "@/components/student-roster-widget";
 import { getRandomGreeting } from "@/lib/greetings";
 import {
   getCurrentProfessorDashboardData,
   getProfessorDashboardCourses,
   getProfessorLibrary,
   getProfessorProjects,
+  getProfessorRoster,
   getRandomApprovedQuote,
 } from "@/lib/supabase/queries";
 
 export const dynamic = "force-dynamic";
 
-export default async function ProfessorDashboardPage() {
+export default async function ProfessorDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const requestedCourseRaw = sp.course;
+  const requestedCourseId = Array.isArray(requestedCourseRaw)
+    ? requestedCourseRaw[0]
+    : requestedCourseRaw;
+
   const dashboard = await getCurrentProfessorDashboardData();
 
   if (!dashboard) {
@@ -31,6 +43,17 @@ export default async function ProfessorDashboardPage() {
     getProfessorLibrary(dashboard.professorId),
     getRandomApprovedQuote(),
   ]);
+
+  // Resolve which course's roster to show. If the URL passed a valid course
+  // for this professor, use it; otherwise fall back to the first course.
+  const validCourseIds = new Set(courses.map((c) => c.professorCourseId));
+  const selectedCourseId =
+    requestedCourseId && validCourseIds.has(requestedCourseId)
+      ? requestedCourseId
+      : (courses[0]?.professorCourseId ?? null);
+  const rosterRows = selectedCourseId
+    ? await getProfessorRoster(selectedCourseId)
+    : [];
 
   const greeting = getRandomGreeting();
   const randomQuote = randomQuoteRow
@@ -68,6 +91,13 @@ export default async function ProfessorDashboardPage() {
           {/* Right: quote widget */}
           <QuoteWidget quote={randomQuote} />
         </div>
+
+        {/* ── Student Roster widget — DASH-2 centerpiece ────────────────── */}
+        <StudentRosterWidget
+          courses={courses}
+          selectedCourseId={selectedCourseId}
+          rosterRows={rosterRows}
+        />
 
         {/* ── Course panel (full-width below top block) ────────────────── */}
         <ProfessorCoursePanel courses={courses} />
