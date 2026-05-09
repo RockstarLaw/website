@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { SiteShell } from "@/components/site-shell";
@@ -83,10 +84,24 @@ export default async function ProjectShopPage({
   return (
     <SiteShell title="Project Shop" description="" hideIntro>
       <div className="flex flex-col gap-8">
-        {/* Heading */}
+        {/* Heading — Project Store logo replaces the prior "Project Shop." text.
+            Logo intrinsic size is 678×155; rendered at responsive widths
+            260/300/340 with `block` display to drop the inline baseline
+            whitespace, and `-mt-6` to pull it tight against the SiteShell's
+            top padding. h1 preserved as `sr-only` for SEO + screen readers
+            (the logo is decorative branding). Underline pulled flush with
+            no top margin; description text spacing kept. */}
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-950">Project Shop.</h1>
-          <div className="mt-2 h-0.5 w-12 bg-red-700" />
+          <h1 className="sr-only">Project Store</h1>
+          <Image
+            src="/images/pages/rockstar-law-project-store-logo-1.png"
+            alt="RockStar Law Project Store"
+            width={678}
+            height={155}
+            priority
+            className="-mt-6 block h-auto w-[260px] sm:w-[300px] md:w-[340px]"
+          />
+          <div className="h-0.5 w-12 bg-red-700" />
           <p className="mt-4 text-base leading-7 text-slate-600">
             Browse projects authored by the RockStar Law faculty. Filter by area, mode, duration, or status.
           </p>
