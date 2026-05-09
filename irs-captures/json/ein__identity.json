@@ -1,0 +1,2364 @@
+{
+  "header":{
+      "title": "Apply for an Employer Identification Number (EIN)",
+      "additionalText": [
+        "Use this assistance to apply for and obtain an Employee Identification Number (EIN)"
+      ]
+  },
+  "instructions1":{
+    "title": "Identity",
+    "additionalText": [
+      "All fields marked with an asterisk (<Red>*</Red>) are required."
+    ]
+  },
+  "entityChangedAlert": {
+    "title": "Entity Selection was changed.",
+    "additionalText": [
+      "User inputs and selections were reset."
+    ]
+  },
+  "personOrBusinessSection": {
+    "instructions2": {
+      "title": "Who is the Responsible Party for the {{entityName}}?",
+      "additionalText": [
+        "The <IRSLink1/> can be either an <IRSLink2/> or an <IRSLink3/>."
+      ],
+      "links": {
+        "IRSLink1": {
+          "text": "responsible party",
+          "label": "responsible party",
+          "url": "glossary#responsibleParty"
+        },
+        "IRSLink2": {
+          "text": "individual",
+          "label": "individual",
+          "url": "glossary#individual"
+        },
+        "IRSLink3": {
+          "text": "existing business",
+          "label": "existing business",
+          "url": "glossary#existingBusiness"
+        }
+      }
+    },
+    "tinTypeInputControl": {
+      "fieldName": "Please choose one",
+      "additionalText": [],
+      "choices": [
+        {
+          "value": "SSN",
+          "text": "SSN"
+        },
+        {
+          "value": "EIN",
+          "text": "EIN"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "EntityType: Selection is required.",
+          "id": "tinTypeInputControl_error1",
+          "additionalText": []
+        }
+      ],
+      "type": "DropdownInput"
+    }
+  },
+  "responsiblePersonSection": {
+    "instructions2":{
+      "title": "Please tell us about the {{responsiblePersonNameValue}}",
+      "additionalText": [
+        "Must match IRS records or this application cannot be processed."
+      ]
+    },
+    "estateInstructions2":{
+      "title": "Please tell us about the {{responsiblePersonNameValue}}",
+      "additionalText": [
+        "The executor, administrator, or the personal representative of this estate cannot be the same as the decedent's name and SSN/ITIN. Must match IRS records or this application cannot be processed."
+      ]
+    },
+    "conservatorInstructions2":{
+      "title": "Please tell us about the {{responsiblePersonNameValue}}",
+      "additionalText": [
+        "The conservator cannot be the same as the protected person's name and SSN/ITIN. Must match IRS records or this application cannot be processed."
+      ]
+    },
+    "custodianInstructions2":{
+      "title": "Please tell us about the {{responsiblePersonNameValue}}",
+      "additionalText": [
+        "The custodian cannot be the same as the protected person's name and SSN/ITIN. Must match IRS records or this application cannot be processed."
+      ]
+    },
+    "guardianInstructions2":{
+      "title": "Please tell us about the {{responsiblePersonNameValue}}",
+      "additionalText": [
+        "The guardian cannot be the same as the protected person's name and SSN/ITIN. Must match IRS records or this application cannot be processed."
+      ]
+    },
+    "bankruptcyInstructions2":{
+      "title": "Please tell us about the {{responsiblePersonNameValue}}",
+      "additionalText": [
+        "If you are filing for bankruptcy under <IRSLink1/>, you do not need an EIN. Instead, please use your Social Security Number for filing purposes. You may exit the application. Must match IRS records or this application cannot be processed. "
+      ],
+      "links": {
+        "IRSLink1": {
+           "text": "chapter 12 Or 13",
+           "label": "chapter 12 Or 13",
+           "url": "glossary#chapter12Or13",
+           "isExternal": "false"
+        }
+      }
+    },
+    "ssnInputControl": {
+      "fieldName": "SSN/ITIN",
+      "additionalText": [
+          "Example: 123-45-6789"
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Social Security Number: Input is required. (Responsible Party)",
+              "id": "ssnInputControl_error1",
+              "additionalText": []
+          },
+          {
+              "text": "Social Security Number: Must be 9 digits. (Responsible Party)",
+              "id": "ssnInputControl_error2",
+              "additionalText": []
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "buttonControls": [
+      {
+          "id" : "showSsnButton",
+          "textLabel": "Show SSN/ITIN",
+          "ariaLabel": "Show SSN/ITIN link, click enter to display SSN"
+      },
+      {
+          "id" : "hideSsnButton",
+          "textLabel": "Hide SSN/ITIN",
+          "ariaLabel": "Hide SSN/ITIN link, click enter to hide SSN"
+      }
+    ],
+    "firstNameInputControl": {
+      "fieldName": "First name",
+      "additionalText": [
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "First Name: Input is required. (Responsible Party)",
+          "id": "firstNameInputControl_error1"
+        },
+        {
+          "text": "First Name: The only special characters allowed are '-' and '&'. (Responsible Party)",
+          "id": "firstNameInputControl_error2"
+        },
+        {
+          "text": "First Name: The first character must be alpha or numeric. (Responsible Party)",
+          "id": "firstNameInputControl_error3"
+        }
+      ],
+      "type" : "TextInput"
+    },
+    "middleNameInputControl": {
+      "fieldName": "Middle name/initial",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Middle name/initial: The only special characters allowed are '-' and '&'. (Responsible Party)",
+            "id": "middleNameInputControl_error1"
+          },
+          {
+            "text": "Middle Name: The first character must be alpha or numeric. (Responsible Party)",
+            "id": "middleNameInputControl_error2"
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "lastNameInputControl": {
+      "fieldName": "Last name",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Last Name: Input is required. (Responsible Party)",
+          "id": "lastNameInputControl_error1"
+        },
+        {
+            "text": "Last Name: The only special characters allowed are '-' and '&'. (Responsible Party)",
+            "id": "lastNameInputControl_error2"
+        },
+        {
+            "text": "Last Name: The first character must be alpha or numeric. (Responsible Party)",
+            "id": "lastNameInputControl_error3"
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "suffixInputControl": {
+      "fieldName": "Suffix",
+      "additionalText": ["Jr, Sr, etc."],
+      "choices": [
+        {
+          "value" : "DDS",
+          "text" : "DDS"
+        },
+        {
+          "value" : "MD",
+          "text" : "MD"
+        },
+        {
+          "value" : "PHD",
+          "text" : "PHD"
+        },
+        {
+          "value" : "JR",
+          "text" : "Jr"
+        },
+        {
+          "value" : "SR",
+          "text" : "Sr"
+        },
+        {
+          "value" : "I",
+          "text" : "I"
+        },
+        {
+          "value" : "II",
+          "text" : "II"
+        },
+        {
+          "value" : "III",
+          "text" : "III"
+        },
+        {
+          "value" : "IV",
+          "text" : "IV"
+        },
+        {
+          "value" : "V",
+          "text" : "V"
+        },
+        {
+          "value" : "VI",
+          "text" : "VI"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Suffix: Selection is required. (Responsible Party)",
+            "id": "suffixInputControl_error1",
+            "additionalText": []
+          }
+      ],
+      "type" : "DropdownInput"
+    },
+    "fiduciaryTitleInputControl": {
+      "fieldName": "Fiduciary title",
+      "additionalText": [],
+      "choices": [
+        {
+          "value" : "EXECUTOR",
+          "text" : "Executor"
+        },
+        {
+          "value" : "ADMINISTRATOR",
+          "text" : "Administrator"
+        },
+        {
+          "value" : "PERSONAL_REPRESENTATIVE",
+          "text" : "Personal Representative"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Fiduciary title: Selection is required. (Responsible Party)",
+              "id": "fiduciaryTitleInputControl_error1",
+              "additionalText": []
+          }
+      ],
+      "type" : "RadioInput"
+    },
+    "trustFilingAsEstateInputControl": {
+      "fieldName": "Trust filing as an Estate under Sec. 645 (check if yes)",
+      "additionalText": [],
+      "choice": "Trust filing as an Estate under Sec. 645 (check if yes)",
+      "inputErrorMessages": [
+          {
+              "text": "Trust Filing as an Estate: Selection is required. (Responsible Party)",
+              "id": "trustFilingAsEstateInputControl_error1",
+              "additionalText": []
+          }
+      ],
+      "type" : "checkBoxInput"
+    },
+    "filing1041Or990TInputControl": {
+      "fieldName": "Which tax return will you file?",
+      "additionalText": [],
+      "choices": [
+        {
+          "value" : "1041",
+          "text" : "Form 1041"
+        },
+        {
+          "value" : "990T",
+          "text" : "Form 990-T"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Filing 1041 or 990T: Selection is required. (Responsible Party)",
+            "id": "filing1041Or990TInputControl_error1",
+            "additionalText": []
+          }
+      ],
+      "type" : "RadioInput"
+    },
+    "iraRolloverInputControl": {
+      "fieldName": "Is this an IRA or IRA Rollover?",
+      "additionalText": [],
+      "choices": [
+        {
+          "value" : "IRA",
+          "text" : "IRA"
+        },
+        {
+          "value" : "ROLLOVER",
+          "text" : "IRA Rollover"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "IRA Rollover: Selection is required. (Responsible Party)",
+            "id": "iraRolloverInputControl_error1",
+            "additionalText": []
+          }
+      ],
+      "type" : "RadioInput"
+    }
+  },
+  "deceasedPersonSection": {
+    "instructions2":{
+      "title": "Please tell us about the deceased person",
+      "additionalText": [
+        "Must match IRS records or this application cannot be processed."
+      ]
+    },
+    "ssnInputControl": {
+      "fieldName": "SSN/ITIN",
+      "additionalText": [
+          "Example: 123-45-6789"
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Social Security Number: Input is required. (Deceased Person)",
+              "id": "ssnInputControl_error1",
+              "additionalText": []
+          },
+          {
+              "text": "Social Security Number: Must be 9 digits. (Deceased Person)",
+              "id": "ssnInputControl_error2",
+              "additionalText": []
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "buttonControls": [
+      {
+          "id" : "showSsnButton",
+          "textLabel": "Show SSN/ITIN",
+          "ariaLabel": "Show SSN/ITIN link, click enter to display SSN"
+      },
+      {
+          "id" : "hideSsnButton",
+          "textLabel": "Hide SSN/ITIN",
+          "ariaLabel": "Hide SSN/ITIN link, click enter to hide SSN"
+      }
+    ],
+    "firstNameInputControl": {
+      "fieldName": "First name",
+      "additionalText": [
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "First Name: Input is required. (Deceased Person)",
+          "id": "firstNameInputControl_error1"
+        },
+        {
+          "text": "First Name: The only special characters allowed are '-' and '&'. (Deceased Person)",
+          "id": "firstNameInputControl_error2"
+        },
+        {
+          "text": "First Name: The first character must be alpha or numeric. (Deceased Person)",
+          "id": "firstNameInputControl_error3"
+        }
+      ],
+      "type" : "TextInput"
+    },
+    "middleNameInputControl": {
+      "fieldName": "Middle name/initial",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Middle name/initial: The only special characters allowed are '-' and '&'. (Deceased Person)",
+            "id": "middleNameInputControl_error1"
+          },
+          {
+            "text": "Middle name/initial: The first character must be alpha or numeric. (Deceased Person)",
+            "id": "middleNameInputControl_error2"
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "lastNameInputControl": {
+      "fieldName": "Last name",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Last Name: Input is required. (Deceased Person)",
+          "id": "lastNameInputControl_error1"
+        },
+        {
+            "text": "Last Name: The only special characters allowed are '-' and '&'. (Deceased Person)",
+            "id": "lastNameInputControl_error2"
+        },
+        {
+            "text": "Last Name: The first character must be alpha or numeric. (Deceased Person)",
+            "id": "lastNameInputControl_error3"
+        }
+      ],
+      "type" : "TextInput"
+    },
+    "suffixInputControl": {
+      "fieldName": "Suffix",
+      "additionalText": ["Jr, Sr, etc."],
+      "choices": [
+        {
+          "value" : "DDS",
+          "text" : "DDS"
+        },
+        {
+          "value" : "MD",
+          "text" : "MD"
+        },
+        {
+          "value" : "PHD",
+          "text" : "PHD"
+        },
+        {
+          "value" : "JR",
+          "text" : "Jr"
+        },
+        {
+          "value" : "SR",
+          "text" : "Sr"
+        },
+        {
+          "value" : "I",
+          "text" : "I"
+        },
+        {
+          "value" : "II",
+          "text" : "II"
+        },
+        {
+          "value" : "III",
+          "text" : "III"
+        },
+        {
+          "value" : "IV",
+          "text" : "IV"
+        },
+        {
+          "value" : "V",
+          "text" : "V"
+        },
+        {
+          "value" : "VI",
+          "text" : "VI"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Suffix: Selection is required. (Deceased Person)",
+            "id": "suffixInputControl_error1",
+            "additionalText": []
+          }
+      ],
+      "type" : "DropdownInput"
+    }
+  },
+  "protectedPersonSection": {
+    "instructions2":{
+      "title": "Please tell us about the person being protected",
+      "additionalText": [
+        "Must match IRS records or this application cannot be processed."
+      ]
+    },
+    "ssnInputControl": {
+      "fieldName": "SSN/ITIN",
+      "additionalText": [
+          "Example: 123-45-6789"
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Social Security Number: Input is required. (Protected Person)",
+              "id": "ssnInputControl_error1",
+              "additionalText": []
+          },
+          {
+              "text": "Social Security Number: Must be 9 digits. (Protected Person)",
+              "id": "ssnInputControl_error2",
+              "additionalText": []
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "buttonControls": [
+      {
+          "id" : "showSsnButton",
+          "textLabel": "Show SSN/ITIN",
+          "ariaLabel": "Show SSN/ITIN link, click enter to display SSN"
+      },
+      {
+          "id" : "hideSsnButton",
+          "textLabel": "Hide SSN/ITIN",
+          "ariaLabel": "Hide SSN/ITIN link, click enter to hide SSN"
+      }
+    ],
+    "firstNameInputControl": {
+      "fieldName": "First name",
+      "additionalText": [
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "First Name: Input is required. (Protected Person)",
+          "id": "firstNameInputControl_error1"
+        },
+        {
+          "text": "First Name: The only special characters allowed are '-' and '&'. (Protected Person)",
+          "id": "firstNameInputControl_error2"
+        },
+        {
+          "text": "First Name: The first character must be alpha or numeric. (Protected Person)",
+          "id": "firstNameInputControl_error3"
+        }
+      ],
+      "type" : "TextInput"
+    },
+    "middleNameInputControl": {
+      "fieldName": "Middle name/initial",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Middle name/initial: The only special characters allowed are '-' and '&'. (Protected Person)",
+            "id": "middleNameInputControl_error1"
+          },
+          {
+            "text": "Middle name/initial: The first character must be alpha or numeric. (Protected Person)",
+            "id": "middleNameInputControl_error2"
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "lastNameInputControl": {
+      "fieldName": "Last name",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Last Name: Input is required. (Protected Person)",
+          "id": "lastNameInputControl_error1"
+        },
+        {
+            "text": "Last Name: The only special characters allowed are '-' and '&'. (Protected Person)",
+            "id": "lastNameInputControl_error2"
+        },
+        {
+            "text": "Last Name: The first character must be alpha or numeric. (Protected Person)",
+            "id": "lastNameInputControl_error3"
+        }
+      ],
+      "type" : "TextInput"
+    },
+    "suffixInputControl": {
+      "fieldName": "Suffix",
+      "additionalText": ["Jr, Sr, etc."],
+      "choices": [
+        {
+          "value" : "DDS",
+          "text" : "DDS"
+        },
+        {
+          "value" : "MD",
+          "text" : "MD"
+        },
+        {
+          "value" : "PHD",
+          "text" : "PHD"
+        },
+        {
+          "value" : "JR",
+          "text" : "Jr"
+        },
+        {
+          "value" : "SR",
+          "text" : "Sr"
+        },
+        {
+          "value" : "I",
+          "text" : "I"
+        },
+        {
+          "value" : "II",
+          "text" : "II"
+        },
+        {
+          "value" : "III",
+          "text" : "III"
+        },
+        {
+          "value" : "IV",
+          "text" : "IV"
+        },
+        {
+          "value" : "V",
+          "text" : "V"
+        },
+        {
+          "value" : "VI",
+          "text" : "VI"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Suffix: Selection is required. (Protected Person)",
+            "id": "suffixInputControl_error1",
+            "additionalText": []
+          }
+      ],
+      "type" : "DropdownInput"
+    }
+  },
+  "responsibleBusinessSection": {
+    "instructions2":{
+      "title": "Please tell us about the {{responsiblePersonNameValue}}",
+      "additionalText": [
+        "Must match IRS records or this application cannot be processed.",
+        "This must be an <IRSLink1/>."
+      ],
+      "links": {
+        "IRSLink1": {
+          "text": "existing business",
+          "label": "existing business",
+          "url": "glossary#existingBusiness"
+        }
+      }
+    },
+    "firstBusinessNameInputControl": {
+      "fieldName": "Business name",
+      "additionalText": [
+        ],
+      "inputErrorMessages": [
+        {
+          "text": "Business name: Input is required.",
+          "id": "firstBusinessNameInputControl_error1"
+        },
+        {
+          "text": "Business name: The only special characters allowed are '-' and '&'.",
+          "id": "firstBusinessNameInputControl_error2"
+        }
+       ],
+      "type" : "TextInput"
+    },
+    "firstEinInputControl": {
+      "fieldName": "EIN",
+      "additionalText": [
+        ],
+      "inputErrorMessages": [
+        {
+          "text": "EIN: Input is required.",
+          "id": "firstEinInputControl_error1"
+        },
+        {
+          "text": "EIN: Must be 9 digits.",
+          "id": "firstEinInputControl_error2"
+        }
+       ],
+      "type" : "TextInput"
+    }
+  },
+  "protectedBusinessSection": {
+    "instructions2":{
+      "title": "Please tell us about the {{businessNameValue}}",
+      "additionalText": [
+        "Must match IRS records or this application cannot be processed.",
+        "This must be an <IRSLink1/>."
+      ],
+      "links": {
+        "IRSLink1": {
+          "text": "existing business",
+          "label": "existing business",
+          "url": "glossary#existingBusiness"
+        }
+      }
+    },
+    "firstBusinessNameInputControl": {
+      "fieldName": "Business name",
+      "additionalText": [
+        ],
+      "inputErrorMessages": [
+        {
+          "text": "Business name: Input is required.",
+          "id": "firstBusinessNameInputControl_error1"
+        },
+        {
+          "text": "Business name: The only special characters allowed are '-' and '&'.",
+          "id": "firstBusinessNameInputControl_error2"
+        }
+       ],
+      "type" : "TextInput"
+    },
+    "firstEinInputControl": {
+      "fieldName": "EIN",
+      "additionalText": [
+        ],
+      "inputErrorMessages": [
+        {
+          "text": "EIN: Input is required.",
+          "id": "firstEinInputControl_error1"
+        },
+        {
+          "text": "EIN: Must be 9 digits.",
+          "id": "firstEinInputControl_error2"
+        }
+       ],
+      "type" : "TextInput"
+    }
+  },
+  "trusteeSection": {
+    "instructions2":{
+      "title": "Please tell us about the Trustee",
+      "additionalText": [
+      ]
+    },
+    "firstNameInputControl": {
+      "fieldName": "First name",
+      "additionalText": [
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "First Name: Input is required. (Trustee)",
+          "id": "firstNameInputControl_error1"
+        },
+        {
+          "text": "First Name: The only special characters allowed are '-' and '&'. (Trustee)",
+          "id": "firstNameInputControl_error2"
+        },
+        {
+          "text": "First Name: The first character must be alpha or numeric. (Trustee)",
+          "id": "firstNameInputControl_error3"
+        }
+      ],
+      "type" : "TextInput"
+    },
+    "middleNameInputControl": {
+      "fieldName": "Middle name/initial",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Middle name/initial: The only special characters allowed are '-' and '&'. (Trustee)",
+            "id": "middleNameInputControl_error1"
+          },
+          {
+            "text": "Middle name/initial: The first character must be alpha or numeric. (Trustee)",
+            "id": "middleNameInputControl_error2"
+          }
+      ],
+      "type" : "TextInput"
+    },
+    "lastNameInputControl": {
+      "fieldName": "Last name",
+      "additionalText": [
+          "The only special characters allowed are '-' and '&'"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Last Name: Input is required. (Trustee)",
+          "id": "lastNameInputControl_error1"
+        },
+        {
+            "text": "Last Name: The only special characters allowed are '-' and '&'. (Trustee)",
+            "id": "lastNameInputControl_error2"
+        },
+        {
+            "text": "Last Name: The first character must be alpha or numeric. (Trustee)",
+            "id": "lastNameInputControl_error3"
+        }
+      ],
+      "type" : "TextInput"
+    },
+    "suffixInputControl": {
+      "fieldName": "Suffix",
+      "additionalText": ["Jr, Sr, etc."],
+      "choices": [
+        {
+          "value" : "DDS",
+          "text" : "DDS"
+        },
+        {
+          "value" : "MD",
+          "text" : "MD"
+        },
+        {
+          "value" : "PHD",
+          "text" : "PHD"
+        },
+        {
+          "value" : "JR",
+          "text" : "Jr"
+        },
+        {
+          "value" : "SR",
+          "text" : "Sr"
+        },
+        {
+          "value" : "I",
+          "text" : "I"
+        },
+        {
+          "value" : "II",
+          "text" : "II"
+        },
+        {
+          "value" : "III",
+          "text" : "III"
+        },
+        {
+          "value" : "IV",
+          "text" : "IV"
+        },
+        {
+          "value" : "V",
+          "text" : "V"
+        },
+        {
+          "value" : "VI",
+          "text" : "VI"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+            "text": "Suffix: Selection is required. (Trustee)",
+            "id": "suffixInputControl_error1",
+            "additionalText": []
+          }
+      ],
+      "type" : "DropdownInput"
+    }
+  },
+  "helpTipSection": {
+    "ssnHelp": {
+      "id": "ssnHelp",
+      "title": "Individual Taxpayer Identification Number (ITIN)",
+      "additionalText": [
+          "An Individual Taxpayer Identification Number (ITIN) is a tax processing number issued by the IRS to individuals who are required to have a U.S. taxpayer identification number and do not have, and are not eligible to obtain, a Social Security Number (SSN) from the Social Security Administration (SSA)."
+      ],
+      "ariaText": "SSN or ITIN help topic"
+    },
+    "fiduciaryTitleHelp": {
+      "id": "fiduciaryTitleHelp",
+      "title": "Fiduciary Title",
+      "additionalText": [
+        "A person or institution entrusted to act in behalf of a taxpayer. These include a trustee of a trust or executor, administrator, personal representative, or person in possession of property of a decedent's estate."
+      ],
+      "ariaText": "Fiduciary help topic"
+    },
+    "trustFilingAsEstateHelp": {
+      "id": "trustFilingAsEstateHelp",
+      "title": "Trust Filing as an Estate under Sec. 645",
+      "additionalText": [
+        "A trust filing as an estate under Section 645 election allows a Qualified Revocable Trust to be treated and taxed (for income tax purposes) as part of its related estate during the election period. Once the election is made, it cannot be revoked."
+      ],
+      "ariaText": "Trust Filing as an Estate help topic"
+    },
+    "filing1041Or990THelp": {
+      "id": "filing1041Or990THelp",
+      "title": "Form 1041  or Form 990-T",
+      "additionalText": [
+        "<b>Form 1041</b>",
+        "<p>The fiduciary (representative) of a deceased U.S. citizen's estate, trust, or bankruptcy estate uses Form 1041 (U.S. Income Tax Return for Estates and Trusts) to report:</p>",
+        "<ul><li>The income, deductions, gains, losses, etc. of the organization the fiduciary represents</li>",
+        "<li>The income that is either accumulated or held for future distribution or distributed currently to the beneficiaries</li>",
+        "<li>Any income tax liability of the estate or trust</li>",
+        "<li>Employment taxes on wages paid to household employees</li></ul>",
+        "<p>To view this form, click here: <IRSLink1/>.</p>",
+        "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+        "<p>However, please do not complete this form now, as your session will time out.</p>",
+        "<b>Form 990-T</b>",
+        "<p>Exempt organizations subject to the tax on unrelated business income use Form 990-T (Exempt Organization Business Income Tax Return). The obligation to file Form 990-T and any required supporting schedules and forms is in addition to the obligation to file any other required returns.</p>",
+        "<p>To view this form, click here: <IRSLink3/>.</p>",
+        "<p>Download the instructions for this form here: <IRSLink4/>.</p>",
+        "However, please do not complete this form now, as your session will time out."
+      ],
+      "ariaText": "Form 1041 or Form 990-T help topic",
+      "links": {
+        "IRSLink1": {
+          "text": "Form 1041",
+          "label": "Download form 1041 in a new window",
+          "url": "https://www.irs.gov/pub/irs-pdf/f1041.pdf"
+        },
+        "IRSLink2": {
+          "text": "Form 1041 Instructions",
+          "label": "Download form 1041 instructions in a new window",
+          "url": "https://www.irs.gov/pub/irs-pdf/i1041.pdf"
+        },
+        "IRSLink3": {
+          "text": "Form 990-T",
+          "label": "Download form 990-T in a new window",
+          "url": "https://www.irs.gov/pub/irs-pdf/f990t.pdf"
+        },
+        "IRSLink4": {
+          "text": "Form 990-T Instructions",
+          "label": "Download form 990-T instructions in a new window",
+          "url": "https://www.irs.gov/pub/irs-pdf/i990t.pdf"
+        }
+      }
+    },
+    "iraRolloverHelp": {
+      "id": "iraRolloverHelp",
+      "title": "IRA Rollover",
+      "additionalText": [
+        "An IRA rollover occurs when you take a distribution of cash or other assets from one qualified employer retirement plan and contribute all or part of it within 60 days to another qualified retirement plan."
+      ],
+      "ariaText": "Ira Rollover help topic"
+    },
+    "roleHelp_LLC": {
+      "id": "roleHelpLLC",
+      "title": "LLC Role(s)",
+      "additionalText": [
+        "Owner: This is the owner of the business. It is the person who holds title to it or is in control of it.",
+        "<p>Member: The word \"member\" has several definitions:</p>",
+        "<ol><li>An individual who belongs to an organization, association, firm, partnership, company, or corporation</li>",
+        "<li>One of the persons who compose a social group (especially individuals who have joined and participate in a group organization)</li>",
+        "<li>The owners of an LLC are called members and are similar in some respects to shareholders of a corporation. A member can be a natural person, a corporation, a partnership, or another legal association or entity</li></ol>"
+      ],
+      "ariaText": " llc role help topic"
+    },
+    "roleHelp_ESTATE": {
+      "id": "roleHelpEstate",
+      "title": "Estate Role(s)",
+      "additionalText": [
+        "Executor: The executor is a person named in a will who manages the estate of a deceased individual.",
+        "<p>Administrator: An administrator is a person appointed by a probate court to settle the affairs of an individual who has died without leaving a will.</p>",
+        "Personal Representative: A personal representative is an individual appointed through the will of a deceased person or by a court to settle the estate of one who dies."
+      ],
+      "ariaText": "estate role help topic"
+    },
+    "roleHelp_CORP_TYPE": {
+      "id": "roleHelpCorpType",
+      "title": "Corporate Role(s)",
+      "additionalText": [
+        "Corporate Officer: A corporate officer (the corporation's president, vice-president, treasurer, chief accounting officer, etc.) is duly authorized by the corporation to bind it (to sign a contract that obligates the corporation to another party) in accordance with applicable state law.<br><br>",
+        "Legally Bind the Corporation: The legal authority (including signature authority) to act for and bind the corporation."
+      ],
+      "ariaText": "corporate role help topic"
+    },
+    "roleHelp_BASIC_TRUST": {
+      "id": "roleHelpBasicTrust",
+      "title": "Trust Role(s)",
+      "additionalText": [
+        "Grantor: A grantor is a person or organization that creates or funds a trust. The person or organization may retain control over all portions of the trust, which may result in the grantor being subject to tax on the income from that portion of the trust.",
+        "<p>Trustee:A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments.</p>",
+        "Beneficiary Having a Material Interest: A beneficiary having a material interest is a person designated as the recipient of funds or other property under a trust or an estate."
+      ],
+      "ariaText": "trust role help topic"
+    },
+    "roleHelp_WITHHOLDING_AGENT": {
+      "id": "roleHelpWitholdingAgent",
+      "title": "Withholding Role(s)",
+      "additionalText": [
+        "Owner: This is the owner of the business. It is the person who holds title to it or is in control of it.",
+        "<p>Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department.</p>",
+        "Individual Acting as a Withholding Agent: An individual acting as a withholding agent is a person, such as an agent, broker, or fiduciary, who is required to withhold taxes on income, other than wages, paid to a non-resident alien."
+      ],
+      "ariaText": "withholding role help topic"
+    },
+    "roleHelp_PLAN_ADMINISTRATOR": {
+      "id": "roleHelpPlanAdministrator",
+      "title": "Plan Administrator Role(s)",
+      "additionalText": [
+        "Plan Administrator: The plan administrator is a person specifically designated to carry out the plan's day to day operations. The plan administrator has a fiduciary responsibility to the participants under the plan. Duties of the plan administrator may include:",
+        "<ul><li>Record keeping</li>",
+        "<li>Accounting tasks</li>",
+        "<li>Legal and trustee services.</li></ul>"
+      ],
+      "ariaText": "plan administrator role help topic"
+    },
+    "roleHelp_HOA": {
+      "id": "roleHelpHoa",
+      "title": "HOA Role(s)",
+      "additionalText": [
+        "Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department.<br><br>",
+        "Board Member: A board member is a person chosen to make executive or managerial decisions for an organization."
+      ],
+      "ariaText": "hoa role help topic"
+    },
+    "roleHelp_HOUSEHOLD_EMPLOYER": {
+      "id": "roleHelpHouseholdEmployer",
+      "title": "Household Employer Role(s)",
+      "additionalText": [
+        "Household Employer: You are a household employer if you hire someone to do household work in or around your home and that worker is classified as your employee. As a household employer, you will be directing the work of the employee(s) you hire. Some examples of household workers are:",
+        "<ul><li>Babysitters</li>",
+        "<li>Nannies</li>",
+        "<li>Au pairs</li>",
+        "<li>Cleaning people</li>",
+        "<li>Housekeepers</li>",
+        "<li>Maids</li>",
+        "<li>Drivers</li>",
+        "<li>Health aides</li>",
+        "<li>Private nurses</li>",
+        "<li>Caretakers</li>",
+        "<li>Yard workers</li></ul>"
+      ],
+      "ariaText": "household employer role help topic"
+    },
+    "roleHelp_POLITICAL_ORGANIZATION": {
+      "id": "roleHelpPoliticalOrg",
+      "title": "Political Org Role(s)",
+      "additionalText": [
+        "Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department.<br><br>",
+        "Board Member: A board member is a person chosen to make executive or managerial decisions for an organization."
+      ],
+      "ariaText": "political org role help topic"
+    },
+    "roleHelp_RECEIVERSHIP": {
+      "id": "roleHelpReceivership",
+      "title": "Receivership Role(s)",
+      "additionalText": [
+        "Receivership: A receivership is a legal or equitable proceeding in which a receiver is appointed for an insolvent corporation, partnership, or individual to preserve its assets for the benefit of affected parties."
+      ],
+      "ariaText": "receivership role help topic"
+    },
+    "roleHelp_REIT": {
+      "id": "roleHelpReit",
+      "title": "REIT Role(s)",
+      "additionalText": [
+        "Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department.<br><br>",
+        "Board Member: A board member is a person chosen to make executive or managerial decisions for an organization."
+      ],
+      "ariaText": "reit role help topic"
+    },
+    "roleHelp_RIC": {
+      "id": "roleHelpRic",
+      "title": "RIC Role(s)",
+      "additionalText": [
+        "Corporate Officer: A corporate officer (the corporation's president, vice-president, treasurer, chief accounting officer, etc.) is duly authorized by the corporation to bind it (to sign a contract that obligates the corporation to another party) in accordance with applicable state law.",
+        "<p>Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments.</p>",
+        "Fiduciary: A person or institution entrusted to act in behalf of a taxpayer. These include a trustee of a trust or executor, administrator, personal representative, or person in possession of property of a decedent's estate."
+      ],
+      "ariaText": "ric role help topic"
+    },
+    "roleHelp_GOV_TYPES": {
+      "id": "roleHelpGovType",
+      "title": "Government Entity Role(s)",
+      "additionalText": [
+        "Member: The word \"member\" has several definitions:",
+        "<ol><li>An individual who belongs to an organization, association, firm, partnership, company, or corporation</li>",
+        "<li>One of the persons who compose a social group (especially individuals who have joined and participate in a group organization)</li>",
+        "<li>The owners of an LLC are called members and are similar in some respects to shareholders of a corporation. A member can be a natural person, a corporation, a partnership, or another legal association or entity</li></ol>",
+        "Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department."
+      ],
+      "ariaText": "Government Entity role help topic"
+    },
+    "roleHelp_FARM_COOP_OR_CHURCH": {
+      "id": "roleHelpFarmCoopOrChurch",
+      "title": "Non Profit Role(s)",
+      "additionalText": [
+        "Member: The word \"member\" has several definitions:",
+        "<ol><li>An individual who belongs to an organization, association, firm, partnership, company, or corporation</li>",
+        "<li>One of the persons who compose a social group (especially individuals who have joined and participate in a group organization)</li>",
+        "<li>The owners of an LLC are called members and are similar in some respects to shareholders of a corporation. A member can be a natural person, a corporation, a partnership, or another legal association or entity</li></ol>",
+        "Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department."
+      ],
+      "ariaText": "non profit role help topic"
+    },
+    "roleHelp_OTHER_NON_PROFIT": {
+      "id": "roleHelpOtherNonProfit",
+      "title": "Other Non Profit Role(s)",
+      "additionalText": [
+        "Member: The word \"member\" has several definitions:",
+        "<ol><li>An individual who belongs to an organization, association, firm, partnership, company, or corporation</li>",
+        "<li>One of the persons who compose a social group (especially individuals who have joined and participate in a group organization)</li>",
+        "<li>The owners of an LLC are called members and are similar in some respects to shareholders of a corporation. A member can be a natural person, a corporation, a partnership, or another legal association or entity</li></ol>",
+        "Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department."
+      ],
+      "ariaText": "other non profit role help topic"
+    },
+    "roleHelp_EMPLOYER_PLAN": {
+      "id": "roleHelpEmployerPlan",
+      "title": "Employer Plan Role(s)",
+      "additionalText": [
+        "Owner: This is the owner of the business. It is the person who holds title to it or is in control of it.<br><br>",
+        "<p>Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments.</p>",
+        "<p>Plan Administrator: The plan administrator is a person specifically designated to carry out the plan's day to day operations. The plan administrator has a fiduciary responsibility to the participants under the plan. Duties of the plan administrator may include:</p>",
+        "<ul><li>Record keeping</li>",
+        "<li>Accounting tasks</li>",
+        "<li>Legal and trustee services</li></ul>"
+      ],
+      "ariaText": "employer plan role help topic"
+    },
+    "roleHelp_BANKRUPTCY": {
+      "id": "roleHelpBankruptcy",
+      "title": "Bankruptcy Role(s)",
+      "additionalText": [
+          "Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments."
+      ],
+      "ariaText": "bankruptcy role help topic"
+    },
+    "roleHelp_BASIC_OTHER": {
+      "id": "roleHelpBasicOther",
+      "title": "Additional Type Entity Role(s)",
+      "additionalText": [
+          "Officer: An officer is an individual elected or appointed to an administrative position in a corporation or government department.<br><br>",
+          "Board Member: A board member is a person chosen to make executive or managerial decisions for an organization."
+      ],
+      "ariaText": "additional type entity role help topic"
+    },
+    "roleHelp_PARTNERSHIP": {
+      "id": "roleHelpPartnership",
+      "title": "Partnership Role(s)",
+      "additionalText": [
+          "Partner: A partner is a person who is personally liable for partnership debts.<br><br>",
+          "General Partner: A general partner is a partner (either an individual or a business entity) who shares both the financial risks and the profits of the partnership."
+      ],
+      "ariaText": "partnership role help topic"
+    },
+    "roleHelp_REMIC": {
+      "id": "roleHelpRemic",
+      "title": "REMIC Role(s)",
+      "additionalText": [
+          "Corporate Officer: A corporate officer (the corporation's president, vice-president, treasurer, chief accounting officer, etc.) is duly authorized by the corporation to bind it (to sign a contract that obligates the corporation to another party) in accordance with applicable state law.",
+          "<p>Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments.</p>",
+          "<p>Individual Authorized to Sign Form 1066: Form 1066 (U.S. Real Estate Mortgage Investment Conduit (REMIC) Income Tax Return) is used to report the income, deductions, and gains and losses from the operation of a REMIC.</p>",
+          "<p>A REMIC with a startup day after November 9, 1988. Form 1066 (U.S. Real Estate Mortgage Investment Conduit (REMIC) Income Tax Return) may be signed by any person who could sign the return of the entity in the absence of the REMIC election, for example, a corporate officer for a corporation, or a trustee for a trust.</p>",
+          "For REMICs with only segregated pools of assets, the return would be signed by any person who could sign the return of the entity owning the assets of the REMIC under applicable state law."
+      ],
+      "ariaText": "remic role help topic"
+    },
+    "roleHelp_EMPLOYER_OR_FISCAL_AGENT": {
+      "id": "roleHelpEmployerOrFiscalAgent",
+      "title": "Employer Or Fiscal Agent Role(s)",
+      "additionalText": [
+          "Owner: This is the owner of the business. It is the person who holds title to it or is in control of it.",
+          "<p>Principal Officer: The principal officer is any corporate officer authorized by the corporation in accordance with applicable state law to legally bind the corporation. This includes the president, vice president, corporate secretary, corporate treasurer, owner, or chief executive officer, but is not limited to these individuals or position titles.</p>",
+          "<p>General Partner: A general partner is a partner (either an individual or a business entity) who shares both the financial risks and the profits of the partnership.</p>",
+          "<p>Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments.</p>",
+          "<p>The word \"member\" has several definitions:</p>",
+          "<ol><li>An individual who belongs to an organization, association, firm, partnership, company, or corporation</li>",
+          "<li>One of the persons who compose a social group (especially individuals who have joined and participate in a group organization)</li>",
+          "<li>The owners of an LLC are called members and are similar in some respects to shareholders of a corporation. A member can be a natural person, a corporation, a partnership, or another legal association or entity</li></ol>"
+      ],
+      "ariaText": "employer or fiscal agent role help topic"
+    },
+    "roleHelp_FNMA": {
+      "id": "roleHelpFnma",
+      "title": "FNMA Role(s)",
+      "additionalText": [
+          "Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments."
+      ],
+      "ariaText": "fnma role help topic"
+    },
+    "roleHelp_GNMA": {
+      "id": "roleHelpGnma",
+      "title": "GNMA Role(s)",
+      "additionalText": [
+          "Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments."
+      ],
+      "ariaText": "gnma role help topic"
+    },
+    "roleHelp_SETTLEMENT_FUND": {
+      "id": "roleHelpSettlementFund",
+      "title": "Settlement Fund Role(s)",
+      "additionalText": [
+          "Trustee: A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments."
+      ],
+      "ariaText": "settlement fund role help topic"
+    },
+    "templateHelp": {
+      "id": "",
+      "title": "",
+      "additionalText": [
+          ""
+      ],
+      "ariaText": " help topic"
+    }
+  },
+  "roleSection": {
+    "instructions3":{
+      "title": "Your role",
+      "additionalText": [
+      ]
+    },
+    "roleInputControl": {
+      "SOLE_PROPRIETOR": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the sole proprietor."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this <IRSLink1/>."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "sole proprietor",
+            "label": "sole proprietor",
+            "url": "glossary#soleProprietor"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "LLC": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am one of the <IRSLink1/>, <IRSLink2/>, or the managing member of this LLC."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this LLC."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "owners",
+            "label": "owners",
+            "url": "glossary#owner"
+          },
+          "IRSLink2": {
+            "text": "members",
+            "label": "members",
+            "url": "glossary#member"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "ESTATE": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/>, <IRSLink2/>, or the <IRSLink3/> of this estate."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this estate."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "executor",
+            "label": "executor",
+            "url": "glossary#executor"
+          },
+          "IRSLink2": {
+              "text": "administrator",
+              "label": "administrator",
+              "url": "glossary#administrator"
+          },
+          "IRSLink3": {
+            "text": "personal representative",
+            "label": "personal representative",
+            "url": "glossary#personalRepresentative"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "CORP_TYPE": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the president, CEO, or other <IRSLink1/> who can <IRSLink2/>."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this corporation."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "corporate officer",
+            "label": "corporate officer",
+            "url": "glossary#corporateOfficer"
+          },
+          "IRSLink2": {
+              "text": "legally bind the corporation",
+              "label": "legally bind the corporation",
+              "url": "glossary#legallyBindCorp"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "BASIC_TRUST": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/>, <IRSLink2/>, or a <IRSLink3/> for this trust."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this trust."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "grantor",
+            "label": "grantor",
+            "url": "glossary#grantor"
+          },
+          "IRSLink2": {
+              "text": "trustee",
+              "label": "trustee",
+              "url": "glossary#trustee"
+          },
+          "IRSLink3": {
+            "text": "beneficiary having a material interest",
+            "label": "beneficiary having a material interest",
+            "url": "glossary#beneficiaryMaterialInterest"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "WITHHOLDING_AGENT": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/> or <IRSLink2/> of the company, or an <IRSLink3/>."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "owner",
+            "label": "owner",
+            "url": "glossary#owner"
+          },
+          "IRSLink2": {
+            "text": "officer",
+            "label": "officer",
+            "url": "glossary#officer"
+          },
+          "IRSLink3": {
+            "text": "individual acting as a withholding agent",
+            "label": "individual acting as a withholding agent",
+            "url": "glossary#individualActingWithholdingAgent"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "PLAN_ADMINISTRATOR": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/>."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "plan administrator",
+            "label": "plan administrator",
+            "url": "glossary#planAdmin"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "HOA": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a responsible and duly authorized <IRSLink1/> or a <IRSLink2/> having knowledge of this association's affairs."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "officer",
+            "label": "officer",
+            "url": "glossary#officer"
+          },
+          "IRSLink2": {
+              "text": "board member",
+              "label": "board member",
+              "url": "glossary#boardMember"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "HOUSEHOLD_EMPLOYER": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/>."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "household employer",
+            "label": "household employer",
+            "url": "glossary#householdEmployer"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "POLITICAL_ORGANIZATION": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a responsible and duly authorized <IRSLink1/> or a <IRSLink2/> having knowledge of this organization's affairs."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "officer",
+            "label": "officer",
+            "url": "glossary#officer"
+          },
+          "IRSLink2": {
+              "text": "board member",
+              "label": "board member",
+              "url": "glossary#boardMember"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "RECEIVERSHIP": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/>/<IRSLink2/> appointed by the court for this receivership."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "receiver",
+            "label": "receiver",
+            "url": "glossary#receiver"
+          },
+          "IRSLink2": {
+              "text": "administrator",
+              "label": "administrator",
+              "url": "glossary#administrator"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "REIT": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a responsible and duly authorized <IRSLink1/> or a <IRSLink2/> having knowledge of this organization's affairs."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "officer",
+            "label": "officer",
+            "url": "glossary#officer"
+          },
+          "IRSLink2": {
+              "text": "board member",
+              "label": "board member",
+              "url": "glossary#boardMember"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "RIC": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a <IRSLink1/>, <IRSLink2/>, or other <IRSLink3/> authorized to sign Form 1120-RIC for this RIC."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "corporate officer",
+            "label": "corporate officer",
+            "url": "glossary#corporateOfficer"
+          },
+          "IRSLink2": {
+              "text": "trustee",
+              "label": "trustee",
+              "url": "glossary#trustee"
+          },
+          "IRSLink3": {
+            "text": "fiduciary",
+            "label": "fiduciary",
+            "url": "glossary#fiduciary"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "IRA": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "This IRA belongs to me."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "type" : "RadioInput"
+      },
+      "GOV_TYPES": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a duly authorized <IRSLink1/>, <IRSLink2/>, or employee of the organization or government entity."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this organization."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "member",
+            "label": "member",
+            "url": "glossary#member"
+          },
+          "IRSLink2": {
+              "text": "officer",
+              "label": "officer",
+              "url": "glossary#officer"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "FARM_COOP_OR_CHURCH": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a duly authorized <IRSLink1/>, <IRSLink2/>, or employee of the organization or government entity."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this organization."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "member",
+            "label": "member",
+            "url": "glossary#member"
+          },
+          "IRSLink2": {
+              "text": "officer",
+              "label": "officer",
+              "url": "glossary#officer"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "OTHER_NON_PROFIT": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a responsible and duly authorized <IRSLink1/> or <IRSLink2/> having knowledge of this organization's affairs."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this organization."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "member",
+            "label": "member",
+            "url": "glossary#member"
+          },
+          "IRSLink2": {
+              "text": "officer",
+              "label": "officer",
+              "url": "glossary#officer"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "EMPLOYER_PLAN": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/>, <IRSLink2/> or <IRSLink3/> for this plan."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this plan."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "owner",
+            "label": "owner",
+            "url": "glossary#owner"
+          },
+          "IRSLink2": {
+              "text": "trustee",
+              "label": "trustee",
+              "url": "glossary#trustee"
+          },
+          "IRSLink3": {
+            "text": "plan administrator",
+            "label": "plan administrator",
+            "url": "glossary#planAdmin"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "BANKRUPTCY": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the bankrupt individual or the <IRSLink1/> of this bankruptcy estate."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this bankruptcy estate."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "trustee",
+            "label": "trustee",
+            "url": "glossary#trustee"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "ESCROW": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am an individual authorized to establish this escrow account."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "type" : "RadioInput"
+      },
+      "PROTECT_TRUST": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the {{responsiblePersonNameValue}}."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{responsiblePersonNameValue}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "type" : "RadioInput"
+      },
+      "BASIC_OTHER": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a responsible and duly authorized <IRSLink1/> or <IRSLink2/> of this organization."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this organization."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "officer",
+            "label": "officer",
+            "url": "glossary#officer"
+          },
+          "IRSLink2": {
+              "text": "member",
+              "label": "member",
+              "url": "glossary#member"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "PARTNERSHIP": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a responsible and duly authorized <IRSLink1/> or <IRSLink2/> of this {{entityName}}."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "partner",
+            "label": "partner",
+            "url": "glossary#partner"
+          },
+          "IRSLink2": {
+              "text": "general partner",
+              "label": "general partner",
+              "url": "glossary#generalPartner"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "JOINT_VENTURE": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a responsible and duly authorized <IRSLink1/> or <IRSLink2/> of this {{entityName}}."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "partner",
+            "label": "partner",
+            "url": "glossary#partner"
+          },
+          "IRSLink2": {
+              "text": "general partner",
+              "label": "general partner",
+              "url": "glossary#generalPartner"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "REMIC": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am a <IRSLink1/>, <IRSLink2/>, or an <IRSLink3/> for this {{entityName}}."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "corporate officer",
+            "label": "corporate officer",
+            "url": "glossary#corporateOfficer"
+          },
+          "IRSLink2": {
+              "text": "trustee",
+              "label": "trustee",
+              "url": "glossary#trustee"
+          },
+          "IRSLink3": {
+            "text": "individual authorized to sign Form 1066",
+            "label": "individual authorized to sign Form 1066",
+            "url": "glossary#individualAuthorizedForm1066"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "EMPLOYER_OR_FISCAL_AGENT": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am an <IRSLink1/>, <IRSLink2/>, <IRSLink3/>, <IRSLink4/>, or responsible and duly authorized member of the organization."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN on behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "owner",
+            "label": "owner",
+            "url": "glossary#owner"
+          },
+          "IRSLink2": {
+              "text": "principal officer",
+              "label": "principal officer",
+              "url": "glossary#principalOfficer"
+          },
+          "IRSLink3": {
+            "text": "general partner",
+            "label": "general partner",
+            "url": "glossary#generalPartner"
+          },
+          "IRSLink4": {
+            "text": "trustee",
+            "label": "trustee",
+            "url": "glossary#trustee"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "FNMA": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/> for this {{entityName}}."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "trustee",
+            "label": "trustee",
+            "url": "glossary#trustee"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "GNMA": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/> for this {{entityName}}."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "trustee",
+            "label": "trustee",
+            "url": "glossary#trustee"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "SETTLEMENT_FUND": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : "I am the <IRSLink1/> or settlement fund administrator."
+          },
+          {
+              "value" : "no",
+              "text" : "I am a third party applying for an EIN behalf of this {{entityName}}."
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "trustee",
+            "label": "trustee",
+            "url": "glossary#trustee"
+          }
+        },
+        "type" : "RadioInput"
+      },
+      "TEMP_TEMPLATE": {
+        "fieldName": "Choose one",
+        "additionalText": [],
+        "choices": [
+          {
+              "value" : "yes",
+              "text" : ""
+          },
+          {
+              "value" : "no",
+              "text" : ""
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Role: Selection is required.",
+                "id": "roleInputControl_error1",
+                "additionalText": []
+            }
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "",
+            "label": "",
+            "url": ""
+          },
+          "IRSLink2": {
+              "text": "",
+              "label": "",
+              "url": ""
+          },
+          "IRSLink3": {
+            "text": "",
+            "label": "",
+            "url": ""
+          }
+        },
+        "type" : "RadioInput"
+      }
+    }
+  },
+  "finalSection": {
+    "buttonControls": [
+      {
+        "id" : "backButton",
+        "textLabel": "Back",
+        "ariaLabel": "Back",
+        "inverted": true
+      },
+      {
+        "id" : "continueButton",
+        "textLabel": "Continue",
+        "ariaLabel": "Continue",
+        "inverted": false
+      },
+      {
+        "id" : "cancelButton",
+        "textLabel": "Cancel",
+        "ariaLabel": "Cancel link, click enter to go to Apply for EIN Page",
+        "link": "applyForEin",
+        "isExternal": false
+      }
+    ]
+  },
+  "pageErrorInputError1": {
+    "errorMsg": "The following error has occurred: ",
+    "additionalText": [
+    ]
+  },
+  "pageErrorInputError2": {
+      "errorMsg": "The following {{numberOfErrors}} errors have occurred: ",
+      "additionalText": [
+
+      ]
+  },
+  "pageErrorSameTinDeceased": {
+      "errorMsg": "The Responsible Party cannot have the same SSN as the deceased person.",
+      "additionalText": [
+          "In order for your application to be processed, you must edit the taxpayer's information appropriately so the above item(s) no longer match."
+      ]
+  },
+  "pageErrorSameTinProtected": {
+    "errorMsg": "The Responsible Party cannot have the same SSN as the protected person.",
+    "additionalText": [
+        "In order for your application to be processed, you must edit the taxpayer's information appropriately so the above item(s) no longer match."
+    ]
+  },
+  "pageError400Ref112": {
+    "errorMsg": "Apply for EIN is experiencing a technical problem.",
+    "additionalText": [
+        "We apologize for the inconvenience, but the system is experiencing technical difficulties. Please try back later. If the problem continues, please submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  },
+  "pageError401Ref101": {
+    "errorMsg": "We are unable to provide you with an EIN.",
+    "additionalText": [
+        "We apologize for the inconvenience but based on the information provided we are unable to provide you with an EIN through this online assistant.", 
+        "<p>Please call 1-800-829-4933 for assistance. When outside the U.S., call 267-941-1099. TTY/TDD: 1-800-829-4059.</p> ",
+        "<p>Please have your information readily available and mention reference number: {{referenceNumber}}. </p>"
+    ]
+  },
+  "pageError401Ref102": {
+    "errorMsg": "We are unable to provide you with an EIN.",
+    "additionalText": [
+        "We apologize for the inconvenience but based on the information provided we are unable to provide you with an EIN through this online assistant. You must submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  },
+  "pageError401Ref115": {
+    "errorMsg": "We are unable to provide you with an EIN.",
+    "additionalText": [
+        "We apologize for the inconvenience but based on the information provided we are unable to provide you with an EIN through this online assistant.",
+        "<p>Please call 1-800-829-4933 for assistance. When outside the U.S., call 267-941-1099. TTY/TDD: 1-800-829-4059.</p>",
+        "<p>Please have your information readily available and mention reference number: {{referenceNumber}}. </p>"
+    ]
+  },
+  "pageError429Ref105": {
+    "errorMsg": "We are unable to provide you with an EIN.",
+    "additionalText": [
+        "We apologize for the inconvenience but based on the information provided we are unable to provide you with an EIN through this online assistant. You must submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  },
+    "pageError429Ref114": {
+    "errorMsg": "You've attempted too many requests for today.",
+    "additionalText": [
+        "A responsible party is limited to receipt of one (1) EIN per business day."
+    ]
+  },
+  "pageError500": {
+    "errorMsg": "Apply for EIN is currently unavailable.",
+    "additionalText": [
+        "We apologize for the inconvenience, but the system is experiencing technical difficulties. Please try back later. If the problem continues, please submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  }
+}

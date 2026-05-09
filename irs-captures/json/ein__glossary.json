@@ -1,0 +1,2716 @@
+{
+    "header": {
+        "title": "Apply for an Employer Identification Number (EIN)",
+        "additionalText": [
+            "Use this section to find answers to questions about EIN and the online application process"
+        ]
+    },
+    "glossaryTerms": {
+        "lessThan1000": {
+            "id": "lessThan1000",
+            "title": "$1,000 or less in a full calendar year",
+            "additionalText": [
+                "For most employers, you are likely to pay $1,000 or less in employment taxes if you expect to pay $4,000 or less in total wages in a full calendar year. For employers in the U.S. possessions, you are likely to pay $1,000 or less in employment taxes if you pay $6,536 or less in wages subject to social security and Medicare taxes."
+            ]
+        },
+        "accommodations": {
+            "id": "accommodations",
+            "title": "Accommodations",
+            "additionalText": [
+                "The accommodations category includes all types of accommodations such as:<br>",
+                "<ul><li>Hotels</li>",
+                "<li>Motels</li>",
+                "<li>Casino hotels</li>",
+                "<li>Boarding houses</li>",
+                "<li>Bed and breakfast inns</li></ul>"
+            ]
+        },
+        "accountSeriesNumber": {
+            "id": "accountSeriesNumber",
+            "title": "Account/Series Number",
+            "additionalText": [
+                "Certain organizations (REMICs, Business Trusts, etc.) obtain EINs with the same names but different Account/Series numbers. These numbers are the only way to distinguish the accounts."
+            ]
+        },
+        "additionalAddress": {
+            "id": "additionalAddress",
+            "title": "Additional Address",
+            "additionalText": [
+                "This is an alternate address you can choose to have on record for your mailing or location address."
+            ]
+        },
+        "administrator": {
+            "id": "administrator",
+            "title": "Administrator",
+            "additionalText": [
+                "An administrator is a person appointed by a probate court to settle the affairs of an individual who has died without leaving a will."
+            ]
+        },
+        "agriculturalEmployees": {
+            "id": "agriculturalEmployees",
+            "title": "Agricultural Employees",
+            "additionalText": [
+                "Agricultural employees include any person who works on a farm producing crops and/or raising livestock. Farms include stock, dairy, poultry, fruit, fur-bearing animal, and truck farms, as well as orchards, plantations, ranches, nurseries, ranges, green houses, and other similar structures used mainly for raising agricultural or horticultural commodities.",
+                "<p>Forestry and lumbering are not \"farm work\" unless the products are for use in the employer's farming operations.</p>",
+                "<p>Farm workers or agricultural employees include those who:</p>",
+                "<ul><li>Raise or harvest agricultural or horticultural products, or care for the farm and equipment</li>",
+                "<li>Handle, process, or package any agricultural or horticultural commodity, if over half is produced on the farm</li>",
+                "<li>Do work related to cotton ginning, turpentine, or gum resin products</li>",
+                "<li>Do housework in the private home of a farm operated for profit</li></ul>"
+            ]
+        },
+        "allOrganizationsType": {
+            "id": "allOrganizationsType",
+            "title": "All Types of Organizations and Structures",
+            "additionalText": [
+                "<ul>",
+                "<li><IRSLink1/></li>",
+                "<li><IRSLink2/></li>",
+                "<li><IRSLink3/></li>",
+                "<li><IRSLink4/></li>",
+                "<li><IRSLink5/></li>",
+                "<li><IRSLink6/></li>",
+                "<li><IRSLink7/></li>",
+                "<li><IRSLink8/></li>",
+                "<li><IRSLink9/></li>",
+                "<li><IRSLink10/></li>",
+                "<li><IRSLink11/></li>",
+                "<li><IRSLink12/></li>",
+                "<li><IRSLink13/></li>",
+                "<li><IRSLink14/></li>",
+                "<li><IRSLink15/></li>",
+                "<li><IRSLink16/></li>",
+                "<li><IRSLink17/></li>",
+                "<li><IRSLink18/></li>",
+                "<li><IRSLink19/></li>",
+                "<li><IRSLink20/></li>",
+                "<li><IRSLink21/></li>",
+                "<li><IRSLink22/></li>",
+                "<li><IRSLink23/></li>",
+                "<li><IRSLink24/></li>",
+                "<li><IRSLink25/></li>",
+                "<li><IRSLink26/></li>",
+                "<li><IRSLink27/></li>",
+                "<li><IRSLink28/></li>",
+                "<li><IRSLink29/></li>",
+                "<li><IRSLink30/></li>",
+                "<li><IRSLink31/></li>",
+                "<li><IRSLink32/></li>",
+                "<li><IRSLink33/></li>",
+                "<li><IRSLink34/></li>",
+                "<li><IRSLink35/></li>",
+                "<li><IRSLink36/></li>",
+                "<li><IRSLink37/></li>",
+                "<li><IRSLink38/></li>",
+                "<li><IRSLink39/></li>",
+                "<li><IRSLink40/></li>",
+                "<li><IRSLink41/></li>",
+                "<li><IRSLink42/></li>",
+                "<li><IRSLink43/></li>",
+                "<li><IRSLink44/></li>",
+                "<li><IRSLink45/></li>",
+                "<li><IRSLink46/></li>",
+                "<li><IRSLink47/></li>",
+                "<li><IRSLink48/></li>",
+                "<li><IRSLink49/></li>",
+                "<li><IRSLink50/></li>",
+                "<li><IRSLink51/></li>",
+                "<li><IRSLink52/></li>",
+                "</ul>"
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Bankruptcy Estate (Individual)",
+                    "label": "Bankruptcy Estate (Individual)",
+                    "url": "glossary#bankruptcyEstateIndividual",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink2": {
+                    "text": "Block/Tenant Association",
+                    "label": "Block/Tenant Association",
+                    "url": "glossary#blockTenantAssociation",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink3": {
+                    "text": "Charitable Lead Annuity Trust",
+                    "label": "Charitable Lead Annuity Trust",
+                    "url": "glossary#charitableLeadAnnuityTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink4": {
+                    "text": "Charitable Lead Unitrust",
+                    "label": "Charitable Lead Unitrust",
+                    "url": "glossary#charitableLeadUnitrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink5": {
+                    "text": "Charitable Remainder Annuity Trust",
+                    "label": "Charitable Remainder Annuity Trust",
+                    "url": "glossary#charitableRemainderAnnuityTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink6": {
+                    "text": "Charitable Remainder Unitrust",
+                    "label": "Charitable Remainder Unitrust",
+                    "url": "glossary#charitableRemainderUnitrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink7": {
+                    "text": "Church",
+                    "label": "Church",
+                    "url": "glossary#church",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink8": {
+                    "text": "Church-Controlled Organization",
+                    "label": "Church-Controlled Organization",
+                    "url": "glossary#churchControlledOrg",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink9": {
+                    "text": "Community or Volunteer Group",
+                    "label": "Community or Volunteer Group",
+                    "url": "glossary#communityVolunteerGroup",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink10": {
+                    "text": "Conservatorship",
+                    "label": "Conservatorship",
+                    "url": "glossary#conservatorship",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink11": {
+                    "text": "Corporation",
+                    "label": "Corporation",
+                    "url": "glossary#corporation",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink12": {
+                    "text": "Custodianship",
+                    "label": "Custodianship",
+                    "url": "glossary#custodianship",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink13": {
+                    "text": "Employer Plan (401K, Money Purchase Plan, etc.)",
+                    "label": "Employer Plan (401K, Money Purchase Plan, etc.)",
+                    "url": "glossary#employerPlan",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink14": {
+                    "text": "Employer/Fiscal Agent (under IRC Sec 3504)",
+                    "label": "Employer/Fiscal Agent (under IRC Sec 3504)",
+                    "url": "glossary#employerFiscalAgent",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink15": {
+                    "text": "Escrow",
+                    "label": "Escrow",
+                    "url": "glossary#escrow",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink16": {
+                    "text": "Estate",
+                    "label": "Estate",
+                    "url": "glossary#estate",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink17": {
+                    "text": "Farmers' Cooperative",
+                    "label": "Farmers' Cooperative",
+                    "url": "glossary#farmerCooperative",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink18": {
+                    "text": "FNMA (Fannie Mae)",
+                    "label": "FNMA (Fannie Mae)",
+                    "url": "glossary#fnma",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink19": {
+                    "text": "GNMA (Ginnie Mae)",
+                    "label": "GNMA (Ginnie Mae)",
+                    "url": "glossary#gnma",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink20": {
+                    "text": "Government, Federal/Military",
+                    "label": "Government, Federal/Military",
+                    "url": "glossary#govFederalMilitary",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink21": {
+                    "text": "Government, Indian Tribal Governments",
+                    "label": "Government, Indian Tribal Governments",
+                    "url": "glossary#govIndianTribe",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink22": {
+                    "text": "Government, State/Local",
+                    "label": "Government, State/Local",
+                    "url": "glossary#govStateLocal",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink23": {
+                    "text": "Guardianship",
+                    "label": "Guardianship",
+                    "url": "glossary#guardianship",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink24": {
+                    "text": "Homeowners/Condo Association",
+                    "label": "Homeowners/Condo Association",
+                    "url": "glossary#hoa",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink25": {
+                    "text": "Household Employer",
+                    "label": "Household Employer",
+                    "url": "glossary#householdEmployer",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink26": {
+                    "text": "IRA",
+                    "label": "IRA",
+                    "url": "glossary#ira",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink27": {
+                    "text": "Irrevocable Trust",
+                    "label": "Irrevocable Trust",
+                    "url": "glossary#irrevocableTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink28": {
+                    "text": "Joint Venture",
+                    "label": "Joint Venture",
+                    "url": "glossary#jointVenture",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink29": {
+                    "text": "Memorial or Scholarship Fund",
+                    "label": "Memorial or Scholarship Fund",
+                    "url": "glossary#memorialScholarshipFund",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink30": {
+                    "text": "Multi-Member LLC",
+                    "label": "Multi-Member LLC",
+                    "url": "glossary#multiMemberLLC",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink31": {
+                    "text": "National Guard",
+                    "label": "National Guard",
+                    "url": "glossary#nationalGuard",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink32": {
+                    "text": "Other Non-Profit/Tax-Exempt Organizations",
+                    "label": "Other Non-Profit/Tax-Exempt Organizations",
+                    "url": "glossary#otherNonProfit",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink33": {
+                    "text": "Partnership",
+                    "label": "Partnership",
+                    "url": "glossary#partnership",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink34": {
+                    "text": "Personal Service Corporation",
+                    "label": "Personal Service Corporation",
+                    "url": "glossary#personalServiceCorp",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink35": {
+                    "text": "Plan Administrator",
+                    "label": "Plan Administrator",
+                    "url": "glossary#planAdmin",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink36": {
+                    "text": "Political Organization",
+                    "label": "Political Organization",
+                    "url": "glossary#politicalOrg",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink37": {
+                    "text": "Pooled Income Fund",
+                    "label": "Pooled Income Fund",
+                    "url": "glossary#pooledIncomeFund",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink38": {
+                    "text": "PTA/PTO or School Organization",
+                    "label": "PTA/PTO or School Organization",
+                    "url": "glossary#ptaPtoSchoolOrgs",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink39": {
+                    "text": "Qualified Funeral Trust",
+                    "label": "Qualified Funeral Trust",
+                    "url": "glossary#qualifiedFuneralTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink40": {
+                    "text": "Real Estate Investment Trust (REIT)",
+                    "label": "Real Estate Investment Trust (REIT)",
+                    "url": "glossary#reit",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink41": {
+                    "text": "Receivership",
+                    "label": "Receivership",
+                    "url": "glossary#receivership",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink42": {
+                    "text": "Regulated Investment Conduit (RIC)",
+                    "label": "Regulated Investment Conduit (RIC)",
+                    "url": "glossary#ric",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink43": {
+                    "text": "REMIC",
+                    "label": "REMIC",
+                    "url": "glossary#remic",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink44": {
+                    "text": "Revocable Trust",
+                    "label": "Revocable Trust",
+                    "url": "glossary#revocableTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink45": {
+                    "text": "S Corporation",
+                    "label": "S Corporation",
+                    "url": "glossary#sCorp",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink46": {
+                    "text": "Settlement Fund (under IRC Sec 468B)",
+                    "label": "Settlement Fund (under IRC Sec 468B)",
+                    "url": "glossary#settlementFund",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink47": {
+                    "text": "Single-Member LLC",
+                    "label": "Single-Member LLC",
+                    "url": "glossary#singleMemberLLC",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink48": {
+                    "text": "Social or Savings Club",
+                    "label": "Social or Savings Club",
+                    "url": "glossary#socialSavingsClub",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink49": {
+                    "text": "Sole Proprietor",
+                    "label": "Sole Proprietor",
+                    "url": "glossary#soleProprietor",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink50": {
+                    "text": "Sports Teams (community)",
+                    "label": "Sports Teams (community)",
+                    "url": "glossary#sportsTeam",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink51": {
+                    "text": "Trust (All Others)",
+                    "label": "Trust (All Others)",
+                    "url": "glossary#trustAllOthers",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink52": {
+                    "text": "Withholding Agent",
+                    "label": "Withholding Agent",
+                    "url": "glossary#withholdingAgent",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                }
+            }
+        },
+        "articlesOfIncorporation": {
+            "id": "articlesOfIncorporation",
+            "title": "Articles of Incorporation",
+            "additionalText": [
+                "Articles of incorporation must be filed with a state for a business to incorporate. To file, an applicant generally must include the name and address of the corporation, its general purpose, and the number and type of shares of stock to be issued. Each state has its own system of approval of articles, prohibits names which are confusingly similar to those of existing corporations, sets specific requirements for non-profits (charitable, religious, educational, public benefit, and so forth), and regulates the issuance of shares of stock."
+            ]
+        },
+        "articlesOfOrganization": {
+            "id": "articlesOfOrganization",
+            "title": "Articles of Organization",
+            "additionalText": [
+                "The articles of organization are the trust instrument, corporate charter, articles of association, or other written instrument by which the organization is created under state law."
+            ]
+        },
+        "authorizeThirdParty": {
+            "id": "authorizeThirdParty",
+            "title": "Authorize the Third Party",
+            "additionalText": [
+                "If a third party designee is completing the online application on behalf of the taxpayer, the taxpayer must authorize the third party to apply for and receive the EIN on his or her behalf, according to the process below:<br>",
+                "<ol><li>The taxpayer must sign a completed Form SS-4 (Application for Employer Identification Number), including the third party designee section, prior to the third party making the online application. A copy of the signed Form SS-4 must be retained in the third party's files.</li>",
+                "<li>The taxpayer must read and sign a statement that he/she understands that he/she is authorizing the third party to apply for and receive the EIN on his or her behalf, and to answer questions about completion of the form. A copy of the signed statement must be retained in the third party's files.</li>",
+                "<li>The assigned EIN will be disclosed to the third party upon successful completion of the online application.</li>",
+                "<li>The taxpayer will receive a computer-generated notice from the IRS stating that the EIN was assigned.</li></ol>"
+            ]
+        },
+        "bankingPurposes": {
+            "id": "bankingPurposes",
+            "title": "Banking Purposes",
+            "additionalText": [
+                "In order to open a bank account to deposit funds from a fundraising event, memorial fund, bowling league, or other non-business purpose, the bank may request an EIN be assigned for identification purposes."
+            ]
+        },
+        "bankruptcyEstateIndividual": {
+            "id": "bankruptcyEstateIndividual",
+            "title": "Bankruptcy Estate (Individual)",
+            "additionalText": [
+                "A bankruptcy estate is a separate and distinct taxable entity from the individual debtor, created when an individual debtor files for bankruptcy under Chapter 7 or 11. When an individual files for bankruptcy under these chapters of the bankruptcy code, a separate estate is created consisting of property held by the debtor as of the beginning of the case. Under some circumstances, this estate also consists of property acquired by the debtor and the estate after commencement of the case."
+            ]
+        },
+        "bankruptcyStartDate": {
+            "id": "bankruptcyStartDate",
+            "title": "Bankruptcy Start Date",
+            "additionalText": [
+                "The bankruptcy start date is the date in which the petition was filed for the bankrupt individual."
+            ]
+        },
+        "beneficiaryMaterialInterest": {
+            "id": "beneficiaryMaterialInterest",
+            "title": "Beneficiary Having a Material Interest",
+            "additionalText": [
+                "A beneficiary having a material interest is a person designated as the recipient of funds or other property under a trust or an estate."
+            ]
+        },
+        "blockTenantAssociation": {
+            "id": "blockTenantAssociation",
+            "title": "Block/Tenant Association",
+            "additionalText": [
+                "Block associations are made up of neighborhood residents who combine to promote the safety and general welfare, and work to preserve and improve the quality of life in their immediate community.<br><br>",
+                "Tenant associations (or tenant organizations) may be made up of tenants who live in a certain building or development or may be on a larger scale -- i.e. renters in a city who belong to a county or citywide tenant association."
+            ]
+        },
+        "boardMember": {
+            "id": "boardMember",
+            "title": "Board Member",
+            "additionalText": [
+                "A board member is a person chosen to make executive or managerial decisions for an organization."
+            ]
+        },
+        "caseNumber": {
+            "id": "caseNumber",
+            "title": "Case Number",
+            "additionalText": [
+                "This is the number assigned to each case by the court. This number is used to assist court personnel in locating the file."
+            ]
+        },
+        "chapter11": {
+            "id": "chapter11",
+            "title": "Chapter 11",
+            "additionalText": [
+                "Chapter 11 -- Reorganization: This is a bankruptcy case in which debtors, whether individuals, corporations, or partnerships, are allowed to restructure (reorganize) their debts rather than liquidating their business. They do this by reducing the amount of debt and/or by extending the time for payment of debts.<br>",
+                "<p>To be confirmed by the bankruptcy court, the reorganization plan must be proposed in good faith and the creditors must be paid at minimum an amount equal to what they would have received had the case been filed as a Chapter 7 liquidation bankruptcy.</p>",
+                "The debtor usually remains in possession of the assets (called a debtor-in-possession or DIP) and has all the fiduciary duties and responsibilities of a trustee owed to general creditors. A trustee can be appointed by the bankruptcy court if the creditor can show cause. In a Chapter 11 case, a debtor may also choose to liquidate his or her assets."
+            ]
+        },
+        "chapter12Or13": {
+            "id": "chapter12Or13",
+            "title": "Chapter 12 or 13",
+            "additionalText": [
+                "Chapter 12 -- Adjustment of Debts of a Family Farmer with Regular Annual Income. This is a chapter designed to enable a debtor who is a family farmer to reorganize rather than liquidate his or her farming operation. A family farm can be a sole proprietorship, a partnership, or a closely held corporation. Under Chapter 12, a trustee is appointed by the U.S. Trustee to act in each case. The debtor proposes a plan of reorganization to repay creditors. The bankruptcy code limits the amount and percentage of debt allowed under this plan, as well as the income derived from farming operations.<br><br>",
+                "Chapter 13 -- Adjustment of Debts of an Individual with Regular Income. Only individuals, including self-employed individuals, with regular income may file for bankruptcy under this chapter. There are specific limits as to the kind and amount of debt that an individual may have to qualify. In Chapter 13, the debtor makes regular payments to creditors through the trustee under a plan. The debtor has 3 to 5 years in which to execute the plan and pay off creditors, after which he or she will be discharged of the debt. Chapter 13 petitions must be voluntary."
+            ]
+        },
+        "chapter7": {
+            "id": "chapter7",
+            "title": "Chapter 7",
+            "additionalText": [
+                "Chapter 7 of the Bankruptcy Code (Liquidation) is a bankruptcy case in which the debtor turns over all non-exempt property to the bankruptcy trustee, who then converts it to cash for distribution to the creditors."
+            ]
+        },
+        "charitableLeadAnnuityTrust": {
+            "id": "charitableLeadAnnuityTrust",
+            "title": "Charitable Lead Annuity Trust",
+            "additionalText": [
+                "A charitable lead annuity trust is one form of a charitable lead trust. The overarching term \"charitable lead trust\" refers to an arrangement in which property income or investment income is given to a charity while the grantor is living, but the principal passes to other designated parties upon the grantor's death.<br><br>",
+                "In a charitable lead annuity trust, the trust pays a fixed percentage of the initial value of its assets to the charity for the charitable term."
+            ]
+        },
+        "charitableLeadUnitrust": {
+            "id": "charitableLeadUnitrust",
+            "title": "Charitable Lead Unitrust",
+            "additionalText": [
+                "A charitable lead unitrust is one form of a charitable lead trust. The overarching term \"charitable lead trust\" refers to an arrangement in which property income or investment income is given to a charity while the grantor is living, but the principal passes to other designated parties upon the grantor's death.<br><br>",
+                "In a charitable lead unitrust, the trust pays a percentage of the value of its assets, determined annually, to a charity for the charitable term."
+            ]
+        },
+        "charitableRemainderAnnuityTrust": {
+            "id": "charitableRemainderAnnuityTrust",
+            "title": "Charitable Remainder Annuity Trust",
+            "additionalText": [
+                "A charitable remainder annuity trust is one form of a charitable remainder trust. The overarching term \"charitable remainder trust\" refers to an arrangement in which property or money is donated to a charity, but the donor (called the grantor) continues to use the property and/or receive income from it while living.<br><br>",
+                "In a charitable remainder annuity trust, the trust pays a fixed dollar amount to charity annually."
+            ]
+        },
+        "charitableRemainderUnitrust": {
+            "id": "charitableRemainderUnitrust",
+            "title": "Charitable Remainder Unitrust",
+            "additionalText": [
+                "A charitable remainder unitrust is one form of a charitable remainder trust. The overarching term \"charitable remainder trust\" refers to an arrangement in which property or money is donated to a charity, but the donor (called the grantor) continues to use the property and/or receive income from it while living.<br><br>",
+                "In a charitable remainder unitrust, the trust pays a fixed percentage of its value to charity annually."
+            ]
+        },
+        "church": {
+            "id": "church",
+            "title": "Church",
+            "additionalText": [
+                "For tax purposes, a \"church\" refers to any organization claiming to be a church or any convention or association of churches. The word \"church\" includes temples, mosques, and other houses of worship. To be considered a church for tax purposes, a group must be part of an organized religion, must have a mission statement, and must be formally organized as a distinct legal entity. Certain characteristics are generally attributed to churches. They include:<br>",
+                "<ul><li>A distinct legal existence and religious history</li>",
+                "<li>A recognized creed, form of worship, and literature of its own</li>",
+                "<li>A definite and distinct ecclesiastical government including a formal code of doctrine and discipline</li>",
+                "<li>An organization of ordained ministers, selected after completing prescribed courses of study</li>",
+                "<li>Established places of worship with regular congregations, religious services, and/or religious instruction for members.</li></ul>"
+            ]
+        },
+        "churchControlledOrg": {
+            "id": "churchControlledOrg",
+            "title": "Church-Controlled Organization",
+            "additionalText": [
+                "A church-controlled organization is a branch of a church, including a men's or women's group, a religious school, a mission society, or a youth group."
+            ]
+        },
+        "closingMonthAccountingYear": {
+            "id": "closingMonthAccountingYear",
+            "title": "Closing Month of Account Year",
+            "additionalText": [
+                "The closing month of the accounting year is the last month of your accounting year or tax year. An accounting or tax year is usually 12 consecutive months, based on either a calendar year or a fiscal year (including a period of 52 or 53 weeks).<br><br>",
+                "A calendar year is 12 consecutive months ending on December 31. A fiscal year is either 12 consecutive months ending on the last day of any month (other than December) or a special 52-53 week year ending on a fixed day of the week (for example, the last Friday in March rather than March 31). For more information on accounting periods, see Pub. 538."
+            ]
+        },
+        "communityVolunteerGroup": {
+            "id": "communityVolunteerGroup",
+            "title": "Community or Volunteer Group",
+            "additionalText": [
+                "A community or volunteer group is any specialized interest group that comes together to provide volunteer services. Examples of community or volunteer groups include neighborhood watch groups and preservation societies. These groups generally apply for EINs for banking purposes only."
+            ]
+        },
+        "conservatorship": {
+            "id": "conservatorship",
+            "title": "Conservatorship",
+            "additionalText": [
+                "A conservatorship is a trust created as the result of a legal process in which the court appoints an individual or organization to make financial decisions for another person who is determined to be financially incapable of making those decisions. A person under conservatorship is a conservatee or protected person."
+            ]
+        },
+        "construction": {
+            "id": "construction",
+            "title": "Construction",
+            "additionalText": [
+                "The construction category includes the building of:<br>",
+                "<ul><li>Residential structures (houses, apartments)</li>",
+                "<li>Industrial structures (factories, mills)</li>",
+                "<li>Commercial and institutional structures (airports, malls)</li></ul>",
+                "<p>It also includes additions, alterations, maintenance, and repair of these structures.</p>",
+                "<p>The Construction category also includes specialty trade and remodeling contractors, including those involved in:</p>",
+                "<ul><li>Heavy construction (road, utility lines)</li>",
+                "<li>Land subdivision</li>",
+                "<li>Site preparation activity</li></ul>"
+            ]
+        },
+        "corporateOfficer": {
+            "id": "corporateOfficer",
+            "title": "Corporate Officer",
+            "additionalText": [
+                "A corporate officer (the corporation's president, vice-president, treasurer, chief accounting officer, etc.) is duly authorized by the corporation to bind it (to sign a contract that obligates the corporation to another party) in accordance with applicable state law."
+            ]
+        },
+        "corporateStatus": {
+            "id": "corporateStatus",
+            "title": "Corporate Status",
+            "additionalText": [
+                "Corporate status means that you elect to file a corporate income tax return for your Limited Liability Company."
+            ]
+        },
+        "corporation": {
+            "id": "corporation",
+            "title": "Corporation",
+            "additionalText": [
+                "A corporation is a legal entity established by a charter granting it certain legal powers, rights, privileges, and liabilities. A corporation can be established by a person or group of people with a charter from the state's secretary of state. After a corporation is created, it becomes its own entity and generally has an indefinite lifespan."
+            ]
+        },
+        "countyWhereEstateProbated": {
+            "id": "countyWhereEstateProbated",
+            "title": "County where Estate is Probated",
+            "additionalText": [
+                "This is the region of a state that was the decedent's legal residence at the time of death."
+            ]
+        },
+        "custodianship": {
+            "id": "custodianship",
+            "title": "Custodianship",
+            "additionalText": [
+                "A custodianship is a trust set up for a minor or incapacitated person."
+            ]
+        },
+        "dateBusinessStartedAcquired": {
+            "id": "dateBusinessStartedAcquired",
+            "title": "Date Business Started or Acquired",
+            "additionalText": [
+                "This is the date on which the entity began doing business. If you are starting a new business, enter the starting date of the business. If the business you acquired is already operating, enter the date you acquired the business. If you are changing the form of ownership of your business, enter the date the new ownership entity began."
+            ]
+        },
+        "dateCorpStartedAcquired": {
+            "id": "dateCorpStartedAcquired",
+            "title": "Date Corporation Started or Acquired",
+            "additionalText": [
+                "This is the date your corporation was officially formed and approved by your state secretary's office, or the date you officially acquired a corporation through your state secretary's office."
+            ]
+        },
+        "dateEstateCreated": {
+            "id": "dateEstateCreated",
+            "title": "Date Estate Created/Funded/Probated",
+            "additionalText": [
+                "Estates should enter the date of death of the decedent or the date when the estate was legally funded."
+            ]
+        },
+        "dateTrustFunded": {
+            "id": "dateTrustFunded",
+            "title": "Date Trust Funded",
+            "additionalText": [
+                "For a trust to become funded, title to the grantor's assets must be transferred into the trust. For example, title to any bank accounts, stock certificates, or real estate owned by the grantor must be transferred into the trust. The date this was done is the date the trust was funded."
+            ]
+        },
+        "debtorInPossession": {
+            "id": "debtorInPossession",
+            "title": "Debtor-in-Possession",
+            "additionalText": [
+                "The debtor in a Chapter 11 reorganization when the debtor remains in full control of all the assets and is charged with the duties and responsibilities of a trustee to maximize the assets of the estate for the benefit of all creditors."
+            ]
+        },
+        "disregardedEntity": {
+            "id": "disregardedEntity",
+            "title": "Disregarded Entity",
+            "additionalText": [
+                "A disregarded entity is a single member Limited Liability Company (LLC) that reports its income as a sole proprietorship."
+            ]
+        },
+        "employerFiscalAgent": {
+            "id": "employerFiscalAgent",
+            "title": "Employer/Fiscal Agent (under IRC Sec 3504)",
+            "additionalText": [
+                "An employer/fiscal agent under Internal Revenue Code (IRC) Sec 3504 is an agent for a disabled person. This agent takes care of employment taxes for which the disabled individual is responsible. These taxes are the result of the disabled person using federal, state, or local government funds to pay for their own home care."
+            ]
+        },
+        "employerPlan": {
+            "id": "employerPlan",
+            "title": "Employer Plan (401K, Money Purchase Plan, etc.)",
+            "additionalText": [
+                "A permanent arrangement under which an employer provides benefits for employees."
+            ]
+        },
+        "equityREIT": {
+            "id": "equityREIT",
+            "title": "Equity REIT",
+            "additionalText": [
+                "An equity REIT is a real estate investment trust that primarily invests in income-producing real estate."
+            ]
+        },
+        "escrow": {
+            "id": "escrow",
+            "title": "Escrow",
+            "additionalText": [
+                "Escrow is a legal arrangement whereby an asset (often money, but sometimes other property such as art, a deed of title, website, or software source code) is delivered to a third party (called an escrow agent) to be held in trust pending a contingency or the fulfillment of a condition or conditions in a contract. When the set condition or conditions are met, the escrow agent delivers the asset to the proper recipient; otherwise the escrow agent is bound by his or her fiduciary duty to maintain the escrow account."
+            ]
+        },
+        "estate": {
+            "id": "estate",
+            "title": "Estate",
+            "additionalText": [
+                "An estate (or decedent estate) or succession is a legal entity created as a result of a person's death. The estate consists of the real estate and/or personal property of the deceased person. The estate pays any debts owed by the decedent and distributes the balance of the estate's assets to the beneficiaries of the estate."
+            ]
+        },
+        "exciseTaxReturn": {
+            "id": "exciseTaxReturn",
+            "title": "Excise Tax Return",
+            "additionalText": [
+                "You are responsible to file a Form 720, Federal Quarterly Excise Tax Return, if your business is involved in one of the following activities:<br>",
+                "<ul><li>Does your business involve the sale of local telephone service, toll telephone service, or teletypewriter exchange services?</li>",
+                "<li>Do you transport persons or property by air for compensation, including the officers and employees of your business?</li>",
+                "<li>Does your business own or lease an aircraft or a fraction of an aircraft?</li>",
+                "<li>Does your business mine coal (underground or surface)?</li>",
+                "<li>Does your business sell the tires you manufacture?</li>",
+                "<li>Does your business import vehicles that do not meet the standards for fuel economy?</li>",
+                "<li>Does your business sell or use vaccines that were manufactured, produced, or shipped from another country into the United States?</li>",
+                "<li>Does your business manufacture sport fishing equipment, fishing rods, fishing poles, electric outboard motors, bows, quivers, broadheads, points, or arrow shafts?</li>",
+                "<li>Does your business pay premiums to a broker or to an insurer located in a foreign country?</li>",
+                "<li>Does your business structure include a captive insurance company which is located in a foreign country?</li>",
+                "<li>Does your business operate a refinery that receives crude oil, or have a person that enters the petroleum product for consumption, use, or warehousing?</li>",
+                "<li>Does your business manufacture or import ozone depleting chemicals?</li>",
+                "<li>Does your business import electronic or foam items manufactured in a foreign country?</li>",
+                "<li>Are you liable for diesel fuel, kerosene, or gasoline removal from the mechanism used to dispense motor fuel products from the terminal into tank trucks or rail cars?</li>",
+                "<li>Does your business sell truck chassis, truck bodies, semi-trailer chassis, or tractors?</li>",
+                "<li>Does your business operate a commercial ship or transport passengers that engage in gambling aboard a ship beyond territorial waters of the United States that you own?</li>",
+                "<li>Does your business involve bearer bonds or obligations that are not in a registered form?</li>",
+                "<li>Does your business acquire directly or indirectly structured settlement payment rights in a structured settlement factoring transaction entered into after February 21, 2002?</li></ul>"
+            ]
+        },
+        "executor": {
+            "id": "executor",
+            "title": "Executor",
+            "additionalText": [
+                "The executor is a person named in a will who manages the estate of a deceased individual."
+            ]
+        },
+        "executorAdministrator": {
+            "id": "executorAdministrator",
+            "title": "Executor/Administrator",
+            "additionalText": [
+                "An executor is a person named in a will who is authorized to manage the estate of the deceased person. The executor will collect the property, pay off any debts, and distribute property and assets according to the terms of the will.<br><br>",
+                "An administrator is a court-appointed individual who manages the estate of a deceased person who has died without a will."
+            ]
+        },
+        "existingBusiness": {
+            "id": "existingBusiness",
+            "title": "Existing Business",
+            "additionalText": [
+                "An existing business is any organization or other legal structure, including partnerships, corporations, LLCs, trusts, etc. That organization is identified by its legal name and valid EIN."
+            ]
+        },
+        "farmerCooperative": {
+            "id": "farmerCooperative",
+            "title": "Farmer's Cooperative",
+            "additionalText": [
+                "A farmers' cooperative is a farmers', fruit growers', or like association organized and operated on a cooperative basis to:<br>",
+                "<ul><li>Market the products of members or other producers and return to them the proceeds of sales, less necessary marketing expenses, or</li>",
+                "<li>Purchase supplies and equipment for the use of members or other persons and turn over the supplies and equipment to them at actual cost, plus necessary expenses.</li></ul>",
+                "Members in a cooperative share in the profits and participate in the management of the association."
+            ]
+        },
+        "fiduciary": {
+            "id": "fiduciary",
+            "title": "Fiduciary",
+            "additionalText": [
+                "A person or institution entrusted to act in behalf of a taxpayer. These include a trustee of a trust or executor, administrator, personal representative, or person in possession of property of a decedent's estate."
+            ]
+        },
+        "finance": {
+            "id": "finance",
+            "title": "Finance",
+            "additionalText": [
+                "The finance category includes establishments engaged in financial transactions involving the creation, liquidation, or change of ownership of financial assets. Examples include companies involved in:<br>",
+                "<ul><li>Banking</li>",
+                "<li>Sales financing</li>",
+                "<li>Issuance of credit cards</li>",
+                "</ul>",
+                "<p>Also included are:</p>",
+                "<ul><li>Mortgage companies and mortgage brokers</li>",
+                "<li>Securities brokers</li>",
+                "<li>Firms offering investment advice</li>",
+                "<li>Firms offering trust administration</li>",
+                "<li>Funds and trusts set up for the purpose of collecting and distributing money</li></ul>"
+            ]
+        },
+        "fnma": {
+            "id": "fnma",
+            "title": "FNMA (Fannie Mae)",
+            "additionalText": [
+                "The Federal National Mortgage Association (FNMA), commonly known as \"Fannie Mae,\" is a financial services company serving the home mortgage industry. The company offers banks and other mortgage lenders financing, credit guarantees, technology, and services so lenders can make more home loans to more customers. It is a private, shareholder-owned company formed with a charter from Congress that requires it to support the housing finance system."
+            ]
+        },
+        "foodService": {
+            "id": "foodService",
+            "title": "Food Service",
+            "additionalText": [
+                "The food services category includes all types of food services such as:<br>",
+                "<ul><li>Restaurants</li>",
+                "<li>Fast-food restaurants</li>",
+                "<li>Delis</li>",
+                "<li>Ice cream shops</li>",
+                "<li>Bars</li>",
+                "<li>Coffee shops</li>",
+                "<li>Mobile food services and caterers</li></ul>"
+            ]
+        },
+        "form1040": {
+            "id": "form1040",
+            "title": "Form 1040 (U.S. Individual Income Tax Return)",
+            "additionalText": [
+                "Use Form 1040 (U.S. Individual Income Tax Return) to file your annual individual income tax return.<br>",
+                "<p>To view these forms, click the following links:</p>",
+                "<ul><li><IRSLink1/></li>",
+                "<li><IRSLink2/></li></ul>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 1040",
+                    "label": "Download form 1040",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1040.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 1040 Instructions",
+                    "label": "Download form 1040 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf"
+                }
+            }
+        },
+        "form1040CEF": {
+            "id": "form1040CEF",
+            "title": "Form 1040 (U.S. Individual Income Tax Return), Schedule C, E, or F",
+            "additionalText": [
+                "Use Form 1040 (U.S. Individual Income Tax Return) to file your annual individual income tax return.<br>",
+                "<p>Use Schedule C (Profit or Loss from Business) to report income or loss from a business you operated or a profession you practiced as a sole proprietor.</p>",
+                "<p>Use Schedule E (Supplemental Income and Loss) to report income or loss from rental real estate, royalties, partnerships, S corporations, estates, trusts, and residual interests in REMICs.</p>",
+                "<p>Use Schedule F (Profit or Loss from Farming) to report farm income and expenses.</p>",
+                "<p>To view these forms, click the following links:</p>",
+                "<ul><li><IRSLink1/></li>",
+                "<li><IRSLink2/></li>",
+                "<li><IRSLink3/></li>",
+                "<li><IRSLink4/></li>",
+                "<li><IRSLink5/></li>",
+                "<li><IRSLink6/></li>",
+                "<li><IRSLink7/></li>",
+                "<li><IRSLink8/></li></ul>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 1040",
+                    "label": "Download form 1040",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1040.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 1040 Instructions",
+                    "label": "Download form 1040 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf"
+                },
+                "IRSLink3": {
+                    "text": "Form 1040 Schedule C",
+                    "label": "Download form 1040 schedule C",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1040sc.pdf"
+                },
+                "IRSLink4": {
+                    "text": "Form 1040 Schedule C Instructions",
+                    "label": "Download form 1040 schedule C instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1040sc.pdf"
+                },
+                "IRSLink5": {
+                    "text": "Form 1040 Schedule E",
+                    "label": "Download form 1040 schedule E",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1040se.pdf"
+                },
+                "IRSLink6": {
+                    "text": "Form 1040 Schedule E Instructions",
+                    "label": "Download form 1040 schedule E instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1040se.pdf"
+                },
+                "IRSLink7": {
+                    "text": "Form 1040 Schedule F",
+                    "label": "Download form 1040 schedule F",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1040sf.pdf"
+                },
+                "IRSLink8": {
+                    "text": "Form 1040 Schedule F Instructions",
+                    "label": "Download form 1040 schedule F instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1040sf.pdf"
+                }
+            }
+        },
+        "form1040H": {
+            "id": "form1040H",
+            "title": "Form 1040 (U.S. Individual Income Tax Return), Schedule H",
+            "additionalText": [
+                "Use Form 1040 (U.S. Individual Income Tax Return) to file your annual individual income tax return. Use Schedule H (Household Employment Taxes) to report your household employment taxes.<br>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 1040 Schedule H",
+                    "label": "Download form 1040 schedule H",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1040sh.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 1040 Schedule H Instructions",
+                    "label": "Download form 1040 schedule H instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1040sh.pdf"
+                }
+            }
+        },
+        "form1041": {
+            "id": "form1041",
+            "title": "Form 1041",
+            "additionalText": [
+                "The fiduciary (representative) of a deceased U.S. citizen's estate, trust, or bankruptcy estate uses Form 1041 (U.S. Income Tax Return for Estates and Trusts) to report:<br>",
+                "<ul><li>The income, deductions, gains, losses, etc. of the organization the fiduciary represents</li>",
+                "<li>The income that is either accumulated or held for future distribution or distributed currently to the beneficiaries</li>",
+                "<li>Any income tax liability of the estate or trust</li>",
+                "<li>Employment taxes on wages paid to household employees</li></ul>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 1041",
+                    "label": "Download form 1041",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1041.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 1041 Instructions",
+                    "label": "Download form 1041 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1041.pdf"
+                }
+            }
+        },
+        "form1042": {
+            "id": "form1042",
+            "title": "Form 1042",
+            "additionalText": [
+                "Use Form 1042 (Annual Withholding Tax Return for U.S. Source Income of Foreign Persons) to report tax withheld on certain income of foreign persons, including nonresident aliens, foreign partnerships, foreign corporations, foreign estates, and foreign trusts.<br>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 1042",
+                    "label": "Download form 1042",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1042.pdf"
+                }
+            }
+        },
+        "form1120SF": {
+            "id": "form1120SF",
+            "title": "Form 1120-SF",
+            "additionalText": [
+                "Use Form 1120-SF (U.S. Income Tax Return for Settlement Funds) to report transfers received, income earned, deductions claimed, distributions made, and to figure the income tax liability of a designated or qualified settlement fund.<br>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 1120-SF",
+                    "label": "Download form 1120-SF",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1120sf.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 1120-SF Instructions",
+                    "label": "Download form 1120-SF instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1120sf.pdf"
+                }
+            }
+        },
+        "form1128": {
+            "id": "form1128",
+            "title": "Form 1128",
+            "additionalText": [
+                "Use Form 1128 (Application to Adopt, Change, or Retain a Tax Year) to adopt, change, or retain a tax year under Revenue Procedure 87-32 for all entity types (individuals, partnerships, estates, domestic corporations, tax-exempt organizations, etc.)<br>",
+                "<p>This form is most commonly used for Form 1120 or 1120S, but is also valid to change the tax year on various other forms, including Forms 1041, 1065, and 990.</p>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 1128",
+                    "label": "Download form 1128",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f1128.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 1128 Instructions",
+                    "label": "Download form 1128 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i1128.pdf"
+                }
+            }
+        },
+        "form2553": {
+            "id": "form2553",
+            "title": "Form 2553",
+            "additionalText": [
+                "Use Form 2553 (Election by a Small Business Corporation) to apply for S corporation status.<br>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 2553",
+                    "label": "Download form 2553",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f2553.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 2553 Instructions",
+                    "label": "Download form 2553 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i2553.pdf"
+                }
+            }
+        },
+        "form720": {
+            "id": "form720",
+            "title": "What is Form 720?",
+            "additionalText": [
+                "Use Form 720 (Quarterly Federal Excise Tax Return) to report and pay excise tax.<br>",
+                "<p>To view this form, click <IRSLink1/></p>",
+                "<p>Download the instructions for this form here: <IRSLink2/></p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 720",
+                    "label": "Download form 720",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f720.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 720 Instructions",
+                    "label": "Download form 720 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i720.pdf"
+                }
+            }
+        },
+        "form8716": {
+            "id": "form8716",
+            "title": "Form 8716",
+            "additionalText": [
+                "Use Form 8716 (Election to Have a Tax Year Other Than a Required Tax Year) to change, retain, or adopt a fiscal year under Section 444 of the IRS code.<br>",
+                "<p>Using Form 8716, partnerships, S corporations, and personal service corporations can elect to use a taxable year that is not a required year.</p>",
+                "<p>Once a Section 444 election is made, electing partnerships and S corporations must file Form 8752 (Required Payment or Refund under Section 7519).</p>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 8716",
+                    "label": "Download form 8716",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f8716.pdf"
+                }
+            }
+        },
+        "form8832": {
+            "id": "form8832",
+            "title": "Form 8832",
+            "additionalText": [
+                "Use Form 8832 (Entity Classification Election) to apply to change the classification of your organization.<br>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 8832",
+                    "label": "Download form 8832",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f8832.pdf"
+                }
+            }
+        },
+        "form8871": {
+            "id": "form8871",
+            "title": "Form 8871 under Sec 527",
+            "additionalText": [
+                "Political organizations use Form 8871 (Political Organization Notice of Section 527 Status) to notify the IRS that the organization is to be treated as a tax-exempt Section 527 organization.<br>",
+                "<p>Download the instructions for this form here: <IRSLink1/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 8871 Instructions",
+                    "label": "Download form 8871 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i8871.pdf"
+                }
+            }
+        },
+        "form941": {
+            "id": "form941",
+            "title": "Form 941",
+            "additionalText": [
+                "Employers use Form 941 to:<br>",
+                "<ul><li>Report income taxes, Social Security tax, Medicare tax and additional Medicare tax withheld from employee's wages, tips and other compensation.</li>",
+                "<li>Claim employment tax credits and adjustments</li>",
+                "<li>Report the amount of employment taxes owed or claim an overpayment of employment taxes.</li></ul>",
+                "<p>If the IRS advises the employer to file Form 941 quarterly, they must do so</p>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 941",
+                    "label": "Download form 941",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f941.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 941 Instructions",
+                    "label": "Download form 941 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i941.pdf"
+                }
+            }
+        },
+        "form944": {
+            "id": "form944",
+            "title": "Form 944",
+            "additionalText": [
+                "This form is for employers who owe $1,000 or less. It allows them to report employment tax liabilities only once a year, instead of quarterly.<br>",
+                "<p>This form can't be used unless an employer receives official IRS notification that they are eligible to use this form.</p>",
+                "<p>Once the employer receives notice they can file Form 944, they must file this form every year.</p>",
+                "<p>They must continue to file Form 944, regardless of the tax they owe, unless the IRS notifies them differently.</p>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 944",
+                    "label": "Download form 945",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f944.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 944 Instructions",
+                    "label": "Download form 945 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i944.pdf"
+                }
+            }
+        },
+        "form945": {
+            "id": "form945",
+            "title": "Form 945",
+            "additionalText": [
+                "Use Form 945 (Annual Return of Withheld Federal Income Tax) to report withheld federal income tax from non-payroll payments. Non-payroll payments include the following:<br>",
+                "<ul><li>Backup withholding</li>",
+                "<li>Pensions and annuities</li>",
+                "<li>IRAs</li>",
+                "<li>Military retirement</li>",
+                "<li>Gambling winnings</li>",
+                "<li>Withholding on government payments</li>",
+                "<li>Indian Gaming Profits</li></ul>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 945",
+                    "label": "Download form 945",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f945.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 945 Instructions",
+                    "label": "Download form 945 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i945.pdf"
+                }
+            }
+        },
+        "form990T": {
+            "id": "form990T",
+            "title": "Form 990-T",
+            "additionalText": [
+                "Exempt organizations subject to the tax on unrelated business income use Form 990-T (Exempt Organization Business Income Tax Return). The obligation to file Form 990-T and any required supporting schedules and forms is in addition to the obligation to file any other required returns.<br>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form 990-T",
+                    "label": "Download form 990-T",
+                    "url": "https://www.irs.gov/pub/irs-pdf/f990t.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form 990-T Instructions",
+                    "label": "Download form 990-T instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/i990t.pdf"
+                }
+            }
+        },
+        "formSS4": {
+            "id": "formSS4",
+            "title": "Form SS-4",
+            "additionalText": [
+                "Use Form SS-4 (Application for Employer Identification Number) to apply for an employer identification number (EIN).<br>",
+                "<p>To view this form, click here: <IRSLink1/>.</p>",
+                "<p>Download the instructions for this form here: <IRSLink2/>. However, please do not complete this form now, as your session will time out.</p>",
+                "Important: If you receive an EIN using our EIN Assistant, do not complete a Form SS-4 for the same organization. You should only complete Form SS-4 if you decide to mail or fax in an application for an EIN."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form SS-4",
+                    "label": "Download form SS-4",
+                    "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form SS-4 Instructions",
+                    "label": "Download form SS-4 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/iss4.pdf"
+                }
+            }
+        },
+        "formW2": {
+            "id": "formW2",
+            "title": "Form W-2",
+            "additionalText": [
+                "A Form W-2 (Wage and Tax Statement) is issued by an employer to his or her employees showing taxes deducted from their yearly pay. Taxes covered on the W-2 are: federal income tax, Social Security tax and Medicare tax.<br>",
+                "<p>To view this form, click <IRSLink1/></p>",
+                "<p>Download the instructions for this form here: <IRSLink2/></p>",
+                "However, please do not complete this form now, as your session will time out."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Form W-2",
+                    "label": "Download form W-2",
+                    "url": "https://www.irs.gov/pub/irs-pdf/fw2.pdf"
+                },
+                "IRSLink2": {
+                    "text": "Form W-2 Instructions",
+                    "label": "Download form W-2 instructions",
+                    "url": "https://www.irs.gov/pub/irs-pdf/iw2w3.pdf"
+                }
+            }
+        },
+        "gamblingWagering": {
+            "id": "gamblingWagering",
+            "title": "Gambling/Wagering",
+            "additionalText": [
+                "You are in the business of gambling or wagering if you:<br>",
+                "<ul><li>Are in the business of accepting wagers</li>",
+                "<li>Conduct a wagering pool or lottery, or</li>",
+                "<li>Are required to be registered and received wagers for or on behalf of another person, but did not report that person's name and address.</li></ul>",
+                "Examples include Keno Writers, Blackjack dealers, lotteries conducted for profit (including the numbers game), policy, punch boards, and similar types of wagering."
+            ]
+        },
+        "generalPartner": {
+            "id": "generalPartner",
+            "title": "General Partner",
+            "additionalText": [
+                "A general partner is a partner (either an individual or a business entity) who shares both the financial risks and the profits of the partnership."
+            ]
+        },
+        "gnma": {
+            "id": "gnma",
+            "title": "GNMA (Ginnie Mae)",
+            "additionalText": [
+                "The Government National Mortgage Association (GNMA), commonly known as \"Ginnie Mae,\" was created by the federal government as a wholly owned corporation within the U.S. Department of Housing and Urban Development (HUD). Its main purpose is to provide financial assistance to low or moderate income homebuyers by promoting mortgage credit.<br><br>",
+                "GNMA pools channel funds from the securities market into the mortgage market and help increase the supply of credit available for housing. The investors receive a monthly pass-through of principle and interest payments on the pooled mortgages."
+            ]
+        },
+        "govFederalMilitary": {
+            "id": "govFederalMilitary",
+            "title": "Government, Federal/Military",
+            "additionalText": [
+                "The Federal Government/Military category applies to:<br>",
+                "<ul><li>All U.S. Government executive departments, agencies of the U.S. Government, and corporations wholly or principally owned by the U.S. Government</li>",
+                "<li>All regular and reserve units of the U.S. Armed Forces, controlled by the Secretaries of Defense, the Army, Navy, and Air Force. This includes the Coast Guard and the National Guard, but not the U.S. Merchant Marine or the American Red Cross</li>",
+                "<li>Military social clubs, including officers' clubs, enlisted men's clubs, NCO Clubs, officers' open messes, NCO's open messes, billeting funds, etc. These groups generally apply for an EIN for banking purposes only.</li></ul>"
+            ]
+        },
+        "govIndianTribe": {
+            "id": "govIndianTribe",
+            "title": "Government, Indian Tribal Governments",
+            "additionalText": [
+                "For tax purposes, federally recognized Indian tribes are treated as independent governments and are generally taxed in the same manner as state or local governments.<br><br>",
+                "There are over 500 federally recognized Indian tribes in the United States. You can find a complete list of these tribes in Revenue Procedure 2002-64. They pay employment taxes, file information returns, and pay certain excise taxes. Indian tribes are generally not subject to federal income tax. This is true for the tribe, as well as any subdivisions or branches of the tribe."
+            ]
+        },
+        "govStateLocal": {
+            "id": "govStateLocal",
+            "title": "Government, State/Local",
+            "additionalText": [
+                "Governments generally have the authority to create and enforce laws and impose taxes. A unit of state government has the authority to exercise powers specified under the state's constitution. Examples of primary responsibility of a state include:<br>",
+                "<ul><li>Protection of lives and property by maintenance of a police force</li>",
+                "<li>Regulation and improvement of transportation within the state</li>",
+                "<li>Regulation of business within the state</li>",
+                "<li>Education</li></ul>",
+                "<p>Local governments are usually subdivisions of states and are created by charter. They generally provide services as specified under state law for a specific area. Types of local government entities include:</p>",
+                "<ul><li>Municipalities (may be called cities, towns, villages, etc.)</li>",
+                "<li>Counties or parishes</li>",
+                "<li>Special districts (schools, fire protection, water, etc.)</li>",
+                "<li>Regional authorities (transportation, conservation, etc.)</li></ul>",
+                "Local governments also include instrumentalities controlled by governments, such as city or county hospitals, recreation centers, etc."
+            ]
+        },
+        "grantor": {
+            "id": "grantor",
+            "title": "Grantor",
+            "additionalText": [
+                "A grantor is a person or organization that creates or funds a trust. The person or organization may retain control over all portions of the trust, which may result in the grantor being subject to tax on the income from that portion of the trust."
+            ]
+        },
+        "guardianship": {
+            "id": "guardianship",
+            "title": "Guardianship",
+            "additionalText": [
+                "A guardian is a person who has the legal authority (and the corresponding duty) to care for the personal and property interests of another person, called a ward. Usually, a person has the status of guardian because the ward is incapable of caring for his or her own interests due to infancy, incapacity, or disability. Generally, the parents of a minor child are the legal guardians of that child and can designate who shall become the child's legal guardian in the event of their death."
+            ]
+        },
+        "healthCare": {
+            "id": "healthCare",
+            "title": "Health Care",
+            "additionalText": [
+                "The health care category includes:<br>",
+                "<ul><li>Doctors</li>",
+                "<li>Mental health specialists</li>",
+                "<li>Hospitals</li>",
+                "<li>Outpatient care centers</li>",
+                "<li>Residential care facilities</li>",
+                "<li>Mental health and substance abuse treatment centers</li></ul>"
+            ]
+        },
+        "highwayMotorVehicle": {
+            "id": "highwayMotorVehicle",
+            "title": "Highway Motor Vehicle",
+            "additionalText": [
+                "A highway motor vehicle includes any self-propelled vehicle designed to carry a load over public highways, whether or not it is also designed to perform other functions. Examples include trucks, truck tractors, and buses."
+            ]
+        },
+        "hoa": {
+            "id": "hoa",
+            "title": "Homeowners/Condo Association",
+            "additionalText": [
+                "A Homeowners/Condo Association is an organization of homeowners residing within a particular development whose major purpose is to maintain and provide facilities and services for the common enjoyment of the residents."
+            ]
+        },
+        "householdEmployees": {
+            "id": "householdEmployees",
+            "title": "Household Employees",
+            "additionalText": [
+                "Household employees include any employee who does household work in and around your home. It does not matter whether you pay the worker on an hourly, daily, or weekly basis. Some examples of household workers are:<br>",
+                "<ul><li>Babysitters</li>",
+                "<li>Nannies</li>",
+                "<li>Au pairs</li>",
+                "<li>Cleaning people</li>",
+                "<li>Housekeepers</li>",
+                "<li>Maids</li>",
+                "<li>Drivers</li>",
+                "<li>Health aides</li>",
+                "<li>Private nurses</li>",
+                "<li>Caretakers</li>",
+                "<li>Yard workers</li></ul>",
+                "<p>Examples of workers who are NOT considered household employees include:</p>",
+                "<ul><li>Landscapers, who usually are self-employed workers who run an independent business</li>",
+                "<li>Babysitters who provide child-care services in their own homes</li></ul>"
+            ]
+        },
+        "householdEmployer": {
+            "id": "householdEmployer",
+            "title": "Household Employer",
+            "additionalText": [
+                "You are a household employer if you hire someone to do household work in or around your home and that worker is classified as your employee. As a household employer, you will be directing the work of the employee(s) you hire. Some examples of household workers are:<br>",
+                "<ul><li>Babysitters</li>",
+                "<li>Nannies</li>",
+                "<li>Au pairs</li>",
+                "<li>Cleaning people</li>",
+                "<li>Housekeepers</li>",
+                "<li>Maids</li>",
+                "<li>Drivers</li>",
+                "<li>Health aides</li>",
+                "<li>Private nurses</li>",
+                "<li>Caretakers</li>",
+                "<li>Yard workers</li></ul>"
+            ]
+        },
+        "incorporated": {
+            "id": "incorporated",
+            "title": "Incorporated",
+            "additionalText": [
+                "A business is incorporated when it has been granted a charter legally recognizing it as a separate entity having its own privileges, rights, and liabilities distinct from other businesses and persons."
+            ]
+        },
+        "individual": {
+            "id": "individual",
+            "title": "Individual",
+            "additionalText": [
+                "An individual is one person identified by his or her legal name and valid Social Security Number (SSN) or Individual Taxpayer Identification Number (ITIN)."
+            ]
+        },
+        "individualActingWithholdingAgent": {
+            "id": "individualActingWithholdingAgent",
+            "title": "Individual Acting as a Withholding Agent",
+            "additionalText": [
+                "An individual acting as a withholding agent is a person, such as an agent, broker, or fiduciary, who is required to withhold taxes on income, other than wages, paid to a non-resident alien."
+            ]
+        },
+        "individualAuthorizedForm1066": {
+            "id": "individualAuthorizedForm1066",
+            "title": "Individual Authorized to Sign Form 1066",
+            "additionalText": [
+                "Form 1066 (U.S. Real Estate Mortgage Investment Conduit (REMIC) Income Tax Return) is used to report the income, deductions, and gains and losses from the operation of a REMIC.<br>",
+                "<p>A REMIC with a startup day after November 9, 1988. Form 1066 (U.S. Real Estate Mortgage Investment Conduit (REMIC) Income Tax Return) may be signed by any person who could sign the return of the entity in the absence of the REMIC election, for example, a corporate officer for a corporation, or a trustee for a trust.</p>",
+                "For REMICs with only segregated pools of assets, the return would be signed by any person who could sign the return of the entity owning the assets of the REMIC under applicable state law."
+            ]
+        },
+        "insurance": {
+            "id": "insurance",
+            "title": "Insurance",
+            "additionalText": [
+                "The insurance category includes insurance companies and brokers."
+            ]
+        },
+        "internalRevenueCode6103": {
+            "id": "internalRevenueCode6103",
+            "title": "Internal Revenue Code (IRC) 6103",
+            "additionalText": [
+                "Internal Revenue Code 6103 deals with disclosure to persons having a material interest and covers the persons to whom, and the circumstances under which, returns and return information may be disclosed upon proper request."
+            ]
+        },
+        "ira": {
+            "id": "ira",
+            "title": "IRA",
+            "additionalText": [
+                "An individual retirement arrangement, or IRA, is a personal savings plan that allows you to set aside money for retirement, while offering you tax advantages. The IRS will only issue an EIN for an IRA trust account if the individual intends to file Form 990-T (Exempt Organization Business Income Tax Return) or Form 1041 (U.S. Income Tax Return for Estates and Trusts).<br>",
+                "<ul><li>Contributions to an IRA are tax-deductible based on the individual's marriage status and income level</li>",
+                "<li>Monies contributed to an IRA may be invested in stocks, bonds, mutual funds, annuities, bank savings accounts, certificates of deposit, government bonds, and investment trusts</li>",
+                "<li>Contributions cannot be of more personal and immediate investments such as a home or collectibles.</li></ul>"
+            ]
+        },
+        "iraRollover": {
+            "id": "iraRollover",
+            "title": "IRA Rollover",
+            "additionalText": [
+                "An IRA rollover occurs when you take a distribution of cash or other assets from one qualified employer retirement plan and contribute all or part of it within 60 days to another qualified retirement plan."
+            ]
+        },
+        "irrevocableTrust": {
+            "id": "irrevocableTrust",
+            "title": "Irrevocable Trust",
+            "additionalText": [
+                "In an irrevocable trust the grantor has no control of the trust (the trust cannot be repealed or annulled) and the trust will pay tax."
+            ]
+        },
+        "jointVenture": {
+            "id": "jointVenture",
+            "title": "Joint Venture",
+            "additionalText": [
+                "A joint venture is a partnership formed between two or more business entities. These businesses join together and share risk or expertise on a specific project or group of projects. A joint venture is not incorporated or a limited liability company (LLC); it is not a joint undertaking merely to share expenses."
+            ]
+        },
+        "judicialRefNum": {
+            "id": "judicialRefNum",
+            "title": "Judicial Reference Number",
+            "additionalText": [
+                "A judicial reference number is a number assigned to each petition by the court."
+            ]
+        },
+        "legalNameCharitableLeadAnnuityTrust": {
+            "id": "legalNameCharitableLeadAnnuityTrust",
+            "title": "Legal Name of Charitable Lead Annuity Trust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameCharitableLeadUnitrust": {
+            "id": "legalNameCharitableLeadUnitrust",
+            "title": "Legal Name of Charitable Lead Unitrust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameCharitableRemainderAnnuityTrust": {
+            "id": "legalNameCharitableRemainderAnnuityTrust",
+            "title": "Legal Name of Charitable Remainder Annuity Trust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameCharitableRemainderUnitrust": {
+            "id": "legalNameCharitableRemainderUnitrust",
+            "title": "Legal Name of Charitable Remainder Unitrust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameEmployerPlan": {
+            "id": "legalNameEmployerPlan",
+            "title": "Legal Name of Employer Plan",
+            "additionalText": [
+                "Special instructions for entering the legal name of your employer plan:<br>",
+                "<ol><li>Enter the name of the company that owns/sponsors the employer plan at the beginning of the legal name</li>",
+                "<li>Omit any names of trustees in this field</li>",
+                "<li>Omit the word \"The\" from the beginning of your employer plan name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Employer Plan</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of the John Doe Inc Money Purchase Plan</td><td>John Doe Inc Money Purchase Plan</td></tr>",
+                "<tr><td>401K Plan of The John Doe Company</td><td>John Doe Company 401K Plan</td></tr>",
+                "<tr><td>The Defined Benefit Plan of Doe Construction Inc.</td><td>Doe Construction Inc Defined Benefit Plan</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameIrrevocableTrust": {
+            "id": "legalNameIrrevocableTrust",
+            "title": "Legal Name of Irrevocable Trust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legalNamePoliticalOrg": {
+            "id": "legalNamePoliticalOrg",
+            "title": "Legal Name of Political Organization",
+            "additionalText": [
+                "Special instructions for entering the legal name of your political organization:<br>",
+                "<ol><li>Enter the name of the candidate or organization at the beginning of the field</li>",
+                "<li>Omit any officer's name</li>",
+                "<li>Place the words \"friends of\", \"committee to elect\" or other identifying information after the candidate's name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Political Organization</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>Friends of John Doe</td><td>John Doe Friends Of</td></tr>",
+                "<tr><td>Committee to Elect John Doe for Mayor</td><td>John Doe Committee to Elect for Mayor</td></tr>",
+                "<tr><td>Citizens for John Doe</td><td>John Doe Citizens for</td></tr>",
+                "<tr><td>Governor Race, John Doe Candidate</td><td>John Doe Governor Race Candidate</td></tr>",
+                "<tr><td>Friends of Oceanside Lighthouse</td><td>Oceanside Lighthouse Friends of</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameQualifiedFuneralTrust": {
+            "id": "legalNameQualifiedFuneralTrust",
+            "title": "Legal Name of Qualified Funeral Trust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameRevocableTrust": {
+            "id": "legalNameRevocableTrust",
+            "title": "Legal Name of Revocable Trust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legalNameTrust": {
+            "id": "legalNameTrust",
+            "title": "Legal Name of Trust",
+            "additionalText": [
+                "Special instructions for entering the legal name of your trust:<br>",
+                "<ol><li>Omit any names of trustees</li>",
+                "<li>Place the individual's name at the beginning of your trust name</li>",
+                "<li>Do not enter the words \"date\" or \"dated\"</li>",
+                "<li>Do not enter the alpha month, replace with corresponding numeric character</li>",
+                "<li>Omit the word \"The\" from the beginning of your trust name</li></ol>",
+                "<p>Examples:</p>",
+                "<table><thead><tr><th>Name of your Trust</th><th>Using the EIN Online Assistant, enter as:</th></tr></thead>",
+                "<tbody><tr><td>John Doe, Trustee of The Jane Doe Irrevocable Trust Dated January 31, 2007</td><td>Jane Doe Irrevocable Trust 01312007</td></tr>",
+                "<tr><td>The Irrevocable Life Insurance Trust Of Jane Doe, John Doe Trustee</td><td>Jane Doe Irrevocable Life Insurance Trust</td></tr></tbody></table>"
+            ]
+        },
+        "legallyBindCorp": {
+            "id": "legallyBindCorp",
+            "title": "Legally bind the Corporation",
+            "additionalText": [
+                "The legal authority (including signature authority) to act for and bind the corporation."
+            ]
+        },
+        "llc": {
+            "id": "llc",
+            "title": "Limited Liability Company (LLC)",
+            "additionalText": [
+                "A limited liability company (LLC) is a structure allowed by state statute. An LLC is formed by filing articles of organization with the individual state's secretary of state. Owners of an LLC are called members. Members may include individuals, corporations, other LLCs, and foreign entities. An LLC can be formed by one or more members, and there is no maximum number of members.<br>",
+                "<p>There can be no more than one active LLC with the same name in the same state.</p>",
+                "<p>For federal tax purposes, an LLC may be treated as a partnership or a corporation, or be disregarded as an entity separate from its owner.</p>",
+                "An LLC can also be organized as a professional limited liability company (PLLC) or a limited company (LC)."
+            ]
+        },
+        "localLaw": {
+            "id": "localLaw",
+            "title": "Local Law",
+            "additionalText": [
+                "Local law (state, county, city) may require that an organization acquire an EIN for banking purposes, to obtain professional licenses, or to collect sales tax on retail sales."
+            ]
+        },
+        "mailingAddress": {
+            "id": "mailingAddress",
+            "title": "Mailing Address",
+            "additionalText": [
+                "A mailing address is an address where you wish to receive correspondence, other than your designated office. Most applicants will not have a separate mailing address."
+            ]
+        },
+        "manufacturing": {
+            "id": "manufacturing",
+            "title": "Manufacturing",
+            "additionalText": [
+                "The manufacturing category covers businesses engaged in the mechanical, physical, or chemical transformation of materials, substances, or components into any type of new product.<br>",
+                "<p>Examples include:</p>",
+                "<ul><li>Contractors who manufacture products for others</li>",
+                "<li>Candy stores that manufacture candy on the premises</li>",
+                "<li>Bakeries that bake or prepare their products on the premises</li></ul>"
+            ]
+        },
+        "member": {
+            "id": "member",
+            "title": "Member",
+            "additionalText": [
+                "The word \"member\" has several definitions:<br>",
+                "<ol><li>An individual who belongs to an organization, association, firm, partnership, company, or corporation</li>",
+                "<li>One of the persons who compose a social group (especially individuals who have joined and participate in a group organization)</li>",
+                "<li>The owners of an LLC are called members and are similar in some respects to shareholders of a corporation. A member can be a natural person, a corporation, a partnership, or another legal association or entity</li></ol>"
+            ]
+        },
+        "memberOfCoop": {
+            "id": "memberOfCoop",
+            "title": "Members of the Cooperative",
+            "additionalText": [
+                "A cooperative member is anyone who shares in the profits of the cooperative association and is entitled to participate in the management of the association."
+            ]
+        },
+        "memorialScholarshipFund": {
+            "id": "memorialScholarshipFund",
+            "title": "Memorial or Scholarship Fund",
+            "additionalText": [
+                "A memorial or scholarship fund is set up in memory of someone who has died. The family may request that donations in memory of their loved one be sent to a specific charity, church, or school. Scholarship funds provide monies to be awarded to deserving students in the future."
+            ]
+        },
+        "militaryAddresses": {
+            "id": "militaryAddresses",
+            "title": "Military Addresses",
+            "additionalText": [
+                "If your current place of residence contains one of the following armed forces address, complete the required address fields and use the abbreviations listed below in the state dropdown field:<br>",
+                "<ul><li>Armed Forces Africa (AE)</li>",
+                "<li>Armed Forces Americas (AA)</li>",
+                "<li>Armed Forces Canada (AE)</li>",
+                "<li>Armed Forces Europe (AE)</li>",
+                "<li>Armed Forces Middle East (AE)</li>",
+                "<li>Armed Forces Pacific (AP).</li></ul>",
+                "<p>Your military address should be treated like a domestic address. APO or FPO should be entered in the city field and AA, AE, or AP should be selected in the State/U.S. territory field. Please use the following example as a guide:</p>",
+                "Address: CMR 408 BOX 329<br></br>City: APO<br></br>State/U.S. territory: Armed Forces Europe (AE)<br></br>Zip code: 09182<br></br>"
+            ]
+        },
+        "mortgageReit": {
+            "id": "mortgageReit",
+            "title": "Mortgage REIT",
+            "additionalText": [
+                "A mortgage REIT is a real estate investment trust that primarily invests in mortgages."
+            ]
+        },
+        "multiMemberLLC": {
+            "id": "multiMemberLLC",
+            "title": "Multi-Member Limited Liability Company (LLC)",
+            "additionalText": [
+                "A domestic LLC with two or more members is considered multi-member. Members in an LLC can be either individuals or other organizations. The default classification of a multi-member LLC is a partnership."
+            ]
+        },
+        "nameOfBankruptcy": {
+            "id": "nameOfBankruptcy",
+            "title": "Name of Bankruptcy",
+            "additionalText": [
+                "This is the name of the individual for which the case is filed."
+            ]
+        },
+        "nationalGuard": {
+            "id": "nationalGuard",
+            "title": "National Guard",
+            "additionalText": [
+                "The National Guard are U.S. military reserve units that are controlled by individual states and equipped by the federal government. They can be called into service by either federal or state governments. For more, see the glossary entry for Federal Government/Military."
+            ]
+        },
+        "nonPayrollIncomeTaxWith": {
+            "id": "nonPayrollIncomeTaxWith",
+            "title": "Non-Payroll Income Tax Withholding",
+            "additionalText": [
+                "Any plan that has withholding for pensions, annuities, and IRAs with distributions are liable for non-payroll income tax withholding. For these accounts, file Form 945 (Annual Return of Withheld Federal Income Tax)."
+            ]
+        },
+        "nonPayrollTaxWith": {
+            "id": "nonPayrollTaxWith",
+            "title": "Non-Payroll Tax Withholding",
+            "additionalText": [
+                "This is the withholding of federal income tax from non-payroll payments. These payments are usually reported by filing Form 945 (Annual Return of Withheld Federal Income Tax). Non-payroll payments include:<br>",
+                "<ul><li>Pensions</li>",
+                "<li>Annuities</li>",
+                "<li>IRA deductions</li>",
+                "<li>Gambling winnings</li></ul>"
+            ]
+        },
+        "officer": {
+            "id": "officer",
+            "title": "Officer",
+            "additionalText": [
+                "An officer is an individual elected or appointed to an administrative position in a corporation or government department."
+            ]
+        },
+        "otherEmployees": {
+            "id": "otherEmployees",
+            "title": "Other Employees",
+            "additionalText": [
+                "A general rule is that anyone who performs services for you is your employee if you can control what work will be done and how it will be done. These employees will be issued a W-2 form at the end of the year.<br>",
+                "<p>Employers must file Form W-2 for wages paid to each employee from whom:</p>",
+                "<ul><li>Income, Social Security, or Medicare tax was withheld or</li>",
+                "<li>Income tax would have been withheld if the employee had claimed no more than one withholding allowance or had not claimed exemption from withholding on Form W-4 (Employee's Withholding Allowance Certificate)</li></ul>"
+            ]
+        },
+        "otherNonProfit": {
+            "id": "otherNonProfit",
+            "title": "Other Non-Profit/Tax-Exempt Organizations",
+            "additionalText": [
+                "Non-profit organizations include corporations, trusts, limited liability companies, and unincorporated associations that qualify for tax-exempt status under Internal Revenue Code (IRC) 501(a) as described in Publication 557 (Tax-Exempt Status for Your Organization).<br>",
+                "<p>Non-profit organizations include: public charities, private foundations, educational organizations, employee associations, veteran's organizations, business leagues, state-chartered credit unions, child care organizations, and teachers' retirement fund associations. This list is not all-inclusive.</p>",
+                "Sole proprietors and partnerships cannot be considered for tax-exempt status. For-profit organizations cannot be considered for tax-exempt status."
+            ]
+        },
+        "owner": {
+            "id": "owner",
+            "title": "Owner",
+            "additionalText": [
+                "This is the owner of the business. It is the person who holds title to it or is in control of it."
+            ]
+        },
+        "partner": {
+            "id": "partner",
+            "title": "Partner",
+            "additionalText": [
+                "A partner is a person who is personally liable for partnership debts."
+            ]
+        },
+        "partnership": {
+            "id": "partnership",
+            "title": "Partnership",
+            "additionalText": [
+                "An unincorporated organization with two or more members is generally classified as a partnership for federal tax purposes if its members carry on a trade, business, financial operation, or venture and divide its profits. However, a joint undertaking merely to share expenses is not a partnership. For example, co-ownership of property maintained and rented or leased is not a partnership unless the co-owners provide services to the tenants.<br>",
+                "<ul><li>Partners can be individuals, corporations, trusts, estates, and other partnerships.</li>",
+                "<li>Each partner contributes money, property, labor or skill, and expects to share in the profits and losses of the business.</li>",
+                "<li>A partnership does not pay tax on its income, but \"passes through\" any profits or losses to its partners. Partners must include partnership items on their tax returns.</li></ul>",
+                "Two common forms of partnerships are general partnership and limited partnership."
+            ]
+        },
+        "partnershipReturn": {
+            "id": "partnershipReturn",
+            "title": "Partnership Return",
+            "additionalText": [
+                "A partnership return refers to Form 1065 (U.S. Return of Partnership Income)."
+            ]
+        },
+        "personalRepresentative": {
+            "id": "personalRepresentative",
+            "title": "Personal Representative",
+            "additionalText": [
+                "A personal representative is an individual appointed through the will of a deceased person or by a court to settle the estate of one who dies."
+            ]
+        },
+        "personalServiceCorp": {
+            "id": "personalServiceCorp",
+            "title": "Personal Service Corporation",
+            "additionalText": [
+                "A personal service corporation is a person or group of people who establish a legal entity by filing articles of incorporation with the state's secretary of state granting it certain legal powers, rights, privileges, and liabilities. A personal service corporation is an organization in which the activity involves the performance of services in the field of health, law, engineering, architecture, accounting, actuarial science, performing arts, or consulting.<br><br>",
+                "In a personal service corporation, substantially all of the stock is owned by the employees who perform the services. A personal service corporation sells its ideas or expertise rather than tangible goods. A personal service corporation is not a sole proprietor or partnership."
+            ]
+        },
+        "physicalLocation": {
+            "id": "physicalLocation",
+            "title": "Physical Location",
+            "additionalText": [
+                "A physical location is your place of business. It may be your home or any office space from which you operate."
+            ]
+        },
+        "planAdmin": {
+            "id": "planAdmin",
+            "title": "Plan Administrator",
+            "additionalText": [
+                "The plan administrator is a person specifically designated to carry out the plan's day to day operations. The plan administrator has a fiduciary responsibility to the participants under the plan. Duties of the plan administrator may include:<br>",
+                "<ul><li>Record keeping</li>",
+                "<li>Accounting tasks</li>",
+                "<li>Legal and trustee services</li></ul>"
+            ]
+        },
+        "politicalOrg": {
+            "id": "politicalOrg",
+            "title": "Political Organization",
+            "additionalText": [
+                "A political organization is:<br>",
+                "<ul><li>An organization that influences the selection, nomination, election, or appointment of any individual to any public office or office in a political organization</li>",
+                "<li>An organization created and operated primarily for the purpose of accepting contributions, making expenditures, or both</li>",
+                "<li>A party, committee, association, or fund (including a separate segregated fund described in Section 527(f)(3) set up by a Section 501(c) organization, or a similar organization)</li></ul>"
+            ]
+        },
+        "pooledIncomeFund": {
+            "id": "pooledIncomeFund",
+            "title": "Pooled Income Fund",
+            "additionalText": [
+                "A pooled income fund is one form of a charitable remainder trust. The overarching term \"charitable remainder trust\" refers to an arrangement in which property or money is donated to a charity, but the donor (called the grantor) continues to use the property and/or receive income from it while living.<br><br>",
+                "In a charitable pooled income fund, the donor transfers assets (usually cash) to a trustee, and those assets are commingled and invested in a \"pooled\" fund with other donors' gifts. The donor receives a portion of the total income from the fund annually. When the donor dies, his or her remainder interest in the fund is conveyed to the charity."
+            ]
+        },
+        "primaryMember": {
+            "id": "primaryMember",
+            "title": "Primary Member",
+            "additionalText": [
+                "The primary member is the individual or business you will name as the responsible member of the LLC in regard to any tax matters or correspondence for this LLC. Primary member does not necessarily mean the member that owns most of your company."
+            ]
+        },
+        "principalOfficer": {
+            "id": "principalOfficer",
+            "title": "Principal Officer",
+            "additionalText": [
+                "The principal officer is any corporate officer authorized by the corporation in accordance with applicable state law to legally bind the corporation. This includes the president, vice president, corporate secretary, corporate treasurer, owner, or chief executive officer, but is not limited to these individuals or position titles."
+            ]
+        },
+        "provinceTerritory": {
+            "id": "provinceTerritory",
+            "title": "Province/Territory",
+            "additionalText": [
+                "A province or territory is an administrative region or division of a country."
+            ]
+        },
+        "ptaPtoSchoolOrgs": {
+            "id": "ptaPtoSchoolOrgs",
+            "title": "PTA/PTO or School Organizations",
+            "additionalText": [
+                "Parent-teacher associations (PTAs) act on behalf of the student. They speak to local and federal government on issues dealing with students.<br>",
+                "<p>Parent-teacher organizations (PTOs) are most often single-school groups that operate under their own bylaws and concentrate on activities at their building or in their town only.</p>",
+                "School organizations are usually created by each school and are independent from similar groups at other schools. Some examples of school organizations are: high school marching bands and junior varsity cheerleading squads."
+            ]
+        },
+        "qualifiedFuneralTrust": {
+            "id": "qualifiedFuneralTrust",
+            "title": "Qualified Funeral Trust",
+            "additionalText": [
+                "A qualified funeral trust (QFT) is a grantor trust, where the grantor purchases funeral services prior to death, and the applicable funeral home files one income tax return for all separate trusts. The trust is treated as a non-grantor trust if the following conditions are met:<br>",
+                "<ul><li>The trustee makes an election under IRC section 677(a)(3)</li>",
+                "<li>Each trust is treated separately for tax rates</li>",
+                "<li>The contributions are invested for funeral services of the stated person only.</li></ul>"
+            ]
+        },
+        "realEstate": {
+            "id": "realEstate",
+            "title": "Real Estate",
+            "additionalText": [
+                "The real estate category covers those engaged in the rental and leasing of all types of real estate, such as commercial, residential, and industrial properties.<br>",
+                "<p>Also included are:</p>",
+                "<ul><li>Real estate agents who rent or sell property for others</li>",
+                "<li>Property managers</li>",
+                "<li>Real estate listing and appraisal offices</li></ul>"
+            ]
+        },
+        "reit": {
+            "id": "reit",
+            "title": "Real Estate Investment Trust (REIT)",
+            "additionalText": [
+                "A real estate investment trust (REIT) is an investment vehicle established for the benefit of a group of real estate investors. An unincorporated trust or association, it is managed by one or more trustees, who hold title to the assets of the trust and control its acquisitions and investments."
+            ]
+        },
+        "receiver": {
+            "id": "receiver",
+            "title": "Receiver",
+            "additionalText": [
+                "A receiver is usually an independent party without an interest in a bankruptcy proceeding who is appointed by a court to impartially protect the property or interests of the parties to the suit. The duties of a receiver include:<br>",
+                "<ul><li>Conserving the property</li>",
+                "<li>Maintaining the business as a going concern</li>",
+                "<li>Turning the property over to the owners, or liquidating the business to pay creditors once the rights of all parties have been satisfied</li></ul>"
+            ]
+        },
+        "receiverAdmin": {
+            "id": "receiverAdmin",
+            "title": "Receiver/Administrator",
+            "additionalText": [
+                "A receiver is usually an independent party without an interest in a bankruptcy proceeding who impartially protects the property or interests of the parties to the suit. The duties of a receiver include:<br>",
+                "<ul><li>Conserving the property</li>",
+                "<li>Maintaining the business as a going concern</li>",
+                "<li>Turning the property over to the owners, or liquidating the business to pay creditors once the rights of all parties have been satisfied</li></ul>",
+                "<p>An administrator is appointed by the court when there is no will to determine distribution of a deceased person's estate. The court issues letters of administration authorizing the administrator to:</p>",
+                "<ul><li>Gather the assets</li>",
+                "<li>Pay the just debts of the deceased</li>",
+                "<li>Make distribution to the beneficiaries as dictated by state law or ordered by the court</li></ul>"
+            ]
+        },
+        "receivership": {
+            "id": "receivership",
+            "title": "Receivership",
+            "additionalText": [
+                "A receivership is a legal or equitable proceeding in which a receiver is appointed for an insolvent corporation, partnership, or individual to preserve its assets for the benefit of affected parties."
+            ]
+        },
+        "ric": {
+            "id": "ric",
+            "title": "Regulated Investment Conduit (RIC)",
+            "additionalText": [
+                "The label regulated investment conduit (RIC) refers to a domestic corporation that meets the following criteria:<br>",
+                "<ul><li>It is registered throughout the tax year as a management company or unit investment trust under the Investment Company Act (ICA) of 1940.</li>",
+                "<li>It has an election in effect under the ICA to be treated as a business development company, or</li>",
+                "<li>It is a common trust fund or similar fund that is neither an investment company under section 3(c)(3) of the ICA nor a common trust fund as defined under section 584(a).</li></ul>"
+            ]
+        },
+        "remic": {
+            "id": "remic",
+            "title": "REMIC",
+            "additionalText": [
+                "A real estate mortgage investment conduit (REMIC) is an entity formed for the purpose of holding a fixed pool of mortgages secured by interests in real property. A REMIC issues regular and residual interest to investors, paying each shareholder his or her fair share of income generated from the REMIC."
+            ]
+        },
+        "rentalLeasing": {
+            "id": "rentalLeasing",
+            "title": "Rental and Leasing",
+            "additionalText": [
+                "The rental and leasing category includes the rental and leasing of:<br>",
+                "<ul><li>Automobiles</li>",
+                "<li>Consumer goods (videos, formal wear)</li>",
+                "<li>Commercial goods (aircraft, office machinery)</li>",
+                "<li>Industrial goods (construction equipment, tractors) and any other type of equipment</li>",
+                "<li>Mini storage units</li></ul>",
+                "Any type of general rental center is included in this category. However, the rental and leasing of property should be included in the Real Estate category. Real Estate Investment Trusts (REITs) should be included in the Finance category."
+            ]
+        },
+        "responsibleParty": {
+            "id": "responsibleParty",
+            "title": "Responsible Party",
+            "additionalText": [
+                "For entities with shares or interests traded on a public exchange, or which are registered with the Securities and Exchange Commission, \"responsible party\" is (a) the principal officer, if the business is a corporation; (b) a general partner, if a partnership; or (c) a grantor, owner, or trustor, if a trust. Except for government entities, the responsible party must be an individual (i.e., a natural person), not an entity. For example, if a corporation is the general partner of a partnership for which Form SS-4 is filed, then the responsible party of the partnership is the principal officer of the corporation. For tax-exempt organizations, the responsible party is commonly the same as the \"principal officer\" as defined in the Form 990 instructions. For government entities, the responsible party is generally the agency or agency representative in a position to legally bind the particular government entity.<br><br>",
+                "For all other entities, \"responsible party\" is the individual (i.e., the natural person) who ultimately owns or controls the entity or who exercises ultimate effective control over the entity. The individual identified as the responsible party should have a level of control over, or entitlement to, the funds or assets in the entity that, as a practical matter, enables the individual, directly or indirectly, to control, manage, or direct the entity and the disposition of its funds and assets."
+            ]
+        },
+        "retail": {
+            "id": "retail",
+            "title": "Retail",
+            "additionalText": [
+                "The retail category includes any type of business selling items directly to the general public. The sale of these items can be done from a storefront, over the internet, by direct sales (catalogue, mail-order), or door-to-door. Also included are individuals who sell goods on internet auction sites."
+            ]
+        },
+        "revocableTrust": {
+            "id": "revocableTrust",
+            "title": "Revocable Trust",
+            "additionalText": [
+                "A revocable trust is a trust that may be altered or terminated during the grantor's lifetime. Since the trust may be altered at any time until the grantor's death, it is considered part of the grantor's estate and is subject to taxation. The property is passed on to the beneficiaries only after the grantor's death, and the revocable trust then becomes irrevocable."
+            ]
+        },
+        "sCorp": {
+            "id": "sCorp",
+            "title": "S Corporation",
+            "additionalText": [
+                "A corporation is a person or group of people who establish a legal entity by filing articles of incorporation with the state's secretary of state granting it certain legal powers, rights, privileges, and liabilities. An S corporation is an eligible domestic corporation that wants to avoid double taxation (once to the shareholders and again to the corporation) by electing this status using Form 2553 (Election by a Small Business Corporation).<br><br>",
+                "Generally, an S corporation is exempt from federal income tax other than tax on certain capital gains and passive income. An S corporation is not a sole proprietor or partnership."
+            ]
+        },
+        "sCorpStatus": {
+            "id": "sCorpStatus",
+            "title": "S Corporation Status",
+            "additionalText": [
+                "Generally, an S corporation is exempt from federal income tax other than tax on certain capital gains and passive income. On their tax returns, the S corporation's shareholders include their share of the corporation's separately stated items of income, deduction, loss, and credit, and their share of non-separately stated income or loss."
+            ]
+        },
+        "settlementFund": {
+            "id": "settlementFund",
+            "title": "Settlement Fund (under IRC Sec 468B)",
+            "additionalText": [
+                "A designated settlement fund or qualified settlement fund is a trust or fund established under IRC Sec 468B. This code section permits a defendant to deposit money or property into a trust or fund and receive a full and complete release of liability."
+            ]
+        },
+        "singleMemberLLC": {
+            "id": "singleMemberLLC",
+            "title": "Single-Member LLC",
+            "additionalText": [
+                "A single-member LLC is an LLC with only one member, who can be an individual or another organization. Since you are a single-member LLC, we must initially classify you as a disregarded entity. This means the LLC is ignored or \"disregarded\" for the purpose of filing a federal tax return. This is only a mechanism for tax purposes. It does not change the fact that the business is legally a limited liability company."
+            ]
+        },
+        "socialAssistance": {
+            "id": "socialAssistance",
+            "title": "Social Assistance",
+            "additionalText": [
+                "The social assistance category includes:<br>",
+                "<ul><li>Those providing social assistance services for children and youth</li>",
+                "<li>Those providing services for the elderly and disabled</li>",
+                "<li>Community food, housing, and relief services</li>",
+                "<li>Child day care centers</li></ul>"
+            ]
+        },
+        "socialSavingsClub": {
+            "id": "socialSavingsClub",
+            "title": "Social or Savings Club",
+            "additionalText": [
+                "A social club is organized for pleasure, recreation, and other similar non-profitable purposes and substantially all of its activities must be for these purposes.<br><br>",
+                "A savings club is organized to offer benefits and services to its members for purposes of saving money on purchases. Some types of savings clubs include: grocery savings, airline/cruise savings, and home decor savings."
+            ]
+        },
+        "soleProprietor": {
+            "id": "soleProprietor",
+            "title": "Sole Proprietor",
+            "additionalText": [
+                "A sole proprietor is one individual who owns a company that is not incorporated or registered with the state as a limited liability company (LLC). Sole proprietors may or may not have employees.<br>",
+                "<p>In a sole proprietorship:</p>",
+                "<ul><li>The business does not exist separately from the owner.</li>",
+                "<li>The risks of business apply to the individual's personal assets, including those not used for the business.</li>",
+                "<li>The sole proprietor reports business income on his or her individual tax return.</li></ul>"
+            ]
+        },
+        "sportsTeam": {
+            "id": "sportsTeam",
+            "title": "Sports Team (Community)",
+            "additionalText": [
+                "These organizations are comprised of sports teams or clubs primarily participating in live sporting events before a non-paying audience. Examples include bowling leagues and little league teams. These groups generally apply for EINs for banking purposes only."
+            ]
+        },
+        "ssnAndItin": {
+            "id": "ssnAndItin",
+            "title": "SSN/ITIN",
+            "additionalText": [
+                "A Social Security Number (SSN) is a permanently assigned nine-digit number issued by the Social Security Administration to identify an individual income tax account.<br><br>",
+                "An Individual Taxpayer Identification Number (ITIN) is a tax processing number. The IRS issues ITINs to individuals who are required to have a U.S. Taxpayer Identification Number but who do not have, and are not eligible to obtain, an SSN."
+            ]
+        },
+        "startDate": {
+            "id": "startDate",
+            "title": "Start Date",
+            "additionalText": [
+                "This is the date on which the entity began doing business."
+            ]
+        },
+        "stateTerrEstateProbated": {
+            "id": "stateTerrEstateProbated",
+            "title": "State/Territory where Estate is Probated",
+            "additionalText": [
+                "The state or territory in which the decedent lived as a permanent resident."
+            ]
+        },
+        "successor": {
+            "id": "successor",
+            "title": "Successor",
+            "additionalText": [
+                "A successor is the person who manages the affairs of the succession (estate). This term is commonly used in Louisiana."
+            ]
+        },
+        "taxableGrossWeight": {
+            "id": "taxableGrossWeight",
+            "title": "Taxable Gross Weight",
+            "additionalText": [
+                "The taxable gross weight of a vehicle (other than a bus) is the actual unloaded weight of the vehicle fully equipped for service."
+            ]
+        },
+        "thatWorkerIsEmployee": {
+            "id": "thatWorkerIsEmployee",
+            "title": "That Worker is Your Employee",
+            "additionalText": [
+                "A worker is your employee IF you can control not only what work is done, but how it is done, using supplies that you provide. If the worker is your employee, it does not matter whether the work is full time or part time. It also does not matter whether you pay the worker by the hour, day, week, or job."
+            ]
+        },
+        "thirdPartyDesignee": {
+            "id": "thirdPartyDesignee",
+            "title": "Third Party Designee",
+            "additionalText": [
+                "A third party designee is a person with whom you allow the IRS to discuss the completion of your Form SS-4 (Application for Employer Identification Number). By nominating a third party designee, you allow the IRS to:<br>",
+                "<ul><li>Discuss with your designee any information needed to establish your EIN.</li>",
+                "<li>Release the EIN to your designee.</li></ul>"
+            ]
+        },
+        "tradeName": {
+            "id": "tradeName",
+            "title": "Trade Name/Doing Business As",
+            "additionalText": [
+                "A trade name or doing business as name is another name under which the business or individual operates. These names are identified by the terms \"trading as\" (TA), \"doing business as\" (DBA), or \"also known as\" (AKA)."
+            ]
+        },
+        "transportation": {
+            "id": "transportation",
+            "title": "Transportation",
+            "additionalText": [
+                "The transportation category includes all industries that specialize in moving passengers or any type of cargo from one location to another. All modes of transportation are found here, such as air, rail, water, trucking, and passenger transportation. Also included are support activities for transportation (motor vehicle towing services, port and harbor operations); and those that provide courier, messenger, and delivery services."
+            ]
+        },
+        "trust": {
+            "id": "trust",
+            "title": "Trust",
+            "additionalText": [
+                "A trust is a legal entity that is created under state law and is taxed under federal law. The trust can be created to perform one act or a series of acts."
+            ]
+        },
+        "trustAllOthers": {
+            "id": "trustAllOthers",
+            "title": "Trust (All Others)",
+            "additionalText": [
+                "A trust is a legal entity created under state law and taxed under federal law in which one party holds assets for the benefit of another. A trust is required to file a Form 1041 (U.S. Income Tax Return for Estates and Trusts) to report its income, deductions, gains, and losses."
+            ]
+        },
+        "trustFilingAsEstate": {
+            "id": "trustFilingAsEstate",
+            "title": "Trust Filing as an Estate under Sec. 645",
+            "additionalText": [
+                "A trust filing as an estate under Section 645 election allows a Qualified Revocable Trust to be treated and taxed (for income tax purposes) as part of its related estate during the election period. Once the election is made, it cannot be revoked."
+            ]
+        },
+        "trustee": {
+            "id": "trustee",
+            "title": "Trustee",
+            "additionalText": [
+                "A trustee is the person or institution who holds title to the assets of the trust and controls its acquisitions and investments."
+            ]
+        },
+        "trustor": {
+            "id": "trustor",
+            "title": "Trustor",
+            "additionalText": [
+                "A trustor is the person who establishes the trust. This person may also be called a settlor or grantor."
+            ]
+        },
+        "typesOfLegalStructures": {
+            "id": "typesOfLegalStructures",
+            "title": "Types of Legal Structures",
+            "additionalText": [
+                "<ul>",
+                "<li><IRSLink1/></li>",
+                "<li><IRSLink2/></li>",
+                "<li><IRSLink3/></li>",
+                "<li><IRSLink4/></li>",
+                "<li><IRSLink5/></li>",
+                "<li><IRSLink6/></li>",
+                "</ul>"
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Sole Proprietor",
+                    "label": "Sole Proprietor",
+                    "url": "glossary#soleProprietor",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink2": {
+                    "text": "Partnerships",
+                    "label": "Partnerships",
+                    "url": "glossary#partnership",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink3": {
+                    "text": "Corporations",
+                    "label": "Corporations",
+                    "url": "glossary#corporation",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink4": {
+                    "text": "Limited Liability Company (LLC)",
+                    "label": "Limited Liability Company (LLC)",
+                    "url": "glossary#llc",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink5": {
+                    "text": "Estate",
+                    "label": "Estate",
+                    "url": "glossary#estate",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink6": {
+                    "text": "Trusts",
+                    "label": "Trusts",
+                    "url": "glossary#trust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                }
+            }
+        },
+        "typesOfOtherOrgs": {
+            "id": "typesOfOtherOrgs",
+            "title": "Other Types of Organizations",
+            "additionalText": [
+                "<ul>",
+                "<li><IRSLink1/></li>",
+                "<li><IRSLink2/></li>",
+                "<li><IRSLink3/></li>",
+                "<li><IRSLink4/></li>",
+                "<li><IRSLink5/></li>",
+                "<li><IRSLink6/></li>",
+                "<li><IRSLink7/></li>",
+                "<li><IRSLink8/></li>",
+                "<li><IRSLink9/></li>",
+                "<li><IRSLink10/></li>",
+                "<li><IRSLink11/></li>",
+                "<li><IRSLink12/></li>",
+                "<li><IRSLink13/></li>",
+                "<li><IRSLink14/></li>",
+                "<li><IRSLink15/></li>",
+                "<li><IRSLink16/></li>",
+                "<li><IRSLink17/></li>",
+                "<li><IRSLink18/></li>",
+                "<li><IRSLink19/></li>",
+                "<li><IRSLink20/></li>",
+                "<li><IRSLink21/></li>",
+                "<li><IRSLink22/></li>",
+                "<li><IRSLink23/></li>",
+                "</ul>"
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Bankruptcy Estate (Individual)",
+                    "label": "Bankruptcy Estate (Individual)",
+                    "url": "glossary#bankruptcyEstateIndividual",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink2": {
+                    "text": "Block/Tenant Association",
+                    "label": "Block/Tenant Association",
+                    "url": "glossary#blockTenantAssociation",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink3": {
+                    "text": "Church",
+                    "label": "Church",
+                    "url": "glossary#church",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink4": {
+                    "text": "Church-Controlled Organization",
+                    "label": "Church-Controlled Organization",
+                    "url": "glossary#churchControlledOrg",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink5": {
+                    "text": "Community or Volunteer Group",
+                    "label": "Community or Volunteer Group",
+                    "url": "glossary#communityVolunteerGroup",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink6": {
+                    "text": "Employer/Fiscal Agent (under IRC Sec 3504)",
+                    "label": "Employer/Fiscal Agent (under IRC Sec 3504)",
+                    "url": "glossary#employerFiscalAgent",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink7": {
+                    "text": "Employer Plan (401K, Money Purchase Plan, etc.)",
+                    "label": "Employer Plan (401K, Money Purchase Plan, etc.)",
+                    "url": "glossary#employerPlan",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink8": {
+                    "text": "Farmers' Cooperative",
+                    "label": "Farmers' Cooperative",
+                    "url": "glossary#farmerCooperative",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink9": {
+                    "text": "Government, Federal/Military",
+                    "label": "Government, Federal/Military",
+                    "url": "glossary#govFederalMilitary",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink10": {
+                    "text": "Government, Indian Tribal Governments",
+                    "label": "Government, Indian Tribal Governments",
+                    "url": "glossary#govIndianTribe",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink11": {
+                    "text": "Government, State/Local",
+                    "label": "Government, State/Local",
+                    "url": "glossary#govStateLocal",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink12": {
+                    "text": "Homeowners/Condo Association",
+                    "label": "Homeowners/Condo Association",
+                    "url": "glossary#hoa",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink13": {
+                    "text": "Household Employer",
+                    "label": "Household Employer",
+                    "url": "glossary#householdEmployer",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink14": {
+                    "text": "IRA",
+                    "label": "IRA",
+                    "url": "glossary#ira",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink15": {
+                    "text": "Memorial or Scholarship Fund",
+                    "label": "Memorial or Scholarship Fund",
+                    "url": "glossary#memorialScholarshipFund",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink16": {
+                    "text": "Plan Administrator",
+                    "label": "Plan Administrator",
+                    "url": "glossary#planAdmin",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink17": {
+                    "text": "Political Organization",
+                    "label": "Political Organization",
+                    "url": "glossary#politicalOrg",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink18": {
+                    "text": "PTA/PTO or School Organization",
+                    "label": "PTA/PTO or School Organization",
+                    "url": "glossary#ptaPtoSchoolOrgs",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink19": {
+                    "text": "REMIC",
+                    "label": "REMIC",
+                    "url": "glossary#remic",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink20": {
+                    "text": "Social or Savings Club",
+                    "label": "Social or Savings Club",
+                    "url": "glossary#socialSavingsClub",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink21": {
+                    "text": "Sports Teams (community)",
+                    "label": "Sports Teams (community)",
+                    "url": "glossary#sportsTeam",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink22": {
+                    "text": "Withholding Agent",
+                    "label": "Withholding Agent",
+                    "url": "glossary#withholdingAgent",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink23": {
+                    "text": "Other Non-Profit/Tax-Exempt Organizations",
+                    "label": "Other Non-Profit/Tax-Exempt Organizations",
+                    "url": "glossary#otherNonProfit",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                }
+            }
+        },
+        "typesOfTrusts": {
+            "id": "typesOfTrusts",
+            "title": "Types of Trusts",
+            "additionalText": [
+                "<ul>",
+                "<li><IRSLink1/></li>",
+                "<li><IRSLink2/></li>",
+                "<li><IRSLink3/></li>",
+                "<li><IRSLink4/></li>",
+                "<li><IRSLink5/></li>",
+                "<li><IRSLink6/></li>",
+                "<li><IRSLink7/></li>",
+                "<li><IRSLink8/></li>",
+                "<li><IRSLink9/></li>",
+                "<li><IRSLink10/></li>",
+                "<li><IRSLink11/></li>",
+                "<li><IRSLink12/></li>",
+                "<li><IRSLink13/></li>",
+                "<li><IRSLink14/></li>",
+                "<li><IRSLink15/></li>",
+                "<li><IRSLink16/></li>",
+                "<li><IRSLink17/></li>",
+                "<li><IRSLink18/></li>",
+                "</ul>"
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "Bankruptcy Estate (Individual)",
+                    "label": "Bankruptcy Estate (Individual)",
+                    "url": "glossary#bankruptcyEstateIndividual",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink2": {
+                    "text": "Charitable Lead Annuity Trust",
+                    "label": "Charitable Lead Annuity Trust",
+                    "url": "glossary#charitableLeadAnnuityTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink3": {
+                    "text": "Charitable Lead Unitrust",
+                    "label": "Charitable Lead Unitrust",
+                    "url": "glossary#charitableLeadUnitrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink4": {
+                    "text": "Charitable Remainder Annuity Trust",
+                    "label": "Charitable Remainder Annuity Trust",
+                    "url": "glossary#charitableRemainderAnnuityTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink5": {
+                    "text": "Charitable Remainder Unitrust",
+                    "label": "Charitable Remainder Unitrust",
+                    "url": "glossary#charitableRemainderUnitrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink6": {
+                    "text": "Conservatorship",
+                    "label": "Conservatorship",
+                    "url": "glossary#conservatorship",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink7": {
+                    "text": "Custodianship",
+                    "label": "Custodianship",
+                    "url": "glossary#custodianship",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink8": {
+                    "text": "Escrow",
+                    "label": "Escrow",
+                    "url": "glossary#escrow",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink9": {
+                    "text": "FNMA (Fannie Mae)",
+                    "label": "FNMA (Fannie Mae)",
+                    "url": "glossary#fnma",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink10": {
+                    "text": "GNMA (Ginnie Mae)",
+                    "label": "GNMA (Ginnie Mae)",
+                    "url": "glossary#gnma",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink11": {
+                    "text": "Guardianship",
+                    "label": "Guardianship",
+                    "url": "glossary#guardianship",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink12": {
+                    "text": "Irrevocable Trust",
+                    "label": "Irrevocable Trust",
+                    "url": "glossary#irrevocableTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink13": {
+                    "text": "Pooled Income Fund",
+                    "label": "Pooled Income Fund",
+                    "url": "glossary#pooledIncomeFund",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink14": {
+                    "text": "Qualified Funeral Trust",
+                    "label": "Qualified Funeral Trust",
+                    "url": "glossary#qualifiedFuneralTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink15": {
+                    "text": "Receivership",
+                    "label": "Receivership",
+                    "url": "glossary#receivership",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink16": {
+                    "text": "Revocable Trust",
+                    "label": "Revocable Trust",
+                    "url": "glossary#revocableTrust",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink17": {
+                    "text": "Settlement Fund (under IRC Sec 468B)",
+                    "label": "Settlement Fund (under IRC Sec 468B)",
+                    "url": "glossary#settlementFund",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                },
+                "IRSLink18": {
+                    "text": "Trust (All Others)",
+                    "label": "Trust (All Others)",
+                    "url": "glossary#trustAllOthers",
+                    "isExternal": false,
+                    "openInSameWindow": true
+                }
+            }
+        },
+        "usTerritory": {
+            "id": "usTerritory",
+            "title": "U.S. Territory",
+            "additionalText": [
+                "U.S. Territory is a geographic area that is owned and under the jurisdiction of the federal government. The U.S. territories include:<br>",
+                "<ul><li>American Samoa</li>",
+                "<li>Federated States of Micronesia</li>",
+                "<li>Guam</li>",
+                "<li>Marshall Islands</li>",
+                "<li>Northern Mariana Islands</li>",
+                "<li>Puerto Rico</li>",
+                "<li>Virgin Islands</li></ul>"
+            ]
+        },
+        "wagesAnnuities": {
+            "id": "wagesAnnuities",
+            "title": "Wages or Annuities",
+            "additionalText": [
+                "Wages are compensation (monetary or otherwise) you pay to a laborer (an employee of your organization) who is on your payroll. You (the employer) will withhold Social Security, Medicare, and federal withholding from your employee's paycheck.<br><br>",
+                "Annuities are a stream of fixed payments paid over a specified period of time."
+            ]
+        },
+        "wagesPaidDate": {
+            "id": "wagesPaidDate",
+            "title": "Wages Paid Date",
+            "additionalText": [
+                "The date the entity (individual or business) began paying wages to its employees."
+            ]
+        },
+        "warehousing": {
+            "id": "warehousing",
+            "title": "Warehousing",
+            "additionalText": [
+                "The warehousing category includes all industries that:<br>",
+                "<ul><li>Operate warehousing or storage facilities for general merchandise, refrigerated goods, or other warehouse products</li>",
+                "<li>Provide facilities to store goods, but do not sell the goods they handle</li></ul>"
+            ]
+        },
+        "wholesale": {
+            "id": "wholesale",
+            "title": "Wholesale",
+            "additionalText": [
+                "The wholesale category includes those that sell or arrange the purchase or sale of:<br>",
+                "<ul><li>Goods for resale</li>",
+                "<li>Capital or durable non-consumer goods</li>",
+                "<li>Raw and intermediate materials and supplies used in production</li></ul>",
+                "<p>These businesses are typically known as distributors, jobbers, importers, and exporters.</p>",
+                "<p>Also included are:</p>",
+                "<ul><li>Wholesale agents and brokers that distribute or arrange for the distribution of any type of goods for a commission or fee</li>",
+                "<li>Manufacturers' sales representatives</li>",
+                "<li>Business-to-business electronic markets</li></ul>"
+            ]
+        },
+        "withholdingAgent": {
+            "id": "withholdingAgent",
+            "title": "Withholding Agent",
+            "additionalText": [
+                "A withholding agent is an agent, broker, fiduciary, manager, tenant, or spouse who is required to withhold taxes on income, other than wages, paid to a non-resident alien."
+            ]
+        }
+    }
+}

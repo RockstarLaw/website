@@ -1,0 +1,468 @@
+{
+    "header": {
+        "title": "Apply for an Employer Identification Number (EIN)",
+        "additionalText": [
+            "Use this assistance to apply for and obtain an Employee Identification Number (EIN)"
+        ]
+    },
+    "instructions1": {
+        "title": "Addresses",
+        "additionalText": [
+            "All fields marked with an asterisk (<Red>*</Red>) are required."
+        ]
+    },
+    "physicalAddress": {
+        "physicalAddress1Header": {
+            "title": "Where is the {{entityName}} physically located?",
+            "additionalText": [
+                "Note: Must be a U.S. address. Do not enter a P.O. box. <IRSLink1/>."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "For military addresses click here",
+                    "label": "For military addresses click here",
+                    "url": "glossary#militaryAddresses"
+                }
+            }
+        },
+        "physicalAddress2Header": {
+            "title": "What is the Additional Address for the {{entityName}}?",
+            "additionalText": [
+                "Note: Must be a U.S. address. P.O. boxes are allowed. <IRSLink1/>."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "For military addresses click here",
+                    "label": "For military addresses click here",
+                    "url": "glossary#militaryAddresses"
+                }
+            }
+        },
+        "streetInputControl": {
+            "fieldName": "Street",
+            "additionalText": [
+                "The only special characters allowed are '-' and '/'"
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "Street: Input is required. (physical)",
+                    "id": "phys_streetInputControl_error1"
+                },
+                {
+                    "text": "Street: The only special characters allowed are '-' and '/'. (physical)",
+                    "id": "phys_streetInputControl_error2"
+                },
+                {
+                    "text": "Street: P.O. Boxes are not permitted. (physical)",
+                    "id": "phys_streetInputControl_error3"
+                }
+            ],
+            "type": "TextInput"
+        },
+        "cityInputControl": {
+            "fieldName": "City",
+            "additionalText": [
+                "The only special characters allowed are '-' and '/'"
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "City: Input is required. (physical)",
+                    "id": "phys_cityInputControl_error1"
+                },
+                {
+                    "text": "City: The only special characters allowed are '-' and '/'. (physical)",
+                    "id": "phys_cityInputControl_error2"
+                },
+                {
+                    "text": "City: The first character must be alpha or numeric. (physical)",
+                    "id": "phys_cityInputControl_error3"
+                }
+            ],
+            "type": "TextInput"
+        },
+        "stateInputControl": {
+            "fieldName": "State/U.S. territory",
+            "additionalText": [
+            "Select the state/territory. <IRSLink1/>."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "For military addresses click here",
+                    "label": "For military addresses click here",
+                    "url": "glossary#militaryAddresses"
+                }
+            },
+            "inputErrorMessages": [
+                {
+                    "text": "State: Input is required.",
+                    "id": "stateInputControl_error1",
+                    "additionalText": []
+                }
+            ],
+            "type" : "DropdownInput"
+        },
+        "zipInputControl": {
+            "fieldName": "ZIP/Postal code",
+            "additionalText": [
+                "The postal code must be 5 digits"
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "ZIP/Postal code: Input is required. (physical)",
+                    "id": "phys_zipInputControl_error1"
+                },
+                {
+                    "text": "ZIP/Postal code: Must be 5 digits. (physical)",
+                    "id": "phys_zipInputControl_error2"
+                }
+            ],
+            "type": "TextInput"
+        },
+        "phoneInputControl": {
+            "fieldName": "Phone number",
+            "additionalText": [
+                "Must contain only digits; do not enter extensions"
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "Phone: Input is required.",
+                    "id": "phoneInputControl_error1"
+                },
+                {
+                    "text": "Phone: Must be 10 digits.",
+                    "id": "phoneInputControl_error2"
+                }
+            ],
+            "type": "TextInput"
+        },
+        "inCareOfInstructions": {
+            "title": "Should the mail be directed to a specific person or department within your organization? (This is commonly referred to as the \"Care of\" name.)",
+            "additionalText": []
+        },
+        "inCareOfInputControl": {
+            "fieldName": "If yes, please enter name:",
+            "additionalText": [],
+            "inputErrorMessages": [
+                {
+                    "text": "In Care Of: Input is invalid. (physical)",
+                    "id": "inCareOfInputControl_error1"
+                },
+                {
+                    "text": "In Care Of: The only special characters allowed are '-' and '&'. (physical)",
+                    "id": "inCareOfInputControl_error2"
+                }
+            ],
+            "type": "TextInput"
+        },
+        "secondAddressInputControl": {
+            "fieldName": "Do you have an address different from the above where you want your mail to be sent?",
+            "additionalText": [],
+            "choices": [
+                {
+                    "value": "yes",
+                    "text": "Yes"
+                },
+                {
+                    "value": "no",
+                    "text": "No"
+                }
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "Optional Address Included: Selection is required.",
+                    "id": "secondAddressInputControl_error1",
+                    "additionalText": []
+                }
+            ],
+            "type": "RadioInput"
+        }
+    },
+    "mailingAddress": {
+        "mailingAddress2Instructions": {
+            "title": "What is the Mailing Address for the {{entityName}}?",
+            "additionalText": [
+                "P.O. boxes and international mailing addresses are allowed. <IRSLink1/>."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "For military addresses click here",
+                    "label": "For military addresses click here",
+                    "url": "glossary#militaryAddresses"
+                }
+            }
+        },
+        "mailingAddress3Instructions": {
+            "title": "What is the Mailing Address of the {{entityName}}?",
+            "additionalText": [
+                "P.O. boxes and international mailing addresses are allowed. <IRSLink1/>."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "For military addresses click here",
+                    "label": "For military addresses click here",
+                    "url": "glossary#militaryAddresses"
+                }
+            }
+        },
+        "streetInputControl": {
+            "fieldName": "Street",
+            "additionalText": [
+                "The only special characters allowed are '-' and '/'"
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "Street: Input is required. (mailing)",
+                    "id": "mailing_streetInputControl_error1"
+                },
+                {
+                    "text": "Street: The only special characters allowed are '-' and '/'. (mailing)",
+                    "id": "mailing_streetInputControl_error2"
+                },
+                {
+                    "text": "Street: P.O. Boxes are not permitted. (mailing)",
+                    "id": "mailing_streetInputControl_error3"
+                }
+            ],
+            "type": "TextInput"
+        },
+        "cityInputControl": {
+            "fieldName": "City",
+            "additionalText": [
+                "The only special characters allowed are '-' and '/'"
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "City: Input is required. (mailing)",
+                    "id": "mailing_cityInputControl_error1"
+                },
+                {
+                    "text": "City: The only special characters allowed are '-' and '/'. (mailing)",
+                    "id": "mailing_cityInputControl_error2"
+                }
+            ],
+            "type": "TextInput"
+        },
+        "stateInputControl": {
+            "fieldName": "State/Province/U.S. territory",
+            "additionalText": [
+                "For U.S. addresses, select the state/territory. <IRSLink1/>.",
+                "For foreign addresses, please change country below, and then enter the full name of the province/territory and the only special characters allowed are '-' and '/'."
+            ],
+            "links": {
+                "IRSLink1": {
+                    "text": "For military addresses click here",
+                    "label": "For military addresses click here",
+                    "url": "glossary#militaryAddresses"
+                }
+            },
+            "inputErrorMessages": [
+                {
+                    "text": "State: Input is required. (mailing)",
+                    "id": "mailing_stateInputControl_error1",
+                    "additionalText": []
+                },
+                {
+                    "text": "State: For foreign addresses, enter the full name of the province/territory and the only special characters allowed are '-' and '/'. (mailing)",
+                    "id": "mailing_stateInputControl_error3",
+                    "additionalText": []
+                }
+            ],
+            "type": "TextInput"
+        },
+        "zipInputControl": {
+            "fieldName": "ZIP/Postal code",
+            "additionalText": [
+                "For U.S. addresses, the postal code must be 5 digits.",
+                "For foreign addresses, the postal code can be up to 12 characters and the only special characters allowed are '-' and '/'."
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "ZIP/Postal code: Input is required. (mailing)",
+                    "id": "mailing_zipInputControl_error1"
+                },
+                {
+                    "text": "ZIP/Postal code: Must be 5 digits. (mailing)",
+                    "id": "mailing_zipInputControl_error2",
+                    "additionalText": []
+                },
+                {
+                    "text": "ZIP/Postal code: The only special characters allowed are '-' and '/'. (mailing)",
+                    "id": "mailing_zipInputControl_error3",
+                    "additionalText": []
+                }
+            ],
+            "type": "TextInput"
+        },
+        "countryInputControl": {
+            "fieldName": "Country",
+            "additionalText": [],
+            "inputErrorMessages": [
+                {
+                    "text": "Country: Selection is required. (mailing)",
+                    "id": "mailing_countryInputControl_error1"
+                }
+            ],
+            "type": "DropdownInput"
+        },
+        "phoneInputControl": {
+            "fieldName": "Phone number",
+            "additionalText": [
+                "Must contain only digits; do not enter extensions"
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "Phone: Input is required.",
+                    "id": "phoneInputControl_error1"
+                },
+                {
+                    "text": "Phone: Must be 10 digits.",
+                    "id": "phoneInputControl_error2",
+                    "additionalText": []
+                }
+            ],
+            "type": "TextInput"
+        },
+        "secondAddressInputControl": {
+            "fieldName": "Do you have a U.S. address that is different from above?",
+            "additionalText": [],
+            "choices": [
+                {
+                    "value": "yes",
+                    "text": "Yes"
+                },
+                {
+                    "value": "no",
+                    "text": "No"
+                }
+            ],
+            "inputErrorMessages": [
+                {
+                    "text": "Optional Address Included: Selection is required.",
+                    "id": "secondAddressInputControl_error1",
+                    "additionalText": []
+                }
+            ],
+            "type": "DropdownInput"
+        }
+    },
+    "finalSection": {
+        "buttonControls": [
+            {
+                "id": "backButton",
+                "textLabel": "Back",
+                "ariaLabel": "Back",
+                "inverted": true
+            },
+            {
+                "id": "continueButton",
+                "textLabel": "Continue",
+                "ariaLabel": "Continue",
+                "inverted": false
+            },
+            {
+                "id": "cancelButton",
+                "textLabel": "Cancel",
+                "ariaLabel": "Cancel link, click enter to go to Apply for EIN Page",
+                "link": "applyForEin",
+                "isExternal": false
+            }
+        ]
+    },
+    "verifyAddressSection": {
+        "updatePhysicalAddress": {
+            "AddressModal": {
+                "ModalHeaderText": "Update physical address?",
+                "UnmatchedAddressMessage": "The entered physical address does not match our address verification database. Select one of the following.",
+                "MatchedAddressMessage": "Your physical address will be changed to:",
+                "SuggestedAddressHeading": "Suggested Address",
+                "EnteredAddressHeading": "Entered Address",
+                "CancelButtonText": "CANCEL",
+                "SubmitButtonText": "CONTINUE",
+                "ModalBodyText": "Before selecting the previously entered address, please confirm it's correct. "
+            }
+        },
+        "updateMailingAddress": {
+            "AddressModal": {
+                "ModalHeaderText": "Update mailing address?",
+                "UnmatchedAddressMessage": "The entered mailing address does not match our address verification database. Select one of the following.",
+                "MatchedAddressMessage": "Your mailing address will be changed to:",
+                "SuggestedAddressHeading": "Suggested Address",
+                "EnteredAddressHeading": "Entered Address",
+                "CancelButtonText": "CANCEL",
+                "SubmitButtonText": "CONTINUE",
+                "ModalBodyText": "Before selecting the previously entered address, please confirm it's correct. "
+            }
+        }
+    },
+    "MailingAddress": {
+        "UpdateMailingAddress": {
+            "AddressModal": {
+                "ModalHeaderText": "Update address?",
+                "UnmatchedAddressMessage": "The entered address does not match our address verification database. Select one of the following.",
+                "MatchedAddressMessage": "Your address will be changed to:",
+                "SuggestedAddressHeading": "Suggested Address",
+                "EnteredAddressHeading": "Entered Address",
+                "CancelButtonText": "CANCEL",
+                "SubmitButtonText": "CONTINUE",
+                "ModalBodyText": "Before selecting the previously entered address, please confirm it's correct. "
+            }
+        }
+    },
+    "helpTipSection": {
+        "stateHelp": {
+          "title": "U.S. Territory or State",
+          "additionalText": [
+              "U.S. Territory is a geographic area that is owned and under the jurisdiction of the federal government. The U.S. territories include:<br>",
+              "<ul><li>American Samoa</li>",
+              "<li>Federated States of Micronesia</li>",
+              "<li>Guam</li>",
+              "<li>Marshall Islands</li>",
+              "<li>Northern Mariana Islands</li>",
+              "<li>Puerto Rico</li>",
+              "<li>Virgin Islands.</li></ul>"
+          ],
+          "ariaText": "state help topic"
+        },
+        "stateProvinceTerritoryHelp": {
+          "title": "State/Province/Territory",
+          "additionalText": [
+              "For U.S. addresses, enter the state/territory abbreviation or full name. For foreign addresses, enter the full name of the province/territory.<br><br>",
+              "Province/Territory: A province or territory is an administrative region or division of a country."
+          ],
+          "ariaText": "state help topic"
+        },
+        "inCareOfinstructions": {
+            "title": "In Care Of Name",
+            "additionalText": [
+                "The Care-of name is a specific person or department within your organization to which the mail should be directed."
+            ],
+            "ariaText": "In Care Of help topic"
+        }
+    },
+    "pageErrorInputError1": {
+        "errorMsg": "The following error has occurred: ",
+        "additionalText": []
+    },
+    "pageErrorInputError2": {
+        "errorMsg": "The following {{numberOfErrors}} errors have occurred: ",
+        "additionalText": []
+    },
+    "sameAddressBothError": {
+      "errorMsg": "The third party designee (TPD) cannot have the same address or phone number as the physical and mailing addresses.",
+      "additionalText": [
+          "In order for your application to be processed, you must edit the taxpayer's information appropriately so the above item(s) no longer match."
+      ]
+    },
+    "sameAddressPhysicalError": {
+        "errorMsg": "The third party designee (TPD) cannot have the same address or phone number as the physical address.",
+        "additionalText": [
+            "In order for your application to be processed, you must edit the taxpayer's information appropriately so the above item(s) no longer match."
+        ]
+    },
+    "sameAddressMailingError": {
+        "errorMsg": "The third party designee (TPD) cannot have the same address or phone number as the mailing address.",
+        "additionalText": [
+            "In order for your application to be processed, you must edit the taxpayer's information appropriately so the above item(s) no longer match."
+        ]
+    }
+}

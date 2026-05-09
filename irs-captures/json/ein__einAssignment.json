@@ -1,0 +1,217 @@
+{
+  "header":{
+      "title": "Apply for an Employer Identification Number (EIN)",
+      "additionalText": [
+        "Use this assistance to apply for and obtain an Employee Identification Number (EIN)"
+      ]
+  },
+  "instructions1":{
+    "title": "EIN Assignment",
+    "additionalText": [
+    ]
+  },
+  "alertNotification": {
+    "id": "einSuccessfullyAssigned",
+    "title": "Congratulations! Your EIN has been successfully assigned.",
+    "additionalText": [
+        "Save and/or print this page and the confirmation letter below for your permanent records."
+    ]
+  },
+  "buttonControls": [
+    {
+      "id" : "printPageButton",
+      "textLabel": "Print Page",
+      "ariaLabel": "Print Page",
+      "inverted": true
+    },
+    {
+      "id" : "helpWithPrintingButton",
+      "textLabel": "Help with saving and printing your letter",
+      "ariaLabel": "click for Help with saving and printing your letter. open in new window",
+      "link": "https://www.irs.gov/businesses/employer-identification-number",
+      "isExternal": true
+    },
+    {
+      "id": "downloadEinLetterButton",
+      "textLabel": "Download EIN confirmation Letter [PDF]",
+      "ariaLabel": "Download EIN confirmation Letter [PDF]",
+      "inverted": false
+    },
+    {
+      "id": "exitApplicationButton",
+      "textLabel": "Exit Application",
+      "ariaLabel": "Exit Application",
+      "inverted": false
+    },
+    {
+      "id": "applyForEinButton",
+      "textLabel": "Apply for another EIN",
+      "ariaLabel": "Apply for another EIN",
+      "link": "applyForEin",
+      "isExternal": false
+    }
+  ],
+  "einDetailsHeader": {
+    "responsibleParty": {
+      "title": "Your EIN",
+      "additionalText": []
+    },
+    "thirdPartyDesignee": {
+      "title": "The EIN",
+      "additionalText": []
+    }
+  },
+  "einDetails": {
+    "responsibleParty": {
+      "details": {
+        "subheader": "Your EIN Details",
+        "fields": [
+          {"name": "EIN assigned"},
+          {"name": "Legal name"},
+          {"name": "Name control"},
+          {"name": "Confirmation letter"}
+        ]
+      }
+    },
+    "thirdPartyDesignee": {
+      "details": {
+        "subheader": "The EIN Details",
+        "fields": [
+          {"name": "EIN assigned"},
+          {"name": "Legal name"},
+          {"name": "Name control"}
+        ]
+      }
+    }
+  },
+  "confirmationLetterNoteDigital": {
+    "title": "",
+    "additionalText": ["This confirmation letter is your official IRS notice and contains important information regarding your EIN:"]
+  },
+ "confirmationLetterNoteMail": {
+    "responsibleParty": {
+      "title": "",
+      "additionalText": ["Your confirmation letter will be mailed to you. This letter will be your official IRS notice and will contain important information regarding your EIN. Allow up to 4 weeks for your letter to arrive by mail."]
+    },
+    "thirdPartyDesignee": {
+      "title": "",
+      "additionalText": ["The confirmation letter will be mailed to the applicant. This letter will be the applicants official IRS notice and will contain important information regarding your EIN. Allow up to 4 weeks for your letter to arrive by mail."]
+    }
+  },
+  "instructionAccordion": {
+    "id": "einInfoAccordion",
+    "title": "Additional Information about your EIN",
+    "sections": [
+        {
+          "id": "whenYouCanUseEin",
+          "title" : "When can you use your EIN?",
+          "additionalText": [
+            "This EIN is your permanent number and can be used immediately for most of your business needs, including:",
+            "<ul><li>Opening a bank account</li>",
+            "<li>Applying for business licenses</li>",
+            "<li>Filing a tax return by mail</li></ul>",
+            "However, it will take up to two weeks before your EIN becomes part of the IRS's permanent records. You must wait until this occurs before you can:",
+            "<ul><li>File an electronic return</li>",
+            "<li>Make an electronic payment</li>",
+            "<li>Pass an IRS Taxpayer Identification Number (TIN) matching program</li>"
+          ]
+        },
+        {
+          "id": "nextStepsDefault",
+          "title" : "Next Steps",
+          "additionalText": [
+            "You can download IRS forms, publications, and tax returns at <IRSLink1/>"
+          ],
+          "links": {
+            "IRSLink1": {
+              "text": "https://www.irs.gov/formspubs",
+              "label": "",
+              "url": "https://www.irs.gov/formspubs"
+            }
+          }
+        },
+        {
+          "id": "needCorrections",
+          "title" : "Need to make a correction?",
+          "additionalText": [
+            "If you need to make changes to your organization's information, you must do so in writing and mail the information to the address provided at <IRSLink1/>"
+          ],
+          "links": {
+            "IRSLink1": {
+              "text": "https://www.irs.gov/businesses/business-name-change",
+              "label": "",
+              "url": "https://www.irs.gov/businesses/business-name-change"
+            }
+          }
+        }
+    ],
+    "sectionsUnique": [
+      {
+        "id": "nextStepsLLC",
+        "title" : "Next Steps (for LLC)?",
+        "additionalText": [
+          "If you do not wish to accept the default status of either partnership or disregarded entity, you can file:",
+          "<ul><li><IRSLink1/> (Entity Classification Election). This form must be completed in a timely manner to receive corporation status. See the instructions for complete information.</li>",
+          "<li><IRSLink2/> (Election by a Small Business Corporation). This form must be completed in a timely manner to receive S corporation status. See the instructions for complete information.</li></ul>",
+          "<b>Acceptance or Non-Acceptance of Election</b>",
+          "<ul><li>The service center will notify the LLC as to the acceptance or non-acceptance of its election. The LLC should generally receive a determination on its election within 60 days after it has filed Form 8832 or Form 2553.</li>",
+          "<li>Do not file Form 1120 (U.S. Corporation Income Tax Return) or Form 1120S (U.S. Income Tax Return for an S Corporation) until you receive notification of your acceptance.</li></ul>",
+          "You can download IRS forms, publications, and tax returns at <IRSLink3/>."
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "Form 8832",
+            "label": "Form 8832",
+            "url": "glossary#form8832",
+            "isExternal": false
+          },
+          "IRSLink2": {
+            "text": "Form 2553",
+            "label": "Form 2553",
+            "url": "glossary#form2553",
+            "isExternal": false
+          },
+          "IRSLink3": {
+            "text": "https://www.irs.gov/formspubs",
+            "label": "",
+            "url": "https://www.irs.gov/formspubs"
+          }
+        }
+      },
+      {
+        "id": "nextStepsCorp",
+        "title" : "Next Steps (for S-Corporation)?",
+        "additionalText": [
+          "Complete and file:",
+          "<ul><li><IRSLink1/> (Election by a Small Business Corporation). This form must be completed in a timely manner to receive S corporation status. See the instructions for complete information</li></ul>",
+          "<b>Acceptance or Non-Acceptance of Election</b>",
+          "<ul><li>The service center will notify the corporation if its election is accepted and when it will take effect. The corporation will also be notified if its election is not accepted. The corporation should generally receive a determination on its election within 60 days after it has filed Form 2553.</li></ul>",
+          "You can download IRS forms, publications, and tax returns at <IRSLink2/>"
+        ],
+        "links": {
+          "IRSLink1": {
+            "text": "Form 2553",
+            "label": "Form 2553",
+            "url": "glossary#form2553",
+            "isExternal": false
+          },
+          "IRSLink2": {
+            "text": "https://www.irs.gov/formspubs",
+            "label": "",
+            "url": "https://www.irs.gov/formspubs"
+          }
+        }
+      }
+    ]
+  },
+  "pageErrorInputError1": {
+    "errorMsg": "The following error has occurred: ",
+    "additionalText": [
+    ]
+  },
+  "pageErrorInputError2": {
+      "errorMsg": "The following {{numberOfErrors}} errors have occurred: ",
+      "additionalText": [
+      ]
+  }
+}

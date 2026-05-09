@@ -1,0 +1,941 @@
+{
+  "header":{
+      "title": "Apply for an Employer Identification Number (EIN)",
+      "additionalText": [
+        "Use this assistance to apply for and obtain an Employee Identification Number (EIN)"
+      ]
+  },
+  "instructions1":{
+    "title": "Legal Structure",
+    "additionalText": [
+      "All fields marked with an asterisk (<Red>*</Red>) are required."
+    ]
+  },
+  "typeOfStructureSection": {
+    "instructions2":{
+      "title": "What type of legal structure is applying for an EIN?",
+      "additionalText": [
+          "If you still don't see your organization type, click on \"View Additional Types including Non-Profit/Tax-Exempt Organizations\" to view more types. Additional help may be found by reviewing <IRSLink2/>."
+      ],
+      "links": {
+       "IRSLink1": {
+          "text": "Types of legal structures",
+          "label": "Types of legal structures",
+          "url": "glossary#typesOfLegalStructures",
+          "isExternal": "false"
+        },
+        "IRSLink2": {
+          "text": "all types of organizations and structures",
+          "label": "all types of organizations and structures",
+          "url": "glossary#allOrganizationsType",
+          "isExternal": "false"
+        }
+      }
+    },
+    "legalStructureInputControl": {
+      "id" : "legalStructureInputControl",
+      "fieldName": "Choose type of legal structure",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "SOLE_PROPRIETOR",
+            "text" : "Sole Proprietor",
+            "additionalText": [
+              "Includes individuals who are in business for themselves and household employers."
+            ]
+        },
+        {
+            "value" : "PARTNERSHIP",
+            "text" : "Partnerships",
+            "additionalText": [
+              "Includes partnerships and joint ventures."
+            ]
+        },
+        {
+            "value" : "CORPORATION",
+            "text" : "Corporations",
+            "additionalText": [
+              "Includes S corporations, personal service corporations, real estate investment trusts (REIT), regulated investment conduits (RIC), and settlement funds."
+            ]
+        },
+        {
+            "value" : "LLC",
+            "text" : "Limited Liability Company (LLC)",
+            "additionalText": [
+              "A limited liability company (LLC) is a structure allowed by state statute and is formed by filing articles of organization with the state."
+            ]
+        },
+        {
+            "value" : "ESTATE",
+            "text" : "Estate",
+            "additionalText": [
+              "An estate is a legal entity created as a result of a person's death."
+            ]
+        },
+        {
+            "value" : "ALL_OTHERS_TRUST",
+            "text" : "Trusts",
+            "additionalText": [
+              "All types of trusts including conservatorships, custodianships, guardianships, irrevocable trusts, revocable trusts, and receiverships."
+            ]
+        },
+        {
+            "value" : "OTHER_NON_PROFIT",
+            "text" : "View Additional Types, Including Tax-Exempt and Governmental Organizations",
+            "additionalText": [
+              "If none of the above fit what you are establishing , there are several others to choose from."
+            ]
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Legal Structure: Selection is required.",
+              "id": "legalStructureInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "soleProprietorSection": {
+    "instructions3":{
+      "title": "You have chosen Sole Proprietor",
+      "additionalText": [
+        "Sole proprietor includes individuals who are in business for themselves, or household employers. Read the descriptions below and choose the type for which you are applying."
+      ]
+    },
+    "soleProprietorStructureInputControl": {
+      "id" : "soleProprietorStructureInputControl",
+      "fieldName": "Choose the type of legal structure",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "SOLE_PROPRIETOR",
+            "text" : "Sole Proprietor",
+            "additionalText": [
+              "A sole proprietorship is a business that has only one owner and is not incorporated or registered with the state as a limited liability company (LLC). A <IRSLink1/> can be a self-employed individual or an independent contractor. Sole proprietors (self-employed individuals) report all business income and expenses on their individual tax returns (<IRSLink2/>, U.S. Individual Income Tax Return, Schedule C, E, or F). A sole proprietor may or may not have employees."
+            ]
+        },
+        {
+            "value" : "HOUSEHOLD_EMPLOYER",
+            "text" : "Household Employer",
+            "additionalText": [
+              "You are a <IRSLink3/> if you have hired someone to do household work and <IRSLink4/>. Household employees include: babysitters, nannies, au pairs, cleaning people, housekeepers, maids, drivers, health aides, private nurses, caretakers, yard workers, and similar domestic workers."
+            ]
+        }
+      ],
+      "links": {
+        "IRSLink1": {
+           "text": "sole proprietor",
+           "label": "sole proprietor",
+           "url": "glossary#soleProprietor",
+           "isExternal": "false"
+         },
+         "IRSLink2": {
+            "text": "Form 1040",
+            "label": "Form 1040",
+            "url": "glossary#form1040",
+            "isExternal": "false"
+         },
+         "IRSLink3": {
+          "text": "household employer",
+          "label": "household employer",
+          "url": "glossary#householdEmployer",
+           "isExternal": "false"
+         },
+         "IRSLink4": {
+           "text": "that worker is your employee",
+           "label": "that worker is your employee",
+           "url": "glossary#thatWorkerIsEmployee",
+           "isExternal": "false"
+         }
+       },
+      "inputErrorMessages": [
+          {
+              "text": "Sole Proprietor Type: Selection is required.",
+              "id": "solePropStructureInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "partnershipSection": {
+    "instructions3":{
+      "title": "You have chosen Partnerships",
+      "additionalText": [
+        "Read the descriptions below and choose the type for which you are applying"
+      ]
+    },
+    "partnershipStructureInputControl": {
+      "id" : "partnershipStructureInputControl",
+      "fieldName": "Choose the type of legal structure",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "PARTNERSHIP",
+            "text" : "Partnership",
+            "additionalText": [
+              "A <IRSLink1/> is a relationship existing between two or more persons or groups who join together to carry on a trade or business.  Each partner contributes money, property, labor, or skill, and expects to share in the profits and losses of the business."
+            ]
+        },
+        {
+            "value" : "JOINT_VENTURE",
+            "text" : "Joint Venture",
+            "additionalText": [
+              "A <IRSLink2/> is a partnership formed between two or more business entities. These businesses share risk or expertise on a specific project or group of projects."
+            ]
+        }
+      ],
+      "links": {
+        "IRSLink1": {
+           "text": "partnership",
+           "label": "partnership",
+           "url": "glossary#partnership",
+           "isExternal": "false"
+         },
+         "IRSLink2": {
+           "text": "joint venture",
+           "label": "joint venture",
+           "url": "glossary#jointVenture",
+           "isExternal": "false"
+         }
+       },
+      "inputErrorMessages": [
+          {
+              "text": "Partnership Type: Selection is required.",
+              "id": "partnershipStructureInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "corpSection": {
+    "instructions3":{
+      "title": "You have chosen Corporations",
+      "additionalText": [
+        "Read the descriptions below and choose the type for which you are applying."
+      ]
+    },
+    "corpStructureInputControl": {
+      "id" : "corpStructureInputControl",
+      "fieldName": "Choose the type of legal structure",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+          "value" : "CORPORATION",
+          "text" : "Corporation",
+          "additionalText": [
+            "A <IRSLink1/> is a person or group of people who establish a legal entity by filing articles of incorporation with the state's secretary of state granting it certain legal powers, rights, privileges, and liabilities."
+          ]
+        },
+        {
+          "value" : "SCORP",
+          "text" : "S Corporation",
+          "additionalText": [
+            "The income of an <IRSLink2/> generally is taxed to the shareholders of the corporation rather than to the corporation itself. However, an S corporation may still owe tax on certain income."
+          ]
+        },
+        {
+          "value" : "PERSONAL_SERVICE_CORPORATION",
+          "text" : "Personal Service Corporation",
+          "additionalText": [
+            "A <IRSLink3/> involves services in the fields of health, law, engineering, architecture, accounting, actuarial science, performing arts, or consulting."
+          ]
+        },
+        {
+          "value" : "REIT",
+          "text" : "Real Estate Investment Trust (REIT)",
+          "additionalText": [
+            "A <IRSLink4/> is an investment vehicle established for the benefit of a group of real estate investors."
+          ]
+        },
+        {
+          "value" : "RIC",
+          "text" : "Regulated Investment Conduit (RIC)",
+          "additionalText": [
+            "A <IRSLink5/> is a regulated investment company that applies to any domestic corporation that meets certain criteria."
+          ]
+        },
+        {
+          "value" : "SETTLEMENT_FUND",
+          "text" : "Settlement Fund (under IRC Sec 468B)",
+          "additionalText": [
+            "A <IRSLink6/> is established for the principal purpose of settling and paying claims against the electing taxpayer under Internal Revenue Code (IRC) Section 468B."
+          ]
+        }
+      ],
+      "links": {
+        "IRSLink1": {
+           "text": "corporation",
+           "label": "corporation",
+           "url": "glossary#corporation",
+           "isExternal": "false"
+         },
+         "IRSLink2": {
+           "text": "S corporation",
+           "label": "S corporation",
+           "url": "glossary#sCorp",
+           "isExternal": "false"
+         },
+         "IRSLink3": {
+           "text": "personal service corporation",
+           "label": "personal service corporation",
+           "url": "glossary#personalServiceCorp",
+           "isExternal": "false"
+         },
+         "IRSLink4": {
+           "text": "REIT",
+           "label": "REIT",
+           "url": "glossary#reit",
+           "isExternal": "false"
+         },
+         "IRSLink5": {
+          "text": "RIC",
+          "label": "RIC",
+          "url": "glossary#ric",
+          "isExternal": "false"
+        },
+        "IRSLink6": {
+          "text": "settlement fund",
+          "label": "settlement fund",
+          "url": "glossary#settlementFund",
+          "isExternal": "false"
+        }
+       },
+      "inputErrorMessages": [
+          {
+              "text": "Corporation Type: Selection is required.",
+              "id": "corpStructureInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "trustSection": {
+    "instructions3":{
+      "title": "Identify the type of Trust",
+      "additionalText": [
+        "You must identify one <IRSLink1/> you are applying for. If you don't see your trust type, select \"Trust (All Others)\""
+      ],
+      "links": {
+        "IRSLink1": {
+           "text": "Type of trust",
+           "label": "Type of trust",
+           "url": "glossary#typesOfTrusts",
+           "isExternal": "false"
+         }
+       }
+    },
+    "trustEntityInputControl": {
+      "id" : "trustEntityInputControl",
+      "fieldName": "Choose the type of legal structure",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+          "value" : "BANKRUPTCY",
+          "text" : "Bankruptcy Estate (Individual)"
+        },
+        {
+          "value" : "CHARITABLE_LEAD_ANNUITY_TRUST",
+          "text" : "Charitable Lead Annuity Trust"
+        },
+        {
+          "value" : "CHARITABLE_LEAD_UNITRUST",
+          "text" : "Charitable Lead Unitrust"
+        },
+        {
+          "value" : "CHARITABLE_REMAINDER_ANNUITY_TRUST",
+          "text" : "Charitable Remainder Annuity Trust"
+        },
+        {
+          "value" : "CHARITABLE_REMAINDER_UNITRUST",
+          "text" : "Charitable Remainder Unitrust"
+        },
+        {
+          "value" : "CONSERVATORSHIP",
+          "text" : "Conservatorship"
+        },
+        {
+          "value" : "CUSTODIANSHIP",
+          "text" : "Custodianship"
+        },
+        {
+          "value" : "ESCROW",
+          "text" : "Escrow"
+        },
+        {
+          "value" : "FNMA",
+          "text" : "FNMA (Fannie Mae)"
+        },
+        {
+          "value" : "GNMA",
+          "text" : "GNMA (Ginnie Mae)"
+        },
+        {
+          "value" : "GUARDIANSHIP",
+          "text" : "Guardianship"
+        },
+        {
+          "value" : "IRREVOCABLE_TRUST",
+          "text" : "Irrevocable Trust"
+        },
+        {
+          "value" : "POOLED_INCOME_FUND",
+          "text" : "Pooled Income Fund"
+        },
+        {
+          "value" : "FUNERAL_TRUST",
+          "text" : "Qualified Funeral Trust"
+        },
+        {
+          "value" : "RECEIVERSHIP",
+          "text" : "Receivership"
+        },
+        {
+          "value" : "REVOCABLE_TRUST",
+          "text" : "Revocable Trust"
+        },
+        {
+          "value" : "SETTLEMENT_FUND",
+          "text" : "Settlement Fund (under IRC Sec 468B)"
+        },
+        {
+          "value" : "ALL_OTHERS_TRUST",
+          "text" : "Trust (All Others)"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Trust Type: Selection is required.",
+              "id": "trustEntityInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "additionalTypeSection": {
+    "instructions3":{
+      "title": "Additional Types",
+      "additionalText": [
+        "In order to obtain an EIN from the IRS, you must know what type of structure or organization you are setting up. If you need additional assistance, consult an accountant or other tax professional before applying for your EIN, or call the IRS at 1-800-829-4933."
+      ]
+    },
+    "additionalEntityInputControl": {
+      "id" : "additionalEntityInputControl",
+      "fieldName": "Choose the type of legal structure",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+          "value" : "BANKRUPTCY",
+          "text" : "Bankruptcy Estate (Individual)"
+        },
+        {
+          "value" : "BLOCK_OR_TENANT_ASSOCIATION",
+          "text" : "Block/Tenant Association"
+        },
+        {
+          "value" : "CHURCH",
+          "text" : "Church"
+        },
+        {
+          "value" : "CHURCH_CONTROLLED_ORGANIZATION",
+          "text" : "Church-Controlled Organization"
+        },
+        {
+          "value" : "COMMUNITY_OR_VOLUNTEER_GROUP",
+          "text" : "Community or Volunteer Group"
+        },
+        {
+          "value" : "EMPLOYER_OR_FISCAL_AGENT",
+          "text" : "Employer/Fiscal Agent (under IRC Sec 3504)"
+        },
+        {
+          "value" : "EMPLOYER_PLAN",
+          "text" : "Employer Plan (401K, Money Purchase Plan, etc.)"
+        },
+        {
+          "value" : "FARMERS_COOP",
+          "text" : "Farmer's Cooperative"
+        },
+        {
+          "value" : "FEDERAL_GOVT_OR_MILITARY",
+          "text" : "Government, Federal/Military"
+        },
+        {
+          "value" : "INDIAN_TRIBAL",
+          "text" : "Government, Indian Tribal Governments"
+        },
+        {
+          "value" : "STATE_OR_LOCAL_ORGANIZATION",
+          "text" : "Government, State/Local"
+        },
+        {
+          "value" : "HOA",
+          "text" : "Homeowners/Condo Association"
+        },
+        {
+          "value" : "HOUSEHOLD_EMPLOYER",
+          "text" : "Household Employer"
+        },
+        {
+          "value" : "IRA",
+          "text" : "IRA"
+        },
+        {
+          "value" : "MEMORIAL_SCHOLARSHIP",
+          "text" : "Memorial or Scholarship Fund"
+        },
+        {
+          "value" : "PLAN_ADMINISTRATOR",
+          "text" : "Plan Administrator"
+        },
+        {
+          "value" : "POLITICAL_ORGANIZATION",
+          "text" : "Political Organization"
+        },
+        {
+          "value" : "PTA_OR_PTO_SCHOOL_ORG",
+          "text" : "PTA/PTO or School Organization"
+        },
+        {
+          "value" : "REMIC",
+          "text" : "REMIC"
+        },
+        {
+          "value" : "SOCIAL_SAVINGS_CLUB",
+          "text" : "Social or Savings Club"
+        },
+        {
+          "value" : "SPORTS_TEAM",
+          "text" : "Sports Teams (community)"
+        },
+        {
+          "value" : "WITHHOLDING_AGENT",
+          "text" : "Withholding Agent"
+        },
+        {
+          "value" : "OTHER_NON_PROFIT",
+          "text" : "Other Non-Profit/Tax-Exempt Organizations"
+        }
+      ],
+      "links": {
+        "IRSLink1": {
+           "text": "type",
+           "label": "type",
+           "url": "glossary#typesOfOtherOrgs",
+           "isExternal": "false"
+         }
+       },
+      "inputErrorMessages": [
+          {
+              "text": "Additional Type: Selection is required.",
+              "id": "additionalEntityInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "llcTellUsMoreSection": {
+    "instructions1":{
+      "title": "Tell us more about the members of the Limited Liability Company (LLC)",
+      "additionalText": [
+      ]
+    },
+    "membersInputControl": {
+      "id" : "membersInputControl",
+      "fieldName": "How many member(s) are in the LLC?",
+      "additionalText": [
+      ],
+      "type" : "TextInput",
+      "inputErrorMessages": [
+          {
+            "text": "LLC Members: Enter a valid number",
+            "id": "membersInputControl_error1"
+          }
+      ]
+    },
+    "stateInputControl": {
+      "id" : "stateInputControl",
+      "fieldName": "Please select the state/territory where the business is physically located",
+      "additionalText": [],
+      "type" : "DropdownCommonInput",
+      "choicesType": "stateType1",
+      "inputErrorMessages": [
+          {
+              "text": "State: Selection is required.",
+              "id": "stateInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    },
+    "marriedInstructions":{
+      "title": "You are in a community property state. Tell us more about the two-member Limited Liability Company (LLC)",
+      "additionalText": []
+    },
+    "marriedInputControl": {
+      "fieldName": "Are the members husband and wife?",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "yes",
+            "text" : "Yes"
+        },
+        {
+            "value" : "no",
+            "text" : "No"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Married: Selection is required.",
+              "id": "marriedInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    },
+    "whichLlcInstructions":{
+      "title": "You are husband and wife residing in a community property state and the only two members of a Limited Liability Company (LLC)",
+      "additionalText": [
+        "Under Revenue Procedure 2002-69, you have the option of treating the LLC as a <IRSLink1/> or as a <IRSLink2/>"
+      ],
+      "links": {
+        "IRSLink1": {
+          "text": "multi-member LLC",
+          "label": "multi-member LLC",
+          "url": "glossary#multiMemberLLC",
+          "isExternal": "false"
+        },
+        "IRSLink2": {
+          "text": "single-member LLC",
+          "label": "single-member LLC",
+          "url": "glossary#singleMemberLLC",
+          "isExternal": "false"
+        }
+      }
+    },
+    "whichLlcInputControl": {
+      "fieldName": "Please choose how you want to be classified",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "MULTI_MEMBER_LLC",
+            "text" : "Multi-member LLC"
+        },
+        {
+            "value" : "SINGLE_MEMBER_LLC",
+            "text" : "Single-member LLC"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Which LCC: Selection is required. Please complete LLC questions.",
+              "id": "whichLlcInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    },
+    "whichLlcTypeInputControl": {
+      "id" : "whichLlcTypeInputControl",
+      "fieldName": "Please choose how you want to be classified",
+      "additionalText": [],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "MULTI_MEMBER_LLC",
+            "text" : "Multi-member LLC"
+        },
+        {
+            "value" : "SINGLE_MEMBER_LLC",
+            "text" : "Single-member LLC"
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "LLC Type: Selection is required.",
+              "id": "llcTypeInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "primaryReasonSection": {
+    "instructions3":{
+      "title": "Why is the {{entityName}} requesting an EIN?",
+      "additionalText": [
+        "If your main reason for applying is not on the list, please select the option you feel is closest to your main reason. If more than one reason applies to you, choose the best or main reason. "
+      ]
+    },
+    "corpTypeInstructions3":{
+      "title": "Why is the {{entityName}} requesting an EIN?",
+      "additionalText": [
+        "If your main reason for applying is not on the list, please select the option you feel is closest to your main reason. If more than one reason applies to you, choose the best or main reason. ",
+        "Note: If you were incorporated outside of the United States or U.S. territories, you cannot apply for an EIN online. Please call us at 267-941-1099 (this is not a toll free number). Please exit the application by clicking \"Exit\" above."
+      ]
+    },
+    "iraInstructions3":{
+      "title": "Why is the {{entityName}} requesting an EIN?",
+      "additionalText": [
+        "<b>Note:</b> If you do not intend to file <IRSLink1/> (U.S. Income Tax Return for Estates and Trusts) or <IRSLink2/> (Exempt Organization Business Income Tax Return), you do not need an EIN. Please use your Social Security Number for all filing purposes and exit the application. Otherwise, click \"Continue\" to apply for an EIN."
+      ],
+      "links": {
+        "IRSLink1": {
+          "text": "Form 990-T",
+          "label": "Form 990-T",
+          "url": "glossary#form990T"
+        },
+        "IRSLink2": {
+          "text": "Form 1041",
+          "label": "Form 1041",
+          "url": "glossary#form1041"
+        }
+      }
+    },
+    "reasonForApplyingInputControl": {
+      "id" : "reasonForApplyingInputControl",
+      "fieldName": "Choose one reason that best describes why you are applying for an EIN",
+      "additionalText": [
+      ],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "NEW_BUSINESS",
+            "text" : "Started a new business",
+            "additionalText": [
+              "If you are beginning a new business."
+            ]
+        },
+        {
+            "value" : "HIRED_EMPLOYEES",
+            "text" : "Hired employee(s)",
+            "additionalText": [
+              "If you already have a business and need to hire employees."
+            ]
+        },
+        {
+          "value" : "BANKING_NEEDS",
+          "text" : "Banking purposes",
+          "additionalText": [
+            "If the reason for applying for the EIN is strictly to satisfy banking requirements or local law."
+          ]
+        },
+        {
+          "value" : "CHANGING_LEGAL_STRUCTURE",
+          "text" : "Changed type of organization",
+          "additionalText": [
+            "If you are changing the type of organization you currently operate, such as changing from a sole proprietor to a partnership, changing from a partnership to a corporation, etc."
+          ]
+        },
+        {
+          "value" : "PURCHASED_BUSINESS",
+          "text" : "Purchased active business",
+          "additionalText": [
+            "If you are purchasing a business that is already in operation."
+          ]
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Reason For Applying: Selection is required.",
+              "id": "reasonForApplyingInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    },
+    "receivershipReasonInputControl": {
+      "id" : "receivershipReasonInputControl",
+      "fieldName": "Choose one reason that best describes why you are applying for an EIN",
+      "additionalText": [
+      ],
+      "type" : "RadioInput",
+      "choices": [
+        {
+            "value" : "HIRED_EMPLOYEES",
+            "text" : "Hired employee(s)",
+            "additionalText": [
+              "If you already have a business and need to hire employees."
+            ]
+        },
+        {
+          "value" : "BANKING_NEEDS",
+          "text" : "Banking purposes",
+          "additionalText": [
+            "If the reason for applying for the EIN is strictly to satisfy banking requirements or local law."
+          ]
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Reason For Applying: Selection is required.",
+              "id": "receivershipReasonInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    },
+    "homeownersReasonInputControl": {
+      "id" : "homeownersReasonInputControl",
+      "fieldName": "Choose one reason that best describes why you are applying for an EIN",
+      "additionalText": [
+      ],
+      "type" : "RadioInput",
+      "choices": [
+        {
+          "value" : "NEW_BUSINESS",
+          "text" : "Started a new business",
+          "additionalText": [
+            "If you are beginning a new business."
+          ]
+        },
+        {
+            "value" : "HIRED_EMPLOYEES",
+            "text" : "Hired employee(s)",
+            "additionalText": [
+              "If you already have a business and need to hire employees."
+            ]
+        },
+        {
+          "value" : "BANKING_NEEDS",
+          "text" : "Banking purposes",
+          "additionalText": [
+            "If the reason for applying for the EIN is strictly to satisfy banking requirements or local law."
+          ]
+        }
+      ],
+      "inputErrorMessages": [
+          {
+              "text": "Reason For Applying: Selection is required.",
+              "id": "homeownersReasonInputControl_error1",
+              "additionalText": []
+          }
+      ]
+    }
+  },
+  "finalSection": {
+    "reviewInputControl": {
+      "id" : "reviewInputControl",
+      "fieldName": "Review and confirm",
+      "additionalText": [],
+      "choice": "I understand that I can't change the information on this page once I continue. I've reviewed everything and confirm it's correct.",
+      "inputErrorMessages": [
+          {
+            "text": "Review and confirm: Checkbox must be checked before continuing.",
+            "id": "reviewInputControl_error1"
+          }
+      ],
+      "type" : "checkBoxInput"
+    },
+    "buttonControls": [
+      {
+          "id" : "backButton",
+          "textLabel": "Back",
+          "ariaLabel": "Back",
+          "inverted": true
+      },
+      {
+          "id" : "continueButton",
+          "textLabel": "Continue",
+          "ariaLabel": "Continue",
+          "inverted": false
+      },
+      {
+          "id" : "cancelButton",
+          "textLabel": "Cancel",
+          "ariaLabel": "Cancel link, click enter to go to Apply for EIN Page",
+          "link": "applyForEin",
+          "isExternal": false
+      }
+    ]
+  },
+  "helpTipSection": {
+    "typesOfLegalStructures": {
+      "id": "typesOfLegalStructures",
+      "title": "Types of Legal Structures",
+      "additionalText": [
+          "<ul>",
+          "<li><IRSLink1/></li>",
+          "<li><IRSLink2/></li>",
+          "<li><IRSLink3/></li>",
+          "<li><IRSLink4/></li>",
+          "<li><IRSLink5/></li>",
+          "<li><IRSLink6/></li>",
+          "</ul>"
+      ],
+      "links": {
+          "IRSLink1": {
+              "text": "Sole Proprietor",
+              "label": "Sole Proprietor",
+              "url": "glossary#soleProprietor",
+              "isExternal": false
+          },
+          "IRSLink2": {
+              "text": "Partnerships",
+              "label": "Partnerships",
+              "url": "glossary#partnership",
+              "isExternal": false
+          },
+          "IRSLink3": {
+              "text": "Corporations",
+              "label": "Corporations",
+              "url": "glossary#corporation",
+              "isExternal": false
+          },
+          "IRSLink4": {
+              "text": "Limited Liability Company (LLC)",
+              "label": "Limited Liability Company (LLC)",
+              "url": "glossary#llc",
+              "isExternal": false
+          },
+          "IRSLink5": {
+              "text": "Estate",
+              "label": "Estate",
+              "url": "glossary#estate",
+              "isExternal": false
+          },
+          "IRSLink6": {
+              "text": "Trusts",
+              "label": "Trusts",
+              "url": "glossary#trust",
+              "isExternal": false
+          }
+      },
+      "ariaText": "Types of Legal Structures help topic"
+    },
+    "memberHelp": {
+      "id": "memberHelp",
+      "title": "Member",
+      "additionalText": [
+          "The word \"member\" has several definitions:<br>",
+          "<ol><li>An individual who belongs to an organization, association, firm, partnership, company, or corporation</li>",
+          "<li>One of the persons who compose a social group (especially individuals who have joined and participate in a group organization)</li>",
+          "<li>The owners of an LLC are called members and are similar in some respects to shareholders of a corporation. A member can be a natural person, a corporation, a partnership, or another legal association or entity</li></ol>"
+      ],
+      "ariaText": "Member help topic"
+    },
+    "communityPropertyStateHelp": {
+      "id": "communityPropertyStateHelp",
+      "title": "Community Property States",
+      "additionalText": [
+        "Arizona, California, Idaho, Louisiana, Nevada, New Mexico, Texas, Washington, and Wisconsin."
+      ],
+      "ariaText": "Community Property States help topic"
+    }
+  },
+  "pageErrorInputError1": {
+    "errorMsg": "The following error has occurred: ",
+    "additionalText": [
+    ]
+  },
+  "pageErrorInputError2": {
+      "errorMsg": "The following {{numberOfErrors}} errors have occurred: ",
+      "additionalText": [
+
+      ]
+  }
+}
+

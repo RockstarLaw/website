@@ -1,0 +1,472 @@
+{
+  "header":{
+      "title": "Apply for an Employer Identification Number (EIN)",
+      "additionalText": [
+        "Use this assistance to apply for and obtain an Employee Identification Number (EIN)"
+      ]
+  },
+  "reviewAndSubmitSection": {
+    "subHeader":{
+      "title": "Review and Submit",
+      "additionalText": [
+        "All fields marked with an asterisk (<Red>*</Red>) are required."
+      ]
+    },
+    "reviewBeforeSubmittingAlert": {
+      "title": "Review your information before submitting.",
+      "additionalText": [
+          "Please review the information you are about to submit. If any of the information below is incorrect, you will need to start a new application.<br><br>",
+          "Click the \"Submit EIN Request\" button at the bottom of the page to receive your EIN."
+      ]
+    },
+    "confirmationLetterInstructions":{
+      "title": "How would you like to receive your EIN Confirmation Letter?",
+      "additionalText": [
+      ]
+    },
+    "confirmationLetterInputControl": {
+        "fieldName": "You have two options for receiving your confirmation letter. Please choose one below",
+        "additionalText": [],
+        "type" : "RadioInput",
+        "choices": [
+          {
+              "value" : "DIGITAL",
+              "text" : "Receive letter digitally in the next step",
+              "additionalText": [
+                "This option requires Adobe Reader. You will be able to view, print, and save this letter immediately. It will not be mailed to you."
+              ]
+          },
+          {
+              "value" : "MAIL",
+              "text" : "Receive letter by mail (allow up to 4 weeks for delivery)",
+              "additionalText": [
+                "The IRS will send the letter to the mailing address you provided."
+              ]
+          }
+        ],
+        "inputErrorMessages": [
+            {
+                "text": "Confirmation Letter: Selection is required.",
+                "id": "confirmationLetterInputControl_error1",
+                "additionalText": []
+            }
+        ]
+      },
+    "summaryInfoHeader": {
+      "title": "Summary of your information",
+      "additionalText": []
+    },
+    "summaryInfo": {
+      "legalStructure": {
+        "subheader": "Legal Structure",
+        "fields": [
+          {"name": "Organization Type"}
+        ]
+      },
+      "entityInformation": {
+        "subheader": "{{tellUsAboutOrgLabel}} Information",
+        "fields": [
+          {"name": "Legal name"},
+          {"name": "Trade name/doing business as"},
+          {"name": "County"},
+          {"name": "State/Territory"},
+          {"name": "Date created/funded/probated"},
+          {"name": "Date Corporation started or acquired"},
+          {"name": "Date Trust funded"},
+          {"name": "Date business started or acquired"},
+          {"name": "Start date"},
+          {"name": "Closing month of accounting year"},
+          {"name": "State/Territory where articles of organization are (or will be) filed"},
+          {"name": "Form 1041 filer"},
+          {"name": "Form 945 filer"},
+          {"name": "Plan liable for non-payroll tax withholding"},
+          {"name": "Wages paid date"},
+          {"name": "Form 8871 under Sec 527 filer"},
+          {"name": "Judicial reference number"},
+          {"name": "Case number"},
+          {"name": "Account/Series number"},
+          {"name": "Type of REIT"},
+          {"name": "Government agency"}
+        ]
+      },
+      "addressInformation": {
+        "subheader": "Addresses",
+        "fields": [
+          {"name": "Physical Location"},
+          {"name": "Phone Number"},
+          {"name": "Mail directed To"},
+          {"name": "Mailing Address"},
+          {"name": "Additional Address"},
+          {"name": "TPD Name"},
+          {"name": "TPD Address"},
+          {"name": "TPD Phone Number"}
+        ]
+      },
+      "personOne": {
+        "subheader": "{{firstPersonNameValue}}",
+        "fields": [
+          {"name": "Name"},
+          {"name": "SSN/ITIN"},
+          {"name": "EIN"}
+        ]
+      },
+      "personTwo": {
+        "subheader": "{{secondPersonNameValue}}",
+        "fields": [
+          {"name": "Name"},
+          {"name": "SSN/ITIN"},
+          {"name": "EIN"}
+        ]
+      },
+      "businessActivity": {
+        "subheader": "Principal Business Activity",
+        "fields": [
+          {"name": "What your business/organization does"},
+          {"name": "Principal product/service"}
+        ]
+      },
+      "employeeInfo": {
+        "subheader": "Employee Information",
+        "fields": [
+          {"name": "Date wages or annuities will be paid"},
+          {"name": "Number of agricultural employees"},
+          {"name": "Number of household employees"},
+          {"name": "Number of other employees"},
+          {"name": "Tax Liability of $1000 or less during calendar year"}
+        ]
+      },
+      "additionalInfo": {
+        "subheader": "Additional {{tellUsAboutOrgLabel}} Information",
+        "fields": [
+          {"name": "Owns a 55,000 pounds or greater highway motor vehicle"},
+          {"name": "Involves gambling/wagering"},
+          {"name": "Involves alcohol, tobacco, or firearms"},
+          {"name": "Files Form 720 (Quarterly Federal Excise Tax Return)"},
+          {"name": "Has employees who receive Forms W-2"},
+          {"name": "Reason for Applying"}
+        ]
+      }
+    },
+    "defaultMonthCorp": {
+      "title": "The closing month of the accounting year is defaulted to December due to your organization type. To change your closing month of accounting year, complete <IRSLink1/> / <IRSLink2/>",
+      "additionalText": [],
+      "links": {
+        "IRSLink1": {
+            "text": "Form 1128",
+            "label": "form 1128",
+            "url": "glossary#form1128",
+            "isExternal": false
+        },
+        "IRSLink2": {
+            "text": "Form 8716",
+            "label": "form 8716",
+            "url": "glossary#form8716",
+            "isExternal": false
+        }
+      }
+    },
+    "defaultMonthOther": {
+      "title": "The closing month of the accounting year is defaulted to December due to your organization type. To change your closing month of accounting year, complete <IRSLink1/>",
+      "additionalText": [],
+      "links": {
+        "IRSLink1": {
+            "text": "Form 1128",
+            "label": "form 1128",
+            "url": "glossary#form1128",
+            "isExternal": false
+        }
+      }
+    },
+    "typeOfReit": {
+      "EQUITY": "Equity REIT",
+      "MORTGAGE": "Mortgage REIT"
+    },
+    "principalActivity": {
+      "ACCOMMODATIONS": "Accommodations",
+      "CONSTRUCTION": "Construction",
+      "FINANCE": "Finance",
+      "FOOD_SERVICE": "Food Service",
+      "HEALTH_CARE": "Health Care",
+      "INSURANCE": "Insurance",
+      "MANUFACTURING": "Manufacturing",
+      "REAL_ESTATE": "Real Estate",
+      "RENTAL_LEASING": "Rental Leasing",
+      "RETAIL": "Retail",
+      "SOCIAL_ASSISTANCE": "Social Assistance",
+      "TRANSPORTATION": "Transportation",
+      "WAREHOUSING": "Warehousing",
+      "WHOLESALE": "Wholesale",
+      "OTHER": "Other",
+      "OTHER_CONSULTING": "Consulting",
+      "OTHER_SERVICE": "Service",
+      "OTHER_RENTAL": "Rental",
+      "OTHER_RETAIL": "Retail",
+      "OTHER_REPAIR": "Repair",
+      "OTHER_REAL_ESTATE": "Real Estate",
+      "OTHER_HOMEOWNER": "Homeowners Association",
+      "OTHER_MANUFACTURING": "Manufacturing",
+      "OTHER_WHOLESALE": "Wholesale",
+      "OTHER_WHOLESALE_AGENT_BROKER": "Wholesale",
+      "OTHER_WHOLESALE_AGENT": "Wholesale",
+      "OTHER_ATHLETIC": "Athletic Org",
+      "OTHER_CONSERVATION": "Conservation",
+      "OTHER_ENVIRONMENTAL": "Environmental",
+      "OTHER_FUNDRAISING": "Fundraising",
+      "OTHER_ORGANIZATION": "Organization",
+      "OTHER_HOMEOWNER_ORGANIZATION": "Homeowners Association",
+      "OTHER_RELIGIOUS_ORGANIZATION": "Religious Org",
+      "OTHER_SOCIAL_ORGANIZATION": "Social Org"
+
+    },
+    "principalService": {
+
+      "CASINO": "Casino hotel",
+      "HOTEL": "Hotel",
+      "MOTEL": "Motel",
+
+      "RESIDENTIAL_CONSTRUCTION": "Residential Construction",
+      "RESIDENTIAL_REMODELING": "Residential Remodeling",
+
+      "COMMODITIES_BROKER": "Commodity Broker",
+      "CREDIT_CARD_ISSUER": "Credit card issuer",
+      "INVESTMENT_ADVICE": "Investment advice",
+      "INVESTMENT_CLUB": "Investment club",
+      "INVESTMENT_HOLDING": "Investment holding",
+      "MORGAGE_BROKER": "Mortgage broker",
+      "MORGAGE_COMPANY": "Mortgage company",
+      "PORTFOLIO_MANAGEMENT": "Portfolio management",
+      "SALES_FINANCING": "Sales financing",
+      "SECURITIES_BROKER": "Security Broker",
+      "TRUST_ADMIN": "Trust Administration",
+      "VENTURE_CAPITAL": "Venture capital company",
+
+      "BAR": "Bar",
+      "BAR_RESTAURANT": "Bar and Restaurant",
+      "CATERING": "Catering",
+      "COFFEE_SHOP": "Coffee shop",
+      "FAST_FOOD": "Retail fast food",
+      "RESTAURANT": "Full service restaurant",
+      "ICE_CREAM_SHOP": "Ice cream shop",
+      "MOBILE_FOOD_SERVICES": "Mobile food service",
+
+      "MEDICAL_DOCTOR": "Medical doctor",
+      "PSYCHIATRIST": "Psychiatrist",
+      "CHIROPRACTOR": "Chiropractor",
+      "DENTIST": "Dentist",
+      "HMO_MEDICAL_CENTER": "HMO medical center",
+      "HOSPITAL": "Hospital",
+      "KIDNEY_DIALYSIS_CENTER": "Kidney dialysis center",
+      "OPTOMETRIST": "Optometrist",
+      "OUTPATIENT_CARE_CENTER": "Outpatient care center",
+      "PODIATRIST": "Podiatrist",
+      "PSYCHOLOGIST": "Psychologist",
+
+      "CARRIER": "Insurance Carrier",
+      "AGENT": "Insurance Agent",
+
+      "RESIDENTIAL_REAL_ESTATE_RENTALS": "Residential real estate rentals",
+      "REAL_ESTATE_COMMERCIAL_RENTING": "Real estate commercial renting",
+      "REAL_ESTATE_PROPERTY_MANAGEMENT": "Real estate property management",
+      "REAL_ESTATE_AGENT": "Real estate agent",
+
+      "INTERNET": "Internet Sales",
+      "AUCTION_HOUSE": "Auction House",
+      "STOREFRONT": "NO MATCH, USES otherPrincipalService",
+      "DIRECT_SALES": "NO MATCH, USES otherPrincipalService",
+
+      "NURSING_HOME": "Nursing home",
+      "SHELTER": "Shelter",
+      "YOUTH_SERVICES": "Youth services",
+
+      "AIR_TRANSPORTATION": "Air transportation",
+      "RAIL_TRANSPORTATION": "Rail transportation",
+      "TRUCKING": "Trucking",
+      "WATER_TRANSPORTATION": "Water transportation",
+      "LIMOUSINE_SERVICE": "Limousine service",
+      "SHUTTLE_BUS": "Shuttle bus",
+      "TAXI_SERVICE": "Taxis service",
+
+      "WAREHOUSING": "Warehousing",
+
+      "WHOLESALE_AGENT": "Wholesale Agent",
+
+      "CONSULTING": "TODO",
+      "MANUFACTURING": "TODO",
+      "ORGANIZATION": "TODO",
+      "RENTAL": "TODO",
+      "REPAIR": "TODO",
+      "GOODS_SELLER": "TODO",
+      "SERVICE": "TODO"
+
+    },
+    "reasonForApplying": {
+      "NEW_BUSINESS": "Started a new business",
+      "HIRED_EMPLOYEES": "Hired employee(s)",
+      "IRS_COMPLIANCE": "IRS Compliance",
+      "BANKING_NEEDS": "Banking purposes",
+      "CHANGING_LEGAL_STRUCTURE": "Changed type of organization",
+      "PURCHASED_BUSINESS": "Purchased active business",
+      "CREATED_TRUST": "Created Trust",
+      "CREATED_PENSION": "Created Pension",
+      "OTHER": "Other"
+    },
+    "fiduciaryTitle": {
+      "EXECUTOR": "EX",
+      "ADMINISTRATOR": "ADM",
+      "PERSONAL_REPRESENTATIVE": "PER REP"
+    },
+    "instructions4":{
+      "title": "Click \"Submit EIN Request\" to send your request and receive your EIN. Once you submit, please wait while your application is being processed. It can take up to two minutes for your application to be processed.",
+      "additionalText": [
+      ]
+    },
+    "buttonControls": [
+      {
+        "id" : "backButton",
+        "textLabel": "Back",
+        "ariaLabel": "Back",
+        "inverted": true
+      },
+      {
+        "id" : "submitEinRequestButton",
+        "textLabel": "Submit EIN Request",
+        "ariaLabel": "Submit EIN Request",
+        "inverted": false
+      },
+      {
+        "id": "cancelButton",
+        "textLabel": "Cancel",
+        "ariaLabel": "Cancel link, click enter to go to Apply for EIN Page",
+        "link": "applyForEin",
+        "isExternal": false
+      }
+    ],
+    "applicationBeingProcessed": {
+      "message": "Your application is being processed",
+      "additionalText": [
+          "It can take up to two minutes for your application to be processed"
+      ]
+    }
+  },
+  "helpTipSection": {
+    "confirmationLetterHelp": {
+    "id": "confirmationLetterHelp",
+    "title": "Will I receive a confirmation letter or notice containing my EIN?",
+    "additionalText": [
+        "If you are the taxpayer/authorized individual, you can opt to receive a confirmation letter either online or by mail. Whatever format you choose, it will serve as your official IRS record. If you opt to receive your letter online, you will not receive it by mail. We strongly recommend that you print the letter for your permanent records, or if you do not have access to a printer, that you save it for later printing. If you opt to receive your letter by mail, please allow up to four weeks for delivery."
+    ],
+    "ariaText": "confirmation letter help topic"
+    }
+  },
+  "pageErrorInputError1": {
+    "errorMsg": "The following error has occurred: ",
+    "additionalText": [
+    ]
+  },
+  "pageErrorInputError2": {
+      "errorMsg": "The following {{numberOfErrors}} errors have occurred: ",
+      "additionalText": [
+
+      ]
+  },
+  "pageError400Ref112": {
+    "errorMsg": "Apply for EIN is experiencing a technical problem.",
+    "additionalText": [
+        "We apologize for the inconvenience, but the system is experiencing technical difficulties. Please try back later. If the problem continues, please submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  },
+  "pageError401Ref103": {
+    "errorMsg": "We are unable to provide you with an EIN.",
+    "additionalText": [
+        "We apologize for the inconvenience but based on the information provided we are unable to provide you with an EIN through this online assistant. You must submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  },
+  "pageError401Ref112": {
+    "errorMsg": "We are unable to provide you with an EIN.",
+    "additionalText": [
+        "We apologize for the inconvenience but based on the information provided we are unable to provide you with an EIN through this online assistant. You must submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  },
+  "pageError403Ref101": {
+    "errorMsg": "Please wait for ApplyEIN to finish processing application submission.",
+    "additionalText": [
+        "If problem persists please refresh the page or resubmit the application."
+    ]
+  },
+  "pageError429Ref101": {
+    "errorMsg": "We are unable to provide you with an EIN.",
+    "additionalText": [
+        "We apologize for the inconvenience but based on the information provided we are unable to provide you with an EIN through this online assistant.", 
+        "<p>Please call 1-800-829-4933 for assistance. When outside the U.S., call 267-941-1099. TTY/TDD: 1-800-829-4059.</p> ",
+        "<p>Please have your information readily available and mention reference number: {{referenceNumber}}. </p>"
+    ]
+  },
+  "pageError429Ref114": {
+    "errorMsg": "You've attempted too many requests for today.",
+    "additionalText": [
+        "A responsible party is limited to receipt of one (1) EIN per business day."
+    ]
+  },
+  "pageError500": {
+    "errorMsg": "Apply for EIN is currently unavailable.",
+    "additionalText": [
+        "We apologize for the inconvenience, but the system is experiencing technical difficulties. Please try back later. If the problem continues, please submit a <IRSLink1/> by <IRSLink2/>."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form SS-4",
+        "label": "Download SS-4 form in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+          "text": "fax or mail",
+          "label": "fax or mail SS4",
+          "url": "https://www.irs.gov/businesses/employer-identification-number#ways",
+          "isExternal": true
+      }
+    }
+  }
+}

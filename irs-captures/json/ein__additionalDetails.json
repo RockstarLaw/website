@@ -1,0 +1,1374 @@
+{
+  "header": {
+    "title": "Apply for an Employer Identification Number (EIN)",
+    "additionalText": [
+      "Use this assistance to apply for and obtain an Employee Identification Number (EIN)"
+    ]
+  },
+  "instructions1": {
+    "title": "Additional Details",
+    "additionalText": [
+      "All fields marked with an asterisk (<Red>*</Red>) are required."
+    ]
+  },
+  "tellUsAboutOrg": {
+    "subHeader": {
+      "title": "Tell us about the {{tellUsAboutOrgLabel}}",
+      "additionalText": []
+    },
+    "legalName1InputControl": {
+      "fieldName": "Legal name of {{entityName}}",
+      "additionalText": [
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Legal Name: Input is required.",
+          "id": "legalName1InputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Contains an ending such as 'Corp', 'Inc', or 'PA', which is not permitted.",
+          "id": "legalName1InputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The only special characters allowed are '-' and '&'.",
+          "id": "legalName1InputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Individual words cannot exceed 34 characters.",
+          "id": "legalName1InputControl_error4",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.",
+          "id": "legalName1InputControl_error5",
+          "additionalText": []
+        }
+      ]
+    },
+    "legalName2InputControl": {
+      "fieldName": "Legal name of {{entityName}} (must match articles of incorporation, if filed)",
+      "additionalText": [
+        "The legal name may not contain any of the following endings: 'LLC', 'PLLC', 'LC'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Legal Name: Input is required.",
+          "id": "legalName2InputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Contains an ending such as 'LLC', 'PLLC', 'LC', which is not permitted.",
+          "id": "legalName2InputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The only special characters allowed are '-' and '&'.",
+          "id": "legalName2InputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Individual words cannot exceed 34 characters.",
+          "id": "legalName2InputControl_error4",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.",
+          "id": "legalName2InputControl_error5",
+          "additionalText": []
+        }
+      ]
+    },
+    "legalName3InputControl": {
+      "fieldName": "Legal name of {{entityName}}",
+      "additionalText": [
+        "The legal name may not contain any of the following endings: 'LLC', 'PLLC', 'LC'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Legal Name: Input is required.",
+          "id": "legalName3InputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Contains an ending such as 'LLC', 'PLLC', 'LC', which is not permitted.",
+          "id": "legalName3InputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The only special characters allowed are '-' and '&'.",
+          "id": "legalName3InputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Individual words cannot exceed 34 characters.",
+          "id": "legalName3InputControl_error4",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.",
+          "id": "legalName3InputControl_error5",
+          "additionalText": []
+        }
+      ]
+    },
+    "legalName4InputControl": {
+      "fieldName": "Legal name of {{entityName}}",
+      "additionalText": [
+        "The legal name may not contain any of the following endings: 'Corp', 'LLC', 'PLLC', 'LC', 'Inc'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Legal Name: Input is required.",
+          "id": "legalName4InputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Contains an ending such as 'Corp', 'LLC', 'PLLC', 'LC', 'Inc', which is not permitted.",
+          "id": "legalName4InputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The only special characters allowed are '-' and '&'.",
+          "id": "legalName4InputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Individual words cannot exceed 34 characters.",
+          "id": "legalName4InputControl_error4",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.",
+          "id": "legalName4InputControl_error5",
+          "additionalText": []
+        }
+      ]
+    },
+    "legalName5InputControl": {
+      "fieldName": "Legal name of {{entityName}} (must match articles of organization, if filed)",
+      "additionalText": [
+        "The legal name may not contain any of the following endings: 'Corp', 'Inc', 'PA'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Legal Name: Input is required.",
+          "id": "legalName5InputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Contains an ending such as 'Corp', 'Inc', 'PA', which is not permitted.",
+          "id": "legalName5InputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The only special characters allowed are '-' and '&'.",
+          "id": "legalName5InputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Individual words cannot exceed 34 characters.",
+          "id": "legalName5InputControl_error4",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.",
+          "id": "legalName5InputControl_error5",
+          "additionalText": []
+        }
+      ]
+    },
+    "legalName6InputControl": {
+      "fieldName": "Legal name of {{entityName}} (must match articles of organization, if filed)",
+      "additionalText": [
+        "The legal name may not contain any of the following endings: 'Corp', 'Inc'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Legal Name: Input is required.",
+          "id": "legalName6InputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Contains an ending such as 'Corp', 'Inc', which is not permitted.",
+          "id": "legalName6InputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The only special characters allowed are '-' and '&'.",
+          "id": "legalName6InputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Individual words cannot exceed 34 characters.",
+          "id": "legalName6InputControl_error4",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.",
+          "id": "legalName6InputControl_error5",
+          "additionalText": []
+        }
+      ]
+    },
+    "legalName7InputControl": {
+      "fieldName": "Legal name of {{entityName}}",
+      "additionalText": [
+        "The legal name may not contain any of the following endings: 'Corp', 'LLC', 'PLLC', 'LC', 'Inc', 'PA'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Legal Name: Input is required.",
+          "id": "legalName7InputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Contains an ending such as 'Corp', 'LLC', 'PLLC', 'LC', 'Inc', 'PA', which is not permitted.",
+          "id": "legalName7InputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The only special characters allowed are '-' and '&'.",
+          "id": "legalName7InputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: Individual words cannot exceed 34 characters.",
+          "id": "legalName7InputControl_error4",
+          "additionalText": []
+        },
+        {
+          "text": "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.",
+          "id": "legalName7InputControl_error5",
+          "additionalText": []
+        }
+      ]
+    },
+    "legalName1ReadOnly": {
+      "fieldName": "Name of  {{entityName}}",
+      "additionalText": []
+    },
+    "legalName2ReadOnly": {
+      "fieldName": "Legal Name of  {{entityName}}",
+      "additionalText": []
+    },
+    "legalName3ReadOnly": {
+      "fieldName": "{{entityName}} Name",
+      "additionalText": []
+    },
+    "dbaNameInputControl": {
+      "fieldName": "Trade name/Doing business as (only if different from legal name)",
+      "additionalText": [
+        "The trade name may not contain an ending such as 'LLC', 'LC', 'PLLC', 'PA', 'Corp', or 'Inc'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "DBA Name: Contains an ending such as 'LLC', 'Corp', or 'Inc', which is not permitted",
+          "id": "dbaNameInputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "DBA Name: The only special characters allowed are '-' and '&'",
+          "id": "dbaNameInputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "DBA Name: The first character must be alpha or numeric",
+          "id": "dbaNameInputControl_error3",
+          "additionalText": []
+        }
+      ]
+    },
+    "dba2NameInputControl": {
+      "fieldName": "Trade name/Doing business as (only if different from name)",
+      "additionalText": [
+        "The trade name may not contain an ending such as 'LLC', 'LC', 'PLLC', 'PA', 'Corp', or 'Inc'.",
+        "The only special characters allowed are '-' and '&'"
+      ],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "DBA Name: Contains an ending such as 'LLC', 'Corp', or 'Inc', which is not permitted",
+          "id": "dba2NameInputControl_error2",
+          "additionalText": []
+        },
+        {
+          "text": "DBA Name: The only special characters allowed are '-' and '&'",
+          "id": "dba2NameInputControl_error3",
+          "additionalText": []
+        },
+        {
+          "text": "DBA Name: The first character must be alpha or numeric",
+          "id": "dba2NameInputControl_error3",
+          "additionalText": []
+        }
+      ]
+    },
+    "judicialReferenceNumber": {
+      "fieldName": "Judicial reference number",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Judicial reference number: Input is required",
+          "id": "judicialReferenceNumber_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Judicial reference number: The only special character allowed is '-'",
+          "id": "judicialReferenceNumber_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "accountSeriesNumber": {
+      "fieldName": "Account/Series number",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Account/Series number: Input is required",
+          "id": "accountSeriesNumber_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Account/Series number: The only special characters allowed are '-' and '&'",
+          "id": "accountSeriesNumber_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Account/Series number: The first character must be alpha or numeric",
+          "id": "accountSeriesNumber_error3",
+          "additionalText": []
+        }
+      ]
+    },
+    "countyInputControl": {
+      "fieldName": "County where {{entityName}} is located",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "County Name: Input is required",
+          "id": "countyInputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "County Name: The only special characters allowed are '-' and '&'",
+          "id": "countyInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "estateCountyInputControl": {
+      "fieldName": "County where Estate is probated",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "County Probated: Input is required",
+          "id": "estateCountyInputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "County Probated: The only special characters allowed are '-' and '&'",
+          "id": "countyInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "stateLocationInputControl": {
+      "fieldName": "State/Territory where the {{entityName}} is located",
+      "additionalText": [],
+      "type": "DropdownCommonInput",
+      "choiceType": "stateTypes1",
+      "inputErrorMessages": [
+        {
+          "text": "State Located: Selection is required",
+          "id": "stateLocationInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "estateStateLocationInputControl": {
+      "fieldName": "State/Territory where Estate is probated",
+      "additionalText": [],
+      "type": "DropdownCommonInput",
+      "choiceType": "stateTypes1",
+      "inputErrorMessages": [
+        {
+          "text": "State Probated: Selection is required",
+          "id": "estateStateLocationInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "stateArticlesOrganizationFiledInputControl": {
+      "fieldName": "State/Territory where articles of organization are (or will be) filed",
+      "additionalText": [],
+      "type": "DropdownCommonInput",
+      "choiceType": "stateTypes1",
+      "inputErrorMessages": [
+        {
+          "text": "State Filed: Selection is required",
+          "id": "stateFiledInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "stateArticlesIncorporationFiledInputControl": {
+      "fieldName": "State/Territory where articles of incorporation are (or will be) filed",
+      "additionalText": [],
+      "type": "DropdownCommonInput",
+      "choiceType": "stateTypes1",
+      "inputErrorMessages": [
+        {
+          "text": "State Filed: Selection is required",
+          "id": "stateFiledInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "caseNumberInputControl": {
+      "fieldName": "Case number",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Case Number: Input is required",
+          "id": "caseNumberInputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Case Number: The only special characters allowed are '-' and '&'",
+          "id": "caseNumberInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+
+    "defaultStartDate": {
+      "fieldName": "{{entityName}} Start Date",
+      "additionalText": []
+    },
+    "withholdingTaxStartDate": {
+      "fieldName": "Date Employer/Fiscal Agent began or will begin withholding employment taxes",
+      "additionalText": []
+    },
+    "estateStartDate": {
+      "fieldName": "Date Estate created/funded/probated",
+      "additionalText": []
+    },
+    "corpStartDate": {
+      "fieldName": "Date Corporation started or acquired",
+      "additionalText": []
+    },
+    "trustStartDate": {
+      "fieldName": "Date Trust funded",
+      "additionalText": []
+    },
+    "businessStartDate": {
+      "fieldName": "Date Business started or acquired",
+      "additionalText": []
+    },
+    "bankruptcyStartDate": {
+      "fieldName": "Bankruptcy start date",
+      "additionalText": []
+    },
+
+    "startMonthInputControl": {
+      "fieldName": "Month",
+      "additionalText": [],
+      "type": "DropdownCommonInput",
+      "choiceType": "monthTypes",
+      "inputErrorMessages": [
+        {
+          "text": "Start Month: Selection is required",
+          "id": "startMonthInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "startYearInputControl": {
+      "fieldName": "Year",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Start Year: Input is required",
+          "id": "startYearInputControl_error1",
+          "additionalText": []
+        },
+        {
+          "text": "Start Year: Year must consist of 4 numbers",
+          "id": "startYearInputControl1_error2",
+          "additionalText": []
+        },
+        {
+          "text": "Start Year: Year cannot be more than 1 year in the future or more than 25 years in the past",
+          "id": "startYearInputControl1_error3",
+          "additionalText": []
+        }
+      ]
+    },
+    "closingMonthInputControl": {
+      "fieldName": "Closing month of accounting year",
+      "additionalText": [],
+      "type": "DropdownCommonInput",
+      "choiceType": "monthTypes",
+      "inputErrorMessages": [
+        {
+          "text": "Closing Month: Selection is required",
+          "id": "closingMonthInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "form945InputControl": {
+      "fieldName": "Will you be filing Form 945?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Form 945: Selection is required",
+          "id": "form945InputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "nonPayrollTaxWithholdingInputControl": {
+      "fieldName": "Is the Plan liable for non-payroll tax withholding?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Plan Liable: Selection is required",
+          "id": "nonPayrollTaxWithholdingInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "nonPayrollIncomeTaxWithholdingInputControl": {
+      "fieldName": "Is the Plan liable for non-payroll income tax withholding?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Plan Liable: Selection is required",
+          "id": "nonPayrollTaxWithholdingInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "form8871InputControl": {
+      "fieldName": "Will you file Form 8871 under Sec 527?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Form 8871: Selection is required",
+          "id": "form8871InputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "equityMortgageInputControl": {
+      "fieldName": "Are you an Equity REIT or a Mortgage REIT?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "EQUITY",
+          "text": "Equity REIT"
+        },
+        {
+          "value": "MORTGAGE",
+          "text": "Mortgage REIT"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "REIT Type: Selection is required",
+          "id": "equityMortgageInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "isGovernmentAgencyInputControl": {
+      "fieldName": "Is the Employer/Fiscal Agent a government agency?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Government Agency: Selection is required",
+          "id": "isGovernmentAgencyInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    }
+  },
+  "tellUsMoreAboutSection": {
+    "subHeader": {
+      "title": "Tell us more about the {{tellUsAboutOrgLabel}}",
+      "additionalText": []
+    },
+    "ownHighwayVehicleInputControl": {
+      "fieldName": "Does your business own a highway motor vehicle with a taxable gross weight of 55,000 pounds or more?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Have Highway Vehicle: Selection is required.",
+          "id": "ownHighwayVehicleInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "involveGamblingInputControl": {
+      "fieldName": "Does your business involve gambling/wagering?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Has Gambling: Selection is required.",
+          "id": "ownHighwayVehicleInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "fileForm720InputControl": {
+      "fieldName": "Does your business need to file Form 720 (Quarterly Federal Excise Tax Return)?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "File Form 720: Selection is required.",
+          "id": "fileForm720InputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "sellAtfInputControl": {
+      "fieldName": "Does your business sell or manufacture alcohol, tobacco, or firearms?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Sell alcohol, tobacco, or firearms: Selection is required.",
+          "id": "sellAtfInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "provideW2FormInputControl": {
+      "fieldName": "Do you have, or do you expect to have, any employees who will receive Forms W-2 in the next 12 months? (Forms W-2 require additional filings with the IRS.)",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Have Employees: Selection is required.",
+          "id": "provideW2FormInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "haveEmployeesInputControl": {
+      "id": "haveEmployeesInputControl",
+      "fieldName": "Do you have, or do you expect to have, any employees in the next 12 months?",
+      "additionalText": [],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Have Employees: Selection is required.",
+          "id": "haveEmployeesInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    }
+  },
+  "describeYourEmployeesSection": {
+    "subHeader": {
+      "title": "Describe your employees",
+      "additionalText": [
+      ]
+    },
+    "instructions5": {
+      "title": "What is the first date wages or annuities were or will be paid?",
+      "additionalText": [
+        "If applicant is a withholding agent, enter the date income will first be paid to a nonresident alien"
+      ]
+    },
+    "firstPayMonthInputControl": {
+      "fieldName": "Month",
+      "additionalText": [],
+      "type": "DropdownCommonInput",
+      "choicesType": "monthType",
+      "inputErrorMessages": [
+        {
+          "text": "First Pay Month: Selection is required.",
+          "id": "firstPayMonthInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    },
+    "firstPayYearInputControl": {
+      "fieldName": "Year",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "First Pay Year: Input is required.",
+          "id": "firstPayYearInputControl_error1"
+        },
+        {
+          "text": "First Pay Year: Year must consist of 4 numbers.",
+          "id": "firstPayYearInputControl_error2"
+        },
+        {
+          "text": "First Pay Year: Pay date must not be before start date or greater than current date plus 1 year.",
+          "id": "firstPayYearInputControl_error3"
+        }
+
+      ]
+    },
+    "instructions6": {
+      "title": "What is the highest number of employees expected in the next 12 months?",
+      "additionalText": [
+        "Total number of employees must be at least 1"
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "The total number of employees must be at least 1 and not greater than 99,999",
+          "id": "numTotalEmployees_error1"
+        }
+      ]
+    },
+    "numOfAgriculturalEmployeesInputControl": {
+      "fieldName": "Number of agricultural employees",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Number of agricultural employees: must be a number",
+          "id": "numOfAgriculturalEmployeesInputControl_error1"
+        }
+      ]
+    },
+    "numOfHouseholdEmployeesInputControl": {
+      "fieldName": "Number of household employees",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Number of household employees: must be a number",
+          "id": "numOfHouseholdEmployeesInputControl_error1"
+        }
+      ]
+    },
+    "numOfOtherEmployeesInputControl": {
+      "fieldName": "Number of other employees",
+      "additionalText": [],
+      "type": "TextInput",
+      "inputErrorMessages": [
+        {
+          "text": "Number of other employees: must be a number",
+          "id": "numOfOtherEmployeesInputControl_error1"
+        }
+      ]
+    },
+    "employeeTaxLiabilityInputControl": {
+      "fieldName": "Do you expect your employment tax liability to be $1,000 or less in a full calendar year? (January-December)?",
+      "additionalText": [
+        "Note: By selecting \"yes\", you are electing to file an annual employment tax return, Form 944. If you prefer to file a quarterly return, Form 941, select \"no\"."
+      ],
+      "type": "RadioInput",
+      "choices": [
+        {
+          "value": "yes",
+          "text": "Yes",
+          "additionalText": [
+            "By selecting \"yes\", you are electing to file an annual employment tax return, Form 944"
+          ]
+        },
+        {
+          "value": "no",
+          "text": "No",
+          "additionalText": [
+            "Select \"no\" if you prefer to file a quarterly return, Form 941"
+          ]
+        }
+      ],
+      "inputErrorMessages": [
+        {
+          "text": "Tax Liability: Selection is required.",
+          "id": "employeeTaxLiabilityInputControl_error1",
+          "additionalText": []
+        }
+      ]
+    }
+  },
+  "finalSection": {
+    "reviewInputControl": {
+      "fieldName": "Review and confirm",
+      "additionalText": [],
+      "type": "checkBoxInput",
+      "choice": "I understand that I can't change the information on this page once I continue. I've reviewed everything and confirm it's correct.",
+      "inputErrorMessages": [
+        {
+          "text": "Review and confirm: Checkbox must be checked before continuing.",
+          "id": "reviewInputControl_error1"
+        }
+      ]
+    },
+    "buttonControls": [
+      {
+        "id": "backButton",
+        "textLabel": "Back",
+        "ariaLabel": "Back",
+        "inverted": false
+      },
+      {
+        "id": "continueButton",
+        "textLabel": "Continue",
+        "ariaLabel": "Continue",
+        "inverted": true
+      },
+      {
+        "id": "cancelButton",
+        "textLabel": "Cancel",
+        "ariaLabel": "Cancel link, click enter to go to Apply for EIN Page",
+        "isExternal": false
+      }
+    ]
+  },
+  "politicalLegalNameHelp": {
+    "id": "politicalLegalNameHelp",
+    "title": "",
+    "additionalText": [
+      "<p>How should I input the legal name of the political organization so it meets IRS approved naming conventions?</p>",
+      "<p>Special instructions for entering the legal name of your political organization:</p>",
+      "<ol><li>Enter the name of the candidate or organization at the beginning of the field.</li>",
+      "<li>Omit any officer's name.</li>",
+      "<li>Place the words \"friends of\", \"committee to elect\", or other identifying information after the candidate's name.</li></ol>",
+      "See glossary for <IRSLink1/>."
+    ],
+    "ariaText": "Legal Name help topic",
+    "links": {
+      "IRSLink1": {
+        "text": "examples",
+        "label": "political legal name examples",
+        "url": "glossary#legalNamePoliticalOrg",
+        "isExternal": false
+      }
+    }
+  },
+  "employerPlanLegalNameHelp": {
+    "id": "employerPlanLegalNameHelp",
+    "title": "Legal Name of Employer Plan",
+    "additionalText": [
+      "<p>Special instructions for entering the legal name of your employer plan:</p>",
+      "<ol><li>Enter the name of the company that owns/sponsors the employer plan at the beginning of the legal name.</li>",
+      "<li>Omit any names of trustees in this field.</li>",
+      "<li>Omit the word \"The\" from the beginning of your employer plan name.</li></ol>",
+      "See glossary for <IRSLink1/>."
+    ],
+    "ariaText": "Legal Name help topic",
+    "links": {
+      "IRSLink1": {
+        "text": "examples",
+        "label": "employer plan legal name examples",
+        "url": "glossary#legalNameEmployerPlan",
+        "isExternal": false
+      }
+    }
+  },
+  "dbaNameHelp": {
+    "id": "dbaNameHelp",
+    "title": "Doing Business As Name",
+    "additionalText": [
+      "A trade name or doing business as name is another name under which the business or individual operates. These names are identified by the terms \"trading as\" (TA), \"doing business as\" (DBA), or \"also known as \" (AKA)."
+    ],
+    "ariaText": "Trade Name help topic"
+  },
+  "judicialReferenceNumberHelp": {
+    "id": "judicialReferenceNumberHelp",
+    "title": "Judicial Reference Number",
+    "additionalText": [
+      "A judicial reference number is a number assigned to each petition by the court."
+    ],
+    "ariaText": "Judicial Reference Number help topic"
+  },
+  "accountSeriesNumberHelp": {
+    "id": "accountSeriesNumberHelp",
+    "title": "Account/Series Number",
+    "additionalText": [
+        "Certain organizations (REMICs, Business Trusts, etc.) obtain EINs with the same names but different Account/Series numbers. These numbers are the only way to distinguish the accounts."
+    ],
+    "ariaText": "Account/Series Number help topic"
+  },
+  "estateCountyHelp": {
+    "id": "estateCountyHelp",
+    "title": "County where Estate is Probated",
+    "additionalText": [
+      "This is the region of a state that was the decedent's legal residence at the time of death."
+    ],
+    "ariaText": "Estate County help topic"
+  },
+  "estateStateLocationHelp": {
+    "id": "estateStateLocationHelp",
+    "title": "State/Territory where Estate is Probated",
+    "additionalText": [
+      "The state or territory in which the decedent lived as a permanent resident."
+    ],
+    "ariaText": "Estate State Location help topic"
+  },
+  "articlesOfIncorporationHelp": {
+    "id": "articlesOfIncorporationHelp",
+    "title": "Articles of Incorporation",
+    "additionalText": [
+        "Articles of incorporation must be filed with a state for a business to incorporate. To file, an applicant generally must include the name and address of the corporation, its general purpose, and the number and type of shares of stock to be issued. Each state has its own system of approval of articles, prohibits names which are confusingly similar to those of existing corporations, sets specific requirements for non-profits (charitable, religious, educational, public benefit, and so forth), and regulates the issuance of shares of stock."
+    ],
+    "ariaText": "Articles of Incorporation help topic"
+  },
+  "articlesOfOrganizationHelp": {
+    "id": "articlesOfOrganizationHelp",
+    "title": "Articles of Organization",
+    "additionalText": [
+        "The articles of organization are the trust instrument, corporate charter, articles of association, or other written instrument by which the organization is created under state law."
+    ],
+    "ariaText": "Articles of Organization help topic"
+  },
+  "caseNumberHelp": {
+    "id": "caseNumberHelp",
+    "title": "Case Number",
+    "additionalText": [
+      "This is the number assigned to each case by the court. This number is used to assist court personnel in locating the file."
+    ],
+    "ariaText": "Case Number help topic"
+  },
+  "startMonthHelp": {
+    "id": "startMonthHelp",
+    "title": "Start Date",
+    "additionalText": [
+      "This is the date on which the entity began doing business."
+    ],
+    "ariaText": "Start Month help topic"
+  },
+  "startMonthCorpHelp": {
+    "id": "startMonthCorpHelp",
+    "title": "Date Corporation Started or Acquired",
+    "additionalText": [
+      "This is the date your corporation was officially formed and approved by your state secretary's office, or the date you officially acquired a corporation through your state secretary's office."
+    ],
+    "ariaText": "Start Month help topic"
+  },
+  "estateStartMonthHelp": {
+    "id": "estateStartMonthHelp",
+    "title": "Date Estate Created/Funded/ Probated",
+    "additionalText": [
+      "Estates should enter the date of death of the decedent or the date when the estate was legally funded."
+    ],
+    "ariaText": "State Filed help topic"
+  },
+  "dateTrustFundedHelp": {
+    "id": "dateTrustFundedHelp",
+    "title": "Date Trust Funded",
+    "additionalText": [
+        "For a trust to become funded, title to the grantor's assets must be transferred into the trust. For example, title to any bank accounts, stock certificates, or real estate owned by the grantor must be transferred into the trust. The date this was done is the date the trust was funded."
+    ],
+    "ariaText": "Date Trust funded help topic"
+  },
+  "dateBusinessStartedHelp": {
+    "id": "dateBusinessStartedHelp",
+    "title": "Date Business Started or Acquired",
+    "additionalText": [
+        "This is the date on which the entity began doing business. If you are starting a new business, enter the starting date of the business. If the business you acquired is already operating, enter the date you acquired the business. If you are changing the form of ownership of your business, enter the date the new ownership entity began."
+    ],
+    "ariaText": "Date business started help topic"
+},
+  "bankruptcyStartDateHelp": {
+    "id": "bankruptcyStartDateHelp",
+    "title": "Bankruptcy Start Date",
+    "additionalText": [
+        "The bankruptcy start date is the date in which the petition was filed for the bankrupt individual."
+    ],
+    "ariaText": "Bankruptcy start date help topic"
+},
+  "closingMonthHelp": {
+    "id": "closingMonthHelp",
+    "title": "Closing Month of Accounting Year",
+    "additionalText": [
+      "The closing month of the accounting year is the last month of your accounting year or tax year. An accounting or tax year is usually 12 consecutive months, based on either a calendar year or a fiscal year (including a period of 52 or 53 weeks).<br><br>",
+      "A calendar year is 12 consecutive months ending on December 31. A fiscal year is either 12 consecutive months ending on the last day of any month (other than December) or a special 52-53 week year ending on a fixed day of the week (for example, the last Friday in March rather than March 31). For more information on accounting periods, see Pub. 538."
+    ],
+    "ariaText": "Closing Month help topic"
+  },
+  "form945Help": {
+    "id": "form945Help",
+    "title": "Form 945",
+    "additionalText": [
+      "Use Form 945 (Annual Return of Withheld Federal Income Tax) to report withheld federal income tax from non-payroll payments. Non-payroll payments include the following:<br>",
+      "<ul><li>Backup withholding</li>",
+      "<li>Pensions and annuities</li>",
+      "<li>IRAs</li>",
+      "<li>Military retirement</li>",
+      "<li>Gambling winnings</li>",
+      "<li>Withholding on government payments</li>",
+      "<li>Indian Gaming Profits</li></ul>",
+      "<p>To view this form, click here: <IRSLink1/>.</p>",
+      "<p>Download the instructions for this form here: <IRSLink2/>.</p>",
+      "However, please do not complete this form now, as your session will time out."
+    ],
+    "ariaText": "form945 help topic",
+    "links": {
+      "IRSLink1": {
+        "text": "Form 945",
+        "label": "Download form 945 in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/f945.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+        "text": "Form 945 Instructions",
+        "label": "Download form 945 instructions in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/i945.pdf",
+        "isExternal": true
+      }
+    }
+  },
+  "nonPayrollTaxWithholdingHelp": {
+    "id": "nonPayrollTaxWithholdingHelp",
+    "title": "Non-Payroll Tax Withholding",
+    "additionalText": [
+      "This is the withholding of federal income tax from non-payroll payments. These payments are usually reported by filing Form 945 (Annual Return of Withheld Federal Income Tax). Non-payroll payments include:<br>",
+      "<ul><li>Pensions</li>",
+      "<li>Annuities</li>",
+      "<li>IRA deductions</li>",
+      "<li>Gambling winnings</li></ul>"
+    ],
+    "ariaText": "nonPayroll Tax Withholding help topic"
+  },
+  "nonPayrollIncomeTaxWithholdingHelp": {
+    "id": "nonPayrollIncomeTaxWithholdingHelp",
+    "title": "Non-Payroll Income Tax Withholding",
+    "additionalText": [
+        "Any plan that has withholding for pensions, annuities, and IRAs with distributions are liable for non-payroll income tax withholding. For these accounts, file Form 945 (Annual Return of Withheld Federal Income Tax)."
+    ],
+    "ariaText": "nonPayroll Income Tax Withholding help topic"
+  },
+  "form8871Help": {
+    "id": "form8871Help",
+    "title": "Form 8871 under Sec 527",
+    "additionalText": [
+      "Political organizations use Form 8871 (Political Organization Notice of Section 527 Status) to notify the IRS that the organization is to be treated as a tax-exempt Section 527 organization.<br>",
+      "<p>Download the instructions for this form here: <IRSLink1/>.</p>",
+      "However, please do not complete this form now, as your session will time out."
+    ],
+    "ariaText": "form8871 help topic",
+    "links": {
+      "IRSLink1": {
+        "text": "Form 8871 Instructions",
+        "label": "Download form 8871 instructions in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/i8871.pdf",
+        "isExternal": true
+      }
+    }
+  },
+  "equityMortgageHelp": {
+    "id": "equityMortgageHelp",
+    "title": "Equity or Mortgage REIT",
+    "additionalText": [
+      "Equity REIT: An equity REIT is a real estate investment trust that primarily invests in income-producing real estate.<br><br>",
+      "Mortgage REIT: A mortgage REIT is a real estate investment trust that primarily invests in mortgages."
+    ],
+    "ariaText": "equity Mortgage help topic"
+  },
+  "ownHighwayVehicleHelp": {
+    "id": "ownHighwayVehicleHelp",
+    "title": "Highway Motor Vehicle",
+    "additionalText": [
+      "A highway motor vehicle includes any self-propelled vehicle designed to carry a load over public highways, whether or not it is also designed to perform other functions. Examples include trucks, truck tractors, and buses."
+    ],
+    "ariaText": "own Highway Vehicle help topic"
+  },
+  "involveGamblingHelp": {
+    "id": "involveGamblingHelp",
+    "title": "Gambling/Wagering",
+    "additionalText": [
+      "You are in the business of gambling or wagering if you:<br>",
+      "<ul><li>Are in the business of accepting wagers</li>",
+      "<li>Conduct a wagering pool or lottery, or</li>",
+      "<li>Are required to be registered and received wagers for or on behalf of another person, but did not report that person's name and address.</li></ul>",
+      "Examples include Keno Writers, Blackjack dealers, lotteries conducted for profit (including the numbers game), policy, punch boards, and similar types of wagering."
+    ],
+    "ariaText": "involveGambling help topic"
+  },
+  "fileForm720Help": {
+    "id": "fileForm720Help",
+    "title": "What is Form 720?",
+    "additionalText": [
+      "Use Form 720 (Quarterly Federal Excise Tax Return) to report and pay excise tax.<br>",
+      "<p>To view this form, click <IRSLink1/></p>",
+      "<p>Download the instructions for this form here: <IRSLink2/></p>",
+      "However, please do not complete this form now, as your session will time out."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form 720",
+        "label": "Download form 720 in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/f720.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+        "text": "Form 720 Instructions",
+        "label": "Download form 720 instructions in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/i720.pdf",
+        "isExternal": true
+      }
+    }
+  },
+  "provideW2FormHelp": {
+    "id": "provideW2FormHelp",
+    "title": "Form W-2",
+    "additionalText": [
+      "A Form W-2 (Wage and Tax Statement) is issued by an employer to his or her employees showing taxes deducted from their yearly pay. Taxes covered on the W-2 are: federal income tax, Social Security tax and Medicare tax.<br>",
+      "<p>To view this form, click <IRSLink1/></p>",
+      "<p>Download the instructions for this form here: <IRSLink2/></p>",
+      "However, please do not complete this form now, as your session will time out."
+    ],
+    "links": {
+      "IRSLink1": {
+        "text": "Form W-2",
+        "label": "Download form W-2 in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/fw2.pdf",
+        "isExternal": true
+      },
+      "IRSLink2": {
+        "text": "Form W-2 Instructions",
+        "label": "Download form W-2 instructions in a new window",
+        "url": "https://www.irs.gov/pub/irs-pdf/iw2w3.pdf",
+        "isExternal": true
+      }
+    }
+  },
+  "firstWagesPaidDateHelp": {
+    "id": "firstWagesPaidDateHelp",
+    "title": "Wages Paid Date",
+    "additionalText": [
+      "The date the entity (individual or business) began paying wages to its employees."
+    ],
+    "ariaText": "Wage Paid Date help topic"
+  },
+  "maxEmployeesHelp": {
+    "id": "maxEmployeesHelp",
+    "title": "Highest Number of Employees",
+    "additionalText": [
+      "This information helps the IRS anticipate your employment tax obligations, but it doesn't represent a maximum employee limit."
+    ],
+    "ariaText": "Highest number of employees help topic"
+  },
+  "numOfAgriculturalEmployeesHelp": {
+    "id": "numOfAgriculturalEmployeesHelp",
+    "title": "Agricultural Employees",
+    "additionalText": [
+      "Agricultural employees include any person who works on a farm producing crops and/or raising livestock. Farms include stock, dairy, poultry, fruit, fur-bearing animal, and truck farms, as well as orchards, plantations, ranches, nurseries, ranges, green houses, and other similar structures used mainly for raising agricultural or horticultural commodities.",
+      "<p>Forestry and lumbering are not \"farm work\" unless the products are for use in the employer's farming operations.</p>",
+      "<p>Farm workers or agricultural employees include those who:</p>",
+      "<ul><li>Raise or harvest agricultural or horticultural products, or care for the farm and equipment</li>",
+      "<li>Handle, process, or package any agricultural or horticultural commodity, if over half is produced on the farm</li>",
+      "<li>Do work related to cotton ginning, turpentine, or gum resin products</li>",
+      "<li>Do housework in the private home of a farm operated for profit</li></ul>"
+    ],
+    "ariaText": "Highest number of employees help topic"
+  },
+  "numOfHouseholdEmployeesHelp": {
+    "id": "numOfHouseholdEmployeesHelp",
+    "title": "Household Employees",
+    "additionalText": [
+      "Household employees include any employee who does household work in and around your home. It does not matter whether you pay the worker on an hourly, daily, or weekly basis. Some examples of household workers are:<br>",
+      "<ul><li>Babysitters</li>",
+      "<li>Nannies</li>",
+      "<li>Au pairs</li>",
+      "<li>Cleaning people</li>",
+      "<li>Housekeepers</li>",
+      "<li>Maids</li>",
+      "<li>Drivers</li>",
+      "<li>Health aides</li>",
+      "<li>Private nurses</li>",
+      "<li>Caretakers</li>",
+      "<li>Yard workers</li></ul>",
+      "<p>Examples of workers who are NOT considered household employees include:</p>",
+      "<ul><li>Landscapers, who usually are self-employed workers who run an independent business</li>",
+      "<li>Babysitters who provide child care services in their own homes</li></ul>"
+    ],
+    "ariaText": "Highest number of employees help topic"
+  },
+  "numOfOtherEmployeesHelp": {
+    "id": "numOfOtherEmployeesHelp",
+    "title": "Other Employees",
+    "additionalText": [
+      "A general rule is that anyone who performs services for you is your employee if you can control what work will be done and how it will be done. These employees will be issued a W-2 form at the end of the year.<br>",
+      "<p>Employers must file Form W-2 for wages paid to each employee from whom:</p>",
+      "<ul><li>Income, Social Security, or Medicare tax was withheld or</li>",
+      "<li>Income tax would have been withheld if the employee had claimed no more than one withholding allowance or had not claimed exemption from withholding on Form W-4 (Employee's Withholding Allowance Certificate)</li></ul>"
+    ],
+    "ariaText": "Highest number of employees help topic"
+  },
+  "employeeLessThan1000Help": {
+    "id": "employeeLessThan1000Help",
+    "title": "$1,000 or less in a full calendar year",
+    "additionalText": [
+      "For most employers, you are likely to pay $1,000 or less in employment taxes if you expect to pay $4,000 or less in total wages in a full calendar year. For employers in the U.S. possessions, you are likely to pay $1,000 or less in employment taxes if you pay $6,536 or less in wages subject to social security and Medicare taxes.<br><br>",
+      "<p>Note: By selecting \"yes\", you are electing to file an annual employment tax return, <IRSLink1/>.</p>",
+      "If you prefer to file a quarterly return, <IRSLink2/>, select \"no\"."
+    ],
+    "ariaText": "Employee Tax Liability help topic",
+    "links": {
+      "IRSLink1": {
+          "text": "Form 944",
+          "label": "Form 944",
+          "url": "glossary#form944"
+      },
+      "IRSLink2": {
+          "text": "Form 941",
+          "label": "Form 941",
+          "url": "glossary#form941"
+      }
+    }
+  },
+  "pageErrorInputError1": {
+    "errorMsg": "The following error has occurred: ",
+    "additionalText": []
+  },
+  "pageErrorInputError2": {
+    "errorMsg": "The following {{numberOfErrors}} errors have occurred: ",
+    "additionalText": []
+  }
+}
