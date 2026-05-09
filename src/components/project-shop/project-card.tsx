@@ -30,13 +30,19 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
 
   const durationMarker = DURATION_MARKERS[project.duration];
 
+  const detailHref = `/project-shop/${project.id}`;
+
   return (
-    <Link
-      href={`/project-shop/${project.id}`}
-      className="group flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3 transition hover:border-red-700 hover:shadow-sm"
-    >
-      {/* 3:2 portrait poster */}
-      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-slate-100">
+    // Outer container is NOT a link. Only specific elements (title, poster) are clickable.
+    // Other elements (tagline, pitch, area-of-law chips, marker chips) are display-only —
+    // additional linkable elements can be added discretely later (author byline, etc.).
+    <div className="group flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3 transition hover:border-red-700 hover:shadow-sm">
+      {/* 3:2 portrait poster — wrapped in its own Link */}
+      <Link
+        href={detailHref}
+        className="relative block aspect-[2/3] w-full overflow-hidden rounded-lg bg-slate-100"
+        aria-label={`Open ${project.title}`}
+      >
         {project.imageUrl ? (
           <Image
             src={project.imageUrl}
@@ -60,24 +66,29 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
             Free
           </span>
         )}
-      </div>
+      </Link>
 
-      {/* Title — full, never truncated */}
+      {/* Title — wrapped in its own Link (full, never truncated) */}
       <h3 className="text-base font-semibold leading-tight text-slate-950">
-        {project.title}
+        <Link
+          href={detailHref}
+          className="rounded-sm transition-colors hover:text-red-700 focus-visible:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-700/40"
+        >
+          {project.title}
+        </Link>
       </h3>
 
-      {/* Tagline (italic, full — never truncated) */}
+      {/* Tagline (italic, full — never truncated) — display only, not a link */}
       {project.tagline && (
         <p className="text-sm italic text-slate-700">{project.tagline}</p>
       )}
 
-      {/* Description (pitch — clamp to 3 lines on card) */}
+      {/* Description (pitch — clamp to 3 lines on card) — display only, not a link */}
       {project.pitch && (
         <p className="line-clamp-3 text-xs leading-relaxed text-slate-600">{project.pitch}</p>
       )}
 
-      {/* Categories (Area of Law) */}
+      {/* Categories (Area of Law) — display only for now; can become per-area filter links later */}
       {project.areaOfLaw.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {project.areaOfLaw.map((a) => (
@@ -91,7 +102,7 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
         </div>
       )}
 
-      {/* Icon row — visual baseline of the card */}
+      {/* Icon row — visual baseline of the card; display only */}
       <div className="mt-auto flex flex-wrap gap-1.5 border-t border-slate-100 pt-3">
         {modeMarkers.map((m) => (
           <MarkerChip key={m.key} marker={m} />
@@ -101,6 +112,6 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
         ))}
         {durationMarker && <MarkerChip marker={durationMarker} />}
       </div>
-    </Link>
+    </div>
   );
 }
