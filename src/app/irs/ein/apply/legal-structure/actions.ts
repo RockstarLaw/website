@@ -10,7 +10,8 @@
  * needs a user identity.
  *
  * Validates the selected legal_structure value against the 7 allowed
- * IRS enum values. For LLC, also persists members_of_llc and llc_state.
+ * IRS enum values. For LLC, also persists members_of_llc, llc_state,
+ * spouse/QJV fields, and reason_for_applying (Slice 4).
  *
  * Creates a new ein_applications row if none exists for the user;
  * updates the existing in-progress row otherwise. Advances current_step
@@ -58,6 +59,9 @@ export async function submitLegalStructure(formData: FormData): Promise<void> {
     const state            = formData.get("state")?.toString()?.trim()             ?? "";
     const spousesAsMembers = formData.get("spouses_as_members")?.toString()?.trim() ?? "";
     const qjvElection      = formData.get("qjv_election")?.toString()?.trim()      ?? "";
+    // Slice 4: reason_for_applying — verbatim value from
+    // reasonForApplyingInputControl choices in ein__legalStructure.json
+    const reasonForApplying = formData.get("reason_for_applying")?.toString()?.trim() ?? "";
 
     if (members) formDataPayload.members_of_llc = members;
     if (state)   formDataPayload.llc_state       = state;
@@ -70,6 +74,9 @@ export async function submitLegalStructure(formData: FormData): Promise<void> {
     // Persist spouse and QJV election fields when present
     if (spousesAsMembers) formDataPayload.spouses_as_members = spousesAsMembers;
     if (qjvElection)      formDataPayload.qjv_election       = qjvElection;
+    // Slice 4: persist reason_for_applying when present (only set after
+    // entityType resolves, so may be absent on malformed submissions)
+    if (reasonForApplying) formDataPayload.reason_for_applying = reasonForApplying;
 
     // Resolve final entity_type per bundle settle logic:
     //   members=1                              → SINGLE_MEMBER_LLC
