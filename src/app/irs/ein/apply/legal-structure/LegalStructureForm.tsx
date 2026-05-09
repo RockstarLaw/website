@@ -90,6 +90,43 @@ const REASON_OPTIONS = [
   },
 ] as const;
 
+// ── HOA reason-for-applying options (verbatim from
+//    ein__legalStructure.json → primaryReasonSection
+//    → homeownersReasonInputControl.choices) ──────────────────────────────
+const HOMEOWNERS_REASON_OPTIONS = [
+  {
+    value: "NEW_BUSINESS",
+    text:  "Started a new business",
+    help:  "If you are beginning a new business.",
+  },
+  {
+    value: "HIRED_EMPLOYEES",
+    text:  "Hired employee(s)",
+    help:  "If you already have a business and need to hire employees.",
+  },
+  {
+    value: "BANKING_NEEDS",
+    text:  "Banking purposes",
+    help:  "If the reason for applying for the EIN is strictly to satisfy banking requirements or local law.",
+  },
+] as const;
+
+// ── Receivership reason-for-applying options (verbatim from
+//    ein__legalStructure.json → primaryReasonSection
+//    → receivershipReasonInputControl.choices) ────────────────────────────
+const RECEIVERSHIP_REASON_OPTIONS = [
+  {
+    value: "HIRED_EMPLOYEES",
+    text:  "Hired employee(s)",
+    help:  "If you already have a business and need to hire employees.",
+  },
+  {
+    value: "BANKING_NEEDS",
+    text:  "Banking purposes",
+    help:  "If the reason for applying for the EIN is strictly to satisfy banking requirements or local law.",
+  },
+] as const;
+
 // ── Sole Proprietor sub-type options (verbatim from
 //    ein__legalStructure.json → soleProprietorSection
 //    → soleProprietorStructureInputControl.choices) ─────────────────────────
@@ -634,6 +671,19 @@ export default function LegalStructureForm() {
 
   // Resolved entity-name for reason-for-applying header
   const resolvedEntityName = ENTITY_NAMES[entityType] ?? entityType;
+
+  // Resolved reason-for-applying control id + options per entityType (Slice 5c)
+  // HOA → homeownersReasonInputControl (3 choices)
+  // RECEIVERSHIP → receivershipReasonInputControl (2 choices)
+  // all others → standard reasonForApplyingInputControl (5 choices)
+  const reasonControlId =
+    entityType === "HOA"          ? "homeownersReasonInputControl"
+    : entityType === "RECEIVERSHIP" ? "receivershipReasonInputControl"
+    : "reasonForApplyingInputControl";
+  const reasonOptions =
+    entityType === "HOA"          ? HOMEOWNERS_REASON_OPTIONS
+    : entityType === "RECEIVERSHIP" ? RECEIVERSHIP_REASON_OPTIONS
+    : REASON_OPTIONS;
 
   return createPortal(
     <>
@@ -1567,7 +1617,8 @@ export default function LegalStructureForm() {
 
           <div className="radioInput _bottomMargin18_1lntm_13 ">
             <div className="inputInstruction _bottomMargin8_bppll_6 ">
-              <label htmlFor="reasonForApplyingInputControl">
+              {/* label htmlFor resolves to the active control id per entityType (Slice 5c) */}
+              <label htmlFor={reasonControlId}>
                 Choose one reason that best describes why you are applying for an EIN
                 <span className="_required_bppll_1" role="asterisk">*</span>
               </label>
@@ -1581,7 +1632,13 @@ export default function LegalStructureForm() {
                 {" "}Choose one reason that best describes why you are applying for an EIN{" "}
               </legend>
 
-              {REASON_OPTIONS.map((opt) => (
+              {/* Slice 5c: reasonOptions resolves to HOA (3), RECEIVERSHIP (2), or
+                   standard (5) variant per entityType. reasonControlId drives id/name.
+                   All share name=reason_for_applying via hidden input — no actions.ts change.
+                   Choice text + additionalText verbatim from ein__legalStructure.json:
+                   homeownersReasonInputControl / receivershipReasonInputControl /
+                   reasonForApplyingInputControl. */}
+              {reasonOptions.map((opt) => (
                 <div key={opt.value}>
                   <div
                     className={
@@ -1594,8 +1651,8 @@ export default function LegalStructureForm() {
                       tabIndex={0}
                       type="radio"
                       className="radio-button__input"
-                      id={`reasonForApplyingInputControl_${opt.value}`}
-                      name="reasonForApplyingInputControl"
+                      id={`${reasonControlId}_${opt.value}`}
+                      name={reasonControlId}
                       aria-required="true"
                       value={opt.value}
                       checked={reasonForApplying === opt.value}
@@ -1606,7 +1663,7 @@ export default function LegalStructureForm() {
                     />
                     <label
                       className="input-label "
-                      htmlFor={`reasonForApplyingInputControl_${opt.value}`}
+                      htmlFor={`${reasonControlId}_${opt.value}`}
                     >
                       {opt.text}
                     </label>
