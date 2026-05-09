@@ -102,4 +102,46 @@ export const ENTITY_CONFIG: Partial<Record<string, AdditionalDetailsEntityConfig
     entityName:            "Single Member Limited Liability Company (LLC)",
     tellUsAboutOrgLabel:   "Limited Liability Company (LLC)",
   },
+
+  /**
+   * MULTI_MEMBER_LLC
+   *
+   * ya(MULTI_MEMBER_LLC) → "legalName6InputControl"
+   * To(MULTI_MEMBER_LLC) → true  (editable)
+   * bo(MULTI_MEMBER_LLC) → true  (DBA shown)
+   * isLlcType            → true  → stateArticles = Organization variant
+   * fs(MULTI_MEMBER_LLC) → defaultStartDate (falls through all fs branches to default)
+   * us(MULTI_MEMBER_LLC) → false (not in closing month set)
+   * specialField         → none
+   * li(MULTI_MEMBER_LLC) → true  (not in trucking/gambling/ATF exclusion set)
+   * cs(MULTI_MEMBER_LLC) → true  (provideW2Form variant — same as SMLLC)
+   * ds(MULTI_MEMBER_LLC) → false (not in household employees set)
+   *
+   * entityName:          verbatim from irs-captures/json/ein__glossary.json
+   *                        → glossaryTerms.multiMemberLLC.title
+   * tellUsAboutOrgLabel: same as SMLLC (both are LLC type)
+   *
+   * Key structural delta vs SMLLC:
+   *   legalNameKey → "legalName6InputControl" (forbidden endings: 'Corp','Inc' only; no 'PA')
+   *   All other fields — identical config to SMLLC.
+   */
+  MULTI_MEMBER_LLC: {
+    legalNameKey:            "legalName6InputControl",
+    legalNameEditable:       true,
+    showDba:                 true,
+    dbaKey:                  "dbaNameInputControl",
+    countyKey:               "countyInputControl",
+    stateLocationKey:        "stateLocationInputControl",
+    stateArticlesKey:        "stateArticlesOrganizationFiledInputControl",
+    startDateLabelKey:       "defaultStartDate",
+    showClosingMonth:        false,
+    specialFieldKey:         null,
+    specialFieldInputName:   null,
+    showTruckingGamblingAtf: true,
+    employeesQuestionKey:    "provideW2FormInputControl",
+    employeesHelptipKey:     "provideW2FormHelp",
+    showHouseholdEmployees:  false,
+    entityName:              "Multi-Member Limited Liability Company (LLC)",
+    tellUsAboutOrgLabel:     "Limited Liability Company (LLC)",
+  },
 };

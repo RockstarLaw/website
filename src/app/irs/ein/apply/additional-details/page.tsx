@@ -37,6 +37,7 @@ import { createSupabaseAdminClient }  from "@/lib/supabase/admin";
 import AdditionalDetailsForm, {
   type AdditionalDetailsSchema,
 } from "./AdditionalDetailsForm";
+import { ENTITY_CONFIG } from "@/lib/irs/additionalDetailsConfig";
 
 export const dynamic = "force-dynamic";
 
@@ -46,6 +47,9 @@ export default async function IrsEinAdditionalDetailsPage() {
   const { data: { user } } = await supabase.auth.getUser();
 
   // ── 2. Entity-type gate ──────────────────────────────────────────────────
+  // Default for unauthenticated / no-app direct navigation (SMLLC chrome shown)
+  let resolvedType = "SINGLE_MEMBER_LLC";
+
   // If no user / no in-progress session, let the form render in blank state
   // (back-compat with direct navigation). Gate check requires an app row.
   if (user) {
@@ -61,12 +65,19 @@ export default async function IrsEinAdditionalDetailsPage() {
 
     if (app) {
       const fd = app.form_data as Record<string, unknown>;
-      const isSmllc =
-        fd.legal_structure === "LLC" &&
-        (fd.members_of_llc === "1" || fd.members_of_llc === "SINGLE_MEMBER_LLC");
-      if (!isSmllc) {
+      // entity_type resolved by Slice 2 W1 actions.ts; fall back to member count
+      // for pre-Slice-2 sessions that only carry members_of_llc
+      const detectedType = (fd.entity_type as string | undefined) ??
+        (fd.members_of_llc === "1" || fd.members_of_llc === "SINGLE_MEMBER_LLC"
+          ? "SINGLE_MEMBER_LLC"
+          : "");
+      const isLlc   = fd.legal_structure === "LLC";
+      const isSmllc = isLlc && detectedType === "SINGLE_MEMBER_LLC";
+      const isMmllc = isLlc && detectedType === "MULTI_MEMBER_LLC";
+      if (!isSmllc && !isMmllc) {
         redirect("/irs/ein/apply/additional-details/coming-soon");
       }
+      if (isMmllc) resolvedType = "MULTI_MEMBER_LLC";
     }
   }
 
@@ -93,9 +104,12 @@ export default async function IrsEinAdditionalDetailsPage() {
   }
 
   // ── 5. Build serialized schema for SMLLC ────────────────────────────────
-  // entityName / tellUsAboutOrgLabel: verbatim from Additional Details 1 capture
-  const entityName         = "Single Member Limited Liability Company (LLC)";
-  const tellUsAboutOrgLabel = "Limited Liability Company (LLC)";
+  // entityName sources (HR#1 — verbatim from captured artifacts):
+  //   SMLLC → verbatim from Additional Details 1 HTML capture (Slice 1)
+  //   MMLLC → irs-captures/json/ein__glossary.json → glossaryTerms.multiMemberLLC.title
+  const config             = ENTITY_CONFIG[resolvedType] ?? ENTITY_CONFIG.SINGLE_MEMBER_LLC!;
+  const entityName         = config.entityName;
+  const tellUsAboutOrgLabel = config.tellUsAboutOrgLabel;
 
   function substituteEntityName(fieldName: string): string {
     return fieldName
@@ -127,7 +141,7 @@ export default async function IrsEinAdditionalDetailsPage() {
     },
 
     // Section 1 field defs
-    legalNameFieldDef:     extractFieldDef("tellUsAboutOrg.legalName5InputControl"),
+    legalNameFieldDef:     extractFieldDef(`tellUsAboutOrg.${config.legalNameKey}`),
     dbaFieldDef:           extractFieldDef("tellUsAboutOrg.dbaNameInputControl"),
     countyFieldDef:        extractFieldDef("tellUsAboutOrg.countyInputControl"),
     stateLocationFieldDef: extractFieldDef("tellUsAboutOrg.stateLocationInputControl"),

@@ -8,7 +8,7 @@
  * Called when the user clicks Continue on the Additional Details step.
  * Requires auth — page is public, session persistence needs a user.
  *
- * Scope: SINGLE_MEMBER_LLC only (Slice 1).
+ * Scope: SINGLE_MEMBER_LLC + MULTI_MEMBER_LLC (Slice 3 expands gate; field sets are identical).
  *
  * ── Fields persisted (key names match bundle's ol() payload builder) ────────
  *
