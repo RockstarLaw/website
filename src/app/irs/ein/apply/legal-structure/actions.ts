@@ -54,6 +54,18 @@ export async function submitLegalStructure(formData: FormData): Promise<void> {
 
   // 3. Build form_data payload
   const formDataPayload: Record<string, string> = { legal_structure };
+
+  // Non-LLC structures: entity_type and reason_for_applying come directly
+  // from the form (sub-type radio value → entity_type, standard 5-choice radio
+  // → reason_for_applying). ESTATE resolves entity_type="ESTATE" immediately
+  // in the client (no sub-type panel), all others resolve via sub-type radio.
+  if (legal_structure !== "LLC") {
+    const entity_type       = formData.get("entity_type")?.toString()?.trim()       ?? "";
+    const reasonForApplying = formData.get("reason_for_applying")?.toString()?.trim() ?? "";
+    if (entity_type)       formDataPayload.entity_type        = entity_type;
+    if (reasonForApplying) formDataPayload.reason_for_applying = reasonForApplying;
+  }
+
   if (legal_structure === "LLC") {
     const members          = formData.get("members_of_llc")?.toString()?.trim()    ?? "";
     const state            = formData.get("state")?.toString()?.trim()             ?? "";

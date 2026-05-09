@@ -8,18 +8,27 @@
  * IRS SPA capture (sa.www4.irs.gov/applyein/legalStructure).
  *
  * State management:
- *   - selectedStructure: which radio option is currently checked
- *   - membersCount: text input value for LLC member count
- *   - selectedState: dropdown value for LLC state/territory
+ *   - selectedStructure: which top-level radio is checked
+ *   - soleProprietorType / partnershipType / corpType / trustType / additionalType:
+ *     sub-type radio values for each non-LLC category (Slice 5b)
+ *   - membersCount, selectedState, spousesAnswer, qjvElection: LLC-specific
+ *   - entityType: final resolved entity type (drives reason-for-applying gate)
  *   - reasonForApplying: reason-for-applying radio selection (Slice 4)
- *   - error: validation error message shown inline
+ *   - error: top-level validation error
  *
- * Conditional fields:
- *   1. LLC section (members + state + CP-state expansions) — Slices 1–3
- *   2. Reason for applying — Slice 4; gated on selectedStructure==="LLC"
- *      && entityType!=="" (i.e., members + state resolved). Renders
- *      primaryReasonSection.instructions3 header + reasonForApplyingInputControl
- *      5-choice radio verbatim from irs-captures/json/ein__legalStructure.json.
+ * Conditional sections:
+ *   1. soleProprietorSection — gate: selectedStructure==="SOLE_PROPRIETOR" (Slice 5b)
+ *   2. partnershipSection    — gate: selectedStructure==="PARTNERSHIP" (Slice 5b)
+ *   3. corpSection           — gate: selectedStructure==="CORPORATION" (Slice 5b)
+ *   4. LLC section (members + state + CP-state expansions) — Slices 1–3
+ *   5. trustSection          — gate: selectedStructure==="ALL_OTHERS_TRUST" (Slice 5b)
+ *   6. additionalTypeSection — gate: selectedStructure==="OTHER_NON_PROFIT" (Slice 5b)
+ *   7. Reason for applying   — gate: entityType!=="" (all structures, Slice 4 + 5b)
+ *      ESTATE: entityType resolves immediately to "ESTATE" on top-level selection
+ *      (no sub-type panel for ESTATE — unique among non-LLC top-level choices)
+ *
+ * All text verbatim from irs-captures/json/ein__legalStructure.json per HR#1.
+ * §4 phone substitution applied: IRS phones → (954) 426-6424.
  *
  * Continue button → calls submitLegalStructure() server action via
  * a hidden <form> element + requestSubmit().
@@ -80,6 +89,195 @@ const REASON_OPTIONS = [
     help:  "If you are purchasing a business that is already in operation.",
   },
 ] as const;
+
+// ── Sole Proprietor sub-type options (verbatim from
+//    ein__legalStructure.json → soleProprietorSection
+//    → soleProprietorStructureInputControl.choices) ─────────────────────────
+// IRSLink placeholders substituted with link-text verbatim from .links keys.
+const SOLE_PROP_OPTIONS = [
+  {
+    value: "SOLE_PROPRIETOR",
+    text:  "Sole Proprietor",
+    help:  "A sole proprietorship is a business that has only one owner and is not incorporated or registered with the state as a limited liability company (LLC). A sole proprietor can be a self-employed individual or an independent contractor. Sole proprietors (self-employed individuals) report all business income and expenses on their individual tax returns (Form 1040, U.S. Individual Income Tax Return, Schedule C, E, or F). A sole proprietor may or may not have employees.",
+  },
+  {
+    value: "HOUSEHOLD_EMPLOYER",
+    text:  "Household Employer",
+    help:  "You are a household employer if you have hired someone to do household work and that worker is your employee. Household employees include: babysitters, nannies, au pairs, cleaning people, housekeepers, maids, drivers, health aides, private nurses, caretakers, yard workers, and similar domestic workers.",
+  },
+] as const;
+
+// ── Partnership sub-type options (verbatim from
+//    ein__legalStructure.json → partnershipSection
+//    → partnershipStructureInputControl.choices) ────────────────────────────
+const PARTNERSHIP_OPTIONS = [
+  {
+    value: "PARTNERSHIP",
+    text:  "Partnership",
+    help:  "A partnership is a relationship existing between two or more persons or groups who join together to carry on a trade or business. Each partner contributes money, property, labor, or skill, and expects to share in the profits and losses of the business.",
+  },
+  {
+    value: "JOINT_VENTURE",
+    text:  "Joint Venture",
+    help:  "A joint venture is a partnership formed between two or more business entities. These businesses share risk or expertise on a specific project or group of projects.",
+  },
+] as const;
+
+// ── Corporation sub-type options (verbatim from
+//    ein__legalStructure.json → corpSection
+//    → corpStructureInputControl.choices) ──────────────────────────────────
+const CORP_OPTIONS = [
+  {
+    value: "CORPORATION",
+    text:  "Corporation",
+    help:  "A corporation is a person or group of people who establish a legal entity by filing articles of incorporation with the state's secretary of state granting it certain legal powers, rights, privileges, and liabilities.",
+  },
+  {
+    value: "SCORP",
+    text:  "S Corporation",
+    help:  "The income of an S corporation generally is taxed to the shareholders of the corporation rather than to the corporation itself. However, an S corporation may still owe tax on certain income.",
+  },
+  {
+    value: "PERSONAL_SERVICE_CORPORATION",
+    text:  "Personal Service Corporation",
+    help:  "A personal service corporation involves services in the fields of health, law, engineering, architecture, accounting, actuarial science, performing arts, or consulting.",
+  },
+  {
+    value: "REIT",
+    text:  "Real Estate Investment Trust (REIT)",
+    help:  "A REIT is an investment vehicle established for the benefit of a group of real estate investors.",
+  },
+  {
+    value: "RIC",
+    text:  "Regulated Investment Conduit (RIC)",
+    help:  "A RIC is a regulated investment company that applies to any domestic corporation that meets certain criteria.",
+  },
+  {
+    value: "SETTLEMENT_FUND",
+    text:  "Settlement Fund (under IRC Sec 468B)",
+    help:  "A settlement fund is established for the principal purpose of settling and paying claims against the electing taxpayer under Internal Revenue Code (IRC) Section 468B.",
+  },
+] as const;
+
+// ── Trust sub-type options (verbatim from
+//    ein__legalStructure.json → trustSection
+//    → trustEntityInputControl.choices) ────────────────────────────────────
+// No per-choice additionalText in the JSON — text only.
+const TRUST_OPTIONS = [
+  { value: "BANKRUPTCY",                     text: "Bankruptcy Estate (Individual)" },
+  { value: "CHARITABLE_LEAD_ANNUITY_TRUST",  text: "Charitable Lead Annuity Trust" },
+  { value: "CHARITABLE_LEAD_UNITRUST",        text: "Charitable Lead Unitrust" },
+  { value: "CHARITABLE_REMAINDER_ANNUITY_TRUST", text: "Charitable Remainder Annuity Trust" },
+  { value: "CHARITABLE_REMAINDER_UNITRUST",   text: "Charitable Remainder Unitrust" },
+  { value: "CONSERVATORSHIP",                 text: "Conservatorship" },
+  { value: "CUSTODIANSHIP",                   text: "Custodianship" },
+  { value: "ESCROW",                          text: "Escrow" },
+  { value: "FNMA",                            text: "FNMA (Fannie Mae)" },
+  { value: "GNMA",                            text: "GNMA (Ginnie Mae)" },
+  { value: "GUARDIANSHIP",                    text: "Guardianship" },
+  { value: "IRREVOCABLE_TRUST",               text: "Irrevocable Trust" },
+  { value: "POOLED_INCOME_FUND",              text: "Pooled Income Fund" },
+  { value: "FUNERAL_TRUST",                   text: "Qualified Funeral Trust" },
+  { value: "RECEIVERSHIP",                    text: "Receivership" },
+  { value: "REVOCABLE_TRUST",                 text: "Revocable Trust" },
+  { value: "SETTLEMENT_FUND",                 text: "Settlement Fund (under IRC Sec 468B)" },
+  { value: "ALL_OTHERS_TRUST",                text: "Trust (All Others)" },
+] as const;
+
+// ── Additional Type options (verbatim from
+//    ein__legalStructure.json → additionalTypeSection
+//    → additionalEntityInputControl.choices) ────────────────────────────────
+// No per-choice additionalText — text only.
+const ADDITIONAL_TYPE_OPTIONS = [
+  { value: "BANKRUPTCY",                   text: "Bankruptcy Estate (Individual)" },
+  { value: "BLOCK_OR_TENANT_ASSOCIATION",  text: "Block/Tenant Association" },
+  { value: "CHURCH",                       text: "Church" },
+  { value: "CHURCH_CONTROLLED_ORGANIZATION", text: "Church-Controlled Organization" },
+  { value: "COMMUNITY_OR_VOLUNTEER_GROUP", text: "Community or Volunteer Group" },
+  { value: "EMPLOYER_OR_FISCAL_AGENT",     text: "Employer/Fiscal Agent (under IRC Sec 3504)" },
+  { value: "EMPLOYER_PLAN",                text: "Employer Plan (401K, Money Purchase Plan, etc.)" },
+  { value: "FARMERS_COOP",                 text: "Farmer's Cooperative" },
+  { value: "FEDERAL_GOVT_OR_MILITARY",     text: "Government, Federal/Military" },
+  { value: "INDIAN_TRIBAL",                text: "Government, Indian Tribal Governments" },
+  { value: "STATE_OR_LOCAL_ORGANIZATION",  text: "Government, State/Local" },
+  { value: "HOA",                          text: "Homeowners/Condo Association" },
+  { value: "HOUSEHOLD_EMPLOYER",           text: "Household Employer" },
+  { value: "IRA",                          text: "IRA" },
+  { value: "MEMORIAL_SCHOLARSHIP",         text: "Memorial or Scholarship Fund" },
+  { value: "PLAN_ADMINISTRATOR",           text: "Plan Administrator" },
+  { value: "POLITICAL_ORGANIZATION",       text: "Political Organization" },
+  { value: "PTA_OR_PTO_SCHOOL_ORG",        text: "PTA/PTO or School Organization" },
+  { value: "REMIC",                        text: "REMIC" },
+  { value: "SOCIAL_SAVINGS_CLUB",          text: "Social or Savings Club" },
+  { value: "SPORTS_TEAM",                  text: "Sports Teams (community)" },
+  { value: "WITHHOLDING_AGENT",            text: "Withholding Agent" },
+  { value: "OTHER_NON_PROFIT",             text: "Other Non-Profit/Tax-Exempt Organizations" },
+] as const;
+
+// ── Entity-name lookup for {{entityName}} substitution in reason-for-applying
+//    header "Why is the {{entityName}} requesting an EIN?" ──────────────────
+// Sources: additionalDetailsConfig.ts entityName values (all committed Slice 3)
+// for W4a parity; LLC names match IRS SPA literal.
+const ENTITY_NAMES: Record<string, string> = {
+  // LLC paths
+  SINGLE_MEMBER_LLC:              "Limited Liability Company (LLC)",
+  MULTI_MEMBER_LLC:               "Limited Liability Company (LLC)",
+  // Sole proprietor paths
+  SOLE_PROPRIETOR:                "Sole Proprietor",
+  HOUSEHOLD_EMPLOYER:             "Household Employer",
+  // Partnership paths
+  PARTNERSHIP:                    "Partnership",
+  JOINT_VENTURE:                  "Joint Venture",
+  // Corporation paths
+  CORPORATION:                    "Corporation",
+  SCORP:                          "S Corporation",
+  PERSONAL_SERVICE_CORPORATION:   "Personal Service Corporation",
+  REIT:                           "Real Estate Investment Trust (REIT)",
+  RIC:                            "Regulated Investment Conduit (RIC)",
+  SETTLEMENT_FUND:                "Settlement Fund",
+  // Estate
+  ESTATE:                         "Estate",
+  // Trust paths
+  BANKRUPTCY:                     "Bankruptcy Estate (Individual)",
+  CHARITABLE_LEAD_ANNUITY_TRUST:  "Charitable Lead Annuity Trust",
+  CHARITABLE_LEAD_UNITRUST:       "Charitable Lead Unitrust",
+  CHARITABLE_REMAINDER_ANNUITY_TRUST: "Charitable Remainder Annuity Trust",
+  CHARITABLE_REMAINDER_UNITRUST:  "Charitable Remainder Unitrust",
+  CONSERVATORSHIP:                "Conservatorship",
+  CUSTODIANSHIP:                  "Custodianship",
+  ESCROW:                         "Escrow",
+  FNMA:                           "FNMA (Fannie Mae)",
+  GNMA:                           "GNMA (Ginnie Mae)",
+  GUARDIANSHIP:                   "Guardianship",
+  IRREVOCABLE_TRUST:              "Irrevocable Trust",
+  POOLED_INCOME_FUND:             "Pooled Income Fund",
+  FUNERAL_TRUST:                  "Qualified Funeral Trust",
+  RECEIVERSHIP:                   "Receivership",
+  REVOCABLE_TRUST:                "Revocable Trust",
+  ALL_OTHERS_TRUST:               "Trust (All Others)",
+  // Additional type paths
+  BLOCK_OR_TENANT_ASSOCIATION:    "Block/Tenant Association",
+  CHURCH:                         "Church",
+  CHURCH_CONTROLLED_ORGANIZATION: "Church-Controlled Organization",
+  COMMUNITY_OR_VOLUNTEER_GROUP:   "Community or Volunteer Group",
+  EMPLOYER_OR_FISCAL_AGENT:       "Employer/Fiscal Agent",
+  EMPLOYER_PLAN:                  "Employer Plan",
+  FARMERS_COOP:                   "Farmer's Cooperative",
+  FEDERAL_GOVT_OR_MILITARY:       "Government, Federal/Military",
+  INDIAN_TRIBAL:                  "Government, Indian Tribal Governments",
+  STATE_OR_LOCAL_ORGANIZATION:    "Government, State/Local",
+  HOA:                            "Homeowners/Condo Association",
+  IRA:                            "IRA",
+  MEMORIAL_SCHOLARSHIP:           "Memorial or Scholarship Fund",
+  PLAN_ADMINISTRATOR:             "Plan Administrator",
+  POLITICAL_ORGANIZATION:         "Political Organization",
+  PTA_OR_PTO_SCHOOL_ORG:          "PTA/PTO or School Organization",
+  REMIC:                          "REMIC",
+  SOCIAL_SAVINGS_CLUB:            "Social or Savings Club",
+  SPORTS_TEAM:                    "Sports Teams (community)",
+  WITHHOLDING_AGENT:              "Withholding Agent",
+  OTHER_NON_PROFIT:               "Other Non-Profit/Tax-Exempt Organizations",
+};
 
 // ── Community-property state checker (verbatim switch from bundle `nr` function) ──
 function isCommunityPropertyState(state: string): boolean {
@@ -215,7 +413,11 @@ const STATE_OPTIONS = [
 ] as const;
 
 export default function LegalStructureForm() {
+  // ── Top-level structure selection ──────────────────────────────────────────
   const [selectedStructure, setSelectedStructure] = useState<string | null>(null);
+  const [error, setError] = useState("");
+
+  // ── LLC-specific state ─────────────────────────────────────────────────────
   const [membersCount, setMembersCount] = useState("1");
   const [membersError, setMembersError] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -224,22 +426,38 @@ export default function LegalStructureForm() {
   const [marriedError, setMarriedError] = useState("");
   const [qjvElection, setQjvElection] = useState("");
   const [qjvError, setQjvError] = useState("");
+
+  // ── Non-LLC sub-type state (Slice 5b) ─────────────────────────────────────
+  const [soleProprietorType, setSoleProprietorType] = useState("");
+  const [soleProprietorTypeError, setSoleProprietorTypeError] = useState("");
+  const [partnershipType, setPartnershipType] = useState("");
+  const [partnershipTypeError, setPartnershipTypeError] = useState("");
+  const [corpType, setCorpType] = useState("");
+  const [corpTypeError, setCorpTypeError] = useState("");
+  const [trustType, setTrustType] = useState("");
+  const [trustTypeError, setTrustTypeError] = useState("");
+  const [additionalType, setAdditionalType] = useState("");
+  const [additionalTypeError, setAdditionalTypeError] = useState("");
+
+  // ── Resolved entity type — drives reason-for-applying gate ────────────────
+  // For ESTATE: resolves immediately to "ESTATE" on top-level radio selection.
+  // For LLC: resolves via members+state+QJV logic.
+  // For all others: resolves to the sub-type radio selection value.
   const [entityType, setEntityType] = useState("");
-  const [error, setError] = useState("");
+
+  // ── Reason for applying ───────────────────────────────────────────────────
   const [reasonForApplying, setReasonForApplying] = useState("");
   const [reasonError, setReasonError] = useState("");
-  // Portal target — null during SSR, set after mount
+
+  // ── Portal target — null during SSR, set after mount ──────────────────────
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    // Find the empty placeholder div that wizard-step-1.html injects
-    // inside .container.content__container
     const el = document.getElementById("w1-form-portal");
     if (el) setPortalTarget(el);
   }, []);
 
-  // Reset reason-for-applying whenever entityType becomes unresolved so a
-  // stale selection never reappears if the user edits members/state above.
+  // Reset reason-for-applying whenever entityType clears (user editing above)
   useEffect(() => {
     if (entityType === "") {
       setReasonForApplying("");
@@ -248,6 +466,29 @@ export default function LegalStructureForm() {
   }, [entityType]);
 
   const formRef = useRef<HTMLFormElement>(null);
+
+  // ── Helper: reset all sub-type state when top-level selection changes ──────
+  const resetSubTypes = () => {
+    setSoleProprietorType("");
+    setSoleProprietorTypeError("");
+    setPartnershipType("");
+    setPartnershipTypeError("");
+    setCorpType("");
+    setCorpTypeError("");
+    setTrustType("");
+    setTrustTypeError("");
+    setAdditionalType("");
+    setAdditionalTypeError("");
+    // LLC-specific resets
+    setSpousesAnswer("");
+    setMarriedError("");
+    setQjvElection("");
+    setQjvError("");
+    setMembersError("");
+    setStateError("");
+    setReasonForApplying("");
+    setReasonError("");
+  };
 
   // ── da: member count onChange (verbatim port of bundle `da` handler) ──────────
   const handleMembersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -296,11 +537,12 @@ export default function LegalStructureForm() {
     setEntityType(e.target.value);
   };
 
-  // ── handleContinue: validation per bundle Zi LLC branch (4 checks, in order) ─
+  // ── handleContinue: validation ────────────────────────────────────────────
   const handleContinue = (e: React.MouseEvent) => {
     e.preventDefault();
     let isValid = true;
 
+    // Check 1: top-level structure selected
     if (!selectedStructure) {
       setError("Please select a type of legal structure.");
       isValid = false;
@@ -308,44 +550,74 @@ export default function LegalStructureForm() {
       setError("");
     }
 
+    // Check 2: LLC-specific sub-fields
     if (selectedStructure === "LLC") {
-      // Check 1: members empty
       if (membersCount === "") {
         isValid = false;
         setMembersError("LLC Members: Enter a valid number");
       } else {
         setMembersError("");
       }
-      // Check 2: state empty
       if (selectedState === "") {
         isValid = false;
         setStateError("State: Selection is required.");
       } else {
         setStateError("");
       }
-      // Check 3: count==="2" && CP state && spouses not answered
       if (membersCount === "2" && isCommunityPropertyState(selectedState) && spousesAnswer === "") {
         isValid = false;
         setMarriedError("Married: Selection is required.");
       } else {
         setMarriedError("");
       }
-      // Check 4: entityType unresolved && spouses==="yes" && qjv not chosen
       if (entityType === "" && spousesAnswer === "yes" && qjvElection === "") {
         isValid = false;
         setQjvError("Which LCC: Selection is required. Please complete LLC questions.");
       } else {
         setQjvError("");
       }
-      // Check 5: reason for applying — gated when entityType is resolved
-      // Verbatim error text from irs-captures/json/ein__legalStructure.json
-      // primaryReasonSection.reasonForApplyingInputControl.inputErrorMessages[0].text
-      if (entityType !== "" && reasonForApplying === "") {
-        isValid = false;
-        setReasonError("Reason For Applying: Selection is required.");
-      } else {
-        setReasonError("");
-      }
+    }
+
+    // Check 3: non-LLC sub-type required
+    // Error text verbatim from ein__legalStructure.json inputErrorMessages
+    if (selectedStructure === "SOLE_PROPRIETOR" && soleProprietorType === "") {
+      isValid = false;
+      setSoleProprietorTypeError("Sole Proprietor Type: Selection is required.");
+    } else {
+      setSoleProprietorTypeError("");
+    }
+    if (selectedStructure === "PARTNERSHIP" && partnershipType === "") {
+      isValid = false;
+      setPartnershipTypeError("Partnership Type: Selection is required.");
+    } else {
+      setPartnershipTypeError("");
+    }
+    if (selectedStructure === "CORPORATION" && corpType === "") {
+      isValid = false;
+      setCorpTypeError("Corporation Type: Selection is required.");
+    } else {
+      setCorpTypeError("");
+    }
+    if (selectedStructure === "ALL_OTHERS_TRUST" && trustType === "") {
+      isValid = false;
+      setTrustTypeError("Trust Type: Selection is required.");
+    } else {
+      setTrustTypeError("");
+    }
+    if (selectedStructure === "OTHER_NON_PROFIT" && additionalType === "") {
+      isValid = false;
+      setAdditionalTypeError("Additional Type: Selection is required.");
+    } else {
+      setAdditionalTypeError("");
+    }
+
+    // Check 4: reason for applying — applies to ALL structures once entityType resolves
+    // Verbatim error from primaryReasonSection.reasonForApplyingInputControl
+    if (entityType !== "" && reasonForApplying === "") {
+      isValid = false;
+      setReasonError("Reason For Applying: Selection is required.");
+    } else if (entityType !== "") {
+      setReasonError("");
     }
 
     if (!isValid) return;
@@ -359,6 +631,9 @@ export default function LegalStructureForm() {
 
   // Don't render during SSR (portal target doesn't exist yet)
   if (!portalTarget) return null;
+
+  // Resolved entity-name for reason-for-applying header
+  const resolvedEntityName = ENTITY_NAMES[entityType] ?? entityType;
 
   return createPortal(
     <>
@@ -374,6 +649,13 @@ export default function LegalStructureForm() {
             {entityType !== "" && (
               <input type="hidden" name="reason_for_applying" value={reasonForApplying} />
             )}
+          </>
+        )}
+        {/* Non-LLC: entity_type and reason persist directly */}
+        {selectedStructure !== null && selectedStructure !== "LLC" && entityType !== "" && (
+          <>
+            <input type="hidden" name="entity_type" value={entityType} />
+            <input type="hidden" name="reason_for_applying" value={reasonForApplying} />
           </>
         )}
       </form>
@@ -450,13 +732,15 @@ export default function LegalStructureForm() {
                   checked={selectedStructure === opt.value}
                   onChange={() => {
                     setSelectedStructure(opt.value);
-                    setSpousesAnswer("");
-                    setMarriedError("");
-                    setQjvElection("");
-                    setQjvError("");
-                    setEntityType("");
-                    setMembersError("");
-                    setStateError("");
+                    resetSubTypes();
+                    // ESTATE is the only top-level choice with no sub-type panel —
+                    // entityType resolves immediately. All other non-LLC structures
+                    // remain unresolved until their sub-type radio is selected.
+                    if (opt.value === "ESTATE") {
+                      setEntityType("ESTATE");
+                    } else {
+                      setEntityType("");
+                    }
                   }}
                 />
                 <label className="input-label " htmlFor={opt.id}>
@@ -472,6 +756,229 @@ export default function LegalStructureForm() {
           {error}
         </p>
       </div>
+
+      {/* ── soleProprietorSection (Slice 5b) ────────────────────────────────
+           Gate: selectedStructure === "SOLE_PROPRIETOR"
+           Verbatim from ein__legalStructure.json → soleProprietorSection:
+             instructions3.title / additionalText
+             soleProprietorStructureInputControl.id / fieldName / choices
+             inputErrorMessages[0].text (id: solePropStructureInputControl_error1) */}
+      {selectedStructure === "SOLE_PROPRIETOR" && (
+        <>
+          <section className="_bottomMargin16_2vtt5_57">
+            <div>
+              <h3>You have chosen Sole Proprietor</h3>
+              <p>
+                Sole proprietor includes individuals who are in business for themselves, or
+                household employers. Read the descriptions below and choose the type for which
+                you are applying.
+              </p>
+            </div>
+          </section>
+
+          <div className="radioInput _bottomMargin18_1lntm_13 ">
+            <div className="inputInstruction _bottomMargin8_bppll_6 ">
+              <label htmlFor="soleProprietorStructureInputControl">
+                Choose the type of legal structure
+                <span className="_required_bppll_1" role="asterisk">*</span>
+              </label>
+            </div>
+            <fieldset
+              className="radio-group _fixRadioMargin_1lntm_21 undefined"
+              data-testid="radio-group"
+            >
+              <legend data-testid="legend" className="sr-only">
+                {" "}Choose the type of legal structure{" "}
+              </legend>
+              {SOLE_PROP_OPTIONS.map((opt) => (
+                <div key={opt.value}>
+                  <div
+                    className={
+                      soleProprietorType === opt.value
+                        ? "radio-button radio-button--checked"
+                        : "radio-button"
+                    }
+                  >
+                    <input
+                      tabIndex={0}
+                      type="radio"
+                      className="radio-button__input"
+                      id={`soleProprietorStructureInputControl_${opt.value}`}
+                      name="soleProprietorStructureInputControl"
+                      aria-required="true"
+                      value={opt.value}
+                      checked={soleProprietorType === opt.value}
+                      onChange={() => {
+                        setSoleProprietorType(opt.value);
+                        setSoleProprietorTypeError("");
+                        setEntityType(opt.value);
+                        setReasonForApplying("");
+                        setReasonError("");
+                      }}
+                    />
+                    <label
+                      className="input-label "
+                      htmlFor={`soleProprietorStructureInputControl_${opt.value}`}
+                    >
+                      {opt.text}
+                    </label>
+                  </div>
+                  <p className="_choiceAdditionalText_1lntm_34">{opt.help}</p>
+                </div>
+              ))}
+            </fieldset>
+            <p className="input-error-message" aria-live="polite">
+              {soleProprietorTypeError}
+            </p>
+          </div>
+        </>
+      )}
+
+      {/* ── partnershipSection (Slice 5b) ────────────────────────────────────
+           Gate: selectedStructure === "PARTNERSHIP"
+           Verbatim from ein__legalStructure.json → partnershipSection:
+             instructions3.title / additionalText
+             partnershipStructureInputControl.id / fieldName / choices
+             inputErrorMessages[0].text (id: partnershipStructureInputControl_error1) */}
+      {selectedStructure === "PARTNERSHIP" && (
+        <>
+          <section className="_bottomMargin16_2vtt5_57">
+            <div>
+              <h3>You have chosen Partnerships</h3>
+              <p>Read the descriptions below and choose the type for which you are applying</p>
+            </div>
+          </section>
+
+          <div className="radioInput _bottomMargin18_1lntm_13 ">
+            <div className="inputInstruction _bottomMargin8_bppll_6 ">
+              <label htmlFor="partnershipStructureInputControl">
+                Choose the type of legal structure
+                <span className="_required_bppll_1" role="asterisk">*</span>
+              </label>
+            </div>
+            <fieldset
+              className="radio-group _fixRadioMargin_1lntm_21 undefined"
+              data-testid="radio-group"
+            >
+              <legend data-testid="legend" className="sr-only">
+                {" "}Choose the type of legal structure{" "}
+              </legend>
+              {PARTNERSHIP_OPTIONS.map((opt) => (
+                <div key={opt.value}>
+                  <div
+                    className={
+                      partnershipType === opt.value
+                        ? "radio-button radio-button--checked"
+                        : "radio-button"
+                    }
+                  >
+                    <input
+                      tabIndex={0}
+                      type="radio"
+                      className="radio-button__input"
+                      id={`partnershipStructureInputControl_${opt.value}`}
+                      name="partnershipStructureInputControl"
+                      aria-required="true"
+                      value={opt.value}
+                      checked={partnershipType === opt.value}
+                      onChange={() => {
+                        setPartnershipType(opt.value);
+                        setPartnershipTypeError("");
+                        setEntityType(opt.value);
+                        setReasonForApplying("");
+                        setReasonError("");
+                      }}
+                    />
+                    <label
+                      className="input-label "
+                      htmlFor={`partnershipStructureInputControl_${opt.value}`}
+                    >
+                      {opt.text}
+                    </label>
+                  </div>
+                  <p className="_choiceAdditionalText_1lntm_34">{opt.help}</p>
+                </div>
+              ))}
+            </fieldset>
+            <p className="input-error-message" aria-live="polite">
+              {partnershipTypeError}
+            </p>
+          </div>
+        </>
+      )}
+
+      {/* ── corpSection (Slice 5b) ───────────────────────────────────────────
+           Gate: selectedStructure === "CORPORATION"
+           Verbatim from ein__legalStructure.json → corpSection:
+             instructions3.title / additionalText
+             corpStructureInputControl.id / fieldName / 6 choices
+             inputErrorMessages[0].text (id: corpStructureInputControl_error1) */}
+      {selectedStructure === "CORPORATION" && (
+        <>
+          <section className="_bottomMargin16_2vtt5_57">
+            <div>
+              <h3>You have chosen Corporations</h3>
+              <p>Read the descriptions below and choose the type for which you are applying.</p>
+            </div>
+          </section>
+
+          <div className="radioInput _bottomMargin18_1lntm_13 ">
+            <div className="inputInstruction _bottomMargin8_bppll_6 ">
+              <label htmlFor="corpStructureInputControl">
+                Choose the type of legal structure
+                <span className="_required_bppll_1" role="asterisk">*</span>
+              </label>
+            </div>
+            <fieldset
+              className="radio-group _fixRadioMargin_1lntm_21 undefined"
+              data-testid="radio-group"
+            >
+              <legend data-testid="legend" className="sr-only">
+                {" "}Choose the type of legal structure{" "}
+              </legend>
+              {CORP_OPTIONS.map((opt) => (
+                <div key={opt.value}>
+                  <div
+                    className={
+                      corpType === opt.value
+                        ? "radio-button radio-button--checked"
+                        : "radio-button"
+                    }
+                  >
+                    <input
+                      tabIndex={0}
+                      type="radio"
+                      className="radio-button__input"
+                      id={`corpStructureInputControl_${opt.value}`}
+                      name="corpStructureInputControl"
+                      aria-required="true"
+                      value={opt.value}
+                      checked={corpType === opt.value}
+                      onChange={() => {
+                        setCorpType(opt.value);
+                        setCorpTypeError("");
+                        setEntityType(opt.value);
+                        setReasonForApplying("");
+                        setReasonError("");
+                      }}
+                    />
+                    <label
+                      className="input-label "
+                      htmlFor={`corpStructureInputControl_${opt.value}`}
+                    >
+                      {opt.text}
+                    </label>
+                  </div>
+                  <p className="_choiceAdditionalText_1lntm_34">{opt.help}</p>
+                </div>
+              ))}
+            </fieldset>
+            <p className="input-error-message" aria-live="polite">
+              {corpTypeError}
+            </p>
+          </div>
+        </>
+      )}
 
       {/* ── LLC conditional section (visible only when LLC is selected) ───── */}
       {selectedStructure === "LLC" && (
@@ -877,16 +1384,167 @@ export default function LegalStructureForm() {
         </>
       )}
 
-      {/* ── Reason for applying section (Slice 4) ───────────────────────────────
-           Gate: selectedStructure==="LLC" && entityType!==""
-           (entityType resolves non-empty only after members + state are filled
-           and, for CP+2-member paths, the QJV election is made).
+      {/* ── trustSection (Slice 5b) ──────────────────────────────────────────
+           Gate: selectedStructure === "ALL_OTHERS_TRUST"
+           Verbatim from ein__legalStructure.json → trustSection:
+             instructions3.title / additionalText (IRSLink1 = "Type of trust")
+             trustEntityInputControl.id / fieldName / 18 choices (text only)
+             inputErrorMessages[0].text (id: trustEntityInputControl_error1) */}
+      {selectedStructure === "ALL_OTHERS_TRUST" && (
+        <>
+          <section className="_bottomMargin16_2vtt5_57">
+            <div>
+              <h3>Identify the type of Trust</h3>
+              <p>
+                You must identify one type of trust you are applying for. If you don&apos;t see
+                your trust type, select &quot;Trust (All Others)&quot;
+              </p>
+            </div>
+          </section>
+
+          <div className="radioInput _bottomMargin18_1lntm_13 ">
+            <div className="inputInstruction _bottomMargin8_bppll_6 ">
+              <label htmlFor="trustEntityInputControl">
+                Choose the type of legal structure
+                <span className="_required_bppll_1" role="asterisk">*</span>
+              </label>
+            </div>
+            <fieldset
+              className="radio-group _fixRadioMargin_1lntm_21 undefined"
+              data-testid="radio-group"
+            >
+              <legend data-testid="legend" className="sr-only">
+                {" "}Choose the type of legal structure{" "}
+              </legend>
+              {TRUST_OPTIONS.map((opt) => (
+                <div key={opt.value}>
+                  <div
+                    className={
+                      trustType === opt.value
+                        ? "radio-button radio-button--checked"
+                        : "radio-button"
+                    }
+                  >
+                    <input
+                      tabIndex={0}
+                      type="radio"
+                      className="radio-button__input"
+                      id={`trustEntityInputControl_${opt.value}`}
+                      name="trustEntityInputControl"
+                      aria-required="true"
+                      value={opt.value}
+                      checked={trustType === opt.value}
+                      onChange={() => {
+                        setTrustType(opt.value);
+                        setTrustTypeError("");
+                        setEntityType(opt.value);
+                        setReasonForApplying("");
+                        setReasonError("");
+                      }}
+                    />
+                    <label
+                      className="input-label "
+                      htmlFor={`trustEntityInputControl_${opt.value}`}
+                    >
+                      {opt.text}
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </fieldset>
+            <p className="input-error-message" aria-live="polite">
+              {trustTypeError}
+            </p>
+          </div>
+        </>
+      )}
+
+      {/* ── additionalTypeSection (Slice 5b) ────────────────────────────────
+           Gate: selectedStructure === "OTHER_NON_PROFIT"
+           Verbatim from ein__legalStructure.json → additionalTypeSection:
+             instructions3.title / additionalText (§4 phone: 1-800-829-4933 → (954) 426-6424)
+             additionalEntityInputControl.id / fieldName / 23 choices (text only)
+             inputErrorMessages[0].text (id: additionalEntityInputControl_error1) */}
+      {selectedStructure === "OTHER_NON_PROFIT" && (
+        <>
+          <section className="_bottomMargin16_2vtt5_57">
+            <div>
+              <h3>Additional Types</h3>
+              <p>
+                In order to obtain an EIN from the IRS, you must know what type of structure or
+                organization you are setting up. If you need additional assistance, consult an
+                accountant or other tax professional before applying for your EIN, or call the
+                IRS at (954) 426-6424.
+              </p>
+            </div>
+          </section>
+
+          <div className="radioInput _bottomMargin18_1lntm_13 ">
+            <div className="inputInstruction _bottomMargin8_bppll_6 ">
+              <label htmlFor="additionalEntityInputControl">
+                Choose the type of legal structure
+                <span className="_required_bppll_1" role="asterisk">*</span>
+              </label>
+            </div>
+            <fieldset
+              className="radio-group _fixRadioMargin_1lntm_21 undefined"
+              data-testid="radio-group"
+            >
+              <legend data-testid="legend" className="sr-only">
+                {" "}Choose the type of legal structure{" "}
+              </legend>
+              {ADDITIONAL_TYPE_OPTIONS.map((opt) => (
+                <div key={opt.value}>
+                  <div
+                    className={
+                      additionalType === opt.value
+                        ? "radio-button radio-button--checked"
+                        : "radio-button"
+                    }
+                  >
+                    <input
+                      tabIndex={0}
+                      type="radio"
+                      className="radio-button__input"
+                      id={`additionalEntityInputControl_${opt.value}`}
+                      name="additionalEntityInputControl"
+                      aria-required="true"
+                      value={opt.value}
+                      checked={additionalType === opt.value}
+                      onChange={() => {
+                        setAdditionalType(opt.value);
+                        setAdditionalTypeError("");
+                        setEntityType(opt.value);
+                        setReasonForApplying("");
+                        setReasonError("");
+                      }}
+                    />
+                    <label
+                      className="input-label "
+                      htmlFor={`additionalEntityInputControl_${opt.value}`}
+                    >
+                      {opt.text}
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </fieldset>
+            <p className="input-error-message" aria-live="polite">
+              {additionalTypeError}
+            </p>
+          </div>
+        </>
+      )}
+
+      {/* ── Reason for applying section (Slice 4 + extended Slice 5b) ──────────
+           Gate: entityType !== "" (applies to ALL structures)
+           ESTATE: entityType resolves to "ESTATE" immediately on top-level selection;
+             reason section shows without any sub-type panel above.
+           All others: reason shows after sub-type radio resolves entityType.
 
            Section header verbatim from:
-             irs-captures/json/ein__legalStructure.json
-             → primaryReasonSection.instructions3
-             {{entityName}} resolved to "Limited Liability Company (LLC)"
-             for both SINGLE_MEMBER_LLC and MULTI_MEMBER_LLC (LLC scope only).
+             ein__legalStructure.json → primaryReasonSection.instructions3
+             {{entityName}} resolved from ENTITY_NAMES[entityType] lookup.
 
            Radio choices verbatim from:
              primaryReasonSection.reasonForApplyingInputControl.choices
@@ -894,11 +1552,11 @@ export default function LegalStructureForm() {
            Error verbatim from:
              primaryReasonSection.reasonForApplyingInputControl
              .inputErrorMessages[0].text ────────────────────────────────── */}
-      {selectedStructure === "LLC" && entityType !== "" && (
+      {entityType !== "" && (
         <>
           <section className="_bottomMargin16_2vtt5_57">
             <div>
-              <h3>Why is the Limited Liability Company (LLC) requesting an EIN?</h3>
+              <h3>Why is the {resolvedEntityName} requesting an EIN?</h3>
               <p>
                 If your main reason for applying is not on the list, please select the option you
                 feel is closest to your main reason. If more than one reason applies to you,
