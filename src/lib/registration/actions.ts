@@ -6,6 +6,7 @@ import { z } from "zod";
 import { updateProfessorOnboardingStatus, updateStudentOnboardingStatus } from "@/lib/onboarding/status";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { ENROLLMENT_STATUS_VALUES, LAW_SCHOOL_YEARS } from "./options";
 import type { RegistrationActionState } from "./types";
 
 const baseAccountSchema = z.object({
@@ -27,8 +28,15 @@ const studentSchema = baseAccountSchema.extend({
   preferredName: z.string().trim().optional(),
   universityEmail: z.string().trim().email("Enter a valid university email."),
   addressLine2: z.string().trim().optional(),
-  lawSchoolYear: z.string().trim().optional(),
-  enrollmentStatus: z.string().trim().optional(),
+  // Required, validated against the canonical year list. Mirrors the DB
+  // CHECK constraint in 20260510140000_student_profile_year_enrollment_check.sql.
+  lawSchoolYear: z.enum(LAW_SCHOOL_YEARS, {
+    message: "Select your law school year.",
+  }),
+  // Required, stored as snake_case key. Display labels live in options.ts.
+  enrollmentStatus: z.enum(ENROLLMENT_STATUS_VALUES, {
+    message: "Select your enrollment status.",
+  }),
   undergraduateInstitution: z.string().trim().optional(),
   professorIds: z.array(z.string().uuid()).optional().default([]),
 });
@@ -192,8 +200,9 @@ export async function registerStudent(
           postal_code: school.postal_code,
           country: school.country,
         },
-        law_school_year: parsed.data.lawSchoolYear || null,
-        enrollment_status: parsed.data.enrollmentStatus || null,
+        // Required by Zod — guaranteed non-empty here.
+        law_school_year: parsed.data.lawSchoolYear,
+        enrollment_status: parsed.data.enrollmentStatus,
         undergraduate_institution: parsed.data.undergraduateInstitution || null,
         onboarding_status: "started",
       })

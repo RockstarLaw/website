@@ -1,9 +1,33 @@
 // Registration form dropdown options.
 // Plain exported constants — no "use server", safe to import from client or server components.
 
-export const LAW_SCHOOL_YEARS = ["1L", "2L", "3L", "4L (part-time)"] as const;
+// Year values are stored verbatim in student_profiles.law_school_year.
+// "Rising" variants represent students between academic years (summer).
+// Keep in sync with the CHECK constraint in
+// supabase/migrations/20260510140000_student_profile_year_enrollment_check.sql.
+export const LAW_SCHOOL_YEARS = [
+  "1L", "1L Rising",
+  "2L", "2L Rising",
+  "3L", "3L Rising",
+  "4L", "4L Rising",
+] as const;
 
-export const ENROLLMENT_STATUSES = ["Full-Time", "Part-Time"] as const;
+// Enrollment status uses underscore-keyed values for storage so they're safe
+// to use as enum-like keys throughout the app; display labels are presented
+// to the user. Keep in sync with the CHECK constraint in the same migration.
+//
+// Two exports:
+//   ENROLLMENT_STATUS_VALUES — non-empty tuple, suitable for z.enum().
+//   ENROLLMENT_STATUSES      — value/label pairs for rendering <option> lists.
+export const ENROLLMENT_STATUS_VALUES = ["full_time", "part_time"] as const;
+
+export const ENROLLMENT_STATUSES = [
+  { value: "full_time", label: "Full-time" },
+  { value: "part_time", label: "Part-time" },
+] as const;
+
+export type EnrollmentStatusValue = (typeof ENROLLMENT_STATUS_VALUES)[number];
+export type LawSchoolYearValue    = (typeof LAW_SCHOOL_YEARS)[number];
 
 export const PROFESSOR_TITLES = [
   "President",

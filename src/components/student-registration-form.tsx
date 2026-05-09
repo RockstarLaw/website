@@ -62,8 +62,8 @@ export function StudentRegistrationForm({ schools, professors }: { schools: Scho
       </label>
       <label className="grid gap-2">
         <span>Law school year</span>
-        <select name="lawSchoolYear" className={inputClassName} defaultValue="">
-          <option value="">Select year</option>
+        <select name="lawSchoolYear" required className={inputClassName} defaultValue="">
+          <option value="" disabled>Select year</option>
           {LAW_SCHOOL_YEARS.map((y) => (
             <option key={y} value={y}>{y}</option>
           ))}
@@ -104,10 +104,10 @@ export function StudentRegistrationForm({ schools, professors }: { schools: Scho
       </label>
       <label className="grid gap-2 md:col-span-2">
         <span>Enrollment status</span>
-        <select name="enrollmentStatus" className={inputClassName} defaultValue="">
-          <option value="">Select status</option>
+        <select name="enrollmentStatus" required className={inputClassName} defaultValue="">
+          <option value="" disabled>Select status</option>
           {ENROLLMENT_STATUSES.map((s) => (
-            <option key={s} value={s}>{s}</option>
+            <option key={s.value} value={s.value}>{s.label}</option>
           ))}
         </select>
       </label>
