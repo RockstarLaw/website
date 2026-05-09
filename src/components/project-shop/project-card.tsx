@@ -68,49 +68,60 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
         )}
       </Link>
 
-      {/* Title — wrapped in its own Link (full, never truncated) */}
-      <h3 className="text-base font-semibold leading-tight text-slate-950">
-        <Link
-          href={detailHref}
-          className="rounded-sm transition-colors hover:text-red-700 focus-visible:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-700/40"
-        >
-          {project.title}
-        </Link>
-      </h3>
+      {/* Title + tagline group — paired together with tighter spacing.
+          Outer gap-3 still applies above (to poster) and below (to pitch),
+          but title and tagline render as one visual unit. */}
+      <div className="flex flex-col gap-1">
+        {/* Title — wrapped in its own Link (full, never truncated) */}
+        <h3 className="text-base font-semibold leading-tight text-slate-950">
+          <Link
+            href={detailHref}
+            className="rounded-sm transition-colors hover:text-red-700 focus-visible:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-700/40"
+          >
+            {project.title}
+          </Link>
+        </h3>
 
-      {/* Tagline (italic, full — never truncated) — display only, not a link */}
-      {project.tagline && (
-        <p className="text-sm italic text-slate-700">{project.tagline}</p>
-      )}
+        {/* Tagline (italic, full — never truncated) — display only, not a link */}
+        {project.tagline && (
+          <p className="text-sm italic text-slate-700">{project.tagline}</p>
+        )}
+      </div>
 
       {/* Description (pitch — clamp to 3 lines on card) — display only, not a link */}
       {project.pitch && (
         <p className="line-clamp-3 text-xs leading-relaxed text-slate-600">{project.pitch}</p>
       )}
 
-      {/* Categories (Area of Law) — display only for now; can become per-area filter links later */}
-      {project.areaOfLaw.length > 0 && (
-        <div className="flex flex-wrap gap-1">
-          {project.areaOfLaw.map((a) => (
-            <span
-              key={a}
-              className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600"
-            >
-              {a}
-            </span>
-          ))}
-        </div>
-      )}
+      {/* Bottom cluster — area-of-law subjects + marker icons stick to the
+          bottom of the card together. Any whitespace from a short pitch
+          appears ABOVE this cluster (between pitch and subjects), not below. */}
+      <div className="mt-auto flex flex-col gap-3">
+        {/* Categories (Area of Law) — display only for now; can become
+            per-area filter links later */}
+        {project.areaOfLaw.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {project.areaOfLaw.map((a) => (
+              <span
+                key={a}
+                className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600"
+              >
+                {a}
+              </span>
+            ))}
+          </div>
+        )}
 
-      {/* Icon row — visual baseline of the card; display only */}
-      <div className="mt-auto flex flex-wrap gap-1.5 border-t border-slate-100 pt-3">
-        {modeMarkers.map((m) => (
-          <MarkerChip key={m.key} marker={m} />
-        ))}
-        {specialMarkers.map((m) => (
-          <MarkerChip key={m.key} marker={m} />
-        ))}
-        {durationMarker && <MarkerChip marker={durationMarker} />}
+        {/* Icon row — visual baseline of the card; display only */}
+        <div className="flex flex-wrap gap-1.5 border-t border-slate-100 pt-3">
+          {modeMarkers.map((m) => (
+            <MarkerChip key={m.key} marker={m} />
+          ))}
+          {specialMarkers.map((m) => (
+            <MarkerChip key={m.key} marker={m} />
+          ))}
+          {durationMarker && <MarkerChip marker={durationMarker} />}
+        </div>
       </div>
     </div>
   );

@@ -9,6 +9,9 @@ export type Marker = {
   // Text chip styling (used only when iconPath is null)
   textChipBg:    string;             // Tailwind class
   textChipText:  string;             // Tailwind class
+  // Optional "coin" — a small filled circle that renders before the label
+  // for chips that don't have a full iconPath yet. Tailwind bg-* class.
+  coinColor?:    string;
 };
 
 export const MODE_MARKERS: Record<string, Marker> = {
@@ -44,22 +47,27 @@ export const MODE_MARKERS: Record<string, Marker> = {
   },
 };
 
-// Special-flag markers — no icon yet, text-only with brand color.
+// Special-flag markers — render as outline-style chips (white bg, neutral border)
+// with a brand-colored "coin" dot before the label. Until full icons are
+// commissioned, the coin dot conveys identity without a solid-fill chip.
 export const SPECIAL_MARKERS: Record<string, Marker> = {
   real_world: {
     key: "real_world", label: "Real World",
     iconPath: null,
-    textChipBg: "bg-emerald-700", textChipText: "text-white",
+    textChipBg: "bg-white", textChipText: "text-emerald-700",
+    coinColor: "bg-emerald-700",
   },
   world_rank_qualifying: {
     key: "world_rank_qualifying", label: "World Rank Qualifying",
     iconPath: null,
-    textChipBg: "bg-slate-900", textChipText: "text-amber-300",
+    textChipBg: "bg-white", textChipText: "text-slate-900",
+    coinColor: "bg-amber-500",
   },
   moot_court: {
     key: "moot_court", label: "Moot Court Competition",
     iconPath: null,
-    textChipBg: "bg-indigo-700", textChipText: "text-white",
+    textChipBg: "bg-white", textChipText: "text-indigo-700",
+    coinColor: "bg-indigo-700",
   },
 };
 
