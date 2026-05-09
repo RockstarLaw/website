@@ -54,9 +54,9 @@
  * FA magnifying-glass icon (shared chrome, accepted 2026-05-08).
  */
 
-import { useEffect, useState } from "react";
-import { createPortal }        from "react-dom";
-import { useRouter }           from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { createPortal }                       from "react-dom";
+import { useRouter }                          from "next/navigation";
 
 // ── Props ─────────────────────────────────────────────────────────────────────
 
@@ -129,10 +129,46 @@ export default function EinAssignmentDisplay({
   nameControl,
   letterPref,
 }: EinAssignmentDisplayProps) {
-  const [mounted, setMounted] = useState(false);
+  const [mounted,    setMounted]    = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => { setMounted(true); }, []);
+
+  // ── PDF download handler (Slice 10) ────────────────────────────────────────
+  // GETs the download route, which generates + stores the CP575G parody-PDF
+  // on first call (may take 2-4s), then issues a 302 signed-URL redirect.
+  // The fetch follows the redirect automatically; we then push the signed URL
+  // into an <a download> click to trigger the browser's native save dialog.
+  const handlePdfDownload = useCallback(async () => {
+    if (pdfLoading) return;
+    setPdfLoading(true);
+    try {
+      const res = await fetch("/irs/ein/apply/ein-assignment/download", {
+        redirect: "follow",
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        alert(`Could not download letter: ${(body as { error?: string }).error ?? res.statusText}`);
+        return;
+      }
+      // The fetch followed the signed-URL redirect and resolved to the PDF blob.
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href     = url;
+      a.download = `cp575g-ein-${ein.replace("-", "")}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("[EinAssignmentDisplay] PDF download error:", err);
+      alert("An error occurred while downloading the letter. Please try again.");
+    } finally {
+      setPdfLoading(false);
+    }
+  }, [ein, pdfLoading]);
 
   if (!mounted) return null;
 
@@ -372,14 +408,18 @@ export default function EinAssignmentDisplay({
           </svg>
         </a>
 
-        {/* buttonControls[2]: "Download EIN confirmation Letter [PDF]" — PLACEHOLDER (Slice 10) */}
+        {/* buttonControls[2]: "Download EIN confirmation Letter [PDF]" — Slice 10 */}
+        {/* Fetches /irs/ein/apply/ein-assignment/download, which generates the   */}
+        {/* CP575G parody-PDF on first call, then issues a signed-URL redirect.   */}
         <button
           type="button"
           className="irs-button-v2"
           aria-label="Download EIN confirmation Letter [PDF]"
-          onClick={() => alert("PDF letter ships in Slice 10")}
+          disabled={pdfLoading}
+          onClick={handlePdfDownload}
+          style={pdfLoading ? { opacity: 0.7, cursor: "wait" } : undefined}
         >
-          Download EIN confirmation Letter [PDF]
+          {pdfLoading ? "Generating letter…" : "Download EIN confirmation Letter [PDF]"}
         </button>
       </div>
 
