@@ -339,7 +339,7 @@ export function FilterRail() {
             onChange={() => toggleBoolParam("world_rank")}
             className="h-4 w-4 accent-red-700"
           />
-          <span className="text-xs text-slate-700">World Rank Qualifying only</span>
+          <span className="text-xs text-slate-700">World-Rank only</span>
         </label>
         <label className="flex cursor-pointer items-center gap-2">
           <input

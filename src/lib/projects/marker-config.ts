@@ -58,7 +58,7 @@ export const SPECIAL_MARKERS: Record<string, Marker> = {
     coinColor: "bg-emerald-700",
   },
   world_rank_qualifying: {
-    key: "world_rank_qualifying", label: "World Rank Qualifying",
+    key: "world_rank_qualifying", label: "World-Rank",
     iconPath: null,
     textChipBg: "bg-white", textChipText: "text-slate-900",
     coinColor: "bg-amber-500",
@@ -71,16 +71,15 @@ export const SPECIAL_MARKERS: Record<string, Marker> = {
   },
 };
 
-// Duration markers — only "1hr" has an icon. Others are gray text chips.
+// Duration markers — solid black chip with amber text. Identical visual
+// treatment across all duration values so "TIME" reads as one consistent
+// element regardless of the specific length. Distinct from subject chips
+// (light gray) and special markers (white-outlined with coin).
 export const DURATION_MARKERS: Record<string, Marker> = {
-  "1hr": {
-    key: "1hr", label: "1 Hour",
-    iconPath: "/images/projects/project-icons/projects-icons-one-hour.png",
-    textChipBg: "", textChipText: "",
-  },
-  "3hr":      { key: "3hr",      label: "3 Hours",   iconPath: null, textChipBg: "bg-slate-100", textChipText: "text-slate-700" },
-  "1wk":      { key: "1wk",      label: "1 Week",    iconPath: null, textChipBg: "bg-slate-100", textChipText: "text-slate-700" },
-  "2wk":      { key: "2wk",      label: "2 Weeks",   iconPath: null, textChipBg: "bg-slate-100", textChipText: "text-slate-700" },
-  "30day":    { key: "30day",    label: "30 Days",   iconPath: null, textChipBg: "bg-slate-100", textChipText: "text-slate-700" },
-  "semester": { key: "semester", label: "Semester",  iconPath: null, textChipBg: "bg-slate-100", textChipText: "text-slate-700" },
+  "1hr":      { key: "1hr",      label: "1 Hour",    iconPath: null, textChipBg: "bg-slate-900", textChipText: "text-amber-300" },
+  "3hr":      { key: "3hr",      label: "3 Hours",   iconPath: null, textChipBg: "bg-slate-900", textChipText: "text-amber-300" },
+  "1wk":      { key: "1wk",      label: "1 Week",    iconPath: null, textChipBg: "bg-slate-900", textChipText: "text-amber-300" },
+  "2wk":      { key: "2wk",      label: "2 Weeks",   iconPath: null, textChipBg: "bg-slate-900", textChipText: "text-amber-300" },
+  "30day":    { key: "30day",    label: "30 Days",   iconPath: null, textChipBg: "bg-slate-900", textChipText: "text-amber-300" },
+  "semester": { key: "semester", label: "Semester",  iconPath: null, textChipBg: "bg-slate-900", textChipText: "text-amber-300" },
 };
