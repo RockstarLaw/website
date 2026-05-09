@@ -82,11 +82,33 @@ export default function IdentityForm() {
 
   const formRef = useRef<HTMLFormElement>(null);
 
+  // SSN auto-format — verbatim from bundle _y.updateSsnState:
+  // 1. strip non-digits, 2. cap at 9, 3. insert dashes at positions 3 and 5
+  const handleSsnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let digits = e.target.value.replace(/\D/g, "");
+    if (digits.length > 9) digits = digits.slice(0, 9);
+    let formatted: string;
+    if (digits.length > 4) {
+      formatted = digits.slice(0, 3) + "-" + digits.slice(3, 5) + "-" + digits.slice(5, 9);
+    } else if (digits.length > 2) {
+      formatted = digits.slice(0, 3) + "-" + digits.slice(3, 5);
+    } else {
+      formatted = digits;
+    }
+    setSsn(formatted);
+  };
+
   const handleContinue = (e: React.MouseEvent) => {
     e.preventDefault();
     // Client-side validation: required fields
     if (!ssn.trim()) {
       setError("SSN/ITIN is required.");
+      return;
+    }
+    // Exact 9-digit validation (verbatim algorithm: strip dashes, check length)
+    const ssnDigits = ssn.replace(/-/g, "");
+    if (ssnDigits.length !== 9) {
+      setError("SSN/ITIN must be 9 digits (format: 123-45-6789).");
       return;
     }
     if (!firstName.trim()) {
@@ -186,7 +208,7 @@ export default function IdentityForm() {
               aria-required="false"
               inputMode="numeric"
               value={ssn}
-              onChange={(e) => setSsn(e.target.value)}
+              onChange={handleSsnChange}
             />
             <p className="input-error-message" aria-live="polite"></p>
           </div>
@@ -378,7 +400,7 @@ export default function IdentityForm() {
               {" "}Choose one{" "}
             </legend>
             {/* Radio: yes — owner/member/managing member */}
-            <div className="radio-button">
+            <div className={role === "yes" ? "radio-button radio-button--checked" : "radio-button"}>
               <input
                 tabIndex={0}
                 type="radio"
@@ -414,7 +436,7 @@ export default function IdentityForm() {
               </label>
             </div>
             {/* Radio: no — third party */}
-            <div className="radio-button">
+            <div className={role === "no" ? "radio-button radio-button--checked" : "radio-button"}>
               <input
                 tabIndex={0}
                 type="radio"

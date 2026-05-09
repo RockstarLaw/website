@@ -48,6 +48,11 @@ export async function submitIdentity(formData: FormData): Promise<void> {
   if (!responsibleSsn || !responsibleFirstName || !responsibleLastName) {
     redirect("/irs/ein/apply/identity");
   }
+  // Exact 9-digit validation (strip dashes, check digit count)
+  const ssnDigits = responsibleSsn.replace(/-/g, "");
+  if (ssnDigits.length !== 9) {
+    redirect("/irs/ein/apply/identity");
+  }
   if (entityRole !== "yes" && entityRole !== "no") {
     redirect("/irs/ein/apply/identity");
   }
