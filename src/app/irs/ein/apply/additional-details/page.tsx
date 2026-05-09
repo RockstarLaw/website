@@ -6,10 +6,9 @@
  * Interactive form rendered by <AdditionalDetailsForm /> client component,
  * portaled into #w4-form-portal.
  *
- * Scope: SINGLE_MEMBER_LLC only.
- *   Gate: form_data.legal_structure === "LLC" && form_data.members_of_llc === "1"
- *   (members_of_llc is a numeric count string from W1's LegalStructureForm.tsx)
- *   Any other combination redirects to /irs/ein/apply/additional-details/coming-soon.
+ * Scope: all entity types with an ENTITY_CONFIG entry.
+ *   Gate: ENTITY_CONFIG[resolvedType] defined — any missing key falls through to /coming-soon.
+ *   resolvedType = entity_type ?? legal_structure ?? "" from form_data.
  *
  * CSS: Reuses /irs/page-w0/index-D-QGvqqz.css (same bundle as W1–W3).
  *
@@ -46,12 +45,10 @@ export default async function IrsEinAdditionalDetailsPage() {
   const supabase = await createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // ── 2. Entity-type gate ──────────────────────────────────────────────────
-  // Default for unauthenticated / no-app direct navigation (SMLLC chrome shown)
+  // ── 2. Entity-type resolution + gate ────────────────────────────────────
+  // Default for unauthenticated / direct navigation — SMLLC chrome shown
   let resolvedType = "SINGLE_MEMBER_LLC";
 
-  // If no user / no in-progress session, let the form render in blank state
-  // (back-compat with direct navigation). Gate check requires an app row.
   if (user) {
     const admin = createSupabaseAdminClient();
     const { data: app } = await admin
@@ -65,19 +62,22 @@ export default async function IrsEinAdditionalDetailsPage() {
 
     if (app) {
       const fd = app.form_data as Record<string, unknown>;
-      // entity_type resolved by Slice 2 W1 actions.ts; fall back to member count
-      // for pre-Slice-2 sessions that only carry members_of_llc
-      const detectedType = (fd.entity_type as string | undefined) ??
-        (fd.members_of_llc === "1" || fd.members_of_llc === "SINGLE_MEMBER_LLC"
-          ? "SINGLE_MEMBER_LLC"
-          : "");
-      const isLlc   = fd.legal_structure === "LLC";
-      const isSmllc = isLlc && detectedType === "SINGLE_MEMBER_LLC";
-      const isMmllc = isLlc && detectedType === "MULTI_MEMBER_LLC";
-      if (!isSmllc && !isMmllc) {
+      // Resolution order (Slice 5):
+      //   1. entity_type — set by W1 actions.ts for LLC sub-types (SMLLC/MMLLC)
+      //      and for sub-type selections when W1 sub-sections ship (Slice 5b)
+      //   2. legal_structure — for entity types whose W1 selection IS the final type
+      //      (SOLE_PROPRIETOR, PARTNERSHIP, CORPORATION, ESTATE, ALL_OTHERS_TRUST, etc.)
+      //   3. LLC member-count fallback — pre-Slice-2 sessions
+      const detectedType =
+        (fd.entity_type as string | undefined) ??
+        (fd.legal_structure as string | undefined) ??
+        (fd.members_of_llc === "1" ? "SINGLE_MEMBER_LLC" : "");
+
+      if (!ENTITY_CONFIG[detectedType]) {
+        // No config entry for this type yet — coming-soon
         redirect("/irs/ein/apply/additional-details/coming-soon");
       }
-      if (isMmllc) resolvedType = "MULTI_MEMBER_LLC";
+      resolvedType = detectedType;
     }
   }
 
@@ -103,12 +103,11 @@ export default async function IrsEinAdditionalDetailsPage() {
     }, schema);
   }
 
-  // ── 5. Build serialized schema for SMLLC ────────────────────────────────
-  // entityName sources (HR#1 — verbatim from captured artifacts):
-  //   SMLLC → verbatim from Additional Details 1 HTML capture (Slice 1)
-  //   MMLLC → irs-captures/json/ein__glossary.json → glossaryTerms.multiMemberLLC.title
-  const config             = ENTITY_CONFIG[resolvedType] ?? ENTITY_CONFIG.SINGLE_MEMBER_LLC!;
-  const entityName         = config.entityName;
+  // ── 5. Build serialized schema driven by entity config ──────────────────
+  // entityName / tellUsAboutOrgLabel: per-entity strings from additionalDetailsConfig.ts
+  // (shared:entityTypes namespace not captured; IRS SS-4 + Pub 1635 gap-fill per HR#1)
+  const config              = ENTITY_CONFIG[resolvedType] ?? ENTITY_CONFIG.SINGLE_MEMBER_LLC!;
+  const entityName          = config.entityName;
   const tellUsAboutOrgLabel = config.tellUsAboutOrgLabel;
 
   function substituteEntityName(fieldName: string): string {
@@ -124,7 +123,25 @@ export default async function IrsEinAdditionalDetailsPage() {
     return raw;
   }
 
+  // stateArticles key: isLlcType → Org variant; isCorpType → Inc variant; else null
+  const stateArticlesPath = config.stateArticlesKey
+    ? `tellUsAboutOrg.${config.stateArticlesKey}`
+    : null;
+
+  // articles helptip: Org variant for LLC types, Inc variant for Corp types, null otherwise
+  const articlesHelptipKey = config.stateArticlesKey === "stateArticlesOrganizationFiledInputControl"
+    ? "articlesOfOrganizationHelp"
+    : config.stateArticlesKey === "stateArticlesIncorporationFiledInputControl"
+      ? "articlesOfIncorporationHelp"
+      : null;
+
   const formSchema: AdditionalDetailsSchema = {
+    // ── Gating flags ────────────────────────────────────────────────────────────────────
+    showDba:                 config.showDba,
+    showTruckingGamblingAtf: config.showTruckingGamblingAtf,
+    showClosingMonth:        config.showClosingMonth,
+    showHouseholdEmployees:  config.showHouseholdEmployees,
+
     // Section headers
     tellUsAboutSubHeader: {
       title: substituteEntityName(
@@ -142,25 +159,31 @@ export default async function IrsEinAdditionalDetailsPage() {
 
     // Section 1 field defs
     legalNameFieldDef:     extractFieldDef(`tellUsAboutOrg.${config.legalNameKey}`),
-    dbaFieldDef:           extractFieldDef("tellUsAboutOrg.dbaNameInputControl"),
-    countyFieldDef:        extractFieldDef("tellUsAboutOrg.countyInputControl"),
-    stateLocationFieldDef: extractFieldDef("tellUsAboutOrg.stateLocationInputControl"),
-    stateArticlesFieldDef: extractFieldDef("tellUsAboutOrg.stateArticlesOrganizationFiledInputControl"),
+    dbaFieldDef:           extractFieldDef(`tellUsAboutOrg.${config.dbaKey}`),
+    countyFieldDef:        extractFieldDef(`tellUsAboutOrg.${config.countyKey}`),
+    stateLocationFieldDef: extractFieldDef(`tellUsAboutOrg.${config.stateLocationKey}`),
+    stateArticlesFieldDef: stateArticlesPath ? extractFieldDef(stateArticlesPath) : null,
+    closingMonthFieldDef:  config.showClosingMonth
+      ? extractFieldDef("tellUsAboutOrg.closingMonthInputControl")
+      : null,
     startDateLabelDef: {
       fieldName:      substituteEntityName(
-        (g("tellUsAboutOrg.defaultStartDate") as { fieldName: string }).fieldName
+        (g(`tellUsAboutOrg.${config.startDateLabelKey}`) as { fieldName: string }).fieldName
       ),
-      additionalText: (g("tellUsAboutOrg.defaultStartDate") as { additionalText: string[] }).additionalText,
+      additionalText: (g(`tellUsAboutOrg.${config.startDateLabelKey}`) as { additionalText: string[] }).additionalText,
     },
     startMonthFieldDef: extractFieldDef("tellUsAboutOrg.startMonthInputControl"),
     startYearFieldDef:  extractFieldDef("tellUsAboutOrg.startYearInputControl"),
 
     // Section 2 field defs
-    highwayVehicleFieldDef:     extractFieldDef("tellUsMoreAboutSection.ownHighwayVehicleInputControl"),
-    gamblingFieldDef:           extractFieldDef("tellUsMoreAboutSection.involveGamblingInputControl"),
-    fileForm720FieldDef:        extractFieldDef("tellUsMoreAboutSection.fileForm720InputControl"),
-    atfFieldDef:                extractFieldDef("tellUsMoreAboutSection.sellAtfInputControl"),
-    employeesQuestionFieldDef:  extractFieldDef("tellUsMoreAboutSection.provideW2FormInputControl"),
+    highwayVehicleFieldDef:    extractFieldDef("tellUsMoreAboutSection.ownHighwayVehicleInputControl"),
+    gamblingFieldDef:          extractFieldDef("tellUsMoreAboutSection.involveGamblingInputControl"),
+    fileForm720FieldDef:       extractFieldDef("tellUsMoreAboutSection.fileForm720InputControl"),
+    atfFieldDef:               extractFieldDef("tellUsMoreAboutSection.sellAtfInputControl"),
+    // employees question: config-driven variant; null when ma()=false
+    employeesQuestionFieldDef: config.employeesQuestionKey
+      ? extractFieldDef(`tellUsMoreAboutSection.${config.employeesQuestionKey}`)
+      : null,
 
     // Section 3 (W4b) field defs
     firstPayDateInstructions: g("describeYourEmployeesSection.instructions5") as {
@@ -178,14 +201,19 @@ export default async function IrsEinAdditionalDetailsPage() {
     // Final section
     reviewFieldDef: extractFieldDef("finalSection.reviewInputControl"),
 
-    // Helptip defs — all sourced from JSON keys
+    // Helptip defs
     dbaHelptip:            g("dbaNameHelp")                 as typeof formSchema["dbaHelptip"],
-    articlesHelptip:       g("articlesOfOrganizationHelp")  as typeof formSchema["articlesHelptip"],
+    articlesHelptip:       articlesHelptipKey
+      ? g(articlesHelptipKey) as typeof formSchema["articlesHelptip"]
+      : null as unknown as typeof formSchema["articlesHelptip"],
     startMonthHelptip:     g("startMonthHelp")              as typeof formSchema["startMonthHelptip"],
     highwayVehicleHelptip: g("ownHighwayVehicleHelp")       as typeof formSchema["highwayVehicleHelptip"],
     gamblingHelptip:       g("involveGamblingHelp")         as typeof formSchema["gamblingHelptip"],
     fileForm720Helptip:    g("fileForm720Help")             as typeof formSchema["fileForm720Helptip"],
-    employeesHelptip:      g("provideW2FormHelp")           as typeof formSchema["employeesHelptip"],
+    // employeesHelptip: null when haveEmployees variant (no helptip in JSON for that control)
+    employeesHelptip:      config.employeesHelptipKey
+      ? g(config.employeesHelptipKey) as typeof formSchema["employeesHelptip"]
+      : null,
     maxEmployeesHelptip:   g("maxEmployeesHelp")            as typeof formSchema["maxEmployeesHelptip"],
     agEmployeesHelptip:    g("numOfAgriculturalEmployeesHelp") as typeof formSchema["agEmployeesHelptip"],
     otherEmployeesHelptip: g("numOfOtherEmployeesHelp")     as typeof formSchema["otherEmployeesHelptip"],

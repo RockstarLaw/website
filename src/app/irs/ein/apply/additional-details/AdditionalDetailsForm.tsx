@@ -62,6 +62,12 @@ import { submitAdditionalDetails } from "./actions";
 
 export type AdditionalDetailsSchema = {
   // Section headers
+  // ── Gating flags (decoded from bundle bo/li/us/ds/cs/ma functions) ─────────
+  showDba:                 boolean;
+  showTruckingGamblingAtf: boolean;
+  showClosingMonth:        boolean;
+  showHouseholdEmployees:  boolean;
+  // Section headers
   tellUsAboutSubHeader:    { title: string };
   tellUsMoreSubHeader:     { title: string };
   describeEmpSubHeader:    { title: string };
@@ -70,7 +76,10 @@ export type AdditionalDetailsSchema = {
   dbaFieldDef:             SchemaFieldDef;
   countyFieldDef:          SchemaFieldDef;
   stateLocationFieldDef:   SchemaFieldDef;
-  stateArticlesFieldDef:   SchemaFieldDef;
+  /** null when stateArticlesKey is null for the entity type */
+  stateArticlesFieldDef:   SchemaFieldDef | null;
+  /** null when showClosingMonth is false */
+  closingMonthFieldDef:    SchemaFieldDef | null;
   startDateLabelDef:       { fieldName: string; additionalText: string[] };
   startMonthFieldDef:      SchemaFieldDef;
   startYearFieldDef:       SchemaFieldDef;
@@ -79,7 +88,8 @@ export type AdditionalDetailsSchema = {
   gamblingFieldDef:        SchemaFieldDef;
   fileForm720FieldDef:     SchemaFieldDef;
   atfFieldDef:             SchemaFieldDef;
-  employeesQuestionFieldDef: SchemaFieldDef;
+  /** null when ma()=false (employees section hidden entirely for entity type) */
+  employeesQuestionFieldDef: SchemaFieldDef | null;
   // Describe employees — field defs
   firstPayDateInstructions: { title: string; additionalText: string[] };
   firstPayMonthFieldDef:   SchemaFieldDef;
@@ -92,12 +102,14 @@ export type AdditionalDetailsSchema = {
   reviewFieldDef:          SchemaFieldDef;
   // Helptip defs
   dbaHelptip:              HelptipDef;
-  articlesHelptip:         HelptipDef;
+  /** null when stateArticlesKey is null (no articles field for entity type) */
+  articlesHelptip:         HelptipDef | null;
   startMonthHelptip:       HelptipDef;
   highwayVehicleHelptip:   HelptipDef;
   gamblingHelptip:         HelptipDef;
   fileForm720Helptip:      HelptipDef;
-  employeesHelptip:        HelptipDef;
+  /** null when employeesHelptipKey is null (haveEmployees variant has no helptip) */
+  employeesHelptip:        HelptipDef | null;
   maxEmployeesHelptip:     HelptipDef;
   agEmployeesHelptip:      HelptipDef;
   otherEmployeesHelptip:   HelptipDef;
@@ -123,6 +135,7 @@ export default function AdditionalDetailsForm({ schema }: Props) {
   const [county,            setCounty]            = useState("");
   const [stateLocation,     setStateLocation]     = useState("");
   const [stateArticles,     setStateArticles]     = useState("");
+  const [closingMonth,      setClosingMonth]      = useState("");
   const [startMonth,        setStartMonth]        = useState("");
   const [startYear,         setStartYear]         = useState("");
   const [highwayVehicles,   setHighwayVehicles]   = useState("");
@@ -144,7 +157,7 @@ export default function AdditionalDetailsForm({ schema }: Props) {
     const errs = schema.legalNameFieldDef.inputErrorMessages ?? [];
     if (!legalName.trim())
       newErrors.legalName = errs[0]?.text ?? "Legal Name: Input is required.";
-    if (dbaName.length > 34 && dbaName.trim()) {
+    if (schema.showDba && dbaName.length > 34 && dbaName.trim()) {
       const dbaErrs = schema.dbaFieldDef.inputErrorMessages ?? [];
       newErrors.dbaName = dbaErrs[1]?.text ?? "DBA Name: Invalid.";
     }
@@ -154,9 +167,18 @@ export default function AdditionalDetailsForm({ schema }: Props) {
     const slErrs = schema.stateLocationFieldDef.inputErrorMessages ?? [];
     if (!stateLocation)
       newErrors.stateLocation = slErrs[0]?.text ?? "State Located: Selection is required";
-    const saErrs = schema.stateArticlesFieldDef.inputErrorMessages ?? [];
-    if (!stateArticles)
-      newErrors.stateArticles = saErrs[0]?.text ?? "State Filed: Selection is required";
+    // stateArticles only validated when rendered (stateArticlesKey non-null)
+    if (schema.stateArticlesFieldDef) {
+      const saErrs = schema.stateArticlesFieldDef.inputErrorMessages ?? [];
+      if (!stateArticles)
+        newErrors.stateArticles = saErrs[0]?.text ?? "State Filed: Selection is required";
+    }
+    // closingMonth only validated when rendered
+    if (schema.showClosingMonth && schema.closingMonthFieldDef) {
+      const cmErrs = schema.closingMonthFieldDef.inputErrorMessages ?? [];
+      if (!closingMonth)
+        newErrors.closingMonth = cmErrs[0]?.text ?? "Closing Month: Selection is required";
+    }
     const smErrs = schema.startMonthFieldDef.inputErrorMessages ?? [];
     if (!startMonth)
       newErrors.startMonth = smErrs[0]?.text ?? "Start Month: Selection is required";
@@ -165,21 +187,27 @@ export default function AdditionalDetailsForm({ schema }: Props) {
       newErrors.startYear = syErrs[0]?.text ?? "Start Year: Input is required";
     else if (!/^[0-9]{4}$/.test(startYear))
       newErrors.startYear = syErrs[1]?.text ?? "Start Year: Year must consist of 4 numbers";
-    const hvErrs = schema.highwayVehicleFieldDef.inputErrorMessages ?? [];
-    if (!highwayVehicles)
-      newErrors.highwayVehicles = hvErrs[0]?.text ?? "Have Highway Vehicle: Selection is required.";
-    const gErrs = schema.gamblingFieldDef.inputErrorMessages ?? [];
-    if (!gambling)
-      newErrors.gambling = gErrs[0]?.text ?? "Has Gambling: Selection is required.";
-    const f720Errs = schema.fileForm720FieldDef.inputErrorMessages ?? [];
-    if (!fileForm720)
-      newErrors.fileForm720 = f720Errs[0]?.text ?? "File Form 720: Selection is required.";
-    const atfErrs = schema.atfFieldDef.inputErrorMessages ?? [];
-    if (!atf)
-      newErrors.atf = atfErrs[0]?.text ?? "Sell alcohol, tobacco, or firearms: Selection is required.";
-    const empErrs = schema.employeesQuestionFieldDef.inputErrorMessages ?? [];
-    if (!hasEmployees)
-      newErrors.hasEmployees = empErrs[0]?.text ?? "Have Employees: Selection is required.";
+    // trucking/gambling/ATF only validated when section is rendered
+    if (schema.showTruckingGamblingAtf) {
+      const hvErrs = schema.highwayVehicleFieldDef.inputErrorMessages ?? [];
+      if (!highwayVehicles)
+        newErrors.highwayVehicles = hvErrs[0]?.text ?? "Have Highway Vehicle: Selection is required.";
+      const gErrs = schema.gamblingFieldDef.inputErrorMessages ?? [];
+      if (!gambling)
+        newErrors.gambling = gErrs[0]?.text ?? "Has Gambling: Selection is required.";
+      const f720Errs = schema.fileForm720FieldDef.inputErrorMessages ?? [];
+      if (!fileForm720)
+        newErrors.fileForm720 = f720Errs[0]?.text ?? "File Form 720: Selection is required.";
+      const atfErrs = schema.atfFieldDef.inputErrorMessages ?? [];
+      if (!atf)
+        newErrors.atf = atfErrs[0]?.text ?? "Sell alcohol, tobacco, or firearms: Selection is required.";
+    }
+    // employees question only validated when rendered (null = ma()=false)
+    if (schema.employeesQuestionFieldDef) {
+      const empErrs = schema.employeesQuestionFieldDef.inputErrorMessages ?? [];
+      if (!hasEmployees)
+        newErrors.hasEmployees = empErrs[0]?.text ?? "Have Employees: Selection is required.";
+    }
 
     // W4b validation deferred — no pixel reference; ships in a later slice
 
@@ -206,7 +234,12 @@ export default function AdditionalDetailsForm({ schema }: Props) {
         <input type="hidden" name="dbaName"           value={dbaName} />
         <input type="hidden" name="county"            value={county} />
         <input type="hidden" name="state"             value={stateLocation} />
-        <input type="hidden" name="stateIncorporated" value={stateArticles} />
+        {schema.stateArticlesFieldDef && (
+          <input type="hidden" name="stateIncorporated" value={stateArticles} />
+        )}
+        {schema.showClosingMonth && (
+          <input type="hidden" name="closingMonth" value={closingMonth} />
+        )}
         <input type="hidden" name="startMonth"        value={startMonth} />
         <input type="hidden" name="startYear"         value={startYear} />
         <input type="hidden" name="trucking"          value={highwayVehicles} />
@@ -272,16 +305,18 @@ export default function AdditionalDetailsForm({ schema }: Props) {
           errorMessage={errors.stateLocation}
         />
 
-        {/* State articles of organization filed — required, has helptip */}
-        <SchemaField
-          fieldDef={schema.stateArticlesFieldDef}
-          inputName="StateFiledArticlesOrganization"
-          value={stateArticles}
-          onChange={setStateArticles}
-          isRequired={true}
-          errorMessage={errors.stateArticles}
-          helptipDef={schema.articlesHelptip}
-        />
+        {/* State articles filed — null when stateArticlesKey is null for entity type */}
+        {schema.stateArticlesFieldDef && (
+          <SchemaField
+            fieldDef={schema.stateArticlesFieldDef}
+            inputName="StateFiledArticlesOrganization"
+            value={stateArticles}
+            onChange={setStateArticles}
+            isRequired={true}
+            errorMessage={errors.stateArticles}
+            helptipDef={schema.articlesHelptip ?? undefined}
+          />
+        )}
 
         {/* Start Date fieldset
             Verbatim structure from capture: _formatFieldset_im0vm_63, legend _srOnly_im0vm_69
@@ -357,61 +392,68 @@ export default function AdditionalDetailsForm({ schema }: Props) {
           </h4>
         </section>
 
-        {/* Highway vehicles — ownHighwayVehicleInputControl, has helptip */}
-        <SchemaField
-          fieldDef={schema.highwayVehicleFieldDef}
-          inputName="highwayVehiclesInput"
-          value={highwayVehicles}
-          onChange={setHighwayVehicles}
-          isRequired={true}
-          errorMessage={errors.highwayVehicles}
-          helptipDef={schema.highwayVehicleHelptip}
-        />
+        {/* Trucking / Gambling / ATF block — conditional: li() function */}
+        {schema.showTruckingGamblingAtf && (
+          <>
+            {/* Highway vehicles — ownHighwayVehicleInputControl, has helptip */}
+            <SchemaField
+              fieldDef={schema.highwayVehicleFieldDef}
+              inputName="highwayVehiclesInput"
+              value={highwayVehicles}
+              onChange={setHighwayVehicles}
+              isRequired={true}
+              errorMessage={errors.highwayVehicles}
+              helptipDef={schema.highwayVehicleHelptip}
+            />
 
-        {/* Gambling — involveGamblingInputControl, has helptip */}
-        <SchemaField
-          fieldDef={schema.gamblingFieldDef}
-          inputName="gamblingWagerInput"
-          value={gambling}
-          onChange={setGambling}
-          isRequired={true}
-          errorMessage={errors.gambling}
-          helptipDef={schema.gamblingHelptip}
-        />
+            {/* Gambling — involveGamblingInputControl, has helptip */}
+            <SchemaField
+              fieldDef={schema.gamblingFieldDef}
+              inputName="gamblingWagerInput"
+              value={gambling}
+              onChange={setGambling}
+              isRequired={true}
+              errorMessage={errors.gambling}
+              helptipDef={schema.gamblingHelptip}
+            />
 
-        {/* Form 720 — fileForm720InputControl, has helptip
-            NOTE: bundle renders helptip but button has NO aria-label attribute
-            (captured HTML confirms this — unlike ownHighwayVehicle which has one) */}
-        <SchemaField
-          fieldDef={schema.fileForm720FieldDef}
-          inputName="fileForm720Input"
-          value={fileForm720}
-          onChange={setFileForm720}
-          isRequired={true}
-          errorMessage={errors.fileForm720}
-          helptipDef={schema.fileForm720Helptip}
-        />
+            {/* Form 720 — fileForm720InputControl, has helptip
+                NOTE: bundle renders helptip but button has NO aria-label attribute */}
+            <SchemaField
+              fieldDef={schema.fileForm720FieldDef}
+              inputName="fileForm720Input"
+              value={fileForm720}
+              onChange={setFileForm720}
+              isRequired={true}
+              errorMessage={errors.fileForm720}
+              helptipDef={schema.fileForm720Helptip}
+            />
 
-        {/* ATF — sellAtfInputControl, NO helptip (bundle: no helptip rendered) */}
-        <SchemaField
-          fieldDef={schema.atfFieldDef}
-          inputName="atfInput"
-          value={atf}
-          onChange={setAtf}
-          isRequired={true}
-          errorMessage={errors.atf}
-        />
+            {/* ATF — sellAtfInputControl, NO helptip (bundle: no helptip rendered) */}
+            <SchemaField
+              fieldDef={schema.atfFieldDef}
+              inputName="atfInput"
+              value={atf}
+              onChange={setAtf}
+              isRequired={true}
+              errorMessage={errors.atf}
+            />
+          </>
+        )}
 
-        {/* Employees question — provideW2FormInputControl, has helptip */}
-        <SchemaField
-          fieldDef={schema.employeesQuestionFieldDef}
-          inputName="hasEmployeesInput"
-          value={hasEmployees}
-          onChange={setHasEmployees}
-          isRequired={true}
-          errorMessage={errors.hasEmployees}
-          helptipDef={schema.employeesHelptip}
-        />
+        {/* Employees question — provideW2FormInputControl or haveEmployeesInputControl.
+            null when ma()=false (employees section hidden entirely for this entity type). */}
+        {schema.employeesQuestionFieldDef && (
+          <SchemaField
+            fieldDef={schema.employeesQuestionFieldDef}
+            inputName="hasEmployeesInput"
+            value={hasEmployees}
+            onChange={setHasEmployees}
+            isRequired={true}
+            errorMessage={errors.hasEmployees}
+            helptipDef={schema.employeesHelptip ?? undefined}
+          />
+        )}
 
         <div className="_bottomMargin16_im0vm_119" />
       </section>
