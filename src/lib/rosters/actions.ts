@@ -5,16 +5,7 @@ import { z } from "zod";
 import { requireProfessorAccess, type AccessContext } from "@/lib/auth/access";
 import { updateProfessorOnboardingStatus } from "@/lib/onboarding/status";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-
-export type RosterActionState = {
-  error: string;
-  success: string;
-};
-
-export const initialRosterState: RosterActionState = {
-  error: "",
-  success: "",
-};
+import type { RosterActionState } from "./types";
 
 const rosterSchema = z.object({
   professorCourseId: z.string().trim().uuid("Select a course."),
