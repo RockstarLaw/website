@@ -48,14 +48,22 @@ export async function SiteShell({
     <div className="min-h-screen bg-white text-slate-900 flex flex-col">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-700">
+          {/* Header brand — clickable, returns to homepage. Wraps both the
+              ROCKSTAR LAW wordmark and the two-line tagline. Hover state
+              tints the wordmark slightly to signal interactivity without
+              being noisy. */}
+          <Link
+            href="/"
+            aria-label="RockStar Law — return to homepage"
+            className="group rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-700/40"
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-700 transition-colors group-hover:text-red-800">
               RockStar Law
             </p>
             <p className="text-sm text-slate-500">
               Train Here. Litigate Anywhere.<br />Graduate Courtroom Ready.
             </p>
-          </div>
+          </Link>
           <nav className="flex flex-wrap items-center gap-2 text-sm">
             {primaryRoutes.map((route) => (
               <Link
