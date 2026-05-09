@@ -56,6 +56,11 @@ export const SPECIAL_MARKERS: Record<string, Marker> = {
     iconPath: null,
     textChipBg: "bg-slate-900", textChipText: "text-amber-300",
   },
+  moot_court: {
+    key: "moot_court", label: "Moot Court Competition",
+    iconPath: null,
+    textChipBg: "bg-indigo-700", textChipText: "text-white",
+  },
 };
 
 // Duration markers — only "1hr" has an icon. Others are gray text chips.

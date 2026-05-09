@@ -547,6 +547,11 @@ export function ProfessorProjectsWidget({
               <span className="text-sm text-slate-700">World Rank Qualifying</span>
               <HelpTooltip text="Check if this project produces a deliverable that can be objectively scored and compared against every other student submission ever made for this project. WRQ projects feed the global leaderboard. Appropriate for projects with structured written deliverables; not appropriate for live negotiations or projects without comparable outputs." />
             </label>
+            <label className="flex items-center gap-1.5 cursor-pointer pt-7">
+              <input type="checkbox" name="moot_court" value="true" className="h-4 w-4 accent-red-700" />
+              <span className="text-sm text-slate-700">Moot Court Competition</span>
+              <HelpTooltip text="Check if this project is structured as a moot court competition — typically appellate brief writing plus oral argument before judges, scored by panel. Surfaces in the Project Shop's Special filter as 'Moot Court Competitions only'." />
+            </label>
           </div>
 
           {/* Area of Law */}

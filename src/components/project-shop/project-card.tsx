@@ -25,6 +25,7 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
   const specialMarkers = [
     project.realWorld           && SPECIAL_MARKERS.real_world,
     project.worldRankQualifying && SPECIAL_MARKERS.world_rank_qualifying,
+    project.mootCourt           && SPECIAL_MARKERS.moot_court,
   ].filter(Boolean) as typeof modeMarkers;
 
   const durationMarker = DURATION_MARKERS[project.duration];
@@ -61,14 +62,14 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
         )}
       </div>
 
-      {/* Title */}
-      <h3 className="line-clamp-2 text-base font-semibold leading-tight text-slate-950">
+      {/* Title — full, never truncated */}
+      <h3 className="text-base font-semibold leading-tight text-slate-950">
         {project.title}
       </h3>
 
-      {/* Tagline (italic, single line) */}
+      {/* Tagline (italic, full — never truncated) */}
       {project.tagline && (
-        <p className="line-clamp-1 text-sm italic text-slate-700">{project.tagline}</p>
+        <p className="text-sm italic text-slate-700">{project.tagline}</p>
       )}
 
       {/* Description (pitch — clamp to 3 lines on card) */}

@@ -92,6 +92,7 @@ export async function createProject(
     const creativity     = formData.get("creativity")     === "true";
     const real_world     = formData.get("real_world")     === "true";
     const world_rank_qualifying = formData.get("world_rank_qualifying") === "true";
+    const moot_court     = formData.get("moot_court")     === "true";
 
     const areaOfLaw = formData.getAll("area_of_law").map(String).filter(Boolean);
     const invalidAreas = areaOfLaw.filter(
@@ -125,7 +126,7 @@ export async function createProject(
       professor_id: professor.id,
       title, tagline, pitch,
       versus, drafting, oral_argument, solo, team, creativity,
-      duration, real_world, world_rank_qualifying,
+      duration, real_world, world_rank_qualifying, moot_court,
       image_1_path: image1Path,
       image_2_path: image2Path,
       image_3_path: image3Path,

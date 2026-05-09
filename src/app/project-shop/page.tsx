@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { SiteShell } from "@/components/site-shell";
 import { FilterRail } from "@/components/project-shop/filter-rail";
 import { ProjectCard } from "@/components/project-shop/project-card";
@@ -25,6 +27,24 @@ function asScalar(v: string | string[] | undefined): string {
   return Array.isArray(v) ? (v[0] ?? "") : v;
 }
 
+// Build a /project-shop URL preserving all current params except `page`,
+// which is replaced with the given page number (or removed when n === 1).
+function buildPageHref(
+  sp: Record<string, string | string[] | undefined>,
+  n: number,
+): string {
+  const params = new URLSearchParams();
+  for (const [key, val] of Object.entries(sp)) {
+    if (key === "page") continue;
+    if (val === undefined) continue;
+    if (Array.isArray(val)) val.forEach((v) => params.append(key, v));
+    else params.append(key, val);
+  }
+  if (n > 1) params.set("page", String(n));
+  const qs = params.toString();
+  return qs ? `/project-shop?${qs}` : "/project-shop";
+}
+
 export default async function ProjectShopPage({
   searchParams,
 }: {
@@ -33,18 +53,32 @@ export default async function ProjectShopPage({
   // Public page — anonymous visitors browse without signing in.
   const sp = await searchParams;
   const filters: CatalogFilters = {
-    keyword:   asScalar(sp.q),
-    areas:     asArray(sp.area),
-    modes:     asArray(sp.mode),
-    durations: asArray(sp.duration),
-    realWorld: asScalar(sp.real_world) === "true",
-    worldRank: asScalar(sp.world_rank) === "true",
+    keyword:    asScalar(sp.q),
+    areas:      asArray(sp.area),
+    modes:      asArray(sp.mode),
+    durations:  asArray(sp.duration),
+    realWorld:  asScalar(sp.real_world) === "true",
+    worldRank:  asScalar(sp.world_rank) === "true",
+    mootCourt:  asScalar(sp.moot_court) === "true",
+    industries: asArray(sp.industry),
+    tags:       asArray(sp.tag).map((t) => t.toLowerCase()),
+    courseIds:  asArray(sp.course),
   };
 
+  // Default sort = most_popular (per John, 2026-05-08). Featured projects
+  // bubble to the top on first paint; users can switch sort via the dropdown.
   const requestedSort = asScalar(sp.sort) as CatalogSortKey;
-  const sort: CatalogSortKey = VALID_SORTS.includes(requestedSort) ? requestedSort : "newest";
+  const sort: CatalogSortKey = VALID_SORTS.includes(requestedSort) ? requestedSort : "most_popular";
 
-  const projects = await getCatalogProjects(filters, sort);
+  const requestedPage = parseInt(asScalar(sp.page) || "1", 10);
+  const page = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+
+  const { projects, totalCount, pageCount, page: currentPage, pageSize } =
+    await getCatalogProjects(filters, sort, page);
+
+  // Range label like "Showing 1–9 of 13 projects"
+  const rangeStart = totalCount === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const rangeEnd   = Math.min(currentPage * pageSize, totalCount);
 
   return (
     <SiteShell title="Project Shop" description="" hideIntro>
@@ -60,7 +94,7 @@ export default async function ProjectShopPage({
 
         {/* Two-column layout: filter rail + grid */}
         <div className="grid gap-8 md:grid-cols-[16rem_1fr]">
-          <div className="md:sticky md:top-6 md:self-start">
+          <div>
             <FilterRail />
           </div>
 
@@ -68,7 +102,9 @@ export default async function ProjectShopPage({
             {/* Top bar: count + sort */}
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
               <p className="text-sm text-slate-600">
-                {projects.length} project{projects.length !== 1 ? "s" : ""}
+                {totalCount === 0
+                  ? "0 projects"
+                  : `Showing ${rangeStart}–${rangeEnd} of ${totalCount} project${totalCount !== 1 ? "s" : ""}`}
                 {filters.keyword && (
                   <>
                     {" matching "}
@@ -89,11 +125,67 @@ export default async function ProjectShopPage({
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {projects.map((p) => (
-                  <ProjectCard key={p.id} project={p} />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {projects.map((p) => (
+                    <ProjectCard key={p.id} project={p} />
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {pageCount > 1 && (
+                  <nav
+                    aria-label="Catalog pagination"
+                    className="flex items-center justify-center gap-1 pt-4"
+                  >
+                    {currentPage > 1 ? (
+                      <Link
+                        href={buildPageHref(sp, currentPage - 1)}
+                        className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 transition hover:border-red-700 hover:text-red-700"
+                      >
+                        ← Previous
+                      </Link>
+                    ) : (
+                      <span className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400">
+                        ← Previous
+                      </span>
+                    )}
+
+                    {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) =>
+                      n === currentPage ? (
+                        <span
+                          key={n}
+                          aria-current="page"
+                          className="rounded-lg bg-red-700 px-3 py-1.5 text-sm font-semibold text-white"
+                        >
+                          {n}
+                        </span>
+                      ) : (
+                        <Link
+                          key={n}
+                          href={buildPageHref(sp, n)}
+                          className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-700 transition hover:border-red-700 hover:text-red-700"
+                        >
+                          {n}
+                        </Link>
+                      ),
+                    )}
+
+                    {currentPage < pageCount ? (
+                      <Link
+                        href={buildPageHref(sp, currentPage + 1)}
+                        className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 transition hover:border-red-700 hover:text-red-700"
+                      >
+                        Next →
+                      </Link>
+                    ) : (
+                      <span className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400">
+                        Next →
+                      </span>
+                    )}
+                  </nav>
+                )}
+              </>
             )}
           </div>
         </div>

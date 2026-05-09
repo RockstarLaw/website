@@ -54,6 +54,7 @@ export default async function ProjectShopDetailPage({
   const specialMarkers = [
     project.realWorld           && SPECIAL_MARKERS.real_world,
     project.worldRankQualifying && SPECIAL_MARKERS.world_rank_qualifying,
+    project.mootCourt           && SPECIAL_MARKERS.moot_court,
   ].filter(Boolean) as typeof modeMarkers;
   const durationMarker = DURATION_MARKERS[project.duration];
 
@@ -67,8 +68,11 @@ export default async function ProjectShopDetailPage({
           </Link>
         </div>
 
-        {/* Two-column hero: gallery + meta */}
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
+        {/* Two-column hero: gallery + meta
+            Updated 2026-05-08 — gallery column reduced to ~75% of original
+            and meta column expanded to take up the freed space (avoids the
+            "orphaned poster + dead whitespace" look). */}
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start">
           {/* Left: image gallery */}
           <div className="flex flex-col gap-4">
             <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-slate-100">
@@ -152,17 +156,81 @@ export default async function ProjectShopDetailPage({
               </div>
             </Link>
 
-            {/* Area chips */}
+            {/* Facet chip rows — Areas of Law / Industries / Courses / Tags */}
             {project.areaOfLaw.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
-                {project.areaOfLaw.map((a) => (
-                  <span
-                    key={a}
-                    className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700"
-                  >
-                    {a}
-                  </span>
-                ))}
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  Areas of Law
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.areaOfLaw.map((a) => (
+                    <Link
+                      key={a}
+                      href={`/project-shop?area=${encodeURIComponent(a)}`}
+                      className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 transition hover:bg-slate-200"
+                    >
+                      {a}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {project.industries.length > 0 && (
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  Industries
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.industries.map((i) => (
+                    <Link
+                      key={i}
+                      href={`/project-shop?industry=${encodeURIComponent(i)}`}
+                      className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-900 transition hover:bg-amber-100"
+                    >
+                      {i}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {project.courses.length > 0 && (
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  Courses
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.courses.map((c) => (
+                    <Link
+                      key={c.id}
+                      href={`/project-shop?course=${encodeURIComponent(c.id)}`}
+                      title={c.schoolName}
+                      className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-900 transition hover:bg-blue-100"
+                    >
+                      {c.courseName}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {project.tags.length > 0 && (
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  Tags
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tags.map((t) => (
+                    <Link
+                      key={t}
+                      href={`/project-shop?tag=${encodeURIComponent(t)}`}
+                      className="rounded-full bg-slate-50 px-2 py-0.5 text-[11px] text-slate-600 transition hover:bg-slate-100"
+                    >
+                      #{t}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
 

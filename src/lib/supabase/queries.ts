@@ -3,6 +3,26 @@ import type { AppRole } from "@/lib/auth/roles";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
+// ─── Image URL resolver ───────────────────────────────────────────────────────
+// Project images can come from two sources:
+//   • Supabase Storage `projects` bucket — for user-uploaded images via the
+//     dashboard CreateProject form. Path is a Storage object key. We sign it.
+//   • Next.js /public/images/ folder — for seed projects with images checked
+//     into the repo. Path starts with "/images/" and is served directly by
+//     Next.js (no signing, no auth — public folder is always public).
+//
+// Use this helper everywhere we resolve image_1_path / image_2_path / image_3_path
+// to a URL the browser can load.
+
+function resolveImageUrl(
+  path: string | null | undefined,
+  signedUrlMap: Map<string, string>,
+): string | null {
+  if (!path) return null;
+  if (path.startsWith("/images/")) return path; // direct-serve from public folder
+  return signedUrlMap.get(path) ?? null;          // Supabase Storage signed URL
+}
+
 export type SchoolOption = {
   id: string;
   name: string;
@@ -1089,9 +1109,9 @@ export async function getProfessorProjects(
       image3: (p.image_3_path as string | null) ?? null,
     },
     imageUrls: {
-      image1: p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
-      image2: p.image_2_path ? (imgUrlMap.get(p.image_2_path) ?? null) : null,
-      image3: p.image_3_path ? (imgUrlMap.get(p.image_3_path) ?? null) : null,
+      image1: resolveImageUrl(p.image_1_path, imgUrlMap),
+      image2: resolveImageUrl(p.image_2_path, imgUrlMap),
+      image3: resolveImageUrl(p.image_3_path, imgUrlMap),
     },
     areaOfLaw: Array.isArray(p.area_of_law) ? (p.area_of_law as string[]) : [],
     createdAt: p.created_at,
@@ -1198,9 +1218,9 @@ export async function getProfessorLibrary(
           image3: (p.image_3_path as string | null) ?? null,
         },
         imageUrls: {
-          image1: p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
-          image2: p.image_2_path ? (imgUrlMap.get(p.image_2_path) ?? null) : null,
-          image3: p.image_3_path ? (imgUrlMap.get(p.image_3_path) ?? null) : null,
+          image1: resolveImageUrl(p.image_1_path, imgUrlMap),
+          image2: resolveImageUrl(p.image_2_path, imgUrlMap),
+          image3: resolveImageUrl(p.image_3_path, imgUrlMap),
         },
         areaOfLaw: Array.isArray(p.area_of_law) ? (p.area_of_law as string[]) : [],
         createdAt: p.created_at,
@@ -1293,6 +1313,11 @@ export type CatalogFilters = {
   durations:     string[];   // "1hr" | "3hr" | "1wk" | "2wk" | "30day" | "semester"
   realWorld:     boolean;    // true => only real_world=true
   worldRank:     boolean;    // true => only world_rank_qualifying=true
+  mootCourt:     boolean;    // true => only moot_court=true
+  // ─── Faceted search dimensions added 2026-05-08 ─────────────────────────────
+  industries:    string[];   // multi-select from src/lib/projects/industries.ts
+  tags:          string[];   // free-form keywords (overlaps match)
+  courseIds:     string[];   // matches via project_courses junction (any-of)
 };
 
 export type ProjectShopCard = {
@@ -1312,6 +1337,7 @@ export type ProjectShopCard = {
   duration:           "1hr" | "3hr" | "1wk" | "2wk" | "30day" | "semester";
   realWorld:          boolean;
   worldRankQualifying:boolean;
+  mootCourt:          boolean;
   price:              number;       // numeric(10,2)
   popularity:         number;
   usageCount:         number;
@@ -1319,25 +1345,67 @@ export type ProjectShopCard = {
   imageUrl:           string | null; // signed URL for image_1_path
   authorId:           string;
   authorName:         string;       // "First Last"
+  // Faceted-search dimensions (added 2026-05-08). Empty arrays until projects
+  // are tagged.
+  industries:         string[];
+  tags:               string[];
 };
 
 const MODE_KEYS = ["versus", "drafting", "oral_argument", "solo", "team", "creativity"] as const;
 
+export const CATALOG_PAGE_SIZE = 9;
+
+export type CatalogPage = {
+  projects:   ProjectShopCard[];
+  totalCount: number;
+  page:       number;       // 1-based
+  pageSize:   number;
+  pageCount:  number;       // ceil(totalCount / pageSize), min 1
+};
+
 export async function getCatalogProjects(
   filters: CatalogFilters,
   sort: CatalogSortKey,
-): Promise<ProjectShopCard[]> {
+  page: number = 1,
+  pageSize: number = CATALOG_PAGE_SIZE,
+): Promise<CatalogPage> {
   const admin = createSupabaseAdminClient();
+  const safePage = Math.max(1, Math.floor(page));
+  const offset   = (safePage - 1) * pageSize;
+
+  // ─── Course filter pre-pass ────────────────────────────────────────────────
+  // The project_courses junction lives in its own table, so when courses are
+  // selected we resolve to a project_id whitelist BEFORE running the main
+  // query. (Supabase JS doesn't expose IN-subquery, so two-pass is simplest.)
+  let courseProjectWhitelist: string[] | null = null;
+  if (filters.courseIds.length) {
+    const { data: pcRows, error: pcErr } = await admin
+      .from("project_courses")
+      .select("project_id")
+      .in("course_id", filters.courseIds);
+    if (pcErr) throw new Error(pcErr.message);
+    courseProjectWhitelist = Array.from(
+      new Set((pcRows ?? []).map((r) => r.project_id as string)),
+    );
+    if (courseProjectWhitelist.length === 0) {
+      return { projects: [], totalCount: 0, page: safePage, pageSize, pageCount: 1 };
+    }
+  }
 
   let query = admin
     .from("projects")
     .select(
       `id, title, tagline, pitch, area_of_law,
+       industries, tags,
        versus, drafting, oral_argument, solo, team, creativity,
-       duration, real_world, world_rank_qualifying,
+       duration, real_world, world_rank_qualifying, moot_court,
        price, popularity, usage_count, created_at, image_1_path,
        professor_id, professor_profiles!projects_professor_id_fkey(id, first_name, last_name)`,
+      { count: "exact" },
     );
+
+  // Course whitelist (from prep-pass above)
+  if (courseProjectWhitelist) query = query.in("id", courseProjectWhitelist);
 
   // Keyword: ILIKE across title / tagline / pitch
   const k = filters.keyword.trim();
@@ -1351,6 +1419,14 @@ export async function getCatalogProjects(
   // Area of Law: text[] overlaps
   if (filters.areas.length) query = query.overlaps("area_of_law", filters.areas);
 
+  // Industries: text[] overlaps
+  if (filters.industries.length) query = query.overlaps("industries", filters.industries);
+
+  // Tags: text[] overlaps (case-insensitive isn't supported by overlaps; we
+  // lowercase tags at write-time so this works as long as authors store them
+  // normalized — see CreateProject form).
+  if (filters.tags.length) query = query.overlaps("tags", filters.tags);
+
   // Mode booleans: any-of (OR over selected mode columns)
   const modeFilters = filters.modes.filter((m) =>
     (MODE_KEYS as readonly string[]).includes(m),
@@ -1362,9 +1438,10 @@ export async function getCatalogProjects(
   // Duration: in
   if (filters.durations.length) query = query.in("duration", filters.durations);
 
-  // Real World / World Rank toggles
+  // Real World / World Rank / Moot Court toggles
   if (filters.realWorld) query = query.eq("real_world", true);
   if (filters.worldRank) query = query.eq("world_rank_qualifying", true);
+  if (filters.mootCourt) query = query.eq("moot_court", true);
 
   // Sort
   switch (sort) {
@@ -1379,9 +1456,16 @@ export async function getCatalogProjects(
     default:              query = query.order("created_at",   { ascending: false }); break;
   }
 
-  const { data, error } = await query;
+  // Apply pagination range
+  query = query.range(offset, offset + pageSize - 1);
+
+  const { data, error, count } = await query;
   if (error) throw new Error(error.message);
-  if (!data || data.length === 0) return [];
+  const totalCount = count ?? 0;
+  const pageCount  = Math.max(1, Math.ceil(totalCount / pageSize));
+  if (!data || data.length === 0) {
+    return { projects: [], totalCount, page: safePage, pageSize, pageCount };
+  }
 
   // Batch-sign image_1 URLs
   const imagePaths = data.map((p) => p.image_1_path).filter(Boolean) as string[];
@@ -1390,7 +1474,7 @@ export async function getCatalogProjects(
     : { data: [] };
   const imgUrlMap = new Map((imgSigned ?? []).map((s) => [s.path, s.signedUrl]));
 
-  return data.map((p) => {
+  const projects: ProjectShopCard[] = data.map((p) => {
     const prof = Array.isArray(p.professor_profiles)
       ? p.professor_profiles[0]
       : p.professor_profiles;
@@ -1411,17 +1495,22 @@ export async function getCatalogProjects(
       duration:            p.duration as ProjectShopCard["duration"],
       realWorld:           p.real_world,
       worldRankQualifying: p.world_rank_qualifying,
+      mootCourt:           p.moot_court ?? false,
       price:               Number(p.price ?? 0),
       popularity:          p.popularity ?? 0,
       usageCount:          p.usage_count ?? 0,
       createdAt:           p.created_at,
-      imageUrl:            p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
+      imageUrl:            resolveImageUrl(p.image_1_path, imgUrlMap),
       authorId:            (prof as { id: string } | null)?.id ?? p.professor_id,
       authorName:          prof
         ? `${(prof as { first_name: string }).first_name} ${(prof as { last_name: string }).last_name}`
         : "Unknown author",
+      industries:          Array.isArray(p.industries) ? (p.industries as string[]) : [],
+      tags:                Array.isArray(p.tags)       ? (p.tags       as string[]) : [],
     };
   });
+
+  return { projects, totalCount, page: safePage, pageSize, pageCount };
 }
 
 // ─── Project Shop — author page ───────────────────────────────────────────────
@@ -1455,8 +1544,9 @@ export async function getAuthorPageData(
     .from("projects")
     .select(
       `id, title, tagline, pitch, area_of_law,
+       industries, tags,
        versus, drafting, oral_argument, solo, team, creativity,
-       duration, real_world, world_rank_qualifying,
+       duration, real_world, world_rank_qualifying, moot_court,
        price, popularity, usage_count, created_at, image_1_path, professor_id`,
     )
     .eq("professor_id", authorProfessorId)
@@ -1501,13 +1591,16 @@ export async function getAuthorPageData(
     duration:            p.duration as ProjectShopCard["duration"],
     realWorld:           p.real_world,
     worldRankQualifying: p.world_rank_qualifying,
+    mootCourt:           p.moot_court ?? false,
     price:               Number(p.price ?? 0),
     popularity:          p.popularity ?? 0,
     usageCount:          p.usage_count ?? 0,
     createdAt:           p.created_at,
-    imageUrl:            p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
+    imageUrl:            resolveImageUrl(p.image_1_path, imgUrlMap),
     authorId:            authorProfessorId,
     authorName,
+    industries:          Array.isArray(p.industries) ? (p.industries as string[]) : [],
+    tags:                Array.isArray(p.tags)       ? (p.tags       as string[]) : [],
   }));
 
   return {
@@ -1551,6 +1644,7 @@ export type ProjectShopDetail = {
   duration:            "1hr" | "3hr" | "1wk" | "2wk" | "30day" | "semester";
   realWorld:           boolean;
   worldRankQualifying: boolean;
+  mootCourt:           boolean;
   price:               number;
   popularity:          number;
   usageCount:          number;
@@ -1564,6 +1658,10 @@ export type ProjectShopDetail = {
   isViewerAuthor:      boolean;
   // Convenience flag — true if the current viewer has this project in their library (status='active')
   viewerHasInLibrary:  boolean;
+  // Faceted-search dimensions (added 2026-05-08)
+  industries:          string[];
+  tags:                string[];
+  courses:             { id: string; courseName: string; schoolName: string }[];
 };
 
 export async function getProjectShopDetail(
@@ -1576,8 +1674,9 @@ export async function getProjectShopDetail(
     .from("projects")
     .select(
       `id, title, tagline, pitch, area_of_law,
+       industries, tags,
        versus, drafting, oral_argument, solo, team, creativity,
-       duration, real_world, world_rank_qualifying,
+       duration, real_world, world_rank_qualifying, moot_court,
        price, popularity, usage_count, created_at,
        image_1_path, image_2_path, image_3_path,
        professor_id, professor_profiles!projects_professor_id_fkey(id, first_name, last_name, photo_path)`,
@@ -1587,6 +1686,28 @@ export async function getProjectShopDetail(
 
   if (projErr) throw new Error(projErr.message);
   if (!p) return null;
+
+  // Course tags from project_courses junction
+  type CourseJoinRow = {
+    course_id: string;
+    courses:   { id: string; course_name: string; schools: { name: string } | { name: string }[] | null } | null;
+  };
+  const { data: courseRows } = await admin
+    .from("project_courses")
+    .select("course_id, courses(id, course_name, schools(name))")
+    .eq("project_id", projectId);
+  const courses = ((courseRows ?? []) as unknown as CourseJoinRow[])
+    .map((cr) => {
+      const c = cr.courses;
+      if (!c) return null;
+      const sch = Array.isArray(c.schools) ? c.schools[0] : c.schools;
+      return {
+        id:         c.id,
+        courseName: c.course_name,
+        schoolName: sch?.name ?? "",
+      };
+    })
+    .filter(Boolean) as { id: string; courseName: string; schoolName: string }[];
 
   // Anonymous / non-professor viewers get no author/library status
   const isViewerAuthor = viewerProfessorId !== null && p.professor_id === viewerProfessorId;
@@ -1675,14 +1796,15 @@ export async function getProjectShopDetail(
     duration:            p.duration as ProjectShopDetail["duration"],
     realWorld:           p.real_world,
     worldRankQualifying: p.world_rank_qualifying,
+    mootCourt:           p.moot_court ?? false,
     price:               Number(p.price ?? 0),
     popularity:          p.popularity ?? 0,
     usageCount:          p.usage_count ?? 0,
     createdAt:           p.created_at,
     imageUrls: {
-      image1: p.image_1_path ? (imgUrlMap.get(p.image_1_path) ?? null) : null,
-      image2: p.image_2_path ? (imgUrlMap.get(p.image_2_path) ?? null) : null,
-      image3: p.image_3_path ? (imgUrlMap.get(p.image_3_path) ?? null) : null,
+      image1: resolveImageUrl(p.image_1_path, imgUrlMap),
+      image2: resolveImageUrl(p.image_2_path, imgUrlMap),
+      image3: resolveImageUrl(p.image_3_path, imgUrlMap),
     },
     authorId:        (prof as { id: string } | null)?.id ?? p.professor_id,
     authorName:      prof
@@ -1692,6 +1814,9 @@ export async function getProjectShopDetail(
     files,
     isViewerAuthor,
     viewerHasInLibrary,
+    industries: Array.isArray(p.industries) ? (p.industries as string[]) : [],
+    tags:       Array.isArray(p.tags)       ? (p.tags       as string[]) : [],
+    courses,
   };
 }
 

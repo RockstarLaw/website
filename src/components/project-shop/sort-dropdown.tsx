@@ -10,13 +10,18 @@ export function SortDropdown() {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  const current = (searchParams.get("sort") as CatalogSortKey | null) ?? "newest";
+  // Default sort = most_popular (per John, 2026-05-08). Mirrors the
+  // server-side default in src/app/project-shop/page.tsx so the dropdown
+  // visually matches what the catalog actually returns on first paint.
+  const current = (searchParams.get("sort") as CatalogSortKey | null) ?? "most_popular";
 
   function onChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const next = e.target.value as CatalogSortKey;
     const params = new URLSearchParams(searchParams.toString());
-    if (next === "newest") params.delete("sort");
+    if (next === "most_popular") params.delete("sort");
     else params.set("sort", next);
+    // Sort change resets pagination back to page 1.
+    params.delete("page");
     startTransition(() => {
       router.replace(`/project-shop?${params.toString()}`, { scroll: false });
     });
