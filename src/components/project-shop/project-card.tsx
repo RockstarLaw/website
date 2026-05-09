@@ -84,7 +84,7 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
 
         {/* Tagline (italic, full — never truncated) — display only, not a link */}
         {project.tagline && (
-          <p className="text-sm italic text-slate-700">{project.tagline}</p>
+          <p className="text-center text-sm italic text-slate-700">{project.tagline}</p>
         )}
       </div>
 

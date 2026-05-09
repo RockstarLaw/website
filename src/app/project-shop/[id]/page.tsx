@@ -135,7 +135,7 @@ export default async function ProjectShopDetailPage({
             </div>
 
             {project.tagline && (
-              <p className="text-lg italic text-slate-700">{project.tagline}</p>
+              <p className="text-center text-lg italic text-slate-700">{project.tagline}</p>
             )}
 
             {/* Author byline */}
