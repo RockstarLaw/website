@@ -18,7 +18,7 @@
  *
  * Merges into ein_applications.form_data — does NOT overwrite W1/W2 fields
  * (legal_structure, identity fields, etc.). Advances current_step to
- * 'additional_details' and redirects to /irs/ein/apply/additional-details
+ * 'additional_details_1' and redirects to /irs/ein/apply/additional-details
  * (W4 — will 404 until IRS-W4 ships; this is expected per spec).
  *
  * Note: If otherAddress="yes", the conditional mailing address form is not
@@ -92,7 +92,7 @@ export async function submitAddress(formData: FormData): Promise<void> {
     await admin
       .from("ein_applications")
       .update({
-        current_step: "additional_details",
+        current_step: "additional_details_1",
         form_data:    merged,
       })
       .eq("id", existing.id);
@@ -100,7 +100,7 @@ export async function submitAddress(formData: FormData): Promise<void> {
     // No in-progress session found — create one (handles direct-navigation edge case)
     await admin.from("ein_applications").insert({
       user_id:      user.id,
-      current_step: "additional_details",
+      current_step: "additional_details_1",
       status:       "in_progress",
       form_data:    payload,
     });

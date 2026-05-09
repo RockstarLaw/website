@@ -130,7 +130,7 @@ const { data: inserted, error: insertErr } = await admin
   .insert({
     user_id:      userId,
     status:       "in_progress",
-    current_step: "additional_details",
+    current_step: "additional_details_1",
     form_data:    formData,
   })
   .select("id")
@@ -143,7 +143,7 @@ if (insertErr) {
 
 console.log(`\n✅ Seeded ein_applications row: ${inserted.id}`);
 console.log(`   user_id:      ${userId}`);
-console.log(`   current_step: additional_details`);
+console.log(`   current_step: additional_details_1`);
 console.log(`   legal_structure: LLC  |  members_of_llc: 1  (→ SINGLE_MEMBER_LLC gate)`);
 console.log("\nNow sign in as test-professor@rockstarlaw.dev and visit:");
 console.log("  http://localhost:3000/irs/ein/apply/additional-details\n");
