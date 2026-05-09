@@ -72,11 +72,14 @@ export function ProjectCard({ project }: { project: ProjectShopCard }) {
           Outer gap-3 still applies above (to poster) and below (to pitch),
           but title and tagline render as one visual unit. */}
       <div className="flex flex-col gap-1">
-        {/* Title — sliced at 60 chars with ellipsis if longer; reserves a
-            consistent 2-line block (min-h-[2.5rem] at text-base/leading-tight
-            = 40px = 2 × 20px line height) so all cards align vertically;
-            horizontally centered. */}
-        <h3 className="min-h-[2.5rem] text-center text-base font-semibold leading-tight text-slate-950">
+        {/* Title — display-truncated to a max of 2 visible lines via
+            line-clamp-2, which handles all-caps and wide letters (e.g.
+            "HE STOLE MY JORDANS! NIKE, INC. v. STREET ARTIST KOOL KIY"
+            at 57 chars wraps to 3 lines without this). Defensive 60-char
+            slice still applies for absurdly long DB values. min-h-[2.5rem]
+            reserves a consistent 2-line block so all cards align vertically;
+            text-center centers the title horizontally. */}
+        <h3 className="line-clamp-2 min-h-[2.5rem] text-center text-base font-semibold leading-tight text-slate-950">
           <Link
             href={detailHref}
             className="rounded-sm transition-colors hover:text-red-700 focus-visible:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-700/40"
