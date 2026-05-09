@@ -395,7 +395,7 @@ export default function AddressForm() {
               {" "}Do you have an address different from the above where you want your mail to be sent?{" "}
             </legend>
             {/* Radio: yes */}
-            <div className="radio-button">
+            <div className={otherAddress === "yes" ? "radio-button radio-button--checked" : "radio-button"}>
               <input
                 tabIndex={0}
                 type="radio"
@@ -413,7 +413,7 @@ export default function AddressForm() {
               </label>
             </div>
             {/* Radio: no */}
-            <div className="radio-button">
+            <div className={otherAddress === "no" ? "radio-button radio-button--checked" : "radio-button"}>
               <input
                 tabIndex={0}
                 type="radio"
