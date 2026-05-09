@@ -21,7 +21,7 @@ export function AddToLibraryButton({
   const isAdded = alreadyInLibrary || justAdded;
 
   return (
-    <form action={formAction} className="flex flex-col gap-2">
+    <form action={formAction} className="flex flex-col items-center gap-2">
       <input type="hidden" name="projectId" value={projectId} />
       <button
         type="submit"

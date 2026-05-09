@@ -68,19 +68,21 @@ export default async function ProjectShopDetailPage({
           </Link>
         </div>
 
-        {/* Two-column hero. Left: gallery (image-1, then thumbnails).
-            Right: ALL meta — title, tagline, author, chips, markers, pitch,
-            and CTA stacked together so pitch + CTA sit beside the image. */}
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start">
-          {/* LEFT — gallery: image-1 (80% width, centered) + thumbnails below */}
+        {/* Two-column hero, 50/50 split. Left column = image-1 width
+            (image fills column edge-to-edge, hugging page's left margin).
+            Right column = same width, gives text inputs ample horizontal
+            room. CTA wrapper below uses self-center + max-w-xs so the red
+            button is narrow and centered in the wider meta column. */}
+        <div className="grid gap-x-4 gap-y-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
+          {/* LEFT — gallery: image-1 + thumbnails, fill the column */}
           <div className="flex flex-col gap-4">
-            <div className="relative mx-auto aspect-[2/3] w-[80%] overflow-hidden rounded-xl bg-slate-100">
+            <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-slate-100">
               {project.imageUrls.image1 ? (
                 <Image
                   src={project.imageUrls.image1}
                   alt={project.title}
                   fill
-                  sizes="(max-width: 1024px) 80vw, 48vw"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
                   className="object-cover"
                 />
@@ -91,14 +93,14 @@ export default async function ProjectShopDetailPage({
               )}
             </div>
             {(project.imageUrls.image2 || project.imageUrls.image3) && (
-              <div className="mx-auto grid w-[80%] grid-cols-2 gap-4">
+              <div className="grid w-full grid-cols-2 gap-4">
                 {project.imageUrls.image2 && (
                   <div className="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-100">
                     <Image
                       src={project.imageUrls.image2}
                       alt={`${project.title} — image 2`}
                       fill
-                      sizes="(max-width: 1024px) 40vw, 24vw"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                       className="object-cover"
                     />
                   </div>
@@ -109,7 +111,7 @@ export default async function ProjectShopDetailPage({
                       src={project.imageUrls.image3}
                       alt={`${project.title} — image 3`}
                       fill
-                      sizes="(max-width: 1024px) 40vw, 24vw"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                       className="object-cover"
                     />
                   </div>
@@ -118,10 +120,13 @@ export default async function ProjectShopDetailPage({
             )}
           </div>
 
-          {/* RIGHT — title, tagline, author, chips, markers, pitch, CTA — all
-              stacked beside the image so the description and CTA both sit
-              alongside the gallery instead of below it. */}
-          <div className="flex flex-col gap-5">
+          {/* RIGHT — height-constrained to match image-1's aspect-[2/3] height.
+              The pitch wrapper uses flex-1 to absorb remaining vertical space
+              (and overflow-y-auto if it doesn't fit). CTA is the last child,
+              so it lands at the bottom of the column = bottom of image-1.
+              Top of CTA is locked to bottom of poster regardless of pitch
+              length. */}
+          <div className="flex aspect-[2/3] flex-col gap-5">
             <div>
               <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-950">
                 {project.title}
@@ -246,10 +251,12 @@ export default async function ProjectShopDetailPage({
               {durationMarker && <MarkerChip marker={durationMarker} />}
             </div>
 
-            {/* Pitch — inside meta column, ABOVE the CTA so the user reads
-                the project description before deciding to add it. */}
+            {/* Pitch — inside meta column, ABOVE the CTA. Uses flex-1 to
+                absorb the remaining vertical space in the height-constrained
+                right column, with overflow-y-auto so a long pitch scrolls
+                instead of pushing the CTA below image-1's bottom. */}
             {project.pitch && (
-              <div className="flex flex-col gap-3 border-t border-slate-200 pt-4">
+              <div className="flex flex-1 flex-col gap-3 overflow-y-auto border-t border-slate-200 pt-4">
                 <h2 className="text-xl font-semibold tracking-tight text-slate-950">About this project</h2>
                 <div className="h-0.5 w-12 bg-red-700" />
                 <p className="whitespace-pre-line text-base leading-relaxed text-slate-700">
@@ -259,8 +266,12 @@ export default async function ProjectShopDetailPage({
             )}
 
             {/* CTA — author vs other professor. Sits at the bottom of the
-                meta column, alongside the image, after the pitch. */}
-            <div className="flex flex-col gap-2 border-t border-slate-200 pt-4">
+                meta column, alongside the image, after the pitch. Wrapper
+                capped at max-w-xs (320px) and uses self-center to override
+                the parent flex-col's default align-items: stretch — without
+                self-center, the wrapper stretches to full column width even
+                with mx-auto. */}
+            <div className="flex w-full max-w-xs flex-col gap-2 self-center border-t border-slate-200 pt-4">
               {project.isViewerAuthor ? (
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
                   You authored this project.{" "}
