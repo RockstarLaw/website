@@ -190,19 +190,19 @@ export async function submitAdditionalDetails(formData: FormData): Promise<void>
     await admin
       .from("ein_applications")
       .update({
-        current_step: "review",
+        current_step: "activity_and_services",
         form_data:    merged,
       })
       .eq("id", existing.id);
   } else {
     await admin.from("ein_applications").insert({
       user_id:      user.id,
-      current_step: "review",
+      current_step: "activity_and_services",
       status:       "in_progress",
       form_data:    additionalDetailsPayload,
     });
   }
 
-  // ── 9. Advance to W5 — will 404 until IRS-W5 ships ──────────────────────
-  redirect("/irs/ein/apply/review-and-submit");
+  // ── 9. Advance to W5 Activity & Services (Slice 7) ────────────────────
+  redirect("/irs/ein/apply/activity-and-services");
 }
