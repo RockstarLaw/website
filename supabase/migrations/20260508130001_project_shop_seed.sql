@@ -317,7 +317,7 @@ BEGIN
   )
   SELECT
     gen_random_uuid(), john_professor_id,
-    'HE STOLE MY JORDANS! NIKE, INC. v. STREET ARTIST KOOL KIY',
+    'NIKE, INC. v. STREET ARTIST KOOL KIY',
     'Sneaker Culture Collides With Billion-Dollar Branding.',
     $pitch$Drop your students into the middle of a complete mess! A billion-dollar war between sneaker culture, street art, trademark law, trade dress, and corporate power. Based on a REAL federal lawsuit, students become outside counsel to street artist Kool Kiy, as they are forced to navigate infringement claims, consumer confusion, parody, trade dress, litigation strategy, Kiy's (awful) former law firm, and the dangerous gap between "inspired by" and unlawful copying. This is not abstract IP theory. This is modern brand warfare. Students must advise the client whether to fight Nike, settle, redesign, pivot, license, collaborate — or risk financial annihilation. Along the way, they confront one of the most uncomfortable realities in entertainment and branding law: sometimes the line between "artist" and "infringer" is worth millions of dollars.$pitch$,
     false, true, false, true, true, true,
@@ -328,6 +328,6 @@ BEGIN
     '/images/projects/projects-upload/he-stole-my-jordans-nike-inc-v-kool-kiy-2.png',
     NULL,
     49.99
-  WHERE NOT EXISTS (SELECT 1 FROM public.projects WHERE title = 'HE STOLE MY JORDANS! NIKE, INC. v. STREET ARTIST KOOL KIY' AND professor_id = john_professor_id);
+  WHERE NOT EXISTS (SELECT 1 FROM public.projects WHERE title = 'NIKE, INC. v. STREET ARTIST KOOL KIY' AND professor_id = john_professor_id);
 
 END $seed$;
