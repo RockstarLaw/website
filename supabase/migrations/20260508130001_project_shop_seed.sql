@@ -203,7 +203,7 @@ BEGIN
   )
   SELECT
     gen_random_uuid(), john_professor_id,
-    'ZOOM SUIT: WORK FOR HIRE AGREEMENTS',
+    'ZOOM SUIT: Graphic Novel Work-for-Hire Agreements',
     'If the Suit Fits Wear It!',
     $pitch$Based on a REAL comic book property published through Diamond Comics, ZOOM SUIT: The Work For Hire Agreement Project turns students into entertainment lawyers protecting a multimedia franchise from future ownership wars. Using Aalmuhammed v. Lee, students draft a real-world Work For Hire Agreement involving comics, animation, streaming, merchandising, freelancers, and legendary comic creators.$pitch$,
     false, true, false, true, false, false,
@@ -212,7 +212,7 @@ BEGIN
     '{}'::text[], '{}'::text[],
     '/images/projects/projects-upload/zoom-suit-work-for-hire-image-1.png', NULL, NULL,
     29.99
-  WHERE NOT EXISTS (SELECT 1 FROM public.projects WHERE title = 'ZOOM SUIT: WORK FOR HIRE AGREEMENTS' AND professor_id = john_professor_id);
+  WHERE NOT EXISTS (SELECT 1 FROM public.projects WHERE title = 'ZOOM SUIT: Graphic Novel Work-for-Hire Agreements' AND professor_id = john_professor_id);
 
   -- ─── Project 9: PUBLIC HUMILIATION (renamed) ───────────────────────────────
   INSERT INTO public.projects (
