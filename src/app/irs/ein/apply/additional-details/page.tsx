@@ -103,6 +103,54 @@ export default async function IrsEinAdditionalDetailsPage() {
     }, schema);
   }
 
+  // ── 5a. Forbidden legalName endings — verbatim port of ka() from index-ChwXuGQH.js ──
+  // ka() takes the entity type and returns the list of uppercased suffixes that must NOT
+  // appear at the end of a trimmed+uppercased legal name (legalName Rule 2).
+  function getLegalNameForbiddenEndings(entityType: string): string[] {
+    if (entityType === "SINGLE_MEMBER_LLC")   return ["CORP", "INC", "PA"];
+    if (entityType === "MULTI_MEMBER_LLC")    return ["CORP", "INC"];
+    if (
+      entityType === "CORPORATION"              ||
+      entityType === "PERSONAL_SERVICE_CORPORATION" ||
+      entityType === "SCORP"                    ||
+      entityType === "HOA"                      ||
+      entityType === "POLITICAL_ORGANIZATION"   ||
+      entityType === "REIT"                     ||
+      entityType === "RIC"                      ||
+      entityType === "REMIC"                    ||
+      entityType === "SETTLEMENT_FUND"
+    ) return ["LLC", "PLLC", "LC"];
+    if (
+      // ke.isTrustType()
+      entityType === "CHARITABLE_LEAD_ANNUITY_TRUST"      ||
+      entityType === "CHARITABLE_LEAD_UNITRUST"           ||
+      entityType === "CHARITABLE_REMAINDER_ANNUITY_TRUST" ||
+      entityType === "CHARITABLE_REMAINDER_UNITRUST"      ||
+      entityType === "IRREVOCABLE_TRUST"                  ||
+      entityType === "POOLED_INCOME_FUND"                 ||
+      entityType === "FUNERAL_TRUST"                      ||
+      entityType === "REVOCABLE_TRUST"                    ||
+      entityType === "ALL_OTHERS_TRUST"                   ||
+      // O.EMPLOYER_PLAN, O.FNMA, O.GNMA, O.OTHER_NON_PROFIT
+      entityType === "EMPLOYER_PLAN"                      ||
+      entityType === "FNMA"                               ||
+      entityType === "GNMA"                               ||
+      entityType === "OTHER_NON_PROFIT"                   ||
+      // ke.isOther()
+      entityType === "SOCIAL_SAVINGS_CLUB"                ||
+      entityType === "BLOCK_OR_TENANT_ASSOCIATION"        ||
+      entityType === "SPORTS_TEAM"                        ||
+      entityType === "PTA_OR_PTO_SCHOOL_ORG"              ||
+      entityType === "MEMORIAL_SCHOLARSHIP"               ||
+      entityType === "COMMUNITY_OR_VOLUNTEER_GROUP"
+    ) return ["CORP", "LLC", "PLLC", "LC", "INC", "PA"];
+    if (entityType === "PARTNERSHIP" || entityType === "JOINT_VENTURE")
+      return ["CORP", "LLC", "PLLC", "LC", "INC"];
+    // SOLE_PROPRIETOR, HOUSEHOLD_EMPLOYER, ESTATE, CONSERVATORSHIP, CUSTODIANSHIP,
+    // GUARDIANSHIP, BANKRUPTCY, RECEIVERSHIP, etc. — not in any ka() branch → no forbidden endings
+    return [];
+  }
+
   // ── 5. Build serialized schema driven by entity config ──────────────────
   // entityName / tellUsAboutOrgLabel: per-entity strings from additionalDetailsConfig.ts
   // (shared:entityTypes namespace not captured; IRS SS-4 + Pub 1635 gap-fill per HR#1)
@@ -194,12 +242,16 @@ export default async function IrsEinAdditionalDetailsPage() {
     empCountInstructions:    g("describeYourEmployeesSection.instructions6") as {
       title: string; additionalText: string[]; inputErrorMessages?: Array<{text: string; id: string}>;
     },
-    agEmployeesFieldDef:     extractFieldDef("describeYourEmployeesSection.numOfAgriculturalEmployeesInputControl"),
-    otherEmployeesFieldDef:  extractFieldDef("describeYourEmployeesSection.numOfOtherEmployeesInputControl"),
+    agEmployeesFieldDef:          extractFieldDef("describeYourEmployeesSection.numOfAgriculturalEmployeesInputControl"),
+    householdEmployeesFieldDef:   extractFieldDef("describeYourEmployeesSection.numOfHouseholdEmployeesInputControl"),
+    otherEmployeesFieldDef:       extractFieldDef("describeYourEmployeesSection.numOfOtherEmployeesInputControl"),
     taxLiabilityFieldDef:    extractFieldDef("describeYourEmployeesSection.employeeTaxLiabilityInputControl"),
 
     // Final section
     reviewFieldDef: extractFieldDef("finalSection.reviewInputControl"),
+
+    // Gating — legalName forbidden endings (Scope B, Slice 6)
+    legalNameForbiddenEndings: getLegalNameForbiddenEndings(resolvedType),
 
     // Helptip defs
     dbaHelptip:            g("dbaNameHelp")                 as typeof formSchema["dbaHelptip"],
@@ -215,8 +267,9 @@ export default async function IrsEinAdditionalDetailsPage() {
       ? g(config.employeesHelptipKey) as typeof formSchema["employeesHelptip"]
       : null,
     maxEmployeesHelptip:   g("maxEmployeesHelp")            as typeof formSchema["maxEmployeesHelptip"],
-    agEmployeesHelptip:    g("numOfAgriculturalEmployeesHelp") as typeof formSchema["agEmployeesHelptip"],
-    otherEmployeesHelptip: g("numOfOtherEmployeesHelp")     as typeof formSchema["otherEmployeesHelptip"],
+    agEmployeesHelptip:        g("numOfAgriculturalEmployeesHelp") as typeof formSchema["agEmployeesHelptip"],
+    householdEmployeesHelptip: g("numOfHouseholdEmployeesHelp")   as typeof formSchema["householdEmployeesHelptip"],
+    otherEmployeesHelptip:     g("numOfOtherEmployeesHelp")       as typeof formSchema["otherEmployeesHelptip"],
     firstPayDateHelptip:   g("firstWagesPaidDateHelp")      as typeof formSchema["firstPayDateHelptip"],
     taxLiabilityHelptip:   g("employeeLessThan1000Help")    as typeof formSchema["taxLiabilityHelptip"],
   };

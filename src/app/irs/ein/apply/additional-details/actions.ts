@@ -92,11 +92,12 @@ export async function submitAdditionalDetails(formData: FormData): Promise<void>
   const reviewConfirmed  = formData.get("reviewConfirmed")?.toString()           ?? "";
 
   // W4b fields (only present when w2Issuer = "yes")
-  const firstPayMonth      = formData.get("firstPayMonth")?.toString()?.trim()      ?? "";
-  const firstPayYearStr    = formData.get("firstPayYear")?.toString()?.trim()        ?? "";
-  const agEmployeesStr     = formData.get("numAgEmployees")?.toString()?.trim()      ?? "0";
-  const otherEmployeesStr  = formData.get("numOtherEmployees")?.toString()?.trim()   ?? "0";
-  const taxLiability       = formData.get("taxLiability")?.toString()                ?? "";
+  const firstPayMonth          = formData.get("firstPayMonth")?.toString()?.trim()         ?? "";
+  const firstPayYearStr        = formData.get("firstPayYear")?.toString()?.trim()           ?? "";
+  const agEmployeesStr         = formData.get("numAgEmployees")?.toString()?.trim()         ?? "0";
+  const householdEmployeesStr  = formData.get("numHouseholdEmployees")?.toString()?.trim()  ?? "0";
+  const otherEmployeesStr      = formData.get("numOtherEmployees")?.toString()?.trim()      ?? "0";
+  const taxLiability           = formData.get("taxLiability")?.toString()                   ?? "";
 
   // ── 3. Validate Section 1 ────────────────────────────────────────────────
   if (!legalName)              redirect("/irs/ein/apply/additional-details");
@@ -130,18 +131,20 @@ export async function submitAdditionalDetails(formData: FormData): Promise<void>
     const firstPayYear = parseInt(firstPayYearStr, 10);
     if (taxLiability !== "yes" && taxLiability !== "no") redirect("/irs/ein/apply/additional-details");
 
-    const agCount    = agEmployeesStr    ? parseInt(agEmployeesStr, 10)    : 0;
-    const otherCount = otherEmployeesStr ? parseInt(otherEmployeesStr, 10) : 0;
+    const agCount       = agEmployeesStr       ? parseInt(agEmployeesStr, 10)       : 0;
+    const householdCount = householdEmployeesStr ? parseInt(householdEmployeesStr, 10) : 0;
+    const otherCount    = otherEmployeesStr    ? parseInt(otherEmployeesStr, 10)    : 0;
     // Total must be ≥ 1 (bundle: instructions6 "Total number of employees must be at least 1")
-    if (agCount + otherCount < 1) redirect("/irs/ein/apply/additional-details");
+    if (agCount + householdCount + otherCount < 1) redirect("/irs/ein/apply/additional-details");
 
     w2Info = {
-      firstWagesPaidMonth:  firstPayMonth,
-      firstWagesPaidYear:   firstPayYear,
-      agEmployeesCount:     agCount,
-      otherEmployeesCount:  otherCount,
+      firstWagesPaidMonth:    firstPayMonth,
+      firstWagesPaidYear:     firstPayYear,
+      agEmployeesCount:       agCount,
+      householdEmployeesCount: householdCount,
+      otherEmployeesCount:    otherCount,
       // bundle: over1000TaxLiability = (taxLiability === "no")
-      over1000TaxLiability: taxLiability === "no",
+      over1000TaxLiability:   taxLiability === "no",
     };
   }
 

@@ -30,10 +30,14 @@
  *   sellAtfInputControl           — RadioInput yes/no, required, NO helptip
  *   provideW2FormInputControl     — RadioInput yes/no, required
  *
- * Section 3 (wo, conditional — shows when provideW2Form = "yes"):
- *   instructions5 (first pay date)  — month dropdown + year text
- *   instructions6 (employee counts) — ag count + other count text inputs
- *   employeeTaxLiabilityInputControl — RadioInput yes/no, required
+ * Section 3 (wo, conditional — shows when provideW2Form/haveEmployees = "yes"):
+ *   describeYourEmployeesSection.subHeader
+ *   instructions5 (first pay date)  — firstPayMonthInputControl + firstPayYearInputControl
+ *   instructions6 (employee counts) — numOfAgriculturalEmployeesInputControl +
+ *                                      numOfHouseholdEmployeesInputControl (if showHouseholdEmployees) +
+ *                                      numOfOtherEmployeesInputControl
+ *   employeeTaxLiabilityInputControl — RadioInput yes/no, Form 944 / Form 941 gate
+ *   (Scope A, Slice 6)
  *
  * Section 4 (finalSection):
  *   reviewInputControl — checkBoxInput
@@ -67,6 +71,9 @@ export type AdditionalDetailsSchema = {
   showTruckingGamblingAtf: boolean;
   showClosingMonth:        boolean;
   showHouseholdEmployees:  boolean;
+  /** Forbidden endings list for legalName Rule 2 — verbatim port of ka() from index-ChwXuGQH.js.
+   *  Uppercased. Used with value.trim().toUpperCase().endsWith(). Empty = no forbidden endings. */
+  legalNameForbiddenEndings: string[];
   // Section headers
   tellUsAboutSubHeader:    { title: string };
   tellUsMoreSubHeader:     { title: string };
@@ -95,9 +102,11 @@ export type AdditionalDetailsSchema = {
   firstPayMonthFieldDef:   SchemaFieldDef;
   firstPayYearFieldDef:    SchemaFieldDef;
   empCountInstructions:    { title: string; additionalText: string[]; inputErrorMessages?: Array<{text: string; id: string}> };
-  agEmployeesFieldDef:     SchemaFieldDef;
-  otherEmployeesFieldDef:  SchemaFieldDef;
-  taxLiabilityFieldDef:    SchemaFieldDef;
+  agEmployeesFieldDef:          SchemaFieldDef;
+  /** numOfHouseholdEmployeesInputControl — only rendered when showHouseholdEmployees = true */
+  householdEmployeesFieldDef:   SchemaFieldDef;
+  otherEmployeesFieldDef:       SchemaFieldDef;
+  taxLiabilityFieldDef:         SchemaFieldDef;
   // Final section
   reviewFieldDef:          SchemaFieldDef;
   // Helptip defs
@@ -111,9 +120,11 @@ export type AdditionalDetailsSchema = {
   /** null when employeesHelptipKey is null (haveEmployees variant has no helptip) */
   employeesHelptip:        HelptipDef | null;
   maxEmployeesHelptip:     HelptipDef;
-  agEmployeesHelptip:      HelptipDef;
-  otherEmployeesHelptip:   HelptipDef;
-  firstPayDateHelptip:     HelptipDef;
+  agEmployeesHelptip:        HelptipDef;
+  /** numOfHouseholdEmployeesHelp — rendered only when showHouseholdEmployees = true */
+  householdEmployeesHelptip:  HelptipDef;
+  otherEmployeesHelptip:      HelptipDef;
+  firstPayDateHelptip:        HelptipDef;
   taxLiabilityHelptip:     HelptipDef;
 };
 
@@ -142,8 +153,14 @@ export default function AdditionalDetailsForm({ schema }: Props) {
   const [gambling,          setGambling]          = useState("");
   const [fileForm720,       setFileForm720]       = useState("");
   const [atf,               setAtf]               = useState("");
-  const [hasEmployees,      setHasEmployees]      = useState("");
-  // W4b deferred — no pixel reference for employees=yes state; ships in a later slice
+  const [hasEmployees,        setHasEmployees]        = useState("");
+  // Scope A (Slice 6) — employees=Yes sub-section (wo() in bundle)
+  const [firstPayMonth,       setFirstPayMonth]       = useState("");
+  const [firstPayYear,        setFirstPayYear]        = useState("");
+  const [agEmployees,         setAgEmployees]         = useState("");
+  const [householdEmployees,  setHouseholdEmployees]  = useState("");
+  const [otherEmployees,      setOtherEmployees]      = useState("");
+  const [taxLiability,        setTaxLiability]        = useState("");
 
   // ── Error state ────────────────────────────────────────────────────────────
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -154,9 +171,29 @@ export default function AdditionalDetailsForm({ schema }: Props) {
   const handleContinue = (e: React.MouseEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
-    const errs = schema.legalNameFieldDef.inputErrorMessages ?? [];
-    if (!legalName.trim())
-      newErrors.legalName = errs[0]?.text ?? "Legal Name: Input is required.";
+
+    // ── Scope B (Slice 6): legalName — all 5 rules in run order, verbatim from ha() in index-ChwXuGQH.js ──
+    const lnErrs = schema.legalNameFieldDef.inputErrorMessages ?? [];
+    if (!legalName.trim()) {
+      // Rule 1 — required: P === "" → inputErrorMessages[0]
+      newErrors.legalName = lnErrs[0]?.text ?? "Legal Name: Input is required.";
+    } else {
+      const upper    = legalName.trim().toUpperCase();
+      const forbidden = schema.legalNameForbiddenEndings;
+      if (forbidden.some(end => upper.endsWith(end))) {
+        // Rule 2 — forbidden endings: !ka(P, entityType) → inputErrorMessages[1] (entity-specific)
+        newErrors.legalName = lnErrs[1]?.text ?? "Legal Name: Contains an ending which is not permitted.";
+      } else if (!/^[A-Za-z0-9& -]+$/.test(legalName)) {
+        // Rule 3 — special chars: !qe.validateLegalName(P) → Kn.legalNamePattern /^[A-Za-z0-9& -]+$/
+        newErrors.legalName = lnErrs[2]?.text ?? "Legal Name: The only special characters allowed are '-' and '&'.";
+      } else if (legalName.split(" ").some(w => w.length > 34)) {
+        // Rule 4 — word length: !Ks(P) → any word.length > 34
+        newErrors.legalName = lnErrs[3]?.text ?? "Legal Name: Individual words cannot exceed 34 characters.";
+      } else if (!/^[A-Za-z1-9]/.test(legalName)) {
+        // Rule 5 — first char: !qe.validateAlphaNumericNonZeroFirstChar(P) → X4 /^[A-Za-z1-9]/
+        newErrors.legalName = lnErrs[4]?.text ?? "Legal Name: The first character must be alpha or numeric but cannot contain any leading zeros.";
+      }
+    }
     if (schema.showDba && dbaName.length > 34 && dbaName.trim()) {
       const dbaErrs = schema.dbaFieldDef.inputErrorMessages ?? [];
       newErrors.dbaName = dbaErrs[1]?.text ?? "DBA Name: Invalid.";
@@ -209,7 +246,43 @@ export default function AdditionalDetailsForm({ schema }: Props) {
         newErrors.hasEmployees = empErrs[0]?.text ?? "Have Employees: Selection is required.";
     }
 
-    // W4b validation deferred — no pixel reference; ships in a later slice
+    // ── Scope A (Slice 6): wo() section — validate when employeesQuestion rendered AND answered "yes" ──
+    if (schema.employeesQuestionFieldDef && hasEmployees === "yes") {
+      // First pay date — instructions5 group
+      const fpmErrs = schema.firstPayMonthFieldDef.inputErrorMessages ?? [];
+      if (!firstPayMonth)
+        newErrors.firstPayMonth = fpmErrs[0]?.text ?? "First Pay Month: Selection is required.";
+      const fpyErrs = schema.firstPayYearFieldDef.inputErrorMessages ?? [];
+      if (!firstPayYear.trim())
+        newErrors.firstPayYear = fpyErrs[0]?.text ?? "First Pay Year: Input is required.";
+      else if (!/^[0-9]{4}$/.test(firstPayYear))
+        newErrors.firstPayYear = fpyErrs[1]?.text ?? "First Pay Year: Year must consist of 4 numbers.";
+      // Employee counts — instructions6 group (numeric, optional per field; total ≥ 1)
+      const agErrs = schema.agEmployeesFieldDef.inputErrorMessages ?? [];
+      if (agEmployees.trim() && !/^[0-9]+$/.test(agEmployees.trim()))
+        newErrors.agEmployees = agErrs[0]?.text ?? "Number of agricultural employees: must be a number";
+      if (schema.showHouseholdEmployees) {
+        const hhErrs = schema.householdEmployeesFieldDef.inputErrorMessages ?? [];
+        if (householdEmployees.trim() && !/^[0-9]+$/.test(householdEmployees.trim()))
+          newErrors.householdEmployees = hhErrs[0]?.text ?? "Number of household employees: must be a number";
+      }
+      const otherErrs = schema.otherEmployeesFieldDef.inputErrorMessages ?? [];
+      if (otherEmployees.trim() && !/^[0-9]+$/.test(otherEmployees.trim()))
+        newErrors.otherEmployees = otherErrs[0]?.text ?? "Number of other employees: must be a number";
+      // Total ≥ 1 check — instructions6.inputErrorMessages[0] verbatim
+      const agCount    = parseInt(agEmployees    || "0", 10) || 0;
+      const hhCount    = schema.showHouseholdEmployees
+        ? (parseInt(householdEmployees || "0", 10) || 0) : 0;
+      const otherCount = parseInt(otherEmployees  || "0", 10) || 0;
+      if (agCount + hhCount + otherCount < 1) {
+        const totalErrs = schema.empCountInstructions.inputErrorMessages ?? [];
+        newErrors.empTotal = totalErrs[0]?.text ?? "The total number of employees must be at least 1 and not greater than 99,999";
+      }
+      // Tax liability — employeeTaxLiabilityInputControl
+      const tlErrs = schema.taxLiabilityFieldDef.inputErrorMessages ?? [];
+      if (!taxLiability)
+        newErrors.taxLiability = tlErrs[0]?.text ?? "Tax Liability: Selection is required.";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -247,6 +320,19 @@ export default function AdditionalDetailsForm({ schema }: Props) {
         <input type="hidden" name="exciseTaxes"       value={fileForm720} />
         <input type="hidden" name="atf"               value={atf} />
         <input type="hidden" name="w2Issuer"          value={hasEmployees} />
+        {/* Scope A (Slice 6): W4b sub-section hidden inputs — only sent when hasEmployees=yes */}
+        {hasEmployees === "yes" && (
+          <>
+            <input type="hidden" name="firstPayMonth"         value={firstPayMonth} />
+            <input type="hidden" name="firstPayYear"          value={firstPayYear} />
+            <input type="hidden" name="numAgEmployees"        value={agEmployees} />
+            {schema.showHouseholdEmployees && (
+              <input type="hidden" name="numHouseholdEmployees" value={householdEmployees} />
+            )}
+            <input type="hidden" name="numOtherEmployees"     value={otherEmployees} />
+            <input type="hidden" name="taxLiability"          value={taxLiability} />
+          </>
+        )}
       </form>
 
       {/* ══════════════════════════════════════════════════════════════════
@@ -457,6 +543,218 @@ export default function AdditionalDetailsForm({ schema }: Props) {
 
         <div className="_bottomMargin16_im0vm_119" />
       </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          SECTION 3 — Describe your employees  (matches wo() in bundle)
+          Conditional: renders only when hasEmployees === "yes"
+          Verbatim text from describeYourEmployeesSection in
+          irs-captures/json/ein__additionalDetails.json per HR#1.
+          Gated on schema.employeesQuestionFieldDef (null when ma()=false).
+          ══════════════════════════════════════════════════════════════════ */}
+      {schema.employeesQuestionFieldDef && hasEmployees === "yes" && (
+        <section className="_bottomMargin16_im0vm_119">
+          {/* Subheader — describeYourEmployeesSection.subHeader.title */}
+          <section className="_bottomMargin24_im0vm_124">
+            <h4 className="sectionHeader _fontSize20_im0vm_203 ">
+              {schema.describeEmpSubHeader.title}
+            </h4>
+          </section>
+
+          {/* instructions5 — first date wages/annuities were or will be paid
+              Fieldset structure mirrors start-date in fl(): month dropdown + year text
+              side-by-side via _startDateInputs_im0vm_49.
+              Helptip: firstWagesPaidDateHelp — "Wages Paid Date" */}
+          <div className="dropdownInput _bottomMargin24_1pbi9_26 ">
+            <div className="inputInstruction _bottomMargin8_bppll_6 ">
+              <label>
+                {schema.firstPayDateInstructions.title}
+                <span className="_required_bppll_1" role="asterisk">*</span>
+                <Helptip def={schema.firstPayDateHelptip} instanceId="firstPayDate" />
+              </label>
+              {schema.firstPayDateInstructions.additionalText.length > 0 && (
+                <ul className="_ulNoBulletsGrey_bppll_12 _bottomMargin8_bppll_6">
+                  {schema.firstPayDateInstructions.additionalText.map((txt, i) => (
+                    <li key={i}>{txt}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <fieldset className="_formatFieldset_im0vm_63">
+              <legend className="_srOnly_im0vm_69">{schema.firstPayDateInstructions.title}</legend>
+              <div className="_startDateInputs_im0vm_49">
+                {/* firstPayMonthInputControl — DropdownCommonInput / monthType */}
+                <div className="dropdownInput _bottomMargin24_1pbi9_26 ">
+                  <div className="inputInstruction _bottomMargin8_bppll_6 ">
+                    <label htmlFor="firstPayMonthInputControl">
+                      {schema.firstPayMonthFieldDef.fieldName}
+                    </label>
+                  </div>
+                  <select
+                    id="firstPayMonthInputControl"
+                    className={`single-select ${
+                      errors.firstPayMonth ? "single-select--error" : "single-select--no-error"
+                    } _removeSelectMargin_1pbi9_1`}
+                    value={firstPayMonth}
+                    onChange={(e) => setFirstPayMonth(e.target.value)}
+                    aria-required={true}
+                  >
+                    <option value="" disabled hidden>Select an Option</option>
+                    {MONTH_OPTIONS.map(([val, label]) => (
+                      <option key={val} value={val}>{label}</option>
+                    ))}
+                  </select>
+                  {errors.firstPayMonth && (
+                    <p className="input-error-message" aria-live="polite">{errors.firstPayMonth}</p>
+                  )}
+                </div>
+                {/* firstPayYearInputControl — TextInput */}
+                <div className="textInput _bottomMargin24_mw6ug_13 ">
+                  <div className="inputInstruction _bottomMargin8_bppll_6 ">
+                    <label htmlFor="firstPayYearInputControl">
+                      {schema.firstPayYearFieldDef.fieldName}
+                    </label>
+                  </div>
+                  <div className="undefined _removeInlineErrorMargin_mw6ug_17">
+                    <div>
+                      <input
+                        id="firstPayYearInputControl"
+                        type="text"
+                        className={`input-text ${errors.firstPayYear ? "input-text--error" : "null"} `}
+                        placeholder=""
+                        autoComplete="off"
+                        autoCorrect="off"
+                        aria-required={false}
+                        value={firstPayYear}
+                        onChange={(e) => setFirstPayYear(e.target.value)}
+                      />
+                      <p className="input-error-message" aria-live="polite">{errors.firstPayYear}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          {/* instructions6 — highest number of employees expected in next 12 months
+              Label group, then ag / household (conditional) / other count fields.
+              Helptip on the label: maxEmployeesHelp. */}
+          <div className="inputInstruction _bottomMargin8_bppll_6 ">
+            <label>
+              {schema.empCountInstructions.title}
+              <span className="_required_bppll_1" role="asterisk">*</span>
+              <Helptip def={schema.maxEmployeesHelptip} instanceId="maxEmployees" />
+            </label>
+            {schema.empCountInstructions.additionalText.length > 0 && (
+              <ul className="_ulNoBulletsGrey_bppll_12 _bottomMargin8_bppll_6">
+                {schema.empCountInstructions.additionalText.map((txt, i) => (
+                  <li key={i}>{txt}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* numOfAgriculturalEmployeesInputControl — TextInput */}
+          <SchemaField
+            fieldDef={schema.agEmployeesFieldDef}
+            inputName="numAgEmployees"
+            value={agEmployees}
+            onChange={setAgEmployees}
+            isRequired={false}
+            errorMessage={errors.agEmployees}
+            helptipDef={schema.agEmployeesHelptip}
+          />
+
+          {/* numOfHouseholdEmployeesInputControl — conditional: ds() predicate.
+              false for SMLLC/MMLLC; true for SOLE_PROPRIETOR, ESTATE, trust types, etc. */}
+          {schema.showHouseholdEmployees && (
+            <SchemaField
+              fieldDef={schema.householdEmployeesFieldDef}
+              inputName="numHouseholdEmployees"
+              value={householdEmployees}
+              onChange={setHouseholdEmployees}
+              isRequired={false}
+              errorMessage={errors.householdEmployees}
+              helptipDef={schema.householdEmployeesHelptip}
+            />
+          )}
+
+          {/* numOfOtherEmployeesInputControl — TextInput */}
+          <SchemaField
+            fieldDef={schema.otherEmployeesFieldDef}
+            inputName="numOtherEmployees"
+            value={otherEmployees}
+            onChange={setOtherEmployees}
+            isRequired={false}
+            errorMessage={errors.otherEmployees}
+            helptipDef={schema.otherEmployeesHelptip}
+          />
+
+          {/* Total employees must be ≥ 1 — instructions6.inputErrorMessages[0] verbatim */}
+          {errors.empTotal && (
+            <p className="input-error-message" aria-live="polite">{errors.empTotal}</p>
+          )}
+
+          {/* employeeTaxLiabilityInputControl — RadioInput yes/no
+              Rendered inline (not via SchemaField) so that fieldDef.additionalText renders
+              verbatim from JSON ("Note: By selecting 'yes'..."). SchemaField RadioInput
+              branch omits top-level additionalText; rendering manually per HR#1.
+              Per-choice additionalText (Form 944 / Form 941 notes) renders via
+              choice.additionalText array. */}
+          <div className="radioInput _bottomMargin18_1lntm_13 ">
+            <div className="inputInstruction _bottomMargin8_bppll_6 ">
+              <label htmlFor="yestaxLiabilityInputid">
+                {schema.taxLiabilityFieldDef.fieldName}
+                <span className="_required_bppll_1" role="asterisk">*</span>
+                <Helptip def={schema.taxLiabilityHelptip} instanceId="taxLiabilityInput" />
+              </label>
+            </div>
+            {schema.taxLiabilityFieldDef.additionalText.length > 0 && (
+              <ul className="_ulNoBulletsGrey_bppll_12 _bottomMargin8_bppll_6">
+                {schema.taxLiabilityFieldDef.additionalText.map((txt, i) => (
+                  <li key={i}>{txt}</li>
+                ))}
+              </ul>
+            )}
+            <fieldset
+              className="radio-group _fixRadioMargin_1lntm_21 undefined"
+              data-testid="radio-group"
+            >
+              <legend data-testid="legend" className="sr-only">
+                {" "}{schema.taxLiabilityFieldDef.fieldName}{" "}
+              </legend>
+              {(schema.taxLiabilityFieldDef.choices ?? []).map((choice) => (
+                <div key={choice.value}>
+                  <div className={
+                    taxLiability === choice.value
+                      ? "radio-button radio-button--checked"
+                      : "radio-button"
+                  }>
+                    <input
+                      tabIndex={0}
+                      type="radio"
+                      className="radio-button__input"
+                      data-testid={`${choice.value}taxLiabilityInputid`}
+                      id={`${choice.value}taxLiabilityInputid`}
+                      name="taxLiabilityInput"
+                      aria-required="false"
+                      value={choice.value}
+                      checked={taxLiability === choice.value}
+                      onChange={() => setTaxLiability(choice.value)}
+                    />
+                    <label className="input-label " htmlFor={`${choice.value}taxLiabilityInputid`}>
+                      {choice.text}
+                    </label>
+                  </div>
+                  {choice.additionalText?.map((txt, i) => (
+                    <p key={i} className="_choiceAdditionalText_1lntm_34">{txt}</p>
+                  ))}
+                </div>
+              ))}
+            </fieldset>
+            <p className="input-error-message" aria-live="polite">{errors.taxLiability}</p>
+          </div>
+        </section>
+      )}
 
       {/* Navigation buttons
           Classes verbatim from Additional Details 1 HTML capture.
