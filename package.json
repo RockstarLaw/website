@@ -9,7 +9,8 @@
     "lint": "eslint",
     "mvp": "node --env-file=.env.local ./node_modules/.bin/tsx mvp_run.ts",
     "setup:buckets": "node --env-file=.env.local node_modules/.bin/tsx scripts/setup-buckets.ts",
-    "seed:dev-users": "node --env-file=.env.local node_modules/.bin/tsx scripts/seed-dev-users.ts"
+    "seed:dev-users": "node --env-file=.env.local node_modules/.bin/tsx scripts/seed-dev-users.ts",
+    "seed:ein-dev": "node --env-file=.env.local node_modules/.bin/tsx scripts/seed-ein-application.ts"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.5.1",
