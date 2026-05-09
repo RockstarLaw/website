@@ -24,6 +24,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { submitIdentity } from "./actions";
+import ErrorSummary from "@/components/irs/ErrorSummary";
 
 // ── External-link icon SVG (reused on several inline links) ──────────────────
 const ExternalIcon = () => (
@@ -71,6 +72,8 @@ export default function IdentityForm() {
   const [suffix, setSuffix]       = useState("");
   const [role, setRole]           = useState<"yes" | "no" | "">("");
   const [error, setError]         = useState("");
+  // Page-level error summary (Slice 11) — set on Continue click only
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   // Portal target — null during SSR, set after mount
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
@@ -100,30 +103,21 @@ export default function IdentityForm() {
 
   const handleContinue = (e: React.MouseEvent) => {
     e.preventDefault();
-    // Client-side validation: required fields
-    if (!ssn.trim()) {
-      setError("SSN/ITIN is required.");
-      return;
-    }
-    // Exact 9-digit validation (verbatim algorithm: strip dashes, check length)
+    // Collect all errors at once (Slice 11 — page-level summary)
+    const errs: string[] = [];
     const ssnDigits = ssn.replace(/-/g, "");
-    if (ssnDigits.length !== 9) {
-      setError("SSN/ITIN must be 9 digits (format: 123-45-6789).");
-      return;
+    if (!ssn.trim()) {
+      errs.push("SSN/ITIN is required.");
+    } else if (ssnDigits.length !== 9) {
+      errs.push("SSN/ITIN must be 9 digits (format: 123-45-6789).");
     }
-    if (!firstName.trim()) {
-      setError("First name is required.");
-      return;
-    }
-    if (!lastName.trim()) {
-      setError("Last name is required.");
-      return;
-    }
-    if (!role) {
-      setError("Please choose your role.");
-      return;
-    }
-    setError("");
+    if (!firstName.trim()) errs.push("First name is required.");
+    if (!lastName.trim())  errs.push("Last name is required.");
+    if (!role)             errs.push("Please choose your role.");
+    // Keep existing inline error (first error) for the per-field <p> at bottom
+    setError(errs[0] ?? "");
+    setFieldErrors(errs);
+    if (errs.length > 0) return;
     formRef.current?.requestSubmit();
   };
 
@@ -146,6 +140,9 @@ export default function IdentityForm() {
         <input type="hidden" name="responsibleSuffix"    value={suffix}      />
         <input type="hidden" name="entityRoleRadioInput" value={role}        />
       </form>
+
+      {/* ── Page-level error summary (Slice 11) ──────────────────────────────────── */}
+      <ErrorSummary fieldErrors={fieldErrors} />
 
       {/* ── Outer personInputs wrapper (verbatim class from capture) ────────── */}
       <div className="personInputs ">

@@ -61,6 +61,7 @@ import SchemaField, { type SchemaFieldDef } from "@/components/irs/SchemaField";
 import Helptip, { type HelptipDef } from "@/components/irs/Helptip";
 import { MONTH_OPTIONS } from "@/lib/irs/choiceTypes";
 import { submitAdditionalDetails } from "./actions";
+import ErrorSummary from "@/components/irs/ErrorSummary";
 
 // ── Serialized schema data types ─────────────────────────────────────────────
 
@@ -334,6 +335,9 @@ export default function AdditionalDetailsForm({ schema }: Props) {
           </>
         )}
       </form>
+
+      {/* ── Page-level error summary (Slice 11) ──────────────────────────────────── */}
+      <ErrorSummary fieldErrors={Object.values(errors).filter(Boolean)} />
 
       {/* ══════════════════════════════════════════════════════════════════
           SECTION 1 — Tell us about the LLC  (matches fl() in bundle)

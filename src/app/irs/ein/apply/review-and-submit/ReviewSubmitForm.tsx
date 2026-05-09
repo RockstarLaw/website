@@ -1,5 +1,7 @@
 "use client";
 
+import ErrorSummary from "@/components/irs/ErrorSummary";
+
 /**
  * ReviewSubmitForm — IRS EIN Wizard Step 6 (Slice 8)
  *
@@ -626,28 +628,18 @@ export default function ReviewSubmitForm({
 
   return createPortal(
     <>
-      {/* ── Error summary (pageErrorInputError1) ───────────────────────── */}
-      {(letterError || submitError) && (
-        <div
-          ref={errorRef}
-          tabIndex={-1}
-          role="alert"
-          className="section-alert section-alert--red"
-          style={{ marginBottom: "24px" }}
+      {/* ── Error summary (pageErrorInputError1/2 — Slice 11) ──────────────────────────── */}
+      {/* letterError = field validation (pageErrorInputError1/2 pattern) */}
+      <ErrorSummary fieldErrors={letterError ? [letterError] : []} />
+      {/* submitError = HTTP/server error (pageError500 — out of scope this slice) */}
+      {submitError && (
+        <p
+          className="input-error-message"
+          aria-live="polite"
+          style={{ marginBottom: "16px" }}
         >
-          <div className="section-alert__icon" aria-hidden="true" />
-          <div>
-            <strong>The following error has occurred:</strong>
-            {letterError && (
-              <ul style={{ marginTop: "8px", paddingLeft: "20px" }}>
-                <li>{letterError}</li>
-              </ul>
-            )}
-            {submitError && (
-              <p style={{ marginTop: "8px" }}>{submitError}</p>
-            )}
-          </div>
-        </div>
+          {submitError}
+        </p>
       )}
 
       {/* ── reviewBeforeSubmittingAlert (blue info SectionAlert) ────────── */}

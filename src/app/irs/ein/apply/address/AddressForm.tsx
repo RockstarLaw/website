@@ -31,6 +31,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { submitAddress } from "./actions";
+import ErrorSummary from "@/components/irs/ErrorSummary";
 
 // ── External-link icon SVG (reused on several inline links) ──────────────────
 const ExternalIcon = () => (
@@ -130,6 +131,8 @@ export default function AddressForm() {
   const [phone, setPhone]             = useState("");
   const [otherAddress, setOtherAddress] = useState<"yes" | "no" | "">("");
   const [error, setError]             = useState("");
+  // Page-level error summary (Slice 11) — set on Continue click only
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   // Portal target — null during SSR, set after mount
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
@@ -143,13 +146,16 @@ export default function AddressForm() {
 
   const handleContinue = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!street.trim()) { setError("Street is required."); return; }
-    if (!city.trim())   { setError("City is required.");   return; }
-    if (!state)         { setError("State/U.S. territory is required."); return; }
-    if (!zip.trim())    { setError("ZIP/Postal code is required."); return; }
-    if (!phone.trim())  { setError("Phone number is required."); return; }
-    if (!otherAddress)  { setError("Please indicate if you have a different mailing address."); return; }
-    setError("");
+    const errs: string[] = [];
+    if (!street.trim()) errs.push("Street is required.");
+    if (!city.trim())   errs.push("City is required.");
+    if (!state)         errs.push("State/U.S. territory is required.");
+    if (!zip.trim())    errs.push("ZIP/Postal code is required.");
+    if (!phone.trim())  errs.push("Phone number is required.");
+    if (!otherAddress)  errs.push("Please indicate if you have a different mailing address.");
+    setError(errs[0] ?? "");
+    setFieldErrors(errs);
+    if (errs.length > 0) return;
     formRef.current?.requestSubmit();
   };
 
@@ -172,6 +178,9 @@ export default function AddressForm() {
         <input type="hidden" name="thePhone"         value={phone}        />
         <input type="hidden" name="otherAddress"     value={otherAddress} />
       </form>
+
+      {/* ── Page-level error summary (Slice 11) ──────────────────────────────────── */}
+      <ErrorSummary fieldErrors={fieldErrors} />
 
       {/* ── Outer wrapper (verbatim class="undefined" from capture) ─────────── */}
       <div className="undefined">

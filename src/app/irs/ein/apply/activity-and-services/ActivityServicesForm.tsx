@@ -47,6 +47,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import ErrorSummary from "@/components/irs/ErrorSummary";
 import { createPortal }                 from "react-dom";
 import { submitActivityServices }       from "./actions";
 
@@ -472,6 +473,8 @@ export default function ActivityServicesForm({
   // ── Primary selection ──────────────────────────────────────────────────────
   const [primary, setPrimary] = useState<string>(prefill.primaryActivity ?? "");
   const [primaryErr, setPrimaryErr] = useState("");
+  // Page-level error summary (Slice 11) — set on Continue click only
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   // ── Per-primary sub-state ──────────────────────────────────────────────────
   const [accommSub,       setAccommSub]       = useState("");
@@ -577,9 +580,12 @@ export default function ActivityServicesForm({
   // ── Client-side validate before submit ────────────────────────────────────
   const handleContinue = () => {
     if (!primary) {
-      setPrimaryErr("Please select a category.");
+      const msg = "Please select a category.";
+      setPrimaryErr(msg);
+      setFieldErrors([msg]);
       return;
     }
+    setFieldErrors([]);
     formRef.current?.requestSubmit();
   };
 
@@ -1365,6 +1371,9 @@ export default function ActivityServicesForm({
       <input type="hidden" name="otherSellSub"         value={otherSellSub} />
       <input type="hidden" name="otherServiceText"     value={otherServiceText} />
       <input type="hidden" name="otherOtherText"       value={otherOtherText} />
+
+      {/* ── Page-level error summary (Slice 11) ──────────────────────────────────── */}
+      <ErrorSummary fieldErrors={fieldErrors} />
 
       {/* ── Section: What does your business or organization do? ──────────── */}
       {/* Verbatim section title from captured HTML */}

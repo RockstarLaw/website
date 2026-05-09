@@ -39,6 +39,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { submitLegalStructure } from "./actions";
+import ErrorSummary from "@/components/irs/ErrorSummary";
 
 // ── External-link icon SVG (reused on several inline links) ──────────────────
 const ExternalIcon = () => (
@@ -486,6 +487,10 @@ export default function LegalStructureForm() {
   const [reasonForApplying, setReasonForApplying] = useState("");
   const [reasonError, setReasonError] = useState("");
 
+  // ── Page-level error summary (Slice 11) ───────────────────────────────────
+  // Set on Continue click only; cleared when Continue succeeds (isValid).
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
+
   // ── Portal target — null during SSR, set after mount ──────────────────────
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
 
@@ -657,6 +662,22 @@ export default function LegalStructureForm() {
       setReasonError("");
     }
 
+    // Collect all active per-field errors for the page-level summary
+    const errs: string[] = [
+      error,
+      membersError,
+      stateError,
+      marriedError,
+      qjvError,
+      soleProprietorTypeError,
+      partnershipTypeError,
+      corpTypeError,
+      trustTypeError,
+      additionalTypeError,
+      reasonError,
+    ].filter(Boolean);
+    setFieldErrors(errs);
+
     if (!isValid) return;
     formRef.current?.requestSubmit();
   };
@@ -709,6 +730,9 @@ export default function LegalStructureForm() {
           </>
         )}
       </form>
+
+      {/* ── Page-level error summary (Slice 11) ──────────────────────────────────── */}
+      <ErrorSummary fieldErrors={fieldErrors} />
 
       {/* ── Radio input section ──────────────────────────────────────────── */}
       <div className="radioInput _bottomMargin18_1lntm_13 ">
