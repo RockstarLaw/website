@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 const ROLES = [
   { key: "student",   label: "Log in as Student" },
@@ -12,7 +11,6 @@ const ROLES = [
 export function DevQuickLoginPanel() {
   const [loading, setLoading] = useState<string | null>(null);
   const [error,   setError]   = useState<string | null>(null);
-  const router = useRouter();
 
   async function quickLogin(role: string) {
     setLoading(role);
@@ -28,14 +26,17 @@ export function DevQuickLoginPanel() {
         setError(json.error ?? "Quick-login failed.");
         return;
       }
-      // router.push triggers a fresh navigation; session cookies set by the
-      // API response are already in the browser cookie store at this point.
-      router.push(json.redirectTo ?? "/");
+      // Hard navigation — required so the dashboard's Server Components
+      // fetch fresh and observe the session cookies the API just Set-Cookie'd.
+      // router.push does a soft RSC fetch that can render against a stale
+      // (logged-out) cache. The route's own contract documents this.
+      window.location.href = json.redirectTo ?? "/";
     } catch {
       setError("Network error — is the dev server running?");
-    } finally {
-      setLoading(null);
     }
+    // Note: do NOT clear `loading` on success — we're navigating away.
+    // Clear it only on failure so the buttons re-enable.
+    setLoading(null);
   }
 
   return (
