@@ -104,12 +104,16 @@ export async function createRoster(
   formData: FormData,
   accessContext?: AccessContext | null,
 ): Promise<RosterActionState> {
+  // formData.get() returns null for fields that aren't in the DOM at submit
+  // time (e.g. manualEntries when CSV mode is selected, hiding the textarea).
+  // Zod's z.string().optional() rejects null — coerce to "" / undefined here
+  // so the optional field validates regardless of which entry mode is active.
   const parsed = rosterSchema.safeParse({
     professorCourseId: formData.get("professorCourseId"),
     sectionName: formData.get("sectionName"),
     term: formData.get("term"),
     entryMode: formData.get("entryMode"),
-    manualEntries: formData.get("manualEntries"),
+    manualEntries: formData.get("manualEntries") ?? "",
   });
 
   if (!parsed.success) {
